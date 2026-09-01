@@ -46,31 +46,21 @@ public class PolicyManager {
                 throw new RuntimeException("정책 파일 로드 실패: " + e.getMessage(), e);
             }
         } else {
-            // Fallback 1: 루트 경로 확인
-            File localRootFile = new File(policyFile);
-            if (localRootFile.exists()) {
-                try {
-                    json = Files.readString(localRootFile.toPath(), StandardCharsets.UTF_8);
-                } catch (IOException ignored) {}
-            }
-            
-            // Fallback 2: report 디렉터리 확인
+            // Fallback 1: 클래스패스 리소스 확인 (src/main/resources/policy_meta.json)
+            try (InputStream is = getClass().getClassLoader().getResourceAsStream(policyFile)) {
+                if (is != null) {
+                    json = new String(is.readAllBytes(), StandardCharsets.UTF_8);
+                }
+            } catch (IOException ignored) {}
+
+            // Fallback 2: 프로젝트 루트 경로 확인
             if (json == null) {
-                File reportLocalFile = new File("report", policyFile);
-                if (reportLocalFile.exists()) {
+                File localRootFile = new File(policyFile);
+                if (localRootFile.exists()) {
                     try {
-                        json = Files.readString(reportLocalFile.toPath(), StandardCharsets.UTF_8);
+                        json = Files.readString(localRootFile.toPath(), StandardCharsets.UTF_8);
                     } catch (IOException ignored) {}
                 }
-            }
-            
-            // Fallback 3: 클래스패스 리소스 확인
-            if (json == null) {
-                try (InputStream is = getClass().getClassLoader().getResourceAsStream(policyFile)) {
-                    if (is != null) {
-                        json = new String(is.readAllBytes(), StandardCharsets.UTF_8);
-                    }
-                } catch (IOException ignored) {}
             }
         }
         

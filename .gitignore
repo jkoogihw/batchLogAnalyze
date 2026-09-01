@@ -5,6 +5,18 @@ gradle-app.setting
 !gradle-wrapper.jar
 .gradletasknamecache
 
+# Maven / Target
+target/
+
+# Batch Analysis Output & Generated Reports
+report/
+_analysis/
+_로그분석/
+로그분석결과_*.md
+
+# Logs & Temporary Files
+*.log
+
 # IDE
 .idea/
 .vscode/
@@ -28,7 +40,6 @@ gradle-app.setting
 # System
 .DS_Store
 Thumbs.db
-*.log
 *.swp
 *.swo
 *~
