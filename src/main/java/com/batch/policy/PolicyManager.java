@@ -6,6 +6,7 @@ import com.batch.config.Config;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
@@ -30,28 +31,58 @@ public class PolicyManager {
      * 정책 파일 로드
      */
     public void loadPolicies() {
-        String baseFolder = Config.get("base.folder");
-        String logAnalysisDir = Config.get("log.analysis.dir");
-        String policyFile = Config.get("policy.meta.file");
+        String baseFolder = Config.get("base.folder", ".");
+        String logAnalysisDir = Config.get("log.analysis.dir", "_로그분석");
+        String policyFile = Config.get("policy.meta.file", "policy_meta.json");
         
         String metaPath = baseFolder + File.separator + logAnalysisDir + File.separator + policyFile;
         File metaFile = new File(metaPath);
         
-        if (!metaFile.exists()) {
-            throw new RuntimeException(
-                    "정책 메타데이터 파일이 존재하지 않습니다: " + metaPath + 
-                    "\napplication.properties에서 경로 설정을 확인하세요.");
+        String json = null;
+        if (metaFile.exists()) {
+            try {
+                json = Files.readString(metaFile.toPath(), StandardCharsets.UTF_8);
+            } catch (IOException e) {
+                throw new RuntimeException("정책 파일 로드 실패: " + e.getMessage(), e);
+            }
+        } else {
+            // Fallback 1: 루트 경로 확인
+            File localRootFile = new File(policyFile);
+            if (localRootFile.exists()) {
+                try {
+                    json = Files.readString(localRootFile.toPath(), StandardCharsets.UTF_8);
+                } catch (IOException ignored) {}
+            }
+            
+            // Fallback 2: report 디렉터리 확인
+            if (json == null) {
+                File reportLocalFile = new File("report", policyFile);
+                if (reportLocalFile.exists()) {
+                    try {
+                        json = Files.readString(reportLocalFile.toPath(), StandardCharsets.UTF_8);
+                    } catch (IOException ignored) {}
+                }
+            }
+            
+            // Fallback 3: 클래스패스 리소스 확인
+            if (json == null) {
+                try (InputStream is = getClass().getClassLoader().getResourceAsStream(policyFile)) {
+                    if (is != null) {
+                        json = new String(is.readAllBytes(), StandardCharsets.UTF_8);
+                    }
+                } catch (IOException ignored) {}
+            }
         }
         
-        try {
-            String json = Files.readString(metaFile.toPath(), StandardCharsets.UTF_8);
-            this.policies = parseJsonPolicies(json);
-            
-            if (policies.isEmpty()) {
-                throw new RuntimeException("정책 파일에서 유효한 정책을 찾을 수 없습니다: " + metaPath);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException("정책 파일 로드/파싱 실패: " + e.getMessage(), e);
+        if (json == null || json.isEmpty()) {
+            throw new RuntimeException(
+                    "정책 메타데이터 파일이 존재하지 않습니다: " + metaPath + 
+                    "\napplication.properties에서 경로 설정을 확인하거나 policy_meta.json 파일을 확인하세요.");
+        }
+        
+        this.policies = parseJsonPolicies(json);
+        if (policies.isEmpty()) {
+            throw new RuntimeException("정책 파일에서 유효한 정책을 찾을 수 없습니다: " + metaPath);
         }
     }
 

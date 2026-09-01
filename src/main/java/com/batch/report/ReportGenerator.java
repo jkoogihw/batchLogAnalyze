@@ -56,21 +56,49 @@ public class ReportGenerator {
     }
 
     /**
-     * 마크다운 리포트 파일 생성 및 저장
+     * 마크다운 리포트 파일 생성 및 저장 (기본 설정 경로)
      */
-    public static void saveMarkdownReport(String folderName, List<CheckResult> results, 
+    public static File saveMarkdownReport(String folderName, List<CheckResult> results, 
                                           int total, int pass, int fail) {
-        String baseFolder = Config.get("base.folder");
-        String logAnalysisDir = Config.get("log.analysis.dir");
+        String baseFolder = Config.get("base.folder", ".");
+        String logAnalysisDir = Config.get("log.analysis.dir", "report");
         String reportDir = baseFolder + File.separator + logAnalysisDir;
         
         File dir = new File(reportDir);
-        if (!dir.exists()) dir.mkdirs();
+        if (!dir.exists() && !dir.mkdirs()) {
+            dir = new File("report");
+            if (!dir.exists()) dir.mkdirs();
+        }
+        return saveMarkdownReport(dir, folderName, results, total, pass, fail);
+    }
+
+    /**
+     * 마크다운 리포트 파일 생성 및 저장 (대상 디렉터리 또는 파일 지정)
+     * - 기존 결과 파일이 존재할 경우 삭제 후 새로 작성합니다.
+     */
+    public static File saveMarkdownReport(File targetDirOrFile, String folderName, List<CheckResult> results, 
+                                          int total, int pass, int fail) {
+        File reportFile;
+        if (targetDirOrFile.isDirectory() || !targetDirOrFile.getName().endsWith(".md")) {
+            if (!targetDirOrFile.exists()) targetDirOrFile.mkdirs();
+            String reportFileName = "로그분석결과_" + folderName + ".md";
+            reportFile = new File(targetDirOrFile, reportFileName);
+        } else {
+            reportFile = targetDirOrFile;
+            if (reportFile.getParentFile() != null && !reportFile.getParentFile().exists()) {
+                reportFile.getParentFile().mkdirs();
+            }
+        }
+
+        // 실행할 때마다 기존 결과 파일이 존재하면 완전히 삭제 후 새로 작성
+        try {
+            Files.deleteIfExists(reportFile.toPath());
+        } catch (IOException e) {
+            System.err.println("[경고] 기존 리포트 파일 삭제 실패: " + e.getMessage());
+        }
 
         String timeStamp = LocalDateTime.now()
                 .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        String reportFileName = "로그분석결과_" + folderName + ".md";
-        File reportFile = new File(dir, reportFileName);
 
         StringBuilder sb = new StringBuilder();
         sb.append("# 배치로그 분석 결과 보고서 (").append(folderName).append(")\n\n");
@@ -117,8 +145,10 @@ public class ReportGenerator {
         try {
             Files.writeString(reportFile.toPath(), sb.toString(), StandardCharsets.UTF_8);
             System.out.println("\n>> 마크다운 리포트가 저장되었습니다: " + reportFile.getAbsolutePath());
+            return reportFile;
         } catch (IOException e) {
             System.err.println("[경고] 리포트 파일 저장 실패: " + e.getMessage());
+            return null;
         }
     }
 

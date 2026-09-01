@@ -40,8 +40,8 @@ public class ValueExtractor {
                 if (i > 0) sb.append("[\\s\\r\\n]*");
                 sb.append(Pattern.quote(targetParts[i].trim()));
             }
-            sb.append("\\s*[:=]?\\s*([0-9,]+(\\s*건)?)");
-            Pattern p = Pattern.compile(sb.toString(), Pattern.CASE_INSENSITIVE);
+            sb.append(".*?[\\s:=]+([0-9,]+(\\s*건)?)");
+            Pattern p = Pattern.compile(sb.toString(), Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
             Matcher m = p.matcher(fullText);
             if (m.find()) {
                 String val = m.group(1);

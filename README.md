@@ -142,16 +142,37 @@ gradle test --tests ModelTest
 
 **총 52개 테스트 케이스**
 
-## 실행 방법
+## 실행 방법 및 파라미터 (logFileSrc)
 
-### 폴더 자동 선택 (최신 날짜)
+프로그램 실행 시 `logFileSrc` 파라미터를 통해 분석 대상 로그 폴더를 유연하게 지정할 수 있습니다.
+
+### 1. 직접 로그 폴더 지정 (Condition 1)
+지정한 폴더 내에 `.log` 파일이 직접 존재하는 경우 해당 폴더를 대상으로 즉시 분석합니다.
 ```bash
-java -cp build/classes/main com.batch.CheckLog
+java -cp build/classes/main com.batch.CheckLog src/test/resources/log_samples
+# 또는 Named 파라미터
+java -cp build/classes/main com.batch.CheckLog --logFileSrc=src/test/resources/log_samples
 ```
 
-### 특정 폴더 지정
+### 2. 상위 폴더 지정 시 최신 날짜 하위 폴더 자동 선택 (Condition 2)
+지정한 폴더 내에 `.log` 파일이 없으면, 내부의 `260901` 같은 6자리 날짜 포맷(`\d{6}`) 하위 폴더 중 가장 최신 폴더를 자동으로 선택하여 분석합니다.
 ```bash
-java -cp build/classes/main com.batch.CheckLog 240901
+java -cp build/classes/main com.batch.CheckLog D:\job\hw\배치로그
+```
+
+### 3. 날짜 포맷(6자리 숫자) 직접 지정 (Condition 4)
+`260901` 등 6자리 날짜 포맷을 입력하면 `application.properties`의 `base.folder` 하위 날짜 폴더(`base.folder/260901`)를 대상으로 분석합니다.
+```bash
+java -cp build/classes/main com.batch.CheckLog 260901
+```
+
+### 4. 로그 파일 미존재 시 실패 리포트 자동 생성 (Condition 3)
+날짜 포맷 폴더가 없거나 최종 폴더에 `.log` 파일이 하나도 없는 경우, 분석 실패(FAIL) 내역이 담긴 마크다운 리포트 파일(`로그분석결과_{폴더명}.md`)을 자동으로 생성합니다.
+
+### 5. 파라미터 미지정 시
+기본 설정 경로(`base.folder`) 내의 최신 날짜 포맷(`\d{6}`) 폴더를 자동으로 탐색하여 분석합니다.
+```bash
+java -cp build/classes/main com.batch.CheckLog
 ```
 
 ## 설정 파일
