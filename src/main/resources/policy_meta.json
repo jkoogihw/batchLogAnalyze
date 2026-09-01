@@ -1,0 +1,418 @@
+{
+  "policies": [
+    {
+      "jobNo": "01",
+      "jobName": "gagastJob002",
+      "jobTitle": "gagastJob002 추천터치고객 통계 데이터 적립",
+      "filePrefix": "01_gagastJob002_",
+      "rawPattern": "_10702_",
+      "rules": [
+        {
+          "type": "DISPLAY",
+          "target": "DB Insert GA Count",
+          "condition": "EQUALS_0",
+          "description": "DB Insert GA Count 0건 체크"
+        }
+      ]
+    },
+    {
+      "jobNo": "02",
+      "jobName": "GagastJob001",
+      "jobTitle": "GagastJob001 바른활동 실적 통계 데이터 적립",
+      "filePrefix": "02_gagastJob001_",
+      "rawPattern": "_10701_",
+      "rules": [
+        {
+          "type": "DISPLAY",
+          "target": "DB Insert GA Count",
+          "condition": "COUNT_CHECK",
+          "description": "DB Insert GA Count 건수확인"
+        },
+        {
+          "type": "DISPLAY",
+          "target": "# FP누락 활동 대상[활동건수",
+          "condition": "EQUALS_0",
+          "description": "# FP누락 활동 대상 활동건수 0건 체크"
+        }
+      ]
+    },
+    {
+      "jobNo": "03",
+      "jobName": "smrmJob101",
+      "jobTitle": "smrmJob101 불완전판매",
+      "filePrefix": "03_smrmJob101_",
+      "rawPattern": "_11399_",
+      "rules": [
+        {
+          "type": "DISPLAY",
+          "target": "불완전판매조사 대상 신규 추출 건 [TB_SMRM1010]",
+          "condition": "COUNT_CHECK",
+          "description": "불완전판매조사 대상 신규 추출 건 [TB_SMRM1010] 건수확인"
+        }
+      ]
+    },
+    {
+      "jobNo": "04",
+      "jobName": "smrmJob102",
+      "jobTitle": "[전일] smrmJob102 불판 확인 SMS 발송(FP?)",
+      "filePrefix": "04_smrmJob102_",
+      "rawPattern": "_11401_",
+      "holidayCheck": {
+        "pattern": "비영업일에는 해당 JOB이 (수행|수혈)되지 않습니다.",
+        "description": "비영업일 예외 체크"
+      },
+      "rules": [
+        {
+          "type": "DISPLAY",
+          "target": "불완전판매 SMS 발송불가 상태로 전환된 건\n- TB_SMRM1010",
+          "condition": "COUNT_CHECK",
+          "description": "불완전판매 SMS 발송불가 상태로 전환된 건 TB_SMRM1010"
+        },
+        {
+          "type": "DISPLAY",
+          "target": "불완전판매 SMS 발송 파일생성중 상태로 전환된 건\n- TB_SMRM1011",
+          "condition": "COUNT_CHECK",
+          "description": "불완전판매 SMS 발송 파일생성중 상태로 전환된 건 TB_SMRM1011"
+        },
+        {
+          "type": "SEARCH",
+          "target": "UMS 발송결과 -> 리턴코드 200",
+          "condition": "EQUALS_N",
+          "expectedCount": 1,
+          "description": "UMS 발송결과 -> 리턴코드 200 검색 1건"
+        },
+        {
+          "type": "DISPLAY",
+          "target": "불완전판매 SMS FP 발송 완료 건\n- TB_SMRM1011",
+          "condition": "COUNT_CHECK",
+          "description": "불완전판매 SMS FP 발송 완료 건 TB_SMRM1011"
+        }
+      ]
+    },
+    {
+      "jobNo": "05",
+      "jobName": "smrmJob103",
+      "jobTitle": "[전일] smrmJob103 불판 확인 SMS 발송(고객?)",
+      "filePrefix": "05_smrmJob103_",
+      "rawPattern": "_11402_",
+      "holidayCheck": {
+        "pattern": "비영업일에는 해당 JOB이 (수행|수혈)되지 않습니다.",
+        "description": "비영업일 예외 체크"
+      },
+      "rules": [
+        {
+          "type": "SEARCH",
+          "target": "UMS 발송결과 -> 리턴코드 200",
+          "condition": "EQUALS_N",
+          "expectedCount": 1,
+          "description": "UMS 발송결과 -> 리턴코드 200 검색 1건"
+        },
+        {
+          "type": "DISPLAY",
+          "target": "불완전판매 SMS 고객 발송 Master[TB_SMRM1010] 의 대상 상태를 문자전송(01) 상태로 전환 완료 건\n- TB_SMRM1010",
+          "condition": "COUNT_CHECK",
+          "description": "불완전판매 SMS 고객 발송 Master 전환 완료 건 TB_SMRM1010"
+        },
+        {
+          "type": "DISPLAY",
+          "target": "불완전판매 SMS 고객 발송 완료 건\n- TB_SMRM1011",
+          "condition": "COUNT_CHECK",
+          "description": "불완전판매 SMS 고객 발송 완료 건 TB_SMRM1011"
+        }
+      ]
+    },
+    {
+      "jobNo": "06",
+      "jobName": "smrmJob104",
+      "jobTitle": "smrmJob104 생성파일정보 등록*",
+      "filePrefix": "06_smrmJob104_",
+      "rawPattern": "_11403_",
+      "rules": [
+        {
+          "type": "STEP_METRICS",
+          "stepName": "smrmJob104001",
+          "condition": "ROLLBACK_ZERO",
+          "description": "StepName : smrmJob104001 통계 (RollbackCount 0건)"
+        }
+      ]
+    },
+    {
+      "jobNo": "07",
+      "jobName": "smpmJob203",
+      "jobTitle": "smpmJob203 상품목록적재_한생(파일>DB)",
+      "filePrefix": "07_smpmJob203_",
+      "rawPattern": "_11259_",
+      "rules": [
+        {
+          "type": "SEARCH",
+          "target": "updateHliProduct",
+          "condition": "COUNT_CHECK",
+          "description": "수정[updateHliProduct] 검색 건수확인"
+        },
+        {
+          "type": "SEARCH",
+          "target": "insertHliProductList",
+          "condition": "COUNT_CHECK",
+          "description": "등록[insertHliProductList] 검색 건수확인"
+        }
+      ]
+    },
+    {
+      "jobNo": "08",
+      "jobName": "smpmJob207",
+      "jobTitle": "smpmJob207 보험대리점협회 상품정보요청(수집:파일)",
+      "filePrefix": "08_smpmJob207_",
+      "rawPattern": "_11262_",
+      "rules": [
+        {
+          "type": "SEARCH",
+          "target": "HTTP/1.1 200",
+          "condition": "COUNT_CHECK",
+          "description": "HTTP/1.1 200 검색 건수확인"
+        },
+        {
+          "type": "DISPLAY",
+          "target": "totalCount",
+          "condition": "COUNT_CHECK",
+          "description": "totalCount 표시 건수확인"
+        },
+        {
+          "type": "DISPLAY",
+          "target": "totalPage",
+          "condition": "COUNT_CHECK",
+          "description": "totalPage 표시 건수확인"
+        }
+      ]
+    },
+    {
+      "jobNo": "09",
+      "jobName": "smpmJob208",
+      "jobTitle": "smpmJob208 보험대리점협회 상품 적재 (JSON 파일>DB)",
+      "filePrefix": "09_smpmJob208_",
+      "rawPattern": "_11263_",
+      "rules": [
+        {
+          "type": "STEP_METRICS",
+          "stepName": "smpmJob208001",
+          "condition": "ROLLBACK_ZERO",
+          "description": "StepName : smpmJob208001 통계 (RollbackCount 0건)"
+        },
+        {
+          "type": "DISPLAY",
+          "target": "SmpmSkipPolicy",
+          "condition": "ERROR_IF_PRESENT",
+          "description": "SmpmSkipPolicy 표시 (발생 시 오류 확인)"
+        }
+      ]
+    },
+    {
+      "jobNo": "10",
+      "jobName": "smpmJob211",
+      "jobTitle": "smpmJob211 상비서 징구현황 메일발송",
+      "filePrefix": "10_smpmJob211_",
+      "rawPattern": "_11266_",
+      "rules": [
+        {
+          "type": "SEARCH",
+          "target": "Emali 발송결과 -> 리턴코드 200",
+          "regex": "Ema(i|li) 발송결과 -> 리턴코드 200",
+          "condition": "EQUALS_N",
+          "expectedCount": 3,
+          "description": "Emali 발송결과 -> 리턴코드 200 검색 3건 확인"
+        }
+      ]
+    },
+    {
+      "jobNo": "11",
+      "jobName": "smpmJob212_1",
+      "jobTitle": "smpmJob212_1 확인서 통합적재 - 한생 건수 로그확인",
+      "filePrefix": "11_smpmJob212_1_",
+      "rawPattern": "_11268_%16_1",
+      "rules": [
+        {
+          "type": "SEARCH",
+          "target": "파일 생성 완료",
+          "condition": "COUNT_CHECK",
+          "description": "한생 [파일 생성 완료] 검색 건수확인"
+        }
+      ]
+    },
+    {
+      "jobNo": "12",
+      "jobName": "smpmJob212_2",
+      "jobTitle": "smpmJob212_2 확인서 통합적재 - 한손 건수 로그확인",
+      "filePrefix": "12_smpmJob212_2_",
+      "rawPattern": "_11268_%18_1",
+      "rules": [
+        {
+          "type": "SEARCH",
+          "target": "파일 생성 완료",
+          "condition": "COUNT_CHECK",
+          "description": "한손 [파일 생성 완료] 검색 건수확인"
+        }
+      ]
+    },
+    {
+      "jobNo": "13",
+      "jobName": "smpmJob213",
+      "jobTitle": "[전일] smpmJob213 전일자 실행확인",
+      "filePrefix": "13_smpmJob213_",
+      "rawPattern": "_12833_",
+      "rules": [
+        {
+          "type": "DISPLAY",
+          "target": "비정상 종료 삭제 건수",
+          "condition": "COUNT_CHECK",
+          "description": "비정상 종료 삭제 건수"
+        },
+        {
+          "type": "DISPLAY",
+          "target": "상품비교설명확인서 미징구 건수",
+          "condition": "COUNT_CHECK",
+          "description": "상품비교설명확인서 미징구 건수"
+        },
+        {
+          "type": "DISPLAY",
+          "target": "상품비교설명확인서 첨부여부 상태변경 건수",
+          "condition": "COUNT_CHECK",
+          "description": "상품비교설명확인서 첨부여부 상태변경 건수"
+        },
+        {
+          "type": "DISPLAY",
+          "target": "상품비교설명확인서 미징구 알림발송 대상",
+          "condition": "COUNT_CHECK",
+          "description": "상품비교설명확인서 미징구 알림발송 대상"
+        },
+        {
+          "type": "DISPLAY",
+          "target": "상품비교설명확인서 발송실패건 업데이트",
+          "condition": "COUNT_CHECK",
+          "description": "상품비교설명확인서 발송실패건 업데이트"
+        },
+        {
+          "type": "DISPLAY",
+          "target": "상품비교설명확인서 발송성공건 info",
+          "regex": "상품비교설명확인서 발송성공건 info(\\s*업데이트)?",
+          "condition": "COUNT_CHECK",
+          "description": "상품비교설명확인서 발송성공건 info"
+        },
+        {
+          "type": "DISPLAY",
+          "target": "상품비교설명확인서 발송성공건 일련번호 부여",
+          "condition": "COUNT_CHECK",
+          "description": "상품비교설명확인서 발송성공건 일련번호 부여"
+        }
+      ]
+    },
+    {
+      "jobNo": "14",
+      "jobName": "smpmJob220",
+      "jobTitle": "smpmJob220 비교상품목록수신(내재화): 로그확인",
+      "filePrefix": "14_smpmJob220_",
+      "rawPattern": "_12871_",
+      "rules": [
+        {
+          "type": "DISPLAY",
+          "target": "STEP2-3. 기등록 상품추천 목록 등록하기",
+          "condition": "COUNT_CHECK",
+          "description": "STEP2-3. 기등록 상품추천 목록 등록하기"
+        }
+      ]
+    },
+    {
+      "jobNo": "15",
+      "jobName": "smpcJob002",
+      "jobTitle": "smpcJob002 파기",
+      "filePrefix": "15_smpcJob002_",
+      "rawPattern": "_12928_",
+      "rules": [
+        {
+          "type": "DISPLAY",
+          "target": "00.상품비교설명확인서 관리 파기목록 조회",
+          "condition": "COUNT_CHECK",
+          "description": "00.상품비교설명확인서 관리 파기목록 조회"
+        },
+        {
+          "type": "SEARCH",
+          "target": "pcicSttsCode=10",
+          "condition": "COUNT_CHECK",
+          "description": "pcicSttsCode=10 검색 건수확인"
+        },
+        {
+          "type": "SEARCH",
+          "target": "pcicSttsCode=20",
+          "condition": "COUNT_CHECK",
+          "description": "pcicSttsCode=20 검색 건수확인"
+        },
+        {
+          "type": "SEARCH",
+          "target": "pcicSttsCode=30",
+          "condition": "COUNT_CHECK",
+          "description": "pcicSttsCode=30 검색 건수확인"
+        }
+      ]
+    },
+    {
+      "jobNo": "16",
+      "jobName": "smpcJob003",
+      "jobTitle": "smpcJob003 협회상품코드설정: 로그확인",
+      "filePrefix": "16_smpcJob003_",
+      "rawPattern": "_13104_",
+      "rules": [
+        {
+          "type": "DISPLAY",
+          "target": "1. 협회상품기준 미등록 상품 건수=",
+          "condition": "COUNT_CHECK",
+          "description": "1. 협회상품기준 미등록 상품 건수="
+        },
+        {
+          "type": "DISPLAY",
+          "target": "2. 제휴사상품코드 중복 등록 협회상품 건수=",
+          "condition": "COUNT_CHECK",
+          "description": "2. 제휴사상품코드 중복 등록 협회상품 건수="
+        },
+        {
+          "type": "DISPLAY",
+          "target": "3. [협회상품코드 현행화 대상 불일치 상품 건수]=",
+          "regex": "3\\.\\s*\\[?협회상품코드 현행화 대상 불일치 상품 건수\\]?=",
+          "condition": "COUNT_CHECK",
+          "description": "3. [협회상품코드 현행화 대상 불일치 상품 건수]="
+        },
+        {
+          "type": "DISPLAY",
+          "target": "6. [협회상품코드 현행화 건수]=",
+          "regex": "6\\.\\s*\\[?협회상품코드 현행화 건수\\]?=",
+          "condition": "COUNT_CHECK",
+          "description": "6. [협회상품코드 현행화 건수]="
+        }
+      ]
+    },
+    {
+      "jobNo": "17",
+      "jobName": "SmpcJob001",
+      "jobTitle": "SmpcJob001 징구요청",
+      "filePrefix": "17_smpcJob001_",
+      "rawPattern": "_12926_",
+      "rules": [
+        {
+          "type": "DISPLAY",
+          "target": "STEP_01.징구요청대상 확인서정보",
+          "condition": "COUNT_CHECK",
+          "description": "STEP_01.징구요청대상 확인서정보"
+        },
+        {
+          "type": "SEARCH",
+          "target": "piciBlngCnt : 0",
+          "condition": "COUNT_CHECK",
+          "description": "piciBlngCnt : 0 검색 건수확인"
+        },
+        {
+          "type": "SEARCH",
+          "target": "piciBlngCnt : 1",
+          "condition": "COUNT_CHECK",
+          "description": "piciBlngCnt : 1 검색 건수확인"
+        }
+      ]
+    }
+  ]
+}
