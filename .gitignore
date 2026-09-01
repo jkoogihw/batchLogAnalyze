@@ -9,9 +9,9 @@ gradle-app.setting
 target/
 
 # Batch Analysis Output & Generated Reports
-report/
-_analysis/
-_로그분석/
+/report/
+/_analysis/
+/_로그분석/
 로그분석결과_*.md
 
 # Logs & Temporary Files
