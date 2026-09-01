@@ -1,0 +1,282 @@
+ip-10-237-6-165.ap-northeast-2.compute.internal
+PARAMETER=--job.name=smpmJob208 jobDate=20260821
+No Active GA_CODE set. falling back to default GA_CODE: default
+APPLICATION_PATH=/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar
+SPRING_PROFILES_ACTIVE=main,lazyload
+PARAMETER=--job.name=smpmJob208 jobDate=20260821
+_JAVA_OPTIONS= -Dfile.encoding=UTF-8
+Picked up _JAVA_OPTIONS:  -Dfile.encoding=UTF-8
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/logback-classic-1.2.11.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/log4j-slf4j-impl-2.13.3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [ch.qos.logback.classic.util.ContextSelectorStaticBinder]
+2026-08-22 01:00:12.042 INFO  [Version.java:21 - <clinit>] HV000001: Hibernate Validator 6.1.7.Final
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.codehaus.groovy.reflection.CachedClass (jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/groovy-2.5.14.jar!/) to method java.lang.Object.finalize()
+WARNING: Please consider reporting this to the maintainers of org.codehaus.groovy.reflection.CachedClass
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2026-08-22 01:00:18.057 INFO  [EnableEncryptablePropertiesBeanFactoryPostProcessor.java:39 - postProcessBeanFactory] Post-processing PropertySource instances
+2026-08-22 01:00:18.334 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource configurationProperties [org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource] to AOP Proxy
+2026-08-22 01:00:18.335 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrap [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-08-22 01:00:18.335 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource commandLineArgs [org.springframework.core.env.SimpleCommandLinePropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-08-22 01:00:18.335 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource systemProperties [org.springframework.core.env.PropertiesPropertySource] to EncryptableMapPropertySourceWrapper
+2026-08-22 01:00:18.335 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableSystemEnvironmentPropertySourceWrapper
+2026-08-22 01:00:18.335 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
+2026-08-22 01:00:18.335 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource springCloudClientHostInfo [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-08-22 01:00:18.336 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource applicationConfig: [classpath:/bootstrap.yml] [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-08-22 01:00:18.336 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource kafkaBinderDefaultProperties [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-08-22 01:00:18.972 INFO  [DefaultLazyPropertyFilter.java:31 - lambda$null$2] Property Filter custom Bean not found with name 'encryptablePropertyFilter'. Initializing Default Property Filter
+2026-08-22 01:00:19.047 INFO  [DefaultLazyPropertyResolver.java:35 - lambda$null$2] Property Resolver custom Bean not found with name 'encryptablePropertyResolver'. Initializing Default Property Resolver
+2026-08-22 01:00:19.070 INFO  [DefaultLazyPropertyDetector.java:35 - lambda$null$2] Property Detector custom Bean not found with name 'encryptablePropertyDetector'. Initializing Default Property Detector
+    ____            ____           ____              __
+   / __ /___ _   __/ __ /____     / __ )____  ____  / /_
+  / / / / _ / | / / / / / __ /   / __  / __ // __ // __/
+ / /_/ /  __/ |/ / /_/ / / / /  / /_/ / /_/ / /_/ //_
+/_____/ ___/|___//____/_/ /_/  /_____//____//____//__/ 
+ :: DevOn Boot ::   
+ :: Embedded LENA :: v1.3.1.2
+
+2026-08-22 01:00:29.107 INFO  [PropertySourceBootstrapConfiguration.java:112 - initialize] Located property source: [BootstrapPropertySource {name='bootstrapProperties-/ospp/batch_main/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/batch_lazyload/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/batch/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/application_main/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/application_lazyload/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/application/'}]
+2026-08-22 01:00:29.523 INFO  [SpringApplication.java:652 - logStartupProfileInfo] The following profiles are active: main,lazyload
+2026-08-22 01:00:51.030 INFO  [CommonDaoOnSingleCondition.java:54 - sqlSessionTypeMatches] dataSourceType is not single
+2026-08-22 01:01:03.731 INFO  [RepositoryConfigurationDelegate.java:249 - multipleStoresDetected] Multiple Spring Data modules found, entering strict repository configuration mode!
+2026-08-22 01:01:03.736 INFO  [RepositoryConfigurationDelegate.java:127 - registerRepositoriesIn] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-08-22 01:01:04.413 INFO  [RepositoryConfigurationDelegate.java:187 - registerRepositoriesIn] Finished Spring Data repository scanning in 445ms. Found 0 Redis repository interfaces.
+2026-08-22 01:01:21.425 INFO  [GenericScope.java:295 - setSerializationId] BeanFactory id=c60ff731-dd97-33a0-86d8-5cb5188e9c2e
+2026-08-22 01:01:24.188 INFO  [EnableEncryptablePropertiesBeanFactoryPostProcessor.java:39 - postProcessBeanFactory] Post-processing PropertySource instances
+2026-08-22 01:01:24.188 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/batch_main/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-08-22 01:01:24.188 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/batch_lazyload/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-08-22 01:01:24.188 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/batch/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-08-22 01:01:24.188 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/application_main/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-08-22 01:01:24.188 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/application_lazyload/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-08-22 01:01:24.188 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/application/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-08-22 01:01:24.189 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource configurationProperties [org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource] to AOP Proxy
+2026-08-22 01:01:24.189 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource commandLineArgs [org.springframework.core.env.SimpleCommandLinePropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-08-22 01:01:24.189 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource systemProperties [org.springframework.core.env.PropertiesPropertySource] to EncryptableMapPropertySourceWrapper
+2026-08-22 01:01:24.189 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableSystemEnvironmentPropertySourceWrapper
+2026-08-22 01:01:24.189 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
+2026-08-22 01:01:24.189 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource springCloudClientHostInfo [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-08-22 01:01:24.189 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource applicationConfig: [classpath:/application-main.yml] [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-08-22 01:01:24.189 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource kafkaBinderDefaultProperties [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-08-22 01:01:24.189 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource springCloudDefaultProperties [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-08-22 01:01:24.189 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource cachedrandom [org.springframework.cloud.util.random.CachedRandomPropertySource] to EncryptablePropertySourceWrapper
+2026-08-22 01:01:24.198 INFO  [ConfigurationClassEnhancer.java:323 - intercept] @Bean method LazyInitBeanConfig.lazyInitBeanFactoryPostProcessor is non-static and returns an object assignable to Spring's BeanFactoryPostProcessor interface. This will result in a failure to process annotations such as @Autowired, @Resource and @PostConstruct within the method's declaring @Configuration class. Add the 'static' modifier to this method to avoid these container lifecycle issues; see @Bean javadoc for complete details.
+2026-08-22 01:01:24.458 INFO  [DefaultConfiguringBeanFactoryPostProcessor.java:213 - registerErrorChannel] No bean named 'errorChannel' has been explicitly defined. Therefore, a default PublishSubscribeChannel will be created.
+2026-08-22 01:01:24.519 INFO  [DefaultConfiguringBeanFactoryPostProcessor.java:300 - registerTaskScheduler] No bean named 'taskScheduler' has been explicitly defined. Therefore, a default ThreadPoolTaskScheduler will be created.
+2026-08-22 01:01:24.687 INFO  [DefaultConfiguringBeanFactoryPostProcessor.java:460 - registerHeaderChannelRegistry] No bean named 'integrationHeaderChannelRegistry' has been explicitly defined. Therefore, a default DefaultHeaderChannelRegistry will be created.
+2026-08-22 01:01:26.388 INFO  [DefaultLazyPropertyFilter.java:31 - lambda$null$2] Property Filter custom Bean not found with name 'encryptablePropertyFilter'. Initializing Default Property Filter
+2026-08-22 01:01:32.184 INFO  [PostProcessorRegistrationDelegate.java:335 - postProcessAfterInitialization] Bean 'org.springframework.integration.config.IntegrationManagementConfiguration' of type [org.springframework.integration.config.IntegrationManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2026-08-22 01:01:32.441 INFO  [PostProcessorRegistrationDelegate.java:335 - postProcessAfterInitialization] Bean 'integrationChannelResolver' of type [org.springframework.integration.support.channel.BeanFactoryChannelResolver] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2026-08-22 01:01:32.596 INFO  [PostProcessorRegistrationDelegate.java:335 - postProcessAfterInitialization] Bean 'integrationDisposableAutoCreatedBeans' of type [org.springframework.integration.config.annotation.Disposables] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2026-08-22 01:01:36.629 INFO  [DefaultLazyPropertyResolver.java:35 - lambda$null$2] Property Resolver custom Bean not found with name 'encryptablePropertyResolver'. Initializing Default Property Resolver
+2026-08-22 01:01:36.629 INFO  [DefaultLazyPropertyDetector.java:35 - lambda$null$2] Property Detector custom Bean not found with name 'encryptablePropertyDetector'. Initializing Default Property Detector
+2026-08-22 01:01:40.528 INFO  [ExecutorConfigurationSupport.java:181 - initialize] Initializing ExecutorService 'taskScheduler'
+2026-08-22 01:01:53.937 INFO  [PushMeterRegistry.java:71 - start] publishing metrics for CloudWatchMeterRegistry every 1m
+2026-08-22 01:01:54.701 DEBUG [JobNameMetricsConfig.java:19 - metricsCommonTags] jobName => smpmJob208
+2026-08-22 01:01:56.117 INFO  [ExecutorConfigurationSupport.java:181 - initialize] Initializing ExecutorService
+2026-08-22 01:01:56.127 INFO  [ExecutorConfigurationSupport.java:181 - initialize] Initializing ExecutorService 'taskExecutor'
+2026-08-22 01:01:56.216 DEBUG [CustomMetricConfig.java:35 - threadPoolTaskExecutorMetricsBinder] taskExecutor.getThreadNamePrefix => ThreadPoolTaskExecutor
+2026-08-22 01:02:07.070 INFO  [EventDrivenConsumer.java:107 - logComponentSubscriptionEvent] Adding {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2026-08-22 01:02:07.078 INFO  [AbstractSubscribableChannel.java:64 - adjustCounterIfNecessary] Channel 'batch-1.errorChannel' has 1 subscriber(s).
+2026-08-22 01:02:07.078 INFO  [AbstractEndpoint.java:157 - start] started bean '_org.springframework.integration.errorLogger'
+2026-08-22 01:02:09.296 INFO  [StartupInfoLogger.java:61 - logStarted] Started BatchApplication in 123.044 seconds (JVM running for 127.584)
+2026-08-22 01:02:13.083 INFO  [EchoStep01.java:24 - echoStep01] echoJob001001 Step Defined.
+2026-08-22 01:02:13.233 INFO  [EchoJob001Config.java:24 - echoJob01] echoJob001 Job Defined.
+2026-08-22 01:02:13.589 INFO  [EchoStep002001.java:23 - echoStep002001] echoJob002001 Step Defined.
+2026-08-22 01:02:13.614 INFO  [EchoJob002Config.java:26 - echoJob002] echoJob002 Job Defined.
+2026-08-22 01:02:13.862 INFO  [EchoStep003001.java:23 - echoStep003001] echoJob003001 Step Defined.
+2026-08-22 01:02:13.888 INFO  [Echojob003Config.java:25 - echoJob003] echoJob003 Job Defined.
+2026-08-22 01:02:14.064 INFO  [EchoStep004001.java:23 - echoStep004001] echoJob004001 Step Defined.
+2026-08-22 01:02:14.075 INFO  [EchoJob004Config.java:24 - echoJob004] echoJob004 Job Defined.
+2026-08-22 01:02:14.288 INFO  [EchoStep005001.java:25 - echoStep005001] echoJob005001 Step Defined.
+2026-08-22 01:02:14.303 INFO  [EchoJob005Config.java:25 - echoJob005] echoJob005 Job Defined.
+2026-08-22 01:02:14.539 INFO  [EchoStep006001.java:25 - echoStep006001] echoJob006001 Step Defined.
+2026-08-22 01:02:14.566 INFO  [EchoJob006Config.java:25 - echoJob006] echoJob006 Job Defined.
+2026-08-22 01:02:14.801 INFO  [EchoStep007001.java:25 - echoStep007001] echoJob007001 Step Defined.
+2026-08-22 01:02:14.818 INFO  [EchoJob007Config.java:25 - echoJob007] echoJob007 Job Defined.
+2026-08-22 01:02:15.082 INFO  [EchoStep008001.java:25 - echoStep008001] echoJob008001 Step Defined.
+2026-08-22 01:02:15.121 INFO  [EchoJob008Config.java:25 - echoJob008] echoJob008 Job Defined.
+... [TRUNCATED 1843 LINES] ...
+2026-08-22 01:05:04.998 INFO  [SmpmStep207001Config.java:50 - smpmJob207001WriteCheckStep] smpmJob206001WriteCheckStep step defined.
+2026-08-22 01:05:05.001 INFO  [SmpmJob207Config.java:44 - smpmJob207] smpmJob207 job defined.
+2026-08-22 01:05:05.131 INFO  [SmpmStep208001Config.java:146 - smpmStep208001DbWriter] smpmStep208001DbWriter writer defined
+2026-08-22 01:05:05.131 INFO  [SmpmStep208001Config.java:92 - smpmJob208001] smpmJob208001WriteCheckStep step defined.
+2026-08-22 01:05:05.158 INFO  [SmpmJob208Config.java:45 - smpmJob208] smpmJob208 job defined.
+2026-08-22 01:05:05.216 INFO  [SmpmStep209001Config.java:45 - smpmJob209001WriteCheckStep] smpmJob209001WriteCheckStep step defined.
+2026-08-22 01:05:05.275 INFO  [SmpmStep209002Config.java:143 - smpmStep209002DbWriter] smpmStep209002DbWriter writer defined.
+... [TRUNCATED 129 LINES] ...
+2026-08-22 01:05:10.284 INFO  [SmrmStep103001Config.java:58 - smrmJob103001Step] smrmJob103001Step step defined.
+2026-08-22 01:05:10.369 INFO  [SmrmStep103002Config.java:35 - smrmJob103002Step] smrmJob103002Step step defined.
+2026-08-22 01:05:10.373 INFO  [SmrmJob103Config.java:36 - smrmJob103] smrmJob103 job defined.
+2026-08-22 01:05:10.399 INFO  [SmrmStep104001Config.java:75 - Smrm104InDto] smrmJob104001 Step Defined.
+2026-08-22 01:05:10.403 INFO  [SmrmJob104Config.java:63 - smrmJob104] smrmJob104 Job Defined.
+2026-08-22 01:05:10.427 INFO  [SmrmStep201001Config.java:51 - smrmJob201001] ++++ smrmJob201001 step defined.
+2026-08-22 01:05:10.429 INFO  [SmrmJob201Config.java:47 - smrmJob201] smrmJob201 job defined.
+... [TRUNCATED 76 LINES] ...
+2026-08-22 01:05:13.366 WARN  [DefaultBatchConfigurer.java:98 - initialize] No datasource was provided...using a Map based JobRepository
+2026-08-22 01:05:13.366 WARN  [DefaultBatchConfigurer.java:101 - initialize] No transaction manager was provided, using a ResourcelessTransactionManager
+2026-08-22 01:05:13.498 INFO  [SimpleJobLauncher.java:215 - afterPropertiesSet] No TaskExecutor has been set, defaulting to synchronous executor.
+2026-08-22 01:05:13.703 INFO  [SimpleJobLauncher.java:146 - run] Job: [SimpleJob: [name=smpmJob208]] launched with the following parameters: [{jobDate=20260821, run.id=1}]
+2026-08-22 01:05:13.953 INFO  [SimpleStepHandler.java:149 - handleStep] Executing step: [smpmJob208001]
+2026-08-22 01:05:14.003 INFO  [SmpmStep208001Config.java:109 - smpmStep208001FileReader] smpmStep208001FileReader reader defined.
+2026-08-22 01:05:14.004 INFO  [SmpmStep208001Config.java:134 - smpmStep208001FileReader] ### realPath : /efs/shared/interface/fep/sm/org/prod/asoc/TB_SMPM0620_20260821.dat
+2026-08-22 01:05:14.109 INFO  [HikariDataSource.java:110 - getConnection] smDataSource - Starting...
+... [TRUNCATED 27036 LINES] ...
+			, SALE_CMSN_GRAD_CODE    /* 판매수수료등급코드 - 상비서양식변경 추가 */
+			, SALE_CMSN_GRAD_CODE_NM /* 판매수수료등급코드명 - 상비서양식변경 추가 */
+			, SALE_CMSN_RNKG         /* 판매수수료순위 - 상비서양식변경 추가 */
+			, ASOC_PROD_TYPE         /*  협회상품유형 - 상비서양식변경 추가 */
+			, PROD_REVS_VRSN_NO      /* 상품개정버전번호 - 상비서양식변경 추가 */
+			, CPCP_BASE_CNTC_GRTE_NM
+			, IAMT_PYBL_LIS
+... [TRUNCATED 125 LINES] ...
+			, ?   /*선택가입상세특약명4*/
+			, ?  /*선택가입기본특약명5*/
+			, ?   /*선택가입상세특약명5*/
+			, ?                    /*협회상품특징내용*/
+			, ?                          /*등록사용자ID*/
+			, now()
+			, ?                          /*등록프로그램ID*/
+... [TRUNCATED 27034 LINES] ...
+			, SALE_CMSN_GRAD_CODE    /* 판매수수료등급코드 - 상비서양식변경 추가 */
+			, SALE_CMSN_GRAD_CODE_NM /* 판매수수료등급코드명 - 상비서양식변경 추가 */
+			, SALE_CMSN_RNKG         /* 판매수수료순위 - 상비서양식변경 추가 */
+			, ASOC_PROD_TYPE         /*  협회상품유형 - 상비서양식변경 추가 */
+			, PROD_REVS_VRSN_NO      /* 상품개정버전번호 - 상비서양식변경 추가 */
+			, CPCP_BASE_CNTC_GRTE_NM
+			, IAMT_PYBL_LIS
+... [TRUNCATED 125 LINES] ...
+			, ?   /*선택가입상세특약명4*/
+			, ?  /*선택가입기본특약명5*/
+			, ?   /*선택가입상세특약명5*/
+			, ?                    /*협회상품특징내용*/
+			, ?                          /*등록사용자ID*/
+			, now()
+			, ?                          /*등록프로그램ID*/
+... [TRUNCATED 27034 LINES] ...
+			, SALE_CMSN_GRAD_CODE    /* 판매수수료등급코드 - 상비서양식변경 추가 */
+			, SALE_CMSN_GRAD_CODE_NM /* 판매수수료등급코드명 - 상비서양식변경 추가 */
+			, SALE_CMSN_RNKG         /* 판매수수료순위 - 상비서양식변경 추가 */
+			, ASOC_PROD_TYPE         /*  협회상품유형 - 상비서양식변경 추가 */
+			, PROD_REVS_VRSN_NO      /* 상품개정버전번호 - 상비서양식변경 추가 */
+			, CPCP_BASE_CNTC_GRTE_NM
+			, IAMT_PYBL_LIS
+... [TRUNCATED 125 LINES] ...
+			, ?   /*선택가입상세특약명4*/
+			, ?  /*선택가입기본특약명5*/
+			, ?   /*선택가입상세특약명5*/
+			, ?                    /*협회상품특징내용*/
+			, ?                          /*등록사용자ID*/
+			, now()
+			, ?                          /*등록프로그램ID*/
+... [TRUNCATED 18394 LINES] ...
+			, SALE_CMSN_GRAD_CODE    /* 판매수수료등급코드 - 상비서양식변경 추가 */
+			, SALE_CMSN_GRAD_CODE_NM /* 판매수수료등급코드명 - 상비서양식변경 추가 */
+			, SALE_CMSN_RNKG         /* 판매수수료순위 - 상비서양식변경 추가 */
+			, ASOC_PROD_TYPE         /*  협회상품유형 - 상비서양식변경 추가 */
+			, PROD_REVS_VRSN_NO      /* 상품개정버전번호 - 상비서양식변경 추가 */
+			, CPCP_BASE_CNTC_GRTE_NM
+			, IAMT_PYBL_LIS
+... [TRUNCATED 67 LINES] ...
+			, ?           /*제휴사비교상품유니버셜보험코드*/
+			, ?        /*제휴사비교상품유니버셜보험코드명*/
+			, ?          /*제휴사금리방식코드*/
+			, ?       /*제휴사금리방식코드명*/
+			, ?          /* 상품등록일시 - 상비서양식변경 추가 */
+			, ?          /* 상품수정일시 - 상비서양식변경 변경(ALTR_DTTM) */
+			, ?          /*판매시작일자*/
+			, ?          /*판매종료일자*/
+			, ?         /*상품추천개시일자*/
+			, ?      /* 상품식별코드 - 개정상품: 제휴사상품코드 - 상비서양식변경 추가 */
+			, ?       /* 수수료 등급 - 상비서양식변경 추가 */
+			, ?    /* 수수료 등급명 - 상비서양식변경 추가 */
+			, ?       /* 수수료 순위 - 상비서양식변경 추가 */
+			, ?    /* 상품유형 - 상비서양식변경 추가 */
+			, ?       /* 상품개정번호 - 상비서양식변경 추가 */
+			, ?          /*제휴사기본계약보장명*/
+			, ?        /*보험금미지급내역*/
+			, ?                   /*남자실납입보험료*/
+			, ?                   /*여자실납입보험료*/
+			, ?          /*남자1년실납입보험료*/
+			, ?     /*남자1년해지환급금*/
+			, ?    /*남자1년해지환급률*/
+			, ?        /*남자3년실납입보험료*/
+			, ?   /*남자3년해지환급금*/
+			, ?  /*남자3년해지환급률*/
+			, ?         /*남자5년실납입보험료*/
+			, ?    /*남자5년해지환급금*/
+			, ?   /*남자5년해지환급률*/
+			, ?          /*남자10년실납입보험료*/
+			, ?     /*남자10년해지환급금*/
+			, ?    /*남자10년해지환급률*/
+			, ?       /*남자20년실납입보험료*/
+			, ?  /*남자20년해지환급금*/
+			, ? /*남자20년해지환급률*/
+			, ?          /*여자1년실납입보험료*/
+			, ?     /*여자1년해지환급금*/
+			, ?    /*여자1년해지환급률*/
+			, ?        /*여자3년실납입보험료*/
+			, ?   /*여자3년해지환급금*/
+			, ?  /*여자3년해지환급률*/
+			, ?         /*여자5년실납입보험료*/
+			, ?    /*여자5년해지환급금*/
+			, ?   /*여자5년해지환급률*/
+			, ?          /*여자10년실납입보험료*/
+			, ?     /*여자10년해지환급금*/
+			, ?    /*여자10년해지환급률*/
+			, ?       /*여자20년실납입보험료*/
+			, ?  /*여자20년해지환급금*/
+			, ? /*여자20년해지환급률*/
+			, ?                /*보험기간구분코드값*/
+			, ?       /*부가가능특약수*/
+			, ?   /*선택가입기본특약명1*/
+			, ?    /*선택가입상세특약명1*/
+			, ?   /*선택가입기본특약명2*/
+			, ?    /*선택가입상세특약명2*/
+			, ? /*선택가입기본특약명3*/
+			, ?  /*선택가입상세특약명3*/
+			, ?  /*선택가입기본특약명4*/
+			, ?   /*선택가입상세특약명4*/
+			, ?  /*선택가입기본특약명5*/
+			, ?   /*선택가입상세특약명5*/
+			, ?                    /*협회상품특징내용*/
+			, ?                          /*등록사용자ID*/
+			, now()
+			, ?                          /*등록프로그램ID*/
+			, ?                      /*최종변경사용자ID*/
+			, now()
+			, ?                      /*최종변경프로그램ID*/
+		)
+2026-08-22 01:05:43.407 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"product_ref_cd":"N020000000368","insco_cd":"N02","insco_nm":"한화손해보험","proc_nm":"한화 치매간병보험 무배당 2607 (3종, 기본형, 일반고지형)","product_cd":"LA03004003","option1":"C","option1_nm":"손보보장","option2":"C001","option2_nm":"간병/치매","isvary":"CN","isvary_nm":"비간편","typea":"TYPEA02","typea_nm":"비갱신형","typeb":"TYPEB05","typeb_nm":"일반","uniyn":"UN","uniyn_nm":"비유니버셜","inrate":"TYPEF02","inrate_nm":"금리확정(일반보험 포함)","cmsn_grad":"N","cmsn_grad_nm":"보통","cmsn_rnkg":"6","product_type":"GRTE","prod_vrsn":"1","in_dtm":"2026-06-29 16:09:40","up_dtm":"2026-06-29 16:09:40","ss_dtm":"20260701","se_dtm":"99991231","use_dtm":"20260701","productDetail":{"woneYearCanceRefundRate":"","m_twenty_year_cance_refund_rate":"94.9","join_special_contract_four_detail":"","wthreeYearNapPremium":"","w_three_year_cance_refund_amt":"","wtenYearCanceRefundRate":"","join_special_contract_two_default":"중등도이상치매진단비(CDR2점이상)","default_contract_gubun":"장기요양진단비(1-3등급) 1백만 상해80%이상후유장해 1천만 질병80%이상후유장해 1백만","wtwentyYearCanceRefundRate":"91.5","m_ten_year_cance_refund_rate":"","join_special_contract_five_default":"","wtwentyYearCanceRefundAmt":"7270678","wthreeYearCanceRefundAmt":"","join_special_contract_three_default":"중증이상치매진단비(CDR3점이상)","w_nap_premium":"33094","m_three_year_cance_refund_amt":"","wtwentyYearNapPremium":"7942560","w_twenty_year_cance_refund_amt":"7270678","m_three_year_cance_refund_rate":"","m_twenty_year_nap_premium":"8457840","mtenYearCanceRefundRate":"","wfiveYearCanceRefundAmt":"","join_special_contract_one_detail":"500","mtenYearNapPremium":"","m_one_year_cance_refund_amt":"","m_five_year_cance_refund_amt":"","w_five_year_cance_refund_amt":"","join_special_contract_two_detail":"500","w_three_year_cance_refund_rate":"","wtenYearCanceRefundAmt":"","m_nap_premium":"35241","mtenYearCanceRefundAmt":"","m_ten_year_cance_refund_amt":"","wfiveYearCanceRefundRate":"","mnapPremium":"35241","join_special_contract_five_detail":"","w_one_year_cance_refund_rate":"","wnapPremium":"33094","w_ten_year_cance_refund_rate":"","mfiveYearNapPremium":"","woneYearNapPremium":"","m_twenty_year_cance_refund_amt":"7713747","buga_special_contract_cnt":"111","m_five_year_cance_refund_rate":"","mthreeYearCanceRefundAmt":"","mfiveYearCanceRefundAmt":"","w_five_year_nap_premium":"","mtwentyYearCanceRefundAmt":"7713747","m_ten_year_nap_premium":"","mtwentyYearNapPremium":"8457840","w_three_year_nap_premium":"","insurance_period":"90세, 100세만기","mtwentyYearCanceRefundRate":"94.9","moneYearNapPremium":"","join_special_contract_four_default":"","w_one_year_cance_refund_amt":"","w_twenty_year_nap_premium":"7942560","product_features":"치매통합치료비(검사-치료-약물-재활) 및 표적치매치료, 장기요양급여금 신담보 탑재","m_one_year_cance_refund_rate":"","m_three_year_nap_premium":"","contract_condition_guide":"약관에 따름","wtenYearNapPremium":"","w_one_year_nap_premium":"","m_one_year_nap_premium":"","wthreeYearCanceRefundRate":"","w_five_year_cance_refund_rate":"","woneYearCanceRefundAmt":"","mthreeYearNapPremium":"","join_special_contract_one_default":"경증이상치매진단비(CDR1점이상)","mfiveYearCanceRefundRate":"","m_five_year_nap_premium":"","wfiveYearNapPremium":"","w_twenty_year_cance_refund_rate":"91.5","mthreeYearCanceRefundRate":"","moneYearCanceRefundRate":"","moneYearCanceRefundAmt":"","w_ten_year_cance_refund_amt":"","join_special_contract_three_detail":"500","w_ten_year_nap_premium":""},"default_contract_gubun":"장기요양진단비(1-3등급) 1백만 상해80%이상후유장해 1천만 질병80%이상후유장해 1백만","contract_condition_guide":"약관에 따름","m_nap_premium":"35241","w_nap_premium":"33094","m_twenty_year_nap_premium":"8457840","m_twenty_year_cance_refund_amt":"7713747","m_twenty_year_cance_refund_rate":"94.9","w_twenty_year_nap_premium":"7942560","w_twenty_year_cance_refund_amt":"7270678","w_twenty_year_cance_refund_rate":"91.5","insurance_period":"90세, 100세만기","buga_special_contract_cnt":"111","join_special_contract_one_default":"경증이상치매진단비(CDR1점이상)","join_special_contract_one_detail":"500","join_special_contract_two_default":"중등도이상치매진단비(CDR2점이상)","join_special_contract_two_detail":"500","join_special_contract_three_default":"중증이상치매진단비(CDR3점이상)","join_special_contract_three_detail":"500","join_special_contract_four_default":"","join_special_contract_four_detail":"","join_special_contract_five_default":"","join_special_contract_five_detail":"","product_features":"치매통합치료비(검사-치료-약물-재활) 및 표적치매치료, 장기요양급여금 신담보 탑재","rgstUserId":"BATCH","rgstPrgmId":"asisRgstDtm:2026-06-29 16:09:40","lastChngUserId":"BATCH","lastChngPrgmId":"asisLastDtm:2026-06-29 16:09:40"}
+2026-08-22 01:05:44.198 INFO  [StaticLogListener.java:20 - afterStep] ================================================
+2026-08-22 01:05:44.198 INFO  [StaticLogListener.java:21 - afterStep]      StepName : smpmJob208001
+2026-08-22 01:05:44.198 INFO  [StaticLogListener.java:22 - afterStep]     ReadCount : 3680
+2026-08-22 01:05:44.198 INFO  [StaticLogListener.java:23 - afterStep]    WriteCount : 3680
+2026-08-22 01:05:44.198 INFO  [StaticLogListener.java:24 - afterStep]   CommitCount : 4
+2026-08-22 01:05:44.198 INFO  [StaticLogListener.java:25 - afterStep] RollbackCount : 0
+2026-08-22 01:05:44.198 INFO  [StaticLogListener.java:26 - afterStep] ================================================
+2026-08-22 01:05:44.200 INFO  [AbstractStep.java:273 - execute] Step: [smpmJob208001] executed in 30s246ms
+2026-08-22 01:05:44.214 INFO  [SimpleJobLauncher.java:152 - run] Job: [SimpleJob: [name=smpmJob208]] completed with the following parameters: [{jobDate=20260821, run.id=1}] and the following status: [COMPLETED] in 30s322ms
+2026-08-22 01:05:44.325 INFO  [EventDrivenConsumer.java:107 - logComponentSubscriptionEvent] Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2026-08-22 01:05:44.325 INFO  [AbstractSubscribableChannel.java:64 - adjustCounterIfNecessary] Channel 'batch-1.errorChannel' has 0 subscriber(s).
+2026-08-22 01:05:44.325 INFO  [AbstractEndpoint.java:193 - stop] stopped bean '_org.springframework.integration.errorLogger'
+2026-08-22 01:05:44.444 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep144001AsyncExecutor'
+2026-08-22 01:05:44.478 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep055001AsyncExecutor'
+2026-08-22 01:05:44.489 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep051001AsyncExecutor'
+2026-08-22 01:05:44.523 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep010001AsyncExecutor'
+2026-08-22 01:05:44.525 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep008001AsyncExecutor'
+2026-08-22 01:05:45.596 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201008TaskExecutor'
+2026-08-22 01:05:45.597 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201005TaskExecutor'
+2026-08-22 01:05:45.600 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201TaskExecutor'
+2026-08-22 01:05:46.684 INFO  [HikariDataSource.java:350 - close] w1neDataSource - Shutdown initiated...
+2026-08-22 01:05:46.731 INFO  [HikariDataSource.java:352 - close] w1neDataSource - Shutdown completed.
+2026-08-22 01:05:46.731 INFO  [HikariDataSource.java:350 - close] rcDataSource - Shutdown initiated...
+2026-08-22 01:05:46.763 INFO  [HikariDataSource.java:352 - close] rcDataSource - Shutdown completed.
+2026-08-22 01:05:46.763 INFO  [HikariDataSource.java:350 - close] gaDataSource - Shutdown initiated...
+2026-08-22 01:05:46.799 INFO  [HikariDataSource.java:352 - close] gaDataSource - Shutdown completed.
+2026-08-22 01:05:46.826 INFO  [HikariDataSource.java:350 - close] smDataSource - Shutdown initiated...
+2026-08-22 01:05:46.838 INFO  [HikariDataSource.java:352 - close] smDataSource - Shutdown completed.
+2026-08-22 01:05:47.077 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'taskExecutor'
+2026-08-22 01:05:49.125 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'taskScheduler'

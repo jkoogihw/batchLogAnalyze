@@ -16,6 +16,7 @@ target/
 
 # Logs & Temporary Files
 *.log
+!src/test/resources/**/*.log
 
 # IDE
 .idea/
