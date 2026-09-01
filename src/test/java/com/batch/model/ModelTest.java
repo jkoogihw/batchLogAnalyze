@@ -1,8 +1,8 @@
 package com.batch.model;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * 데이터 모델 클래스 테스트
@@ -16,11 +16,11 @@ public class ModelTest {
     public void testJobPolicy_Creation() {
         JobPolicy policy = new JobPolicy("01", "testJob", "Test Job Title", "test_");
         
-        assertEquals("jobNo 확인", "01", policy.jobNo);
-        assertEquals("jobName 확인", "testJob", policy.jobName);
-        assertEquals("jobTitle 확인", "Test Job Title", policy.jobTitle);
-        assertEquals("filePrefix 확인", "test_", policy.filePrefix);
-        assertEquals("초기 규칙 목록은 비어있음", 0, policy.rules.size());
+        assertEquals("01", policy.jobNo, "jobNo 확인");
+        assertEquals("testJob", policy.jobName, "jobName 확인");
+        assertEquals("Test Job Title", policy.jobTitle, "jobTitle 확인");
+        assertEquals("test_", policy.filePrefix, "filePrefix 확인");
+        assertEquals(0, policy.rules.size(), "초기 규칙 목록은 비어있음");
     }
     
     /**
@@ -30,10 +30,10 @@ public class ModelTest {
     public void testRule_Creation() {
         Rule rule = new Rule("SEARCH", "SUCCESS", "EQUALS_0", "Success count");
         
-        assertEquals("type 확인", "SEARCH", rule.type);
-        assertEquals("target 확인", "SUCCESS", rule.target);
-        assertEquals("condition 확인", "EQUALS_0", rule.condition);
-        assertEquals("description 확인", "Success count", rule.description);
+        assertEquals("SEARCH", rule.type, "type 확인");
+        assertEquals("SUCCESS", rule.target, "target 확인");
+        assertEquals("EQUALS_0", rule.condition, "condition 확인");
+        assertEquals("Success count", rule.description, "description 확인");
     }
     
     /**
@@ -43,10 +43,10 @@ public class ModelTest {
     public void testRuleResult_Creation() {
         RuleResult result = new RuleResult("Test rule", "SEARCH", true, "All OK");
         
-        assertEquals("description 확인", "Test rule", result.description);
-        assertEquals("type 확인", "SEARCH", result.type);
-        assertTrue("passed 확인", result.passed);
-        assertEquals("message 확인", "All OK", result.message);
+        assertEquals("Test rule", result.description, "description 확인");
+        assertEquals("SEARCH", result.type, "type 확인");
+        assertTrue(result.passed, "passed 확인");
+        assertEquals("All OK", result.message, "message 확인");
     }
     
     /**
@@ -56,11 +56,11 @@ public class ModelTest {
     public void testCheckResult_Creation() {
         CheckResult result = new CheckResult("01", "job1", "Job One");
         
-        assertEquals("jobNo 확인", "01", result.jobNo);
-        assertEquals("jobName 확인", "job1", result.jobName);
-        assertEquals("jobTitle 확인", "Job One", result.jobTitle);
-        assertTrue("초기 통과 상태: true", result.overallPassed);
-        assertFalse("초기 파일 존재: false", result.fileFound);
+        assertEquals("01", result.jobNo, "jobNo 확인");
+        assertEquals("job1", result.jobName, "jobName 확인");
+        assertEquals("Job One", result.jobTitle, "jobTitle 확인");
+        assertTrue(result.overallPassed, "초기 통과 상태: true");
+        assertFalse(result.fileFound, "초기 파일 존재: false");
     }
     
     /**
@@ -73,14 +73,14 @@ public class ModelTest {
         RuleResult rule1 = new RuleResult("Rule 1", "SEARCH", true, "OK");
         result.addRuleResult(rule1);
         
-        assertEquals("규칙 1개 추가됨", 1, result.ruleResults.size());
-        assertTrue("통과 규칙만 추가됨: 통과 유지", result.overallPassed);
+        assertEquals(1, result.ruleResults.size(), "규칙 1개 추가됨");
+        assertTrue(result.overallPassed, "통과 규칙만 추가됨: 통과 유지");
         
         RuleResult rule2 = new RuleResult("Rule 2", "DISPLAY", false, "Failed");
         result.addRuleResult(rule2);
         
-        assertEquals("규칙 2개 추가됨", 2, result.ruleResults.size());
-        assertFalse("실패 규칙 추가됨: 통과 상태 변경", result.overallPassed);
+        assertEquals(2, result.ruleResults.size(), "규칙 2개 추가됨");
+        assertFalse(result.overallPassed, "실패 규칙 추가됨: 통과 상태 변경");
     }
     
     /**
@@ -94,15 +94,15 @@ public class ModelTest {
         metrics.commitCount = 19;
         metrics.rollbackCount = 0;
         
-        assertEquals("Step 이름 확인", "TestStep", metrics.stepName);
-        assertEquals("ReadCount 확인", 1000, metrics.readCount);
-        assertEquals("WriteCount 확인", 950, metrics.writeCount);
-        assertEquals("CommitCount 확인", 19, metrics.commitCount);
-        assertEquals("RollbackCount 확인", 0, metrics.rollbackCount);
+        assertEquals("TestStep", metrics.stepName, "Step 이름 확인");
+        assertEquals(1000, metrics.readCount, "ReadCount 확인");
+        assertEquals(950, metrics.writeCount, "WriteCount 확인");
+        assertEquals(19, metrics.commitCount, "CommitCount 확인");
+        assertEquals(0, metrics.rollbackCount, "RollbackCount 확인");
         
         String display = metrics.toDisplayString();
-        assertTrue("디스플레이 문자열에 R이 포함", display.contains("R:1000"));
-        assertTrue("디스플레이 문자열에 Rollback이 포함", display.contains("Rollback:0"));
+        assertTrue(display.contains("R:1000"), "디스플레이 문자열에 R이 포함");
+        assertTrue(display.contains("Rollback:0"), "디스플레이 문자열에 Rollback이 포함");
     }
     
     /**
@@ -116,9 +116,9 @@ public class ModelTest {
         
         result.markAsHoliday("Sunday");
         
-        assertTrue("비영업일 플래그 설정됨", result.isHoliday);
-        assertEquals("비영업일 상세정보 설정됨", "Sunday", result.holidayDetail);
-        assertTrue("비영업일 표시 후: 통과 상태 변경", result.overallPassed);
+        assertTrue(result.isHoliday, "비영업일 플래그 설정됨");
+        assertEquals("Sunday", result.holidayDetail, "비영업일 상세정보 설정됨");
+        assertTrue(result.overallPassed, "비영업일 표시 후: 통과 상태 변경");
     }
     
     /**
@@ -131,8 +131,8 @@ public class ModelTest {
         
         String str = rule.toString();
         
-        assertTrue("Type이 포함됨", str.contains("DISPLAY"));
-        assertTrue("Description이 포함됨", str.contains("Count check"));
+        assertTrue(str.contains("DISPLAY"), "Type이 포함됨");
+        assertTrue(str.contains("Count check"), "Description이 포함됨");
     }
     
     /**
@@ -146,7 +146,7 @@ public class ModelTest {
         
         String str = policy.toString();
         
-        assertTrue("Job이름이 포함됨", str.contains("job1"));
-        assertTrue("규칙 개수가 포함됨", str.contains("2"));
+        assertTrue(str.contains("job1"), "Job이름이 포함됨");
+        assertTrue(str.contains("2"), "규칙 개수가 포함됨");
     }
 }

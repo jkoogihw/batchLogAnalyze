@@ -6,6 +6,9 @@ import com.batch.analyzer.LogAnalyzer;
 import com.batch.report.ReportGenerator;
 import com.batch.model.*;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 import java.io.File;
 import java.util.*;
 
@@ -19,6 +22,7 @@ import java.util.*;
  * 4. logFileSrc 값으로 6자리 날짜 포맷(\\d{6})이 지정되면: 기본 설정 경로(base.folder)의 하위 폴더를 대상으로 분석
  * 5. 파라미터 미지정 시: 기본 설정 경로(base.folder) 내 최신 날짜 포맷(\\d{6}) 폴더 자동 탐색
  */
+@SpringBootApplication
 public class CheckLog {
 
     /**

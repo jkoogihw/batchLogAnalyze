@@ -1,9 +1,9 @@
 package com.batch;
 
 import com.batch.model.CheckResult;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Comparator;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * CheckLog 실행 파라미터(logFileSrc) 및 폴더 탐색/결과 리포트 생성 테스트
@@ -26,7 +26,7 @@ public class CheckLogTest {
 
     private static File testTempBase;
 
-    @BeforeClass
+    @BeforeAll
     public static void setUp() throws Exception {
         testTempBase = new File("build/test-temp-logs");
         if (testTempBase.exists()) {
@@ -35,7 +35,7 @@ public class CheckLogTest {
         testTempBase.mkdirs();
     }
 
-    @AfterClass
+    @AfterAll
     public static void tearDown() {
         if (testTempBase != null && testTempBase.exists()) {
             deleteDirectory(testTempBase);
@@ -61,13 +61,13 @@ public class CheckLogTest {
         String logFolder = "src/test/resources/log_samples";
         CheckLog.AnalysisSummary summary = CheckLog.runAnalysis(logFolder);
 
-        assertTrue("직접 로그 파일이 있는 폴더는 분석 성공이어야 함", summary.success);
-        assertNotNull("작업 폴더가 설정되어야 함", summary.workFolder);
-        assertEquals("폴더명이 log_samples 여야 함", "log_samples", summary.folderName);
-        assertTrue("JOB 정책이 1개 이상 로드되어야 함", summary.totalJobs > 0);
-        assertEquals("JOB 결과 수가 정책 수와 일치해야 함", summary.totalJobs, summary.results.size());
-        assertNotNull("마크다운 리포트 파일이 생성되어야 함", summary.reportFile);
-        assertTrue("생성된 리포트 파일이 존재해야 함", summary.reportFile.exists());
+        assertTrue(summary.success, "직접 로그 파일이 있는 폴더는 분석 성공이어야 함");
+        assertNotNull(summary.workFolder, "작업 폴더가 설정되어야 함");
+        assertEquals("log_samples", summary.folderName, "폴더명이 log_samples 여야 함");
+        assertTrue(summary.totalJobs > 0, "JOB 정책이 1개 이상 로드되어야 함");
+        assertEquals(summary.totalJobs, summary.results.size(), "JOB 결과 수가 정책 수와 일치해야 함");
+        assertNotNull(summary.reportFile, "마크다운 리포트 파일이 생성되어야 함");
+        assertTrue(summary.reportFile.exists(), "생성된 리포트 파일이 존재해야 함");
     }
 
     /**
@@ -77,12 +77,12 @@ public class CheckLogTest {
     public void testCondition1_NamedParameterFormat() {
         String[] args1 = {"--logFileSrc=src/test/resources/log_samples"};
         CheckLog.AnalysisSummary summary1 = CheckLog.runAnalysis(args1);
-        assertTrue("Named parameter (--logFileSrc=...) 분석 성공", summary1.success);
+        assertTrue(summary1.success, "Named parameter (--logFileSrc=...) 분석 성공");
         assertEquals("log_samples", summary1.folderName);
 
         String[] args2 = {"-logFileSrc", "src/test/resources/log_samples"};
         CheckLog.AnalysisSummary summary2 = CheckLog.runAnalysis(args2);
-        assertTrue("Named parameter (-logFileSrc value) 분석 성공", summary2.success);
+        assertTrue(summary2.success, "Named parameter (-logFileSrc value) 분석 성공");
         assertEquals("log_samples", summary2.folderName);
     }
 
@@ -103,9 +103,9 @@ public class CheckLogTest {
 
         CheckLog.AnalysisSummary summary = CheckLog.runAnalysis(parentDir.getAbsolutePath());
 
-        assertTrue("최신 날짜 폴더가 선택되어 분석 성공이어야 함", summary.success);
-        assertEquals("260901 최신 폴더가 선택되어야 함", "260901", summary.folderName);
-        assertEquals("260901 디렉터리가 작업 폴더여야 함", latestDateDir.getAbsolutePath(), summary.workFolder.getAbsolutePath());
+        assertTrue(summary.success, "최신 날짜 폴더가 선택되어 분석 성공이어야 함");
+        assertEquals("260901", summary.folderName, "260901 최신 폴더가 선택되어야 함");
+        assertEquals(latestDateDir.getAbsolutePath(), summary.workFolder.getAbsolutePath(), "260901 디렉터리가 작업 폴더여야 함");
     }
 
     /**
@@ -118,16 +118,16 @@ public class CheckLogTest {
 
         CheckLog.AnalysisSummary summary = CheckLog.runAnalysis(emptyDir.getAbsolutePath());
 
-        assertFalse("로그 파일이 없으므로 success == false 여야 함", summary.success);
-        assertEquals("전체 패스 수는 0건이어야 함", 0, summary.passCount);
-        assertEquals("전체 실패 수는 전체 JOB 수와 같아야 함", summary.totalJobs, summary.failCount);
-        assertNotNull("실패 결과 리포트 파일이 반드시 생성되어야 함", summary.reportFile);
-        assertTrue("실패 결과 파일이 디스크에 존재해야 함", summary.reportFile.exists());
+        assertFalse(summary.success, "로그 파일이 없으므로 success == false 여야 함");
+        assertEquals(0, summary.passCount, "전체 패스 수는 0건이어야 함");
+        assertEquals(summary.totalJobs, summary.failCount, "전체 실패 수는 전체 JOB 수와 같아야 함");
+        assertNotNull(summary.reportFile, "실패 결과 리포트 파일이 반드시 생성되어야 함");
+        assertTrue(summary.reportFile.exists(), "실패 결과 파일이 디스크에 존재해야 함");
 
         // 리포트 내용 검증
         String reportContent = Files.readString(summary.reportFile.toPath(), StandardCharsets.UTF_8);
-        assertTrue("리포트 제목에 대상 폴더명이 포함되어야 함", reportContent.contains("# 배치로그 분석 결과 보고서"));
-        assertTrue("모든 JOB에 대해 파일 미존재 메시지가 포함되어야 함", reportContent.contains("해당 JOB의 로그 파일이 존재하지 않습니다."));
+        assertTrue(reportContent.contains("# 배치로그 분석 결과 보고서"), "리포트 제목에 대상 폴더명이 포함되어야 함");
+        assertTrue(reportContent.contains("해당 JOB의 로그 파일이 존재하지 않습니다."), "모든 JOB에 대해 파일 미존재 메시지가 포함되어야 함");
     }
 
     /**
@@ -142,12 +142,12 @@ public class CheckLogTest {
 
         // 6자리 날짜를 파라미터로 넘겨서 resolveWorkFolder 검증
         File resolved = CheckLog.resolveWorkFolder(dateParam, testTempBase.getAbsolutePath());
-        assertNotNull("기본경로 하위의 날짜 폴더가 매핑되어야 함", resolved);
+        assertNotNull(resolved, "기본경로 하위의 날짜 폴더가 매핑되어야 함");
         assertEquals(dateFolder.getAbsolutePath(), resolved.getAbsolutePath());
 
         // 로그 파일이 없을 때는 실패 리포트 생성 검증
         CheckLog.AnalysisSummary summary = CheckLog.runAnalysis(dateParam);
-        assertNotNull("결과 리포트 파일이 생성되어야 함", summary.reportFile);
+        assertNotNull(summary.reportFile, "결과 리포트 파일이 생성되어야 함");
         assertTrue(summary.reportFile.getName().contains("260902"));
     }
 }

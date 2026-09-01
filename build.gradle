@@ -20,11 +20,21 @@ repositories {
 }
 
 dependencies {
-    // 테스트
-    testImplementation 'junit:junit:4.13.2'
+    // Spring Boot & Spring Web (2.3.12.RELEASE)
+    implementation 'org.springframework.boot:spring-boot-starter:2.3.12.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.3.12.RELEASE'
     
-    // JSON 파싱용 (선택사항)
-    // implementation 'com.google.code.gson:gson:2.10.1'
+    // Spring Core / Web (5.2.22.RELEASE)
+    implementation 'org.springframework:spring-core:5.2.22.RELEASE'
+    implementation 'org.springframework:spring-web:5.2.22.RELEASE'
+    
+    // Test dependencies (Spring Boot Starter Test 2.3.12 with Vintage excluded & JUnit 5 Jupiter 5.7.2)
+    testImplementation('org.springframework.boot:spring-boot-starter-test:2.3.12.RELEASE') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.7.2'
+    testImplementation 'org.junit.platform:junit-platform-commons:1.7.2'
+    testImplementation 'org.junit.platform:junit-platform-launcher:1.7.2'
 }
 
 tasks.withType(JavaCompile) {
@@ -32,6 +42,7 @@ tasks.withType(JavaCompile) {
 }
 
 test {
+    useJUnitPlatform()
     maxHeapSize = '2048m'
 }
 

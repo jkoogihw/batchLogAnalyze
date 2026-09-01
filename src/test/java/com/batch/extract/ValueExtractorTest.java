@@ -2,9 +2,9 @@ package com.batch.extract;
 
 import com.batch.model.Rule;
 import com.batch.model.StepMetrics;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * ValueExtractor 테스트
@@ -22,7 +22,7 @@ public class ValueExtractorTest {
         Rule rule = new Rule("SEARCH", "SUCCESS", "COUNT_CHECK", "Success count");
         
         int count = ValueExtractor.countMatches(fullText, rule);
-        assertEquals("SUCCESS가 3번 나타나야 함", 3, count);
+        assertEquals(3, count, "SUCCESS가 3번 나타나야 함");
     }
     
     /**
@@ -35,7 +35,7 @@ public class ValueExtractorTest {
         rule.regex = "ERROR: \\d+";
         
         int count = ValueExtractor.countMatches(fullText, rule);
-        assertEquals("ERROR 패턴이 2번 나타나야 함", 2, count);
+        assertEquals(2, count, "ERROR 패턴이 2번 나타나야 함");
     }
     
     /**
@@ -49,7 +49,7 @@ public class ValueExtractorTest {
         Rule rule = new Rule("DISPLAY", "Total Records", "EQUALS_N", "Total count");
         String result = ValueExtractor.extractDisplayValue(fullText, lines, rule);
         
-        assertEquals("100건이 추출되어야 함", "100건", result);
+        assertEquals("100건", result, "100건이 추출되어야 함");
     }
     
     /**
@@ -63,7 +63,7 @@ public class ValueExtractorTest {
         Rule rule = new Rule("DISPLAY", "Skip Count", "EQUALS_0", "Skip count");
         String result = ValueExtractor.extractDisplayValue(fullText, lines, rule);
         
-        assertEquals("0이 추출되어야 함", "0", result);
+        assertEquals("0", result, "0이 추출되어야 함");
     }
     
     /**
@@ -77,7 +77,7 @@ public class ValueExtractorTest {
         Rule rule = new Rule("DISPLAY", "Total Records", "COUNT_CHECK", "Total");
         String result = ValueExtractor.extractDisplayValue(fullText, lines, rule);
         
-        assertNull("패턴을 찾지 못하면 null 반환", result);
+        assertNull(result, "패턴을 찾지 못하면 null 반환");
     }
     
     /**
@@ -92,7 +92,7 @@ public class ValueExtractorTest {
         rule.regex = "Update Count";
         String result = ValueExtractor.extractDisplayValue(fullText, lines, rule);
         
-        assertEquals("150이 추출되어야 함", "150", result);
+        assertEquals("150", result, "150이 추출되어야 함");
     }
     
     /**
@@ -101,7 +101,7 @@ public class ValueExtractorTest {
     @Test
     public void testParseNumber_WithComma() {
         Long result = ValueExtractor.parseNumber("1,234,567건");
-        assertEquals("1234567이 파싱되어야 함", Long.valueOf(1234567), result);
+        assertEquals(Long.valueOf(1234567), result, "1234567이 파싱되어야 함");
     }
     
     /**
@@ -110,7 +110,7 @@ public class ValueExtractorTest {
     @Test
     public void testParseNumber_Simple() {
         Long result = ValueExtractor.parseNumber("500");
-        assertEquals("500이 파싱되어야 함", Long.valueOf(500), result);
+        assertEquals(Long.valueOf(500), result, "500이 파싱되어야 함");
     }
     
     /**
@@ -119,7 +119,7 @@ public class ValueExtractorTest {
     @Test
     public void testParseNumber_Null() {
         Long result = ValueExtractor.parseNumber(null);
-        assertNull("null 입력시 null 반환", result);
+        assertNull(result, "null 입력시 null 반환");
     }
     
     /**
@@ -128,7 +128,7 @@ public class ValueExtractorTest {
     @Test
     public void testParseNumber_NoNumber() {
         Long result = ValueExtractor.parseNumber("ERROR건");
-        assertNull("숫자가 없으면 null 반환", result);
+        assertNull(result, "숫자가 없으면 null 반환");
     }
     
     /**
@@ -147,11 +147,11 @@ public class ValueExtractorTest {
         
         StepMetrics metrics = ValueExtractor.parseStepMetrics(lines, "DataProcessStep");
         
-        assertNotNull("메트릭이 파싱되어야 함", metrics);
-        assertEquals("ReadCount 확인", 1000, metrics.readCount);
-        assertEquals("WriteCount 확인", 950, metrics.writeCount);
-        assertEquals("CommitCount 확인", 19, metrics.commitCount);
-        assertEquals("RollbackCount 확인", 0, metrics.rollbackCount);
+        assertNotNull(metrics, "메트릭이 파싱되어야 함");
+        assertEquals(1000, metrics.readCount, "ReadCount 확인");
+        assertEquals(950, metrics.writeCount, "WriteCount 확인");
+        assertEquals(19, metrics.commitCount, "CommitCount 확인");
+        assertEquals(0, metrics.rollbackCount, "RollbackCount 확인");
     }
     
     /**
@@ -166,7 +166,7 @@ public class ValueExtractorTest {
         
         StepMetrics metrics = ValueExtractor.parseStepMetrics(lines, "NonExistentStep");
         
-        assertNull("존재하지 않는 Step은 null 반환", metrics);
+        assertNull(metrics, "존재하지 않는 Step은 null 반환");
     }
     
     /**
@@ -177,7 +177,7 @@ public class ValueExtractorTest {
         String line = "CommitCount: 123";
         long result = ValueExtractor.extractMetricNumber(line, "CommitCount");
         
-        assertEquals("123이 추출되어야 함", 123L, result);
+        assertEquals(123L, result, "123이 추출되어야 함");
     }
     
     /**
@@ -188,7 +188,7 @@ public class ValueExtractorTest {
         String line = "ReadCount: 1,234,567";
         long result = ValueExtractor.extractMetricNumber(line, "ReadCount");
         
-        assertEquals("1234567이 추출되어야 함", 1234567L, result);
+        assertEquals(1234567L, result, "1234567이 추출되어야 함");
     }
     
     /**
@@ -199,7 +199,7 @@ public class ValueExtractorTest {
         String line = "ProcessCount: 100";
         long result = ValueExtractor.extractMetricNumber(line, "ReadCount");
         
-        assertEquals("키워드 없으면 0 반환", 0L, result);
+        assertEquals(0L, result, "키워드 없으면 0 반환");
     }
     
     /**
@@ -215,6 +215,6 @@ public class ValueExtractorTest {
         String result = ValueExtractor.extractDisplayValue(fullText, lines, rule);
         
         // 멀티라인 패턴 매칭 테스트
-        assertNotNull("멀티라인 패턴을 매칭해야 함", result);
+        assertNotNull(result, "멀티라인 패턴을 매칭해야 함");
     }
 }

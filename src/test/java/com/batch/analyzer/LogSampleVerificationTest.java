@@ -5,8 +5,8 @@ import com.batch.model.JobPolicy;
 import com.batch.model.RuleResult;
 import com.batch.policy.PolicyManager;
 import com.batch.report.ReportGenerator;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.InputStream;
@@ -16,7 +16,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * 로그 샘플 폴더(src/test/resources/log_samples) 기반 테스트 검증 모듈
@@ -31,7 +31,7 @@ public class LogSampleVerificationTest {
     private static File[] logFiles;
     private static List<JobPolicy> policies;
 
-    @BeforeClass
+    @BeforeAll
     public static void setUp() throws Exception {
         // 1. log_samples 리소스 폴더 로드
         URL sampleUrl = LogSampleVerificationTest.class.getClassLoader().getResource("log_samples");
@@ -40,12 +40,12 @@ public class LogSampleVerificationTest {
         } else {
             sampleFolder = new File("src/test/resources/log_samples");
         }
-        assertTrue("로그 샘플 폴더가 존재해야 합니다: " + sampleFolder.getAbsolutePath(), 
-                sampleFolder.exists() && sampleFolder.isDirectory());
+        assertTrue(sampleFolder.exists() && sampleFolder.isDirectory(), 
+                "로그 샘플 폴더가 존재해야 합니다: " + sampleFolder.getAbsolutePath());
 
         logFiles = sampleFolder.listFiles((dir, name) -> name.endsWith(".log"));
-        assertNotNull("샘플 로그 파일 목록이 null이 아니어야 합니다", logFiles);
-        assertTrue("최소 17개의 샘플 로그 파일이 존재해야 합니다", logFiles.length >= 17);
+        assertNotNull(logFiles, "샘플 로그 파일 목록이 null이 아니어야 합니다");
+        assertTrue(logFiles.length >= 17, "최소 17개의 샘플 로그 파일이 존재해야 합니다");
 
         // 2. policy_meta.json 로드 및 파싱
         String json = loadResourceContent("policy_meta.json");
@@ -55,10 +55,10 @@ public class LogSampleVerificationTest {
                 json = Files.readString(rootMeta.toPath(), StandardCharsets.UTF_8);
             }
         }
-        assertNotNull("policy_meta.json 정책 데이터를 로드할 수 있어야 합니다", json);
+        assertNotNull(json, "policy_meta.json 정책 데이터를 로드할 수 있어야 합니다");
 
         policies = PolicyManager.parseJsonPolicies(json);
-        assertEquals("총 17개의 JOB 정책이 로드되어야 합니다", 17, policies.size());
+        assertEquals(17, policies.size(), "총 17개의 JOB 정책이 로드되어야 합니다");
     }
 
     /**
@@ -89,12 +89,12 @@ public class LogSampleVerificationTest {
      */
     @Test
     public void testSampleDirectoryIntegrity() {
-        assertNotNull("샘플 로그 파일 목록이 존재해야 함", logFiles);
-        assertTrue("로그 샘플 파일이 17개 이상 존재해야 함", logFiles.length >= 17);
+        assertNotNull(logFiles, "샘플 로그 파일 목록이 존재해야 함");
+        assertTrue(logFiles.length >= 17, "로그 샘플 파일이 17개 이상 존재해야 함");
 
         for (File file : logFiles) {
-            assertTrue("파일이 읽기 가능해야 함: " + file.getName(), file.canRead());
-            assertTrue("파일 크기가 0보다 커야 함: " + file.getName(), file.length() > 0);
+            assertTrue(file.canRead(), "파일이 읽기 가능해야 함: " + file.getName());
+            assertTrue(file.length() > 0, "파일 크기가 0보다 커야 함: " + file.getName());
         }
     }
 
@@ -112,12 +112,11 @@ public class LogSampleVerificationTest {
             results.add(cr);
 
             // 모든 정책에 대해 매칭되는 샘플 파일이 반드시 발견되어야 함
-            assertTrue("JOB [" + policy.jobNo + " : " + policy.jobName + "]의 매칭 로그 파일이 발견되어야 함", 
-                    cr.fileFound);
-            assertNotNull("파일명이 설정되어야 함", cr.fileName);
+            assertTrue(cr.fileFound, "JOB [" + policy.jobNo + " : " + policy.jobName + "]의 매칭 로그 파일이 발견되어야 함");
+            assertNotNull(cr.fileName, "파일명이 설정되어야 함");
 
             // 규칙 검증 결과가 1개 이상 존재하거나 비영업일 판정이어야 함
-            assertTrue("검증 결과 항목이 존재해야 함", cr.ruleResults.size() > 0 || cr.isHoliday);
+            assertTrue(cr.ruleResults.size() > 0 || cr.isHoliday, "검증 결과 항목이 존재해야 함");
 
             if (cr.overallPassed) {
                 passCount++;
@@ -126,7 +125,7 @@ public class LogSampleVerificationTest {
             }
         }
 
-        assertEquals("17개 JOB 모두 분석 결과가 수집되어야 함", 17, results.size());
+        assertEquals(17, results.size(), "17개 JOB 모두 분석 결과가 수집되어야 함");
 
         // 콘솔 보고서 출력 테스트
         ReportGenerator.printConsoleReport("log_samples_test", results, policies.size(), passCount, failCount);
@@ -134,9 +133,9 @@ public class LogSampleVerificationTest {
         // 마크다운 결과 파일 저장 (기존 결과 파일 삭제 후 재생성)
         File reportDir = new File("report");
         File savedReport = ReportGenerator.saveMarkdownReport(reportDir, "log_samples_test", results, policies.size(), passCount, failCount);
-        assertNotNull("리포트 파일이 정상 저장되어야 함", savedReport);
-        assertTrue("리포트 파일이 존재해야 함", savedReport.exists());
-        assertTrue("리포트 파일 크기가 0보다 커야 함", savedReport.length() > 0);
+        assertNotNull(savedReport, "리포트 파일이 정상 저장되어야 함");
+        assertTrue(savedReport.exists(), "리포트 파일이 존재해야 함");
+        assertTrue(savedReport.length() > 0, "리포트 파일 크기가 0보다 커야 함");
 
         System.out.println(">> [검증 완료] 전체: " + policies.size() + ", 통과(PASS): " + passCount + ", 확인필요(FAIL): " + failCount);
     }
@@ -154,8 +153,8 @@ public class LogSampleVerificationTest {
         // 1. 이전 실행 결과 파일(더미 파일) 생성
         String staleContent = "OLD STALE REPORT CONTENT - TO BE DELETED AND OVERWRITTEN";
         Files.writeString(reportFile.toPath(), staleContent, StandardCharsets.UTF_8);
-        assertTrue("기존 결과 파일이 존재해야 함", reportFile.exists());
-        assertEquals("기존 더미 내용 확인", staleContent, Files.readString(reportFile.toPath(), StandardCharsets.UTF_8));
+        assertTrue(reportFile.exists(), "기존 결과 파일이 존재해야 함");
+        assertEquals(staleContent, Files.readString(reportFile.toPath(), StandardCharsets.UTF_8), "기존 더미 내용 확인");
 
         // 2. 테스트 분석 결과 데이터 생성
         List<CheckResult> results = new ArrayList<>();
@@ -167,12 +166,12 @@ public class LogSampleVerificationTest {
         File generatedFile = ReportGenerator.saveMarkdownReport(reportFile, "sample_recreate_test", results, 1, cr.overallPassed ? 1 : 0, cr.overallPassed ? 0 : 1);
 
         // 4. 검증: 기존 더미 내용이 완전히 지워지고 새로운 분석 리포트 내용으로 다시 작성되었는지 확인
-        assertNotNull("생성된 파일 객체가 반환되어야 함", generatedFile);
-        assertTrue("새로운 결과 파일이 존재해야 함", generatedFile.exists());
+        assertNotNull(generatedFile, "생성된 파일 객체가 반환되어야 함");
+        assertTrue(generatedFile.exists(), "새로운 결과 파일이 존재해야 함");
         String newContent = Files.readString(generatedFile.toPath(), StandardCharsets.UTF_8);
-        assertFalse("이전 더미 내용이 남아있지 않아야 함", newContent.contains("OLD STALE REPORT CONTENT"));
-        assertTrue("새로운 리포트 제목이 포함되어야 함", newContent.contains("# 배치로그 분석 결과 보고서 (sample_recreate_test)"));
-        assertTrue("JOB별 세부 분석 테이블 헤더가 포함되어야 함", newContent.contains("| 번호 | JOB ID | JOB 이름 | 점검항목 | 점검내용 | 점검결과 |"));
+        assertFalse(newContent.contains("OLD STALE REPORT CONTENT"), "이전 더미 내용이 남아있지 않아야 함");
+        assertTrue(newContent.contains("# 배치로그 분석 결과 보고서 (sample_recreate_test)"), "새로운 리포트 제목이 포함되어야 함");
+        assertTrue(newContent.contains("| 번호 | JOB ID | JOB 이름 | 점검항목 | 점검내용 | 점검결과 |"), "JOB별 세부 분석 테이블 헤더가 포함되어야 함");
     }
 
     /**
@@ -182,19 +181,19 @@ public class LogSampleVerificationTest {
     @Test
     public void testJob01_GagastJob002() {
         JobPolicy policy = findPolicyByJobNo("01");
-        assertNotNull("JOB 01 정책이 존재해야 함", policy);
+        assertNotNull(policy, "JOB 01 정책이 존재해야 함");
 
         CheckResult cr = LogAnalyzer.checkJob(sampleFolder, logFiles, policy);
-        assertTrue("파일 매칭 성공", cr.fileFound);
-        assertTrue("파일명에 _10702_ 포함 확인", cr.fileName.contains("_10702_"));
-        assertEquals("규칙 수 확인", 1, cr.ruleResults.size());
+        assertTrue(cr.fileFound, "파일 매칭 성공");
+        assertTrue(cr.fileName.contains("_10702_"), "파일명에 _10702_ 포함 확인");
+        assertEquals(1, cr.ruleResults.size(), "규칙 수 확인");
 
         RuleResult rr = cr.ruleResults.get(0);
         assertEquals("DISPLAY", rr.type);
-        assertNotNull("추출값이 존재해야 함", rr.extractedValue);
-        assertTrue("0건이거나 0이 추출되어야 함", rr.extractedValue.contains("0"));
-        assertTrue("DB Insert GA Count 0건 검증 통과", rr.passed);
-        assertTrue("JOB 종합 통과", cr.overallPassed);
+        assertNotNull(rr.extractedValue, "추출값이 존재해야 함");
+        assertTrue(rr.extractedValue.contains("0"), "0건이거나 0이 추출되어야 함");
+        assertTrue(rr.passed, "DB Insert GA Count 0건 검증 통과");
+        assertTrue(cr.overallPassed, "JOB 종합 통과");
     }
 
     /**
@@ -204,12 +203,12 @@ public class LogSampleVerificationTest {
     @Test
     public void testJob02_GagastJob001() {
         JobPolicy policy = findPolicyByJobNo("02");
-        assertNotNull("JOB 02 정책이 존재해야 함", policy);
+        assertNotNull(policy, "JOB 02 정책이 존재해야 함");
 
         CheckResult cr = LogAnalyzer.checkJob(sampleFolder, logFiles, policy);
-        assertTrue("파일 매칭 성공", cr.fileFound);
-        assertTrue("파일명에 _10701_ 포함 확인", cr.fileName.contains("_10701_"));
-        assertEquals("규칙 2개 확인", 2, cr.ruleResults.size());
+        assertTrue(cr.fileFound, "파일 매칭 성공");
+        assertTrue(cr.fileName.contains("_10701_"), "파일명에 _10701_ 포함 확인");
+        assertEquals(2, cr.ruleResults.size(), "규칙 2개 확인");
     }
 
     /**
@@ -219,12 +218,12 @@ public class LogSampleVerificationTest {
     @Test
     public void testJob03_SmrmJob101() {
         JobPolicy policy = findPolicyByJobNo("03");
-        assertNotNull("JOB 03 정책이 존재해야 함", policy);
+        assertNotNull(policy, "JOB 03 정책이 존재해야 함");
 
         CheckResult cr = LogAnalyzer.checkJob(sampleFolder, logFiles, policy);
-        assertTrue("파일 매칭 성공", cr.fileFound);
-        assertTrue("파일명에 _11399_ 포함 확인", cr.fileName.contains("_11399_"));
-        assertEquals("규칙 1개 확인", 1, cr.ruleResults.size());
+        assertTrue(cr.fileFound, "파일 매칭 성공");
+        assertTrue(cr.fileName.contains("_11399_"), "파일명에 _11399_ 포함 확인");
+        assertEquals(1, cr.ruleResults.size(), "규칙 1개 확인");
     }
 
     /**
@@ -239,10 +238,10 @@ public class LogSampleVerificationTest {
         CheckResult cr4 = LogAnalyzer.checkJob(sampleFolder, logFiles, p4);
         CheckResult cr5 = LogAnalyzer.checkJob(sampleFolder, logFiles, p5);
 
-        assertTrue("JOB 04 파일 매칭", cr4.fileFound);
-        assertTrue("JOB 05 파일 매칭", cr5.fileFound);
-        assertTrue("JOB 04 파일명 확인", cr4.fileName.contains("_11401_"));
-        assertTrue("JOB 05 파일명 확인", cr5.fileName.contains("_11402_"));
+        assertTrue(cr4.fileFound, "JOB 04 파일 매칭");
+        assertTrue(cr5.fileFound, "JOB 05 파일 매칭");
+        assertTrue(cr4.fileName.contains("_11401_"), "JOB 04 파일명 확인");
+        assertTrue(cr5.fileName.contains("_11402_"), "JOB 05 파일명 확인");
     }
 
     /**
@@ -252,17 +251,17 @@ public class LogSampleVerificationTest {
     @Test
     public void testJob06_SmrmJob104_StepMetrics() {
         JobPolicy policy = findPolicyByJobNo("06");
-        assertNotNull("JOB 06 정책이 존재해야 함", policy);
+        assertNotNull(policy, "JOB 06 정책이 존재해야 함");
 
         CheckResult cr = LogAnalyzer.checkJob(sampleFolder, logFiles, policy);
-        assertTrue("파일 매칭 성공", cr.fileFound);
-        assertTrue("파일명에 _11403_ 포함 확인", cr.fileName.contains("_11403_"));
-        assertEquals("STEP_METRICS 규칙 확인", 1, cr.ruleResults.size());
+        assertTrue(cr.fileFound, "파일 매칭 성공");
+        assertTrue(cr.fileName.contains("_11403_"), "파일명에 _11403_ 포함 확인");
+        assertEquals(1, cr.ruleResults.size(), "STEP_METRICS 규칙 확인");
 
         RuleResult rr = cr.ruleResults.get(0);
         assertEquals("STEP_METRICS", rr.type);
-        assertNotNull("Step 메트릭 추출 문자열 확인", rr.extractedValue);
-        assertTrue("Rollback 0건 판정 확인", rr.passed);
+        assertNotNull(rr.extractedValue, "Step 메트릭 추출 문자열 확인");
+        assertTrue(rr.passed, "Rollback 0건 판정 확인");
     }
 
     /**
@@ -275,13 +274,13 @@ public class LogSampleVerificationTest {
 
         for (int i = 0; i < jobNos.length; i++) {
             JobPolicy policy = findPolicyByJobNo(jobNos[i]);
-            assertNotNull("JOB " + jobNos[i] + " 정책 존재", policy);
+            assertNotNull(policy, "JOB " + jobNos[i] + " 정책 존재");
 
             CheckResult cr = LogAnalyzer.checkJob(sampleFolder, logFiles, policy);
-            assertTrue("JOB " + jobNos[i] + " 파일 매칭 성공", cr.fileFound);
-            assertTrue("JOB " + jobNos[i] + " 패턴 포함 확인 (" + expectedPatterns[i] + ")", 
-                    cr.fileName.contains(expectedPatterns[i]));
-            assertTrue("규칙 결과 존재", cr.ruleResults.size() > 0);
+            assertTrue(cr.fileFound, "JOB " + jobNos[i] + " 파일 매칭 성공");
+            assertTrue(cr.fileName.contains(expectedPatterns[i]), 
+                    "JOB " + jobNos[i] + " 패턴 포함 확인 (" + expectedPatterns[i] + ")");
+            assertTrue(cr.ruleResults.size() > 0, "규칙 결과 존재");
         }
     }
 
@@ -298,12 +297,12 @@ public class LogSampleVerificationTest {
         CheckResult cr11 = LogAnalyzer.checkJob(sampleFolder, logFiles, p11);
         CheckResult cr12 = LogAnalyzer.checkJob(sampleFolder, logFiles, p12);
 
-        assertTrue("JOB 11 파일 매칭", cr11.fileFound);
-        assertTrue("JOB 12 파일 매칭", cr12.fileFound);
+        assertTrue(cr11.fileFound, "JOB 11 파일 매칭");
+        assertTrue(cr12.fileFound, "JOB 12 파일 매칭");
 
-        assertTrue("JOB 11 파일명에 16_1 포함", cr11.fileName.contains("16_1"));
-        assertTrue("JOB 12 파일명에 18_1 포함", cr12.fileName.contains("18_1"));
-        assertNotEquals("두 JOB은 서로 다른 로그 파일을 매칭해야 함", cr11.fileName, cr12.fileName);
+        assertTrue(cr11.fileName.contains("16_1"), "JOB 11 파일명에 16_1 포함");
+        assertTrue(cr12.fileName.contains("18_1"), "JOB 12 파일명에 18_1 포함");
+        assertNotEquals(cr11.fileName, cr12.fileName, "두 JOB은 서로 다른 로그 파일을 매칭해야 함");
     }
 
     /**
@@ -316,13 +315,13 @@ public class LogSampleVerificationTest {
 
         for (int i = 0; i < jobNos.length; i++) {
             JobPolicy policy = findPolicyByJobNo(jobNos[i]);
-            assertNotNull("JOB " + jobNos[i] + " 정책 존재", policy);
+            assertNotNull(policy, "JOB " + jobNos[i] + " 정책 존재");
 
             CheckResult cr = LogAnalyzer.checkJob(sampleFolder, logFiles, policy);
-            assertTrue("JOB " + jobNos[i] + " 파일 매칭 성공", cr.fileFound);
-            assertTrue("JOB " + jobNos[i] + " 패턴 포함 확인 (" + expectedPatterns[i] + ")", 
-                    cr.fileName.contains(expectedPatterns[i]));
-            assertTrue("규칙 결과 존재", cr.ruleResults.size() > 0);
+            assertTrue(cr.fileFound, "JOB " + jobNos[i] + " 파일 매칭 성공");
+            assertTrue(cr.fileName.contains(expectedPatterns[i]), 
+                    "JOB " + jobNos[i] + " 패턴 포함 확인 (" + expectedPatterns[i] + ")");
+            assertTrue(cr.ruleResults.size() > 0, "규칙 결과 존재");
         }
     }
 
@@ -339,11 +338,11 @@ public class LogSampleVerificationTest {
         dummyPolicy.rawPattern = "_99999_";
 
         CheckResult cr = LogAnalyzer.checkJob(sampleFolder, logFiles, dummyPolicy);
-        assertFalse("매칭되는 파일이 없으므로 false여야 함", cr.fileFound);
-        assertFalse("종합 결과도 실패(false)여야 함", cr.overallPassed);
-        assertTrue("파일명에 미발견 안내가 포함되어야 함", cr.fileName.contains("미발견"));
-        assertEquals("규칙 결과 1개(파일 미존재 안내)", 1, cr.ruleResults.size());
-        assertFalse("규칙 결과 실패", cr.ruleResults.get(0).passed);
+        assertFalse(cr.fileFound, "매칭되는 파일이 없으므로 false여야 함");
+        assertFalse(cr.overallPassed, "종합 결과도 실패(false)여야 함");
+        assertTrue(cr.fileName.contains("미발견"), "파일명에 미발견 안내가 포함되어야 함");
+        assertEquals(1, cr.ruleResults.size(), "규칙 결과 1개(파일 미존재 안내)");
+        assertFalse(cr.ruleResults.get(0).passed, "규칙 결과 실패");
     }
 
     /**
@@ -354,11 +353,11 @@ public class LogSampleVerificationTest {
         String samplePath = sampleFolder.getAbsolutePath();
         com.batch.CheckLog.AnalysisSummary summary = com.batch.CheckLog.runAnalysis(samplePath);
 
-        assertTrue("CheckLog 분석이 정상 완료되어야 함", summary.success);
-        assertEquals("작업 폴더명 일치", sampleFolder.getName(), summary.folderName);
-        assertTrue("검증 결과가 존재해야 함", summary.results.size() > 0);
-        assertEquals("결과 수가 정책 수와 일치해야 함", summary.totalJobs, summary.results.size());
-        assertNotNull("리포트 파일 생성 확인", summary.reportFile);
-        assertTrue("리포트 파일 존재 확인", summary.reportFile.exists());
+        assertTrue(summary.success, "CheckLog 분석이 정상 완료되어야 함");
+        assertEquals(sampleFolder.getName(), summary.folderName, "작업 폴더명 일치");
+        assertTrue(summary.results.size() > 0, "검증 결과가 존재해야 함");
+        assertEquals(summary.totalJobs, summary.results.size(), "결과 수가 정책 수와 일치해야 함");
+        assertNotNull(summary.reportFile, "리포트 파일 생성 확인");
+        assertTrue(summary.reportFile.exists(), "리포트 파일 존재 확인");
     }
 }

@@ -2,11 +2,11 @@ package com.batch.policy;
 
 import com.batch.model.JobPolicy;
 import com.batch.model.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * PolicyManager 테스트
@@ -27,12 +27,12 @@ public class PolicyManagerTest {
         
         List<JobPolicy> policies = PolicyManager.parseJsonPolicies(json);
         
-        assertEquals("정책 1개가 파싱되어야 함", 1, policies.size());
+        assertEquals(1, policies.size(), "정책 1개가 파싱되어야 함");
         JobPolicy job = policies.get(0);
-        assertEquals("Job 번호 확인", "01", job.jobNo);
-        assertEquals("Job 이름 확인", "testJob001", job.jobName);
-        assertEquals("파일 접두사 확인", "test_", job.filePrefix);
-        assertEquals("규칙 1개 확인", 1, job.rules.size());
+        assertEquals("01", job.jobNo, "Job 번호 확인");
+        assertEquals("testJob001", job.jobName, "Job 이름 확인");
+        assertEquals("test_", job.filePrefix, "파일 접두사 확인");
+        assertEquals(1, job.rules.size(), "규칙 1개 확인");
     }
     
     /**
@@ -47,7 +47,7 @@ public class PolicyManagerTest {
         
         List<JobPolicy> policies = PolicyManager.parseJsonPolicies(json);
         
-        assertEquals("정책 2개가 파싱되어야 함", 2, policies.size());
+        assertEquals(2, policies.size(), "정책 2개가 파싱되어야 함");
     }
     
     /**
@@ -63,9 +63,9 @@ public class PolicyManagerTest {
         List<JobPolicy> policies = PolicyManager.parseJsonPolicies(json);
         Rule rule = policies.get(0).rules.get(0);
         
-        assertEquals("규칙 타입 확인", "SEARCH", rule.type);
-        assertEquals("검색 대상 확인", "ERROR", rule.target);
-        assertEquals("조건 확인", "EQUALS_0", rule.condition);
+        assertEquals("SEARCH", rule.type, "규칙 타입 확인");
+        assertEquals("ERROR", rule.target, "검색 대상 확인");
+        assertEquals("EQUALS_0", rule.condition, "조건 확인");
     }
     
     /**
@@ -82,8 +82,8 @@ public class PolicyManagerTest {
         List<JobPolicy> policies = PolicyManager.parseJsonPolicies(json);
         Rule rule = policies.get(0).rules.get(0);
         
-        assertEquals("규칙 타입 확인", "DISPLAY", rule.type);
-        assertEquals("기대값 확인", 100, rule.expectedCount);
+        assertEquals("DISPLAY", rule.type, "규칙 타입 확인");
+        assertEquals(100, rule.expectedCount, "기대값 확인");
     }
     
     /**
@@ -99,8 +99,8 @@ public class PolicyManagerTest {
         List<JobPolicy> policies = PolicyManager.parseJsonPolicies(json);
         Rule rule = policies.get(0).rules.get(0);
         
-        assertEquals("규칙 타입 확인", "STEP_METRICS", rule.type);
-        assertEquals("Step 이름 확인", "ProcessStep", rule.stepName);
+        assertEquals("STEP_METRICS", rule.type, "규칙 타입 확인");
+        assertEquals("ProcessStep", rule.stepName, "Step 이름 확인");
     }
     
     /**
@@ -116,9 +116,8 @@ public class PolicyManagerTest {
         List<JobPolicy> policies = PolicyManager.parseJsonPolicies(json);
         JobPolicy job = policies.get(0);
         
-        assertNotNull("비영업일 패턴이 파싱되어야 함", job.holidayPattern);
-        assertTrue("패턴에 Saturday가 포함되어야 함", 
-                job.holidayPattern.contains("Saturday"));
+        assertNotNull(job.holidayPattern, "비영업일 패턴이 파싱되어야 함");
+        assertTrue(job.holidayPattern.contains("Saturday"), "패턴에 Saturday가 포함되어야 함");
     }
     
     /**
@@ -134,8 +133,8 @@ public class PolicyManagerTest {
         List<JobPolicy> policies = PolicyManager.parseJsonPolicies(json);
         Rule rule = policies.get(0).rules.get(0);
         
-        assertNotNull("Regex가 파싱되어야 함", rule.regex);
-        assertTrue("역슬래시가 처리되어야 함", rule.regex.contains("\\"));
+        assertNotNull(rule.regex, "Regex가 파싱되어야 함");
+        assertTrue(rule.regex.contains("\\"), "역슬래시가 처리되어야 함");
     }
     
     /**
@@ -154,9 +153,9 @@ public class PolicyManagerTest {
         List<JobPolicy> policies = PolicyManager.parseJsonPolicies(json);
         JobPolicy job = policies.get(0);
         
-        assertEquals("규칙 2개가 파싱되어야 함", 2, job.rules.size());
-        assertEquals("첫 번째 규칙 타입", "SEARCH", job.rules.get(0).type);
-        assertEquals("두 번째 규칙 타입", "DISPLAY", job.rules.get(1).type);
+        assertEquals(2, job.rules.size(), "규칙 2개가 파싱되어야 함");
+        assertEquals("SEARCH", job.rules.get(0).type, "첫 번째 규칙 타입");
+        assertEquals("DISPLAY", job.rules.get(1).type, "두 번째 규칙 타입");
     }
     
     /**
@@ -167,6 +166,6 @@ public class PolicyManagerTest {
         String json = "[]";
         List<JobPolicy> policies = PolicyManager.parseJsonPolicies(json);
         
-        assertEquals("빈 배열 파싱", 0, policies.size());
+        assertEquals(0, policies.size(), "빈 배열 파싱");
     }
 }

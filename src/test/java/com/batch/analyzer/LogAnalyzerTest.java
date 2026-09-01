@@ -1,9 +1,9 @@
 package com.batch.analyzer;
 
 import com.batch.model.*;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * LogAnalyzer 테스트
@@ -23,8 +23,8 @@ public class LogAnalyzerTest {
         Rule rule = new Rule("SEARCH", "ERROR", "EQUALS_0", "No errors");
         RuleResult result = LogAnalyzer.evaluateRule(logText, lines, rule);
         
-        assertTrue("ERROR가 0개이므로 통과해야 함", result.passed);
-        assertEquals("추출값이 0건이어야 함", "0건", result.extractedValue);
+        assertTrue(result.passed, "ERROR가 0개이므로 통과해야 함");
+        assertEquals("0건", result.extractedValue, "추출값이 0건이어야 함");
     }
     
     /**
@@ -38,8 +38,8 @@ public class LogAnalyzerTest {
         Rule rule = new Rule("SEARCH", "ERROR", "EQUALS_0", "No errors");
         RuleResult result = LogAnalyzer.evaluateRule(logText, lines, rule);
         
-        assertFalse("ERROR가 2개이므로 실패해야 함", result.passed);
-        assertEquals("추출값이 2건이어야 함", "2건", result.extractedValue);
+        assertFalse(result.passed, "ERROR가 2개이므로 실패해야 함");
+        assertEquals("2건", result.extractedValue, "추출값이 2건이어야 함");
     }
     
     /**
@@ -54,8 +54,8 @@ public class LogAnalyzerTest {
         rule.expectedCount = 3;
         RuleResult result = LogAnalyzer.evaluateRule(logText, lines, rule);
         
-        assertTrue("SUCCESS가 정확히 3개이므로 통과해야 함", result.passed);
-        assertEquals("기대값이 달성되었음", "3건", result.extractedValue);
+        assertTrue(result.passed, "SUCCESS가 정확히 3개이므로 통과해야 함");
+        assertEquals("3건", result.extractedValue, "기대값이 달성되었음");
     }
     
     /**
@@ -69,7 +69,7 @@ public class LogAnalyzerTest {
         Rule rule = new Rule("DISPLAY", "Skip Count", "EQUALS_0", "No skips");
         RuleResult result = LogAnalyzer.evaluateRule(logText, lines, rule);
         
-        assertTrue("Skip Count가 0이므로 통과해야 함", result.passed);
+        assertTrue(result.passed, "Skip Count가 0이므로 통과해야 함");
     }
     
     /**
@@ -83,7 +83,7 @@ public class LogAnalyzerTest {
         Rule rule = new Rule("DISPLAY", "Warning Count", "ERROR_IF_PRESENT", "No warnings");
         RuleResult result = LogAnalyzer.evaluateRule(logText, lines, rule);
         
-        assertTrue("Warning이 0이므로 통과해야 함", result.passed);
+        assertTrue(result.passed, "Warning이 0이므로 통과해야 함");
     }
     
     /**
@@ -97,8 +97,8 @@ public class LogAnalyzerTest {
         Rule rule = new Rule("DISPLAY", "Total Records", "COUNT_CHECK", "Total count");
         RuleResult result = LogAnalyzer.evaluateRule(logText, lines, rule);
         
-        assertFalse("패턴을 찾지 못했으므로 실패해야 함", result.passed);
-        assertEquals("미발견 상태 확인", "미발견", result.extractedValue);
+        assertFalse(result.passed, "패턴을 찾지 못했으므로 실패해야 함");
+        assertEquals("미발견", result.extractedValue, "미발견 상태 확인");
     }
     
     /**
@@ -119,8 +119,8 @@ public class LogAnalyzerTest {
         rule.stepName = "ProcessStep";
         RuleResult result = LogAnalyzer.evaluateRule("", lines, rule);
         
-        assertTrue("Rollback이 0이므로 통과해야 함", result.passed);
-        assertTrue("메트릭 정보가 포함되어야 함", result.extractedValue.contains("Rollback"));
+        assertTrue(result.passed, "Rollback이 0이므로 통과해야 함");
+        assertTrue(result.extractedValue.contains("Rollback"), "메트릭 정보가 포함되어야 함");
     }
     
     /**
@@ -140,9 +140,8 @@ public class LogAnalyzerTest {
         rule.stepName = "FailStep";
         RuleResult result = LogAnalyzer.evaluateRule("", lines, rule);
         
-        assertFalse("Rollback이 3이므로 실패해야 함", result.passed);
-        assertTrue("실패 메시지에 롤백 수가 포함되어야 함", 
-                result.message.contains("3"));
+        assertFalse(result.passed, "Rollback이 3이므로 실패해야 함");
+        assertTrue(result.message.contains("3"), "실패 메시지에 롤백 수가 포함되어야 함");
     }
     
     /**
@@ -151,17 +150,17 @@ public class LogAnalyzerTest {
     @Test
     public void testCheckResult_AddRuleResult() {
         CheckResult cr = new CheckResult("01", "job1", "Job One");
-        assertTrue("초기 상태: 통과", cr.overallPassed);
+        assertTrue(cr.overallPassed, "초기 상태: 통과");
         
         RuleResult pass = new RuleResult("Test 1", "SEARCH", true, "OK");
         cr.addRuleResult(pass);
-        assertTrue("통과 규칙 추가 후: 통과", cr.overallPassed);
+        assertTrue(cr.overallPassed, "통과 규칙 추가 후: 통과");
         
         RuleResult fail = new RuleResult("Test 2", "DISPLAY", false, "Failed");
         cr.addRuleResult(fail);
-        assertFalse("실패 규칙 추가 후: 실패", cr.overallPassed);
+        assertFalse(cr.overallPassed, "실패 규칙 추가 후: 실패");
         
-        assertEquals("규칙 2개 추가됨", 2, cr.ruleResults.size());
+        assertEquals(2, cr.ruleResults.size(), "규칙 2개 추가됨");
     }
     
     /**
@@ -174,9 +173,9 @@ public class LogAnalyzerTest {
         
         cr.markAsHoliday("Sunday");
         
-        assertTrue("비영업일 표시 후: 통과", cr.overallPassed);
-        assertTrue("비영업일 플래그 설정됨", cr.isHoliday);
-        assertEquals("비영업일 상세정보 저장됨", "Sunday", cr.holidayDetail);
+        assertTrue(cr.overallPassed, "비영업일 표시 후: 통과");
+        assertTrue(cr.isHoliday, "비영업일 플래그 설정됨");
+        assertEquals("Sunday", cr.holidayDetail, "비영업일 상세정보 저장됨");
     }
     
     /**
@@ -192,8 +191,8 @@ public class LogAnalyzerTest {
         rule.expectedCount = 2;
         RuleResult result = LogAnalyzer.evaluateRule(logText, lines, rule);
         
-        assertTrue("ERROR 패턴 2개 일치", result.passed);
-        assertEquals("추출값이 2건이어야 함", "2건", result.extractedValue);
+        assertTrue(result.passed, "ERROR 패턴 2개 일치");
+        assertEquals("2건", result.extractedValue, "추출값이 2건이어야 함");
     }
     
     /**
@@ -207,7 +206,7 @@ public class LogAnalyzerTest {
         Rule rule = new Rule("DISPLAY", "Total Processed", "COUNT_CHECK", "Total");
         RuleResult result = LogAnalyzer.evaluateRule(logText, lines, rule);
         
-        assertTrue("처리 성공", result.passed);
-        assertEquals("콤마를 포함한 숫자 추출", "1,234,567", result.extractedValue);
+        assertTrue(result.passed, "처리 성공");
+        assertEquals("1,234,567", result.extractedValue, "콤마를 포함한 숫자 추출");
     }
 }
