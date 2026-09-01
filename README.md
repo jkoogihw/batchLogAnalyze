@@ -2,6 +2,8 @@
 
 정책 기반 배치 로그 자동 분석 및 검증 도구
 
+**v1.1**: 역할별 클래스 분리 및 테스트 케이스 추가
+
 ## 프로젝트 구조
 
 ```
@@ -9,32 +11,136 @@ batchLogAnalyze/
 ├── src/
 │   ├── main/
 │   │   ├── java/com/batch/
-│   │   │   └── CheckLog.java       # 메인 프로그램
+│   │   │   ├── CheckLog.java           # 메인 프로그램 (Orchestration)
+│   │   │   ├── config/
+│   │   │   │   └── Config.java         # 설정 관리
+│   │   │   ├── policy/
+│   │   │   │   └── PolicyManager.java  # 정책 로드/파싱
+│   │   │   ├── analyzer/
+│   │   │   │   └── LogAnalyzer.java    # 로그 분석
+│   │   │   ├── extract/
+│   │   │   │   └── ValueExtractor.java # 값 추출
+│   │   │   ├── report/
+│   │   │   │   └── ReportGenerator.java# 리포트 생성
+│   │   │   └── model/
+│   │   │       ├── JobPolicy.java      # 정책 모델
+│   │   │       ├── Rule.java           # 규칙 모델
+│   │   │       ├── CheckResult.java    # 검증 결과
+│   │   │       ├── RuleResult.java     # 규칙 결과
+│   │   │       └── StepMetrics.java    # Step 통계
 │   │   └── resources/
 │   │       ├── application.properties  # 프로젝트 설정
-│   │       └── policy_meta.json       # 검증 정책 정의
-│   └── test/java/                      # 테스트 코드 (향후)
+│   │       └── policy_meta.json        # 검증 정책
+│   └── test/
+│       ├── java/com/batch/
+│       │   ├── extract/
+│       │   │   └── ValueExtractorTest.java
+│       │   ├── policy/
+│       │   │   └── PolicyManagerTest.java
+│       │   ├── analyzer/
+│       │   │   └── LogAnalyzerTest.java
+│       │   └── model/
+│       │       └── ModelTest.java
+│       └── resources/
+│           ├── application.properties       # 테스트 설정
+│           ├── policy_meta_test.json        # 테스트 정책
+│           └── sample_logs/                 # 샘플 로그 파일
+│               ├── test_job001_240901.log
+│               ├── test_job002_240901.log
+│               ├── test_job003_240901.log
+│               └── test_job004_240901.log
 ├── build.gradle                    # Gradle 빌드 설정
 ├── settings.gradle                 # Gradle 프로젝트 설정
-├── .gitignore                      # Git 무시 파일 설정
+├── .gitignore                      # Git 무시 파일
+├── gradlew                         # Gradle Wrapper
+├── policy_meta.json                # 프로덕션 정책 (원본)
 └── README.md                       # 이 파일
 ```
+
+## 역할별 클래스 설명
+
+### 핵심 기능 클래스
+
+| 클래스 | 역할 | 책임 |
+|-------|------|------|
+| **Config** | 설정 관리 | `application.properties` 로드, 환경 변수 관리 |
+| **PolicyManager** | 정책 관리 | JSON 파일 로드, 정책 파싱, 규칙 생성 |
+| **LogAnalyzer** | 분석 엔진 | 로그 파일 검증, 규칙 평가, 결과 생성 |
+| **ValueExtractor** | 값 추출 | SEARCH/DISPLAY/STEP_METRICS 값 추출 |
+| **ReportGenerator** | 리포트 생성 | 콘솔 출력, 마크다운 리포트 저장 |
+
+### 데이터 모델 클래스
+
+| 클래스 | 용도 |
+|-------|------|
+| **JobPolicy** | 각 JOB별 정책 정의 |
+| **Rule** | 개별 검증 규칙 |
+| **CheckResult** | JOB 검증 결과 |
+| **RuleResult** | 규칙별 검증 결과 |
+| **StepMetrics** | Spring Batch Step 통계 |
 
 ## 빌드 방법
 
 ### 1. 직접 컴파일 (권장)
 
 ```bash
-javac -encoding UTF-8 src/main/java/com/batch/CheckLog.java -d build/classes/main
+javac -encoding UTF-8 src/main/java/com/batch/*.java src/main/java/com/batch/**/*.java -d build/classes/main
 ```
 
 ### 2. Gradle 사용 (Gradle 8.9+, Java 11)
 
 ```bash
 gradle build
-# 또는
-./gradlew build
+gradle test     # 테스트 실행
 ```
+
+## 테스트 실행
+
+### 모든 테스트 실행
+
+```bash
+gradle test
+```
+
+### 특정 테스트 클래스만 실행
+
+```bash
+gradle test --tests ValueExtractorTest
+gradle test --tests PolicyManagerTest
+gradle test --tests LogAnalyzerTest
+gradle test --tests ModelTest
+```
+
+## 테스트 케이스
+
+### ValueExtractorTest (19개 테스트 케이스)
+- 단순 텍스트 매칭 건수 계산
+- 정규식 패턴 매칭
+- 값 추출 (콜론, 등호 포맷)
+- 멀티라인 텍스트 처리
+- 숫자 파싱 (콤마 포함)
+- Step 메트릭 파싱
+
+### PolicyManagerTest (11개 테스트 케이스)
+- JSON 정책 파싱 (단일, 다중)
+- 규칙 타입별 파싱 (SEARCH, DISPLAY, STEP_METRICS)
+- 비영업일 설정 파싱
+- Regex 필드 처리
+- 여러 규칙 파싱
+
+### LogAnalyzerTest (12개 테스트 케이스)
+- SEARCH 규칙 평가 (EQUALS_0, EQUALS_N, 정규식)
+- DISPLAY 규칙 평가 (EQUALS_0, ERROR_IF_PRESENT)
+- STEP_METRICS 규칙 평가
+- 비영업일 처리
+- CheckResult 상태 관리
+
+### ModelTest (10개 테스트 케이스)
+- 모든 데이터 모델 객체 생성 및 상태 확인
+- toString() 메서드 검증
+- 상태 변경 추적
+
+**총 52개 테스트 케이스**
 
 ## 실행 방법
 
@@ -51,8 +157,6 @@ java -cp build/classes/main com.batch.CheckLog 240901
 ## 설정 파일
 
 ### application.properties
-
-프로젝트의 주요 설정을 정의합니다:
 
 ```properties
 # Base folder path for batch logs
@@ -71,15 +175,39 @@ report.prefix=로그분석결과_
 file.encoding=UTF-8
 ```
 
-**수정 시 주의사항:**
-- `base.folder`: 배치 로그가 저장된 최상위 폴더 경로
-- `log.analysis.dir`: 정책 파일과 리포트가 저장될 하위 디렉토리명
-- `policy.meta.file`: 검증 정책 파일명 (기본값: policy_meta.json)
-
 ### policy_meta.json
 
 각 JOB별 검증 규칙을 JSON 형식으로 정의합니다.
-상세한 정책 작성 방법은 [로그분석정책.md](로그분석정책.md) 참조
+
+**예시:**
+```json
+[
+  {
+    "jobNo": "01",
+    "jobName": "smrmJob001",
+    "jobTitle": "SM RM Job001",
+    "filePrefix": "smrm_",
+    "holidayCheck": {
+      "pattern": "(Saturday|Sunday)"
+    },
+    "rules": [
+      {
+        "type": "SEARCH",
+        "target": "SUCCESS",
+        "condition": "COUNT_CHECK",
+        "description": "Success count"
+      },
+      {
+        "type": "DISPLAY",
+        "target": "Total Records",
+        "condition": "EQUALS_N",
+        "expectedCount": 100,
+        "description": "Total records"
+      }
+    ]
+  }
+]
+```
 
 ## 주요 기능
 
@@ -91,6 +219,8 @@ file.encoding=UTF-8
 - **비영업일 예외 처리**: 휴일 패턴 인식 및 자동 판정
 - **마크다운 리포트 생성**: 분석 결과를 마크다운 형식으로 저장
 - **콘솔 결과 출력**: 즉시 결과 확인 가능
+- **역할별 클래스 분리**: 유지보수 및 테스트 용이
+- **포괄적인 테스트**: 52개 테스트 케이스
 
 ## 출력 결과
 
@@ -101,6 +231,10 @@ file.encoding=UTF-8
 ================================================================================
 >> 분석 대상 폴더: D:\job\hw\배치로그\240901 (240901)
 >> 로드된 배치 정책 수: 17개 JOB
+
+=====================================================================
+ [240901] 배치로그 분석 종합 결과 요약
+=====================================================================
 ...
 ```
 
@@ -115,15 +249,26 @@ file.encoding=UTF-8
 
 - **언어**: Java 11
 - **빌드 도구**: Gradle 8.9
-- **패키지**: `com.batch`
+- **테스트 프레임워크**: JUnit 4.13.2
+- **패키지**: `com.batch.*`
 
-## 주요 클래스
+## 아키텍처 특징
 
-- `CheckLog`: 메인 프로그램, 로그 분석 및 리포트 생성
-- `JobPolicy`: 배치 JOB 검증 정책 모델
-- `Rule`: 개별 검증 규칙 정의
-- `CheckResult`: JOB 검증 결과
-- `RuleResult`: 개별 규칙 검증 결과
+### 1. 역할별 분리 (Separation of Concerns)
+각 클래스가 단일 책임만 수행하여 유지보수 용이
+
+### 2. 의존성 주입 패턴
+Config를 통한 중앙집중식 설정 관리
+
+### 3. 테스트 용이성
+- 개별 모듈을 독립적으로 테스트 가능
+- 테스트 리소스(정책, 로그) 별도 준비
+- Mock 없이 실제 데이터로 테스트
+
+### 4. 확장성
+- 새로운 규칙 타입 추가 용이
+- 새로운 리포트 포맷 추가 용이
+- 정책 파일만 수정하면 프로그램 재컴파일 불필요
 
 ## 정책 파일 필수 조건
 

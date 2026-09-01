@@ -1,0 +1,64 @@
+[
+  {
+    "jobNo": "01",
+    "jobName": "testJob001",
+    "jobTitle": "Test Job 001 - Basic SEARCH",
+    "filePrefix": "test_job001_",
+    "rawPattern": "test_001",
+    "rules": [
+      {
+        "type": "SEARCH",
+        "target": "SUCCESS",
+        "condition": "EQUALS_N",
+        "expectedCount": 1,
+        "description": "Success count should be 1"
+      }
+    ]
+  },
+  {
+    "jobNo": "02",
+    "jobName": "testJob002",
+    "jobTitle": "Test Job 002 - DISPLAY",
+    "filePrefix": "test_job002_",
+    "rules": [
+      {
+        "type": "DISPLAY",
+        "target": "Total Records",
+        "condition": "EQUALS_N",
+        "expectedCount": 100,
+        "description": "Total records should be 100"
+      }
+    ]
+  },
+  {
+    "jobNo": "03",
+    "jobName": "testJob003",
+    "jobTitle": "Test Job 003 - Holiday Check",
+    "filePrefix": "test_job003_",
+    "holidayCheck": {
+      "pattern": "(Saturday|Sunday|Holiday)"
+    },
+    "rules": [
+      {
+        "type": "SEARCH",
+        "target": "COMPLETED",
+        "condition": "COUNT_CHECK",
+        "description": "Completion status check"
+      }
+    ]
+  },
+  {
+    "jobNo": "04",
+    "jobName": "testJob004",
+    "jobTitle": "Test Job 004 - ERROR_IF_PRESENT",
+    "filePrefix": "test_job004_",
+    "rules": [
+      {
+        "type": "DISPLAY",
+        "target": "Skip Count",
+        "condition": "ERROR_IF_PRESENT",
+        "description": "Should have no skipped records"
+      }
+    ]
+  }
+]

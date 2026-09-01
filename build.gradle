@@ -20,6 +20,9 @@ repositories {
 }
 
 dependencies {
+    // 테스트
+    testImplementation 'junit:junit:4.13.2'
+    
     // JSON 파싱용 (선택사항)
     // implementation 'com.google.code.gson:gson:2.10.1'
 }
