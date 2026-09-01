@@ -44,6 +44,27 @@ tasks.withType(JavaCompile) {
 test {
     useJUnitPlatform()
     maxHeapSize = '2048m'
+
+    // 개별 테스트 이벤트 콘솔 출력 (성공/실패/스킵)
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+    }
+
+    // 테스트 스위트 완료 후 종합 통계 요약 출력
+    afterSuite { desc, result ->
+        if (!desc.parent) {
+            println "\n" + "=" * 75
+            println "  [ JUnit 5 Test Execution Summary ]"
+            println "=" * 75
+            println "  >> Total Tests : ${result.testCount} tests"
+            println "  >> PASSED      : ${result.successfulTestCount} tests"
+            println "  >> FAILED      : ${result.failedTestCount} tests"
+            println "  >> SKIPPED     : ${result.skippedTestCount} tests"
+            println "  >> Elapsed Time: ${(result.endTime - result.startTime) / 1000.0} sec"
+            println "=" * 75 + "\n"
+        }
+    }
 }
 
 jar {

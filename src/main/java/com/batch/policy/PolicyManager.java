@@ -1,75 +1,61 @@
 package com.batch.policy;
 
+import com.batch.config.Config;
 import com.batch.model.JobPolicy;
 import com.batch.model.Rule;
-import com.batch.config.Config;
+import com.batch.policy.loader.CompositePolicyLoader;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * 배치 정책 관리자
- * 
- * policy_meta.json 파일에서 JOB 정책을 로드하고 파싱합니다.
+ * =====================================================================================
+ * [배치 정책 관리자 (PolicyManager)]
+ * -------------------------------------------------------------------------------------
+ * 💡 OOP 리팩토링 포인트:
+ * 1. DIP (의존 역전 원칙) 준수:
+ *    - 정책 파일 로딩 책임을 PolicyLoader 인터페이스로 분리하여 유연한 주입(DI) 지원
+ * 2. SRP (단일 책임 원칙) 준수:
+ *    - 데이터 로딩은 PolicyLoader가, 파싱 및 인메모리 관리는 PolicyManager가 담당
+ * =====================================================================================
  */
 public class PolicyManager {
-    
+
+    private final PolicyLoader policyLoader;
     private List<JobPolicy> policies;
 
     public PolicyManager() {
+        this(new CompositePolicyLoader());
+    }
+
+    public PolicyManager(PolicyLoader policyLoader) {
+        this.policyLoader = policyLoader != null ? policyLoader : new CompositePolicyLoader();
         this.policies = new ArrayList<>();
     }
 
     /**
-     * 정책 파일 로드
+     * 설정에 따른 정책 파일 로드
      */
     public void loadPolicies() {
         String baseFolder = Config.get("base.folder", ".");
         String logAnalysisDir = Config.get("log.analysis.dir", "_로그분석");
         String policyFile = Config.get("policy.meta.file", "policy_meta.json");
-        
-        String metaPath = baseFolder + File.separator + logAnalysisDir + File.separator + policyFile;
-        File metaFile = new File(metaPath);
-        
-        String json = null;
-        if (metaFile.exists()) {
-            try {
-                json = Files.readString(metaFile.toPath(), StandardCharsets.UTF_8);
-            } catch (IOException e) {
-                throw new RuntimeException("정책 파일 로드 실패: " + e.getMessage(), e);
-            }
-        } else {
-            // Fallback 1: 클래스패스 리소스 확인 (src/main/resources/policy_meta.json)
-            try (InputStream is = getClass().getClassLoader().getResourceAsStream(policyFile)) {
-                if (is != null) {
-                    json = new String(is.readAllBytes(), StandardCharsets.UTF_8);
-                }
-            } catch (IOException ignored) {}
 
-            // Fallback 2: 프로젝트 루트 경로 확인
-            if (json == null) {
-                File localRootFile = new File(policyFile);
-                if (localRootFile.exists()) {
-                    try {
-                        json = Files.readString(localRootFile.toPath(), StandardCharsets.UTF_8);
-                    } catch (IOException ignored) {}
-                }
-            }
-        }
-        
+        String metaPath = baseFolder + File.separator + logAnalysisDir + File.separator + policyFile;
+
+        // PolicyLoader에 로딩 위임 (외부 경로 -> 클래스패스 -> 루트 순차 탐색)
+        String json = policyLoader.load(metaPath);
+
         if (json == null || json.isEmpty()) {
             throw new RuntimeException(
                     "정책 메타데이터 파일이 존재하지 않습니다: " + metaPath + 
                     "\napplication.properties에서 경로 설정을 확인하거나 policy_meta.json 파일을 확인하세요.");
         }
-        
+
         this.policies = parseJsonPolicies(json);
         if (policies.isEmpty()) {
             throw new RuntimeException("정책 파일에서 유효한 정책을 찾을 수 없습니다: " + metaPath);
@@ -85,7 +71,7 @@ public class PolicyManager {
                 "\\{\\s*\"jobNo\"\\s*:\\s*\"([^\"]+)\"\\s*,\\s*\"jobName\"\\s*:\\s*\"([^\"]+)\"\\s*," +
                 "\\s*\"jobTitle\"\\s*:\\s*\"([^\"]+)\"\\s*,\\s*\"filePrefix\"\\s*:\\s*\"([^\"]+)\"(.*?)" +
                 "\"rules\"\\s*:\\s*\\[(.*?)\\]\\s*\\}", Pattern.DOTALL);
-        
+
         Matcher m = jobPattern.matcher(json);
 
         while (m.find()) {
@@ -98,39 +84,17 @@ public class PolicyManager {
             String mid = m.group(5);
             jp.rawPattern = extractJsonField(mid, "rawPattern");
 
-            // 비영업일 설정 파싱
-            if (mid.contains("\"holidayCheck\"")) {
-                Matcher hm = Pattern.compile("\"pattern\"\\s*:\\s*\"([^\"]+)\"").matcher(mid);
+            if (mid != null && mid.contains("holidayCheck")) {
+                Pattern holidayPat = Pattern.compile("\"holidayCheck\"\\s*:\\s*\\{[^}]*\"pattern\"\\s*:\\s*\"([^\"]+)\"");
+                Matcher hm = holidayPat.matcher(mid);
                 if (hm.find()) {
                     jp.holidayPattern = hm.group(1).replace("\\\\", "\\");
                 }
             }
 
-            // 규칙 파싱
-            String rulesJson = m.group(6);
-            Pattern rPat = Pattern.compile("\\{(.*?)\\}", Pattern.DOTALL);
-            Matcher rm = rPat.matcher(rulesJson);
-            
-            while (rm.find()) {
-                String rBlock = rm.group(1);
-                Rule r = new Rule();
-                r.type = extractJsonField(rBlock, "type");
-                r.target = extractJsonField(rBlock, "target");
-                if (r.target != null) r.target = r.target.replace("\\n", "\n");
-                r.regex = extractJsonField(rBlock, "regex");
-                if (r.regex != null) r.regex = r.regex.replace("\\\\", "\\");
-                r.stepName = extractJsonField(rBlock, "stepName");
-                r.condition = extractJsonField(rBlock, "condition");
-                r.description = extractJsonField(rBlock, "description");
-                
-                String exp = extractJsonField(rBlock, "expectedCount");
-                if (exp != null && !exp.isEmpty()) {
-                    try { 
-                        r.expectedCount = Integer.parseInt(exp); 
-                    } catch (NumberFormatException ignored) {}
-                }
-                jp.rules.add(r);
-            }
+            String rulesBlock = m.group(6);
+            jp.rules = parseRules(rulesBlock);
+
             list.add(jp);
         }
 
@@ -138,46 +102,73 @@ public class PolicyManager {
     }
 
     /**
-     * JSON 필드 값 추출
+     * 단일 문자열 필드 추출 헬퍼
      */
-    private static String extractJsonField(String block, String key) {
-        // 문자열 값
-        Pattern p = Pattern.compile("\"" + key + "\"\\s*:\\s*\"([^\"]*)\"");
-        Matcher m = p.matcher(block);
-        if (m.find()) return m.group(1);
-
-        // 숫자 값
-        Pattern pNum = Pattern.compile("\"" + key + "\"\\s*:\\s*([0-9]+)");
-        Matcher mNum = pNum.matcher(block);
-        if (mNum.find()) return mNum.group(1);
-
+    private static String extractJsonField(String jsonBlock, String fieldName) {
+        if (jsonBlock == null) return null;
+        Pattern p = Pattern.compile("\"" + fieldName + "\"\\s*:\\s*\"([^\"]+)\"");
+        Matcher m = p.matcher(jsonBlock);
+        if (m.find()) {
+            return m.group(1).replace("\\\\", "\\");
+        }
         return null;
     }
 
     /**
-     * 로드된 정책 목록 조회
+     * Rules JSON 블록 파싱
      */
-    public List<JobPolicy> getPolicies() {
-        if (policies.isEmpty()) {
-            loadPolicies();
+    private static List<Rule> parseRules(String rulesBlock) {
+        List<Rule> rules = new ArrayList<>();
+        if (rulesBlock == null || rulesBlock.trim().isEmpty()) {
+            return rules;
         }
-        return policies;
+
+        Pattern rulePattern = Pattern.compile("\\{([^}]+)\\}");
+        Matcher rm = rulePattern.matcher(rulesBlock);
+
+        while (rm.find()) {
+            String ruleContent = rm.group(1);
+            Rule rule = new Rule();
+
+            rule.type = extractField(ruleContent, "type");
+            rule.target = extractField(ruleContent, "target");
+            rule.condition = extractField(ruleContent, "condition");
+            rule.description = extractField(ruleContent, "description");
+            rule.regex = extractField(ruleContent, "regex");
+            rule.stepName = extractField(ruleContent, "stepName");
+
+            String expectedCountStr = extractNumberField(ruleContent, "expectedCount");
+            if (expectedCountStr != null) {
+                try {
+                    rule.expectedCount = Integer.parseInt(expectedCountStr);
+                } catch (NumberFormatException ignored) {}
+            }
+
+            rules.add(rule);
+        }
+
+        return rules;
     }
 
-    /**
-     * 특정 JOB 정책 조회
-     */
-    public JobPolicy getPolicyByJobName(String jobName) {
-        return policies.stream()
-                .filter(p -> p.jobName.equals(jobName))
-                .findFirst()
-                .orElse(null);
+    private static String extractField(String block, String fieldName) {
+        Pattern p = Pattern.compile("\"" + fieldName + "\"\\s*:\\s*\"([^\"]*)\"");
+        Matcher m = p.matcher(block);
+        if (m.find()) {
+            return m.group(1).replace("\\\\", "\\");
+        }
+        return null;
     }
 
-    /**
-     * 정책 개수
-     */
-    public int getPolicyCount() {
-        return policies.size();
+    private static String extractNumberField(String block, String fieldName) {
+        Pattern p = Pattern.compile("\"" + fieldName + "\"\\s*:\\s*(\\d+)");
+        Matcher m = p.matcher(block);
+        if (m.find()) {
+            return m.group(1);
+        }
+        return null;
+    }
+
+    public List<JobPolicy> getPolicies() {
+        return Collections.unmodifiableList(policies);
     }
 }

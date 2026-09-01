@@ -53,6 +53,48 @@ Spring Boot `2.3.12.RELEASE`의 전용 Gradle 플러그인(`org.springframework.
 2. `dependencies` 블록에 Spring Boot 및 Spring 5.2.22 라이브러리를 명시적으로 선언하여 프레임워크 기능은 100% 활용하면서 Gradle 8.x 빌드 호환성을 완벽하게 확보.
 3. `test { useJUnitPlatform() }`을 통해 Gradle의 네이티브 JUnit 5 실행 엔진을 활성화.
 
+#### 🏗️ 빌드 의존성 구조 다이어그램 (텍스트 뷰)
+```
+┌──────────────────────────────────────────────────────────────────────────────────────────┐
+│                            Gradle 8.13 빌드 런타임 (JVM 11)                                │
+├──────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                          │
+│  [ Gradle Plugins ]                                                                      │
+│   ├─▶ java (Java 11 컴파일 & 소스셋 관리)                                                   │
+│   └─▶ application (Main-Class: com.batch.CheckLog 실행 관리)                               │
+│                                                                                          │
+│  [ Dependencies (의존성 명시적 선언) ]                                                        │
+│   ├─▶ spring-boot-starter / spring-boot-starter-web (2.3.12.RELEASE)                     │
+│   ├─▶ spring-core / spring-web (5.2.22.RELEASE)                                          │
+│   └─▶ spring-boot-starter-test (2.3.12.RELEASE)                                          │
+│        └─▶ [ Exclude ] junit-vintage-engine (JUnit 4 의존성 완전 차단)                     │
+│                                                                                          │
+│  [ Test Execution Engine ]                                                               │
+│   └─▶ useJUnitPlatform() ──▶ [ JUnit Jupiter 5.7.2 Engine ]                              │
+│                                                                                          │
+└──────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+#### 📊 빌드 의존성 흐름도 (Mermaid 그래픽 뷰)
+```mermaid
+flowchart TB
+    subgraph GradleBuild["Gradle 8.13 빌드 런타임 (Java 11)"]
+        direction TB
+        PLUGINS["표준 플러그인<br/>(java, application)"]
+        DEPS["명시적 의존성 선언<br/>(Spring Boot 2.3.12 & Spring 5.2.22)"]
+        TEST_RUNNER["test { useJUnitPlatform() }<br/>(maxHeapSize = '2048m')"]
+    end
+
+    subgraph TestRuntime["테스트 런타임 (JUnit 5 Platform)"]
+        JUPITER["JUnit Jupiter 5.7.2<br/>(테스트 실행)"]
+        VINTAGE["JUnit Vintage Engine<br/>❌ EXCLUDED (제거됨)"]
+    end
+
+    PLUGINS --> DEPS
+    DEPS --> TEST_RUNNER
+    TEST_RUNNER --> JUPITER
+```
+
 ---
 
 ## 4. 코드 단계별 전환 전략 (Code-Level Migration)
@@ -163,18 +205,49 @@ jar {
 
 `CheckLog.java`에 4대 폴더 해석 조건을 구현하여 다양한 실행 환경(로컬 개발, 테스트 자동화, 운영 배치)에 대응했습니다:
 
+#### 📁 폴더 결정 의사결정 다이어그램 (텍스트 뷰)
+```
+┌──────────────────────────────────────────────────────────────────────────────────────────┐
+│                      logFileSrc 실행 파라미터 수신                                         │
+└────────────────────────────────────────┬─────────────────────────────────────────────────┘
+                                         │
+                                         ▼
+                 ┌───────────────────────────────────────────────┐
+                 │  6자리 날짜 포맷 (\d{6}) 인가?                │
+                 └───────┬───────────────────────────────┬───────┘
+                         │ (Yes - 조건 4)                │ (No)
+                         ▼                               ▼
+     ┌───────────────────────────────────────┐ ┌───────────────────────────────────────────┐
+     │ base.folder 하위의 해당 날짜 폴더 탐색│ │ 지정 경로에 .log 파일이 직접 존재하는가?  │
+     └───────────────────────────────────────┘ └───────┬───────────────────────────┬───────┘
+                                                       │ (Yes - 조건 1)            │ (No)
+                                                       ▼                           ▼
+                                   ┌─────────────────────────┐ ┌───────────────────────────┐
+                                   │ 해당 폴더 대상 정상 분석│ │ 하위에 \d{6} 서브폴더가   │
+                                   └─────────────────────────┘ │ 존재하는가?               │
+                                                               └───────┬───────────┬───────┘
+                                                                       │ (Yes - 조건 2)  │ (No)
+                                                                       ▼                 ▼
+                                                   ┌─────────────────────────┐ ┌───────────┐
+                                                   │ 가장 최신 날짜 폴더의   │ │ [조건 3]  │
+                                                   │ .log 파일 대상 분석     │ │ 분석 실패 │
+                                                   └─────────────────────────┘ │ FAIL 생성 │
+                                                                               └───────────┘
+```
+
+#### 📊 폴더 결정 흐름도 (Mermaid 그래픽 뷰)
 ```mermaid
-graph TD
-    A[프로그램 실행: logFileSrc 인자 수신] --> B{6자리 날짜 포맷 \d{6} 인가?}
-    B -- 예 (조건 4) --> C[base.folder 하위의 해당 날짜 폴더 탐색]
-    B -- 아니오 --> D{지정 폴더에 .log 파일이 직접 존재하는가?}
-    D -- 예 (조건 1) --> E[해당 폴더를 대상 폴더로 확정 및 정상 분석]
-    D -- 아니오 --> F{지정 폴더 하위에 \d{6} 날짜 폴더가 존재하는가?}
-    F -- 예 (조건 2) --> G[가장 최신 날짜 폴더의 .log 파일 탐색]
-    G --> H{최신 날짜 폴더에 로그 파일이 있는가?}
-    H -- 예 --> E
-    H -- 아니오 --> I[조건 3: 분석 실패 FAIL 결과 파일 생성]
-    F -- 아니오 (조건 3) --> I
+flowchart TD
+    A["프로그램 실행: logFileSrc 인자 수신"] --> B{"6자리 날짜 포맷(\\d{6}) 인가?"}
+    B -- "예 (조건 4)" --> C["base.folder 하위의 해당 날짜 폴더 탐색"]
+    B -- "아니오" --> D{"지정 폴더에 .log 파일이 직접 존재하는가?"}
+    D -- "예 (조건 1)" --> E["해당 폴더를 대상 폴더로 확정 및 정상 분석"]
+    D -- "아니오" --> F{"지정 폴더 하위에 \\d{6} 날짜 폴더가 존재하는가?"}
+    F -- "예 (조건 2)" --> G["가장 최신 날짜 폴더의 .log 파일 탐색"]
+    G --> H{"최신 날짜 폴더에 로그 파일이 있는가?"}
+    H -- "예" --> E
+    H -- "아니오" --> I["조건 3: 분석 실패 FAIL 결과 파일 생성"]
+    F -- "아니오 (조건 3)" --> I
 ```
 
 ---
@@ -195,6 +268,51 @@ $$\text{JUnit 5} = \text{JUnit Platform} + \text{JUnit Jupiter} + \text{JUnit Vi
 - **JUnit Platform**: JVM에서 테스트 프레임워크를 실행하기 위한 기반 엔진 (IDE, Gradle, Maven 연동).
 - **JUnit Jupiter**: JUnit 5 스타일의 새로운 프로그래밍 모델 및 확장팩(Extension).
 - **JUnit Vintage**: JUnit 3, 4 기반 테스트를 JUnit Platform 위에서 하위 호환 실행하기 위한 엔진.
+
+#### 🏛️ JUnit 5 아키텍처 다이어그램 (텍스트 뷰)
+```
+┌──────────────────────────────────────────────────────────────────────────────────────────┐
+│                            JUnit 5 차세대 3계층 아키텍처                                    │
+├──────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                          │
+│  [ Execution Layer ]      IntelliJ IDEA / VS Code / Gradle / Maven                       │
+│                                           │                                              │
+│                                           ▼                                              │
+│  [ Foundation Engine ]              JUnit Platform                                       │
+│                                           │                                              │
+│                                           ├─────────────────────────┐                    │
+│                                           ▼                         ▼                    │
+│  [ Programming Model ]              JUnit Jupiter             JUnit Vintage              │
+│                                  (JUnit 5 네이티브 API)     (JUnit 3/4 하위호환)          │
+│                                  - @Test / @BeforeAll       - @org.junit.Test            │
+│                                  - Assertions.assertAll     - junit:junit 4.x            │
+│                                  - @DisplayName             ❌ (본 프로젝트 제외)        │
+│                                                                                          │
+└──────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
+#### 📊 JUnit 5 아키텍처 흐름도 (Mermaid 그래픽 뷰)
+```mermaid
+flowchart TB
+    subgraph ClientLayer["실행 클라이언트 계층 (Clients)"]
+        IDE["IDE (VS Code, IntelliJ)"]
+        BUILD["빌드 도구 (Gradle, Maven)"]
+    end
+
+    subgraph PlatformLayer["플랫폼 계층 (Foundation)"]
+        PLATFORM["JUnit Platform (테스트 발견 및 실행 엔진)"]
+    end
+
+    subgraph EngineLayer["테스트 엔진 계층 (Engines)"]
+        JUPITER["JUnit Jupiter Engine<br/>(JUnit 5 최신 프로그래밍 모델)"]
+        VINTAGE["JUnit Vintage Engine<br/>(JUnit 3/4 레거시 호환 런타임)<br/>❌ Excluded (제외됨)"]
+    end
+
+    IDE --> PLATFORM
+    BUILD --> PLATFORM
+    PLATFORM --> JUPITER
+    PLATFORM -.->|제외| VINTAGE
+```
 
 ```java
 // [JUnit 4 스타일]
