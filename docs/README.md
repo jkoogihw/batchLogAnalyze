@@ -20,3 +20,8 @@
 
 3. [**배치로그 분석 정책 명세서 (로그분석정책.md)**](./%EB%A1%9C%EA%B7%B8%EB%B6%84%EC%84%9D%EC%A0%95%EC%B1%85.md)
    - 17개 배치 JOB (01~17)별 점검 항목, 정규식/검색 키워드 및 판정 기준 정의
+
+4. [**내부망 환경 프로젝트 이관 및 Eclipse 설정 가이드 (내부망_환경_프로젝트_이관_및_설정_가이드.md)**](./%EB%82%B4%EB%B6%80%EB%A7%9D_%ED%99%98%EA%B2%BD_%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8_%EC%9D%B4%EA%B4%80_%EB%B0%8F_%EC%84%A4%EC%A0%95_%EA%B0%80%EC%9D%B4%EB%93%9C.md)
+   - GitHub 소스 다운로드부터 로컬 `libs/` 추출, Gradle 오프라인/Wrapper 설정
+   - Eclipse Buildship 및 Java Project Import, Gradle Tasks `application` 활성화
+   - 내부망 환경 트러블슈팅 및 67개 테스트/실행 검증 체크리스트

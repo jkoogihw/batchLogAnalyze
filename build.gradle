@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'eclipse'
 }
 
 group = 'com.batch'
@@ -11,30 +12,49 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
+// Gradle 6.x ~ 8.x 및 Eclipse 호환 Main Class 설정
+mainClassName = 'com.batch.CheckLog'
+
 application {
-    mainClass = 'com.batch.CheckLog'
+    mainClassName = 'com.batch.CheckLog'
 }
 
+// 내부망 / 오프라인 환경: 로컬 libs 디렉토리 설정
 repositories {
-    mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
 }
 
 dependencies {
-    // Spring Boot & Spring Web (2.3.12.RELEASE)
-    implementation 'org.springframework.boot:spring-boot-starter:2.3.12.RELEASE'
-    implementation 'org.springframework.boot:spring-boot-starter-web:2.3.12.RELEASE'
-    
-    // Spring Core / Web (5.2.22.RELEASE)
-    implementation 'org.springframework:spring-core:5.2.22.RELEASE'
-    implementation 'org.springframework:spring-web:5.2.22.RELEASE'
-    
-    // Test dependencies (Spring Boot Starter Test 2.3.12 with Vintage excluded & JUnit 5 Jupiter 5.7.2)
-    testImplementation('org.springframework.boot:spring-boot-starter-test:2.3.12.RELEASE') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    // libs 디렉토리 내의 모든 jar 라이브러리 참조
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+// 필요 시 캐시에서 libs 폴더로 jar를 추출하는 유틸리티 태스크
+task copyLibs(type: Copy) {
+    from configurations.runtimeClasspath
+    from configurations.testRuntimeClasspath
+    into 'libs'
+}
+
+eclipse {
+    classpath {
+        file {
+            whenMerged { classpath ->
+                classpath.entries.each { entry ->
+                    if (entry.kind == 'lib') {
+                        // 내부망 이관 시 절대경로 깨짐 방지를 위해 상대경로(libs/xxx.jar)로 치환
+                        def normalizedPath = entry.path.replace('\\', '/')
+                        if (normalizedPath.contains('/libs/')) {
+                            entry.path = 'libs/' + normalizedPath.substring(normalizedPath.lastIndexOf('/') + 1)
+                        }
+                    }
+                }
+            }
+        }
     }
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.7.2'
-    testImplementation 'org.junit.platform:junit-platform-commons:1.7.2'
-    testImplementation 'org.junit.platform:junit-platform-launcher:1.7.2'
 }
 
 tasks.withType(JavaCompile) {
