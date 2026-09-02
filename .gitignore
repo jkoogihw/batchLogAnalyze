@@ -1,61 +1,88 @@
-# Gradle
-.gradle/
-build/
-gradle-app.setting
-!gradle-wrapper.jar
+# ==============================================================================
+# Eclipse IDE Specific Configuration & Ignores
+# ==============================================================================
+# Eclipse Compiled Class Output Directories
+/bin/
+bin/default/
+bin/main/
+bin/test/
+/out/
+/dist/
+
+# Eclipse Workspace & Local Cache
+.metadata/
+.recommenders/
+.sts4-cache/
 .gradletasknamecache
+.factorypath
+.apt_generated/
+.apt_generated_tests/
+.externalToolBuilders/
+.loadpath
 
-# Maven / Target
-target/
+# Eclipse Settings: Only track project-wide JDT compiler preferences
+.settings/*
+!.settings/org.eclipse.jdt.core.prefs
 
-# Batch Analysis Output & Generated Reports
-/report/
-/_analysis/
-/_로그분석/
-로그분석결과_*.md
+# Eclipse Shared Run Configurations (Keep shared launch files, ignore personal ones)
+*.launch
+!/CheckLog.launch
+!/CheckLogTest.launch
 
-# Logs & Temporary Files
-*.log
-!src/test/resources/**/*.log
+# (Note: .project and .classpath are tracked for offline air-gapped network import)
 
-# IDE - Include Eclipse project files for offline IDE import
+# ==============================================================================
+# IntelliJ IDEA & VS Code Ignores
+# ==============================================================================
 .idea/
 .vscode/
 *.iml
 *.iws
 *.ipr
-# .classpath, .project, .settings are included for offline Eclipse import
 
-# Compiled files & Archives
+# ==============================================================================
+# Gradle & Maven Build Artifacts
+# ==============================================================================
+.gradle/
+build/
+target/
+gradle-app.setting
+
+# ==============================================================================
+# JAR & Library Handling (Include offline libs & wrapper)
+# ==============================================================================
 *.class
+*.jar
 *.war
 *.nar
 *.ear
 *.zip
 *.tar.gz
 *.rar
-
-# JAR handling: ignore general jars but include libs/ and wrapper
-*.jar
 !/gradle/wrapper/*.jar
 !/libs/*.jar
 
-# System
+# ==============================================================================
+# Batch Analysis Output & Logs
+# ==============================================================================
+/report/
+/_analysis/
+/_로그분석/
+로그분석결과_*.md
+*.log
+!src/test/resources/**/*.log
+
+# ==============================================================================
+# Operating System & Temporary Files
+# ==============================================================================
 .DS_Store
 Thumbs.db
+ehthumbs.db
 *.swp
 *.swo
 *~
-
-# Runtime
-/bin/
-/out/
-/dist/
-
-# OS
 .AppleDouble
 .LSOverride
 ._*
 .Spotlight-V100
 .Trashes
-ehthumbs.db
