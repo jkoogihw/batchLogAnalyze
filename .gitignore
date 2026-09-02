@@ -18,25 +18,27 @@ target/
 *.log
 !src/test/resources/**/*.log
 
-# IDE
+# IDE - Include Eclipse project files for offline IDE import
 .idea/
 .vscode/
 *.iml
 *.iws
 *.ipr
-.classpath
-.project
-.settings/
+# .classpath, .project, .settings are included for offline Eclipse import
 
-# Compiled files
+# Compiled files & Archives
 *.class
-*.jar
 *.war
 *.nar
 *.ear
 *.zip
 *.tar.gz
 *.rar
+
+# JAR handling: ignore general jars but include libs/ and wrapper
+*.jar
+!/gradle/wrapper/*.jar
+!/libs/*.jar
 
 # System
 .DS_Store
