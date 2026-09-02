@@ -25,3 +25,8 @@
    - GitHub 소스 다운로드부터 로컬 `libs/` 추출, Gradle 오프라인/Wrapper 설정
    - Eclipse Buildship 및 Java Project Import, Gradle Tasks `application` 활성화
    - 내부망 환경 트러블슈팅 및 67개 테스트/실행 검증 체크리스트
+
+5. [**내부망 추가 보안대응 및 Eclipse 완전 자립형 구성 보고서 (내부망_추가보안대응_및_Eclipse_완전자립형_구성보고서.md)**](./%EB%82%B4%EB%B6%80%EB%A7%9D_%EC%B6%94%EA%B0%80%EB%B3%B4%EC%95%88%EB%8C%80%EC%9D%91_%EB%B0%8F_Eclipse_%EC%99%84%EC%A0%84%EC%9E%90%EB%A6%BD%ED%98%95_%EA%B5%AC%EC%84%B1%EB%B3%B4%EA%B3%A0%EC%84%9C.md)
+   - PowerShell(.ps1) 및 CLI(java/javac) 차단 환경 대응 내역
+   - `.classpath` 상대경로화, Eclipse Launch 설정(.launch) 사전 동봉
+   - Git 저장소 자산 완전 내장화(61개 JAR 커밋) 및 IDE별 `.gitignore` 정돈 내역
