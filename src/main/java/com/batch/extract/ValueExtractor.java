@@ -106,6 +106,11 @@ public class ValueExtractor {
             }
         }
 
+        // 5. 오류문자열 미확인 처리
+        if("ERROR_IF_PRESENT".equalsIgnoreCase(rule.condition)){
+            return "0";
+        }
+
         return null;
     }
 
