@@ -1,0 +1,221 @@
+ip-10-237-6-165.ap-northeast-2.compute.internal
+PARAMETER=--job.name=smpmJob203 -message=hello, world jobDate=20260902
+No Active GA_CODE set. falling back to default GA_CODE: default
+APPLICATION_PATH=/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar
+SPRING_PROFILES_ACTIVE=main,lazyload
+PARAMETER=--job.name=smpmJob203 -message=hello, world jobDate=20260902
+_JAVA_OPTIONS= -Dfile.encoding=UTF-8
+Picked up _JAVA_OPTIONS:  -Dfile.encoding=UTF-8
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/logback-classic-1.2.11.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/log4j-slf4j-impl-2.13.3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [ch.qos.logback.classic.util.ContextSelectorStaticBinder]
+2026-09-02 01:00:10.332 INFO  [Version.java:21 - <clinit>] HV000001: Hibernate Validator 6.1.7.Final
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.codehaus.groovy.reflection.CachedClass (jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/groovy-2.5.14.jar!/) to method java.lang.Object.finalize()
+WARNING: Please consider reporting this to the maintainers of org.codehaus.groovy.reflection.CachedClass
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2026-09-02 01:00:15.451 INFO  [EnableEncryptablePropertiesBeanFactoryPostProcessor.java:39 - postProcessBeanFactory] Post-processing PropertySource instances
+2026-09-02 01:00:15.782 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource configurationProperties [org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource] to AOP Proxy
+2026-09-02 01:00:15.783 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrap [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-02 01:00:15.783 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource commandLineArgs [org.springframework.core.env.SimpleCommandLinePropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-02 01:00:15.783 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource systemProperties [org.springframework.core.env.PropertiesPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-02 01:00:15.783 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableSystemEnvironmentPropertySourceWrapper
+2026-09-02 01:00:15.783 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
+2026-09-02 01:00:15.784 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource springCloudClientHostInfo [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-02 01:00:15.784 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource applicationConfig: [classpath:/bootstrap.yml] [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-02 01:00:15.784 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource kafkaBinderDefaultProperties [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-02 01:00:16.478 INFO  [DefaultLazyPropertyFilter.java:31 - lambda$null$2] Property Filter custom Bean not found with name 'encryptablePropertyFilter'. Initializing Default Property Filter
+2026-09-02 01:00:16.624 INFO  [DefaultLazyPropertyResolver.java:35 - lambda$null$2] Property Resolver custom Bean not found with name 'encryptablePropertyResolver'. Initializing Default Property Resolver
+2026-09-02 01:00:16.633 INFO  [DefaultLazyPropertyDetector.java:35 - lambda$null$2] Property Detector custom Bean not found with name 'encryptablePropertyDetector'. Initializing Default Property Detector
+    ____            ____           ____              __
+   / __ /___ _   __/ __ /____     / __ )____  ____  / /_
+  / / / / _ / | / / / / / __ /   / __  / __ // __ // __/
+ / /_/ /  __/ |/ / /_/ / / / /  / /_/ / /_/ / /_/ //_
+/_____/ ___/|___//____/_/ /_/  /_____//____//____//__/ 
+ :: DevOn Boot ::   
+ :: Embedded LENA :: v1.3.1.2
+
+2026-09-02 01:00:26.606 INFO  [PropertySourceBootstrapConfiguration.java:112 - initialize] Located property source: [BootstrapPropertySource {name='bootstrapProperties-/ospp/batch_main/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/batch_lazyload/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/batch/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/application_main/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/application_lazyload/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/application/'}]
+2026-09-02 01:00:26.892 INFO  [SpringApplication.java:652 - logStartupProfileInfo] The following profiles are active: main,lazyload
+2026-09-02 01:00:47.391 INFO  [CommonDaoOnSingleCondition.java:54 - sqlSessionTypeMatches] dataSourceType is not single
+2026-09-02 01:00:58.451 INFO  [RepositoryConfigurationDelegate.java:249 - multipleStoresDetected] Multiple Spring Data modules found, entering strict repository configuration mode!
+2026-09-02 01:00:58.480 INFO  [RepositoryConfigurationDelegate.java:127 - registerRepositoriesIn] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-09-02 01:00:58.822 INFO  [RepositoryConfigurationDelegate.java:187 - registerRepositoriesIn] Finished Spring Data repository scanning in 288ms. Found 0 Redis repository interfaces.
+2026-09-02 01:01:14.751 INFO  [GenericScope.java:295 - setSerializationId] BeanFactory id=bf21df6d-a3d8-3d8f-b3ae-2a9c101d8cf7
+2026-09-02 01:01:17.429 INFO  [EnableEncryptablePropertiesBeanFactoryPostProcessor.java:39 - postProcessBeanFactory] Post-processing PropertySource instances
+2026-09-02 01:01:17.429 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/batch_main/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-02 01:01:17.431 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/batch_lazyload/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+... [TRIMMED 19 LINES] ...
+2026-09-02 01:05:15.390 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"prodId":0,"pdgrId":"84041501020906202610","isrnCmpyDvsnCode":"L","isrnCmpyCode":"L01","prodNm":"무배당 비과세근로자우대저축보험3년만기","summProdNm":"(무)근로자우대","prodAbrvNm":"무배당비과세근로자우대저축보험3년만기","pdgrMdcfCode":"A4000","saleStarDate":"2001-05-01 00:00:00","saleEndDate":"9999-12-31 00:00:00","useYn":"Y","prodCmprTrgtYn":"Y","cpcpProdCode":"1158012","cpcpPdgrMdcfCode":"A4000","rgstPrgmId":"smpmJob203","lastChngPrgmId":"smpmJob203"}
+2026-09-02 01:05:15.585 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0601.updateHliProduct */
+
+... [TRIMMED 3 LINES] ...
+2026-09-02 01:05:15.635 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"prodId":0,"pdgrId":"43651501020906202264","isrnCmpyDvsnCode":"L","isrnCmpyCode":"L01","prodNm":"무배당 비과세근로자우대저축보험4년만기","summProdNm":"(무)근로자우대","prodAbrvNm":"무배당비과세근로자우대저축보험4년만기","pdgrMdcfCode":"A4000","saleStarDate":"2001-05-01 00:00:00","saleEndDate":"9999-12-31 00:00:00","useYn":"Y","prodCmprTrgtYn":"Y","cpcpProdCode":"1158014","cpcpPdgrMdcfCode":"A4000","rgstPrgmId":"smpmJob203","lastChngPrgmId":"smpmJob203"}
+2026-09-02 01:05:15.639 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0601.updateHliProduct */
+
+... [TRIMMED 3 LINES] ...
+2026-09-02 01:05:15.670 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"prodId":0,"pdgrId":"96651501020906202427","isrnCmpyDvsnCode":"L","isrnCmpyCode":"L01","prodNm":"무배당 비과세근로자우대저축보험5년만기","summProdNm":"(무)근로자우대","prodAbrvNm":"무배당비과세근로자우대저축보험5년만기","pdgrMdcfCode":"A4000","saleStarDate":"2001-05-01 00:00:00","saleEndDate":"9999-12-31 00:00:00","useYn":"Y","prodCmprTrgtYn":"Y","cpcpProdCode":"1158016","cpcpPdgrMdcfCode":"A4000","rgstPrgmId":"smpmJob203","lastChngPrgmId":"smpmJob203"}
+2026-09-02 01:05:15.672 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0601.updateHliProduct */
+
+... [TRIMMED 3 LINES] ...
+2026-09-02 01:05:15.695 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"prodId":0,"pdgrId":"39651501020906202225","isrnCmpyDvsnCode":"L","isrnCmpyCode":"L01","prodNm":"팡팡플러스저축보험","summProdNm":"팡팡플러스저축","prodAbrvNm":"팡팡플러스저축보험","pdgrMdcfCode":"A4000","saleStarDate":"1998-01-12 00:00:00","saleEndDate":"9999-12-31 00:00:00","useYn":"Y","prodCmprTrgtYn":"Y","cpcpProdCode":"1161801","cpcpPdgrMdcfCode":"A4000","rgstPrgmId":"smpmJob203","lastChngPrgmId":"smpmJob203"}
+2026-09-02 01:05:15.697 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0601.updateHliProduct */
+
+... [TRIMMED 3 LINES] ...
+2026-09-02 01:05:15.709 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"prodId":0,"pdgrId":"80751501020906202410","isrnCmpyDvsnCode":"L","isrnCmpyCode":"L01","prodNm":"팡팡플러스저축보험","summProdNm":"팡팡플러스저축","prodAbrvNm":"팡팡플러스저축보험","pdgrMdcfCode":"A4000","saleStarDate":"1998-05-01 00:00:00","saleEndDate":"9999-12-31 00:00:00","useYn":"Y","prodCmprTrgtYn":"Y","cpcpProdCode":"1161802","cpcpPdgrMdcfCode":"A4000","rgstPrgmId":"smpmJob203","lastChngPrgmId":"smpmJob203"}
+2026-09-02 01:05:15.717 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0601.updateHliProduct */
+
+... [TRIMMED 3 LINES] ...
+2026-09-02 01:05:15.745 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"prodId":0,"pdgrId":"34751501020906202815","isrnCmpyDvsnCode":"L","isrnCmpyCode":"L01","prodNm":"팡팡플러스저축보험","summProdNm":"팡팡플러스저축","prodAbrvNm":"팡팡플러스저축보험","pdgrMdcfCode":"A4000","saleStarDate":"1999-04-01 00:00:00","saleEndDate":"9999-12-31 00:00:00","useYn":"Y","prodCmprTrgtYn":"Y","cpcpProdCode":"1161803","cpcpPdgrMdcfCode":"A4000","rgstPrgmId":"smpmJob203","lastChngPrgmId":"smpmJob203"}
+2026-09-02 01:05:15.747 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0601.updateHliProduct */
+
+... [TRIMMED 3 LINES] ...
+2026-09-02 01:05:15.770 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"prodId":0,"pdgrId":"96751501020906202677","isrnCmpyDvsnCode":"L","isrnCmpyCode":"L01","prodNm":"무배당베테랑상해보험","summProdNm":"(무)베테랑상해","prodAbrvNm":"무배당베테랑상해보험","pdgrMdcfCode":"A1000","saleStarDate":"1998-02-16 00:00:00","saleEndDate":"9999-12-31 00:00:00","useYn":"Y","prodCmprTrgtYn":"Y","cpcpProdCode":"1164001","cpcpPdgrMdcfCode":"A1000","rgstPrgmId":"smpmJob203","lastChngPrgmId":"smpmJob203"}
+2026-09-02 01:05:15.772 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0601.updateHliProduct */
+
+... [TRIMMED 3 LINES] ...
+2026-09-02 01:05:15.787 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"prodId":0,"pdgrId":"38751501020906202547","isrnCmpyDvsnCode":"L","isrnCmpyCode":"L01","prodNm":"무배당단체베테랑상해보험","summProdNm":"(무)단체베테랑","prodAbrvNm":"무배당단체베테랑상해보험","pdgrMdcfCode":"A1000","saleStarDate":"1998-02-16 00:00:00","saleEndDate":"9999-12-31 00:00:00","useYn":"Y","prodCmprTrgtYn":"Y","cpcpProdCode":"1164002","cpcpPdgrMdcfCode":"A1000","rgstPrgmId":"smpmJob203","lastChngPrgmId":"smpmJob203"}
+2026-09-02 01:05:15.789 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0601.updateHliProduct */
+
+... [TRIMMED 3 LINES] ...
+2026-09-02 01:05:15.820 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"prodId":0,"pdgrId":"91851501020906202202","isrnCmpyDvsnCode":"L","isrnCmpyCode":"L01","prodNm":"무배당베테랑상해보험","summProdNm":"(무)베테랑상해","prodAbrvNm":"무배당베테랑상해보험","pdgrMdcfCode":"A1000","saleStarDate":"1999-04-01 00:00:00","saleEndDate":"9999-12-31 00:00:00","useYn":"Y","prodCmprTrgtYn":"Y","cpcpProdCode":"1164003","cpcpPdgrMdcfCode":"A1000","rgstPrgmId":"smpmJob203","lastChngPrgmId":"smpmJob203"}
+2026-09-02 01:05:15.823 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0601.updateHliProduct */
+
+... [TRIMMED 3 LINES] ...
+2026-09-02 01:05:15.836 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"prodId":0,"pdgrId":"53851501020906202063","isrnCmpyDvsnCode":"L","isrnCmpyCode":"L01","prodNm":"무배당단체베테랑상해보험","summProdNm":"(무)단체베테랑","prodAbrvNm":"무배당단체베테랑상해보험","pdgrMdcfCode":"A1000","saleStarDate":"1999-04-01 00:00:00","saleEndDate":"9999-12-31 00:00:00","useYn":"Y","prodCmprTrgtYn":"Y","cpcpProdCode":"1164004","cpcpPdgrMdcfCode":"A1000","rgstPrgmId":"smpmJob203","lastChngPrgmId":"smpmJob203"}
+2026-09-02 01:05:15.838 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0601.updateHliProduct */
+
+... [TRIMMED 3 LINES] ...
+2026-09-02 01:05:15.857 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"prodId":0,"pdgrId":"75851501020906202251","isrnCmpyDvsnCode":"L","isrnCmpyCode":"L01","prodNm":"뉴연금플랜자유적립보험 개인종신연금형","summProdNm":"뉴연금플랜","prodAbrvNm":"뉴연금플랜자유적립보험개인종신연금형","pdgrMdcfCode":"A2000","saleStarDate":"1998-04-15 00:00:00","saleEndDate":"9999-12-31 00:00:00","useYn":"Y","prodCmprTrgtYn":"Y","cpcpProdCode":"1166001","cpcpPdgrMdcfCode":"A2000","rgstPrgmId":"smpmJob203","lastChngPrgmId":"smpmJob203"}
+2026-09-02 01:05:15.860 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0601.updateHliProduct */
+
+... [TRIMMED 3 LINES] ...
+2026-09-02 01:05:15.871 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"prodId":0,"pdgrId":"07851501020906202401","isrnCmpyDvsnCode":"L","isrnCmpyCode":"L01","prodNm":"뉴연금플랜자유적립보험 부부종신연금형","summProdNm":"뉴연금플랜","prodAbrvNm":"뉴연금플랜자유적립보험부부종신연금형","pdgrMdcfCode":"A2000","saleStarDate":"1998-04-15 00:00:00","saleEndDate":"9999-12-31 00:00:00","useYn":"Y","prodCmprTrgtYn":"Y","cpcpProdCode":"1166002","cpcpPdgrMdcfCode":"A2000","rgstPrgmId":"smpmJob203","lastChngPrgmId":"smpmJob203"}
+2026-09-02 01:05:15.874 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0601.updateHliProduct */
+
+... [TRIMMED 3 LINES] ...
+2026-09-02 01:05:15.894 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"prodId":0,"pdgrId":"39851501020906202736","isrnCmpyDvsnCode":"L","isrnCmpyCode":"L01","prodNm":"뉴연금플랜자유적립보험 확정연금형","summProdNm":"뉴연금플랜","prodAbrvNm":"뉴연금플랜자유적립보험확정연금형","pdgrMdcfCode":"A2000","saleStarDate":"1998-04-15 00:00:00","saleEndDate":"9999-12-31 00:00:00","useYn":"Y","prodCmprTrgtYn":"Y","cpcpProdCode":"1166003","cpcpPdgrMdcfCode":"A2000","rgstPrgmId":"smpmJob203","lastChngPrgmId":"smpmJob203"}
+2026-09-02 01:05:15.897 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0601.updateHliProduct */
+
+... [TRIMMED 3 LINES] ...
+2026-09-02 01:05:15.908 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"prodId":0,"pdgrId":"70951501020906202182","isrnCmpyDvsnCode":"L","isrnCmpyCode":"L01","prodNm":"뉴연금플랜자유적립보험 상속연금형","summProdNm":"뉴연금플랜","prodAbrvNm":"뉴연금플랜자유적립보험상속연금형","pdgrMdcfCode":"A2000","saleStarDate":"1998-04-15 00:00:00","saleEndDate":"9999-12-31 00:00:00","useYn":"Y","prodCmprTrgtYn":"Y","cpcpProdCode":"1166004","cpcpPdgrMdcfCode":"A2000","rgstPrgmId":"smpmJob203","lastChngPrgmId":"smpmJob203"}
+2026-09-02 01:05:15.910 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0601.updateHliProduct */
+
+... [TRIMMED 3 LINES] ...
+2026-09-02 01:05:15.941 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"prodId":0,"pdgrId":"04951501020906202413","isrnCmpyDvsnCode":"L","isrnCmpyCode":"L01","prodNm":"뉴-플랜자유적립보험 80세납","summProdNm":"뉴플랜자유적립","prodAbrvNm":"뉴-플랜자유적립보험80세납","pdgrMdcfCode":"A2000","saleStarDate":"1998-04-15 00:00:00","saleEndDate":"9999-12-31 00:00:00","useYn":"Y","prodCmprTrgtYn":"Y","cpcpProdCode":"1166005","cpcpPdgrMdcfCode":"A2000","rgstPrgmId":"smpmJob203","lastChngPrgmId":"smpmJob203"}
+2026-09-02 01:05:15.943 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0601.updateHliProduct */
+
+... [TRIMMED 3 LINES] ...
+2026-09-02 01:05:15.960 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"prodId":0,"pdgrId":"55951501020906202137","isrnCmpyDvsnCode":"L","isrnCmpyCode":"L01","prodNm":"뉴-플랜자유적립보험 일시완납전환","summProdNm":"뉴플랜자유적립","prodAbrvNm":"뉴-플랜자유적립보험일시완납전환","pdgrMdcfCode":"A2000","saleStarDate":"1998-04-15 00:00:00","saleEndDate":"9999-12-31 00:00:00","useYn":"Y","prodCmprTrgtYn":"Y","cpcpProdCode":"1166006","cpcpPdgrMdcfCode":"A2000","rgstPrgmId":"smpmJob203","lastChngPrgmId":"smpmJob203"}
+2026-09-02 01:05:15.962 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0601.updateHliProduct */
+
+... [TRIMMED 3 LINES] ...
+2026-09-02 01:05:15.980 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"prodId":0,"pdgrId":"97951501020906202730","isrnCmpyDvsnCode":"L","isrnCmpyCode":"L01","prodNm":"뉴연금플랜자유적립보험 종신 상속연금형","summProdNm":"뉴연금플랜","prodAbrvNm":"뉴연금플랜자유적립보험종신상속연금형","pdgrMdcfCode":"A2000","saleStarDate":"1998-07-10 00:00:00","saleEndDate":"9999-12-31 00:00:00","useYn":"Y","prodCmprTrgtYn":"Y","cpcpProdCode":"1166007","cpcpPdgrMdcfCode":"A2000","rgstPrgmId":"smpmJob203","lastChngPrgmId":"smpmJob203"}
+2026-09-02 01:05:15.984 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0601.updateHliProduct */
+
+... [TRIMMED 3 LINES] ...
+2026-09-02 01:05:15.998 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"prodId":0,"pdgrId":"79951501020906202184","isrnCmpyDvsnCode":"L","isrnCmpyCode":"L01","prodNm":"뉴연금플랜자유적립보험 개인종신연금형","summProdNm":"뉴연금플랜","prodAbrvNm":"뉴연금플랜자유적립보험개인종신연금형","pdgrMdcfCode":"A2000","saleStarDate":"1999-04-01 00:00:00","saleEndDate":"9999-12-31 00:00:00","useYn":"Y","prodCmprTrgtYn":"Y","cpcpProdCode":"1166008","cpcpPdgrMdcfCode":"A2000","rgstPrgmId":"smpmJob203","lastChngPrgmId":"smpmJob203"}
+2026-09-02 01:05:16.000 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0601.updateHliProduct */
+
+... [TRIMMED 3 LINES] ...
+2026-09-02 01:05:16.018 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"prodId":0,"pdgrId":"71061501020906202301","isrnCmpyDvsnCode":"L","isrnCmpyCode":"L01","prodNm":"뉴연금플랜자유적립보험 부부종신연금형","summProdNm":"뉴연금플랜","prodAbrvNm":"뉴연금플랜자유적립보험부부종신연금형","pdgrMdcfCode":"A2000","saleStarDate":"1999-04-01 00:00:00","saleEndDate":"9999-12-31 00:00:00","useYn":"Y","prodCmprTrgtYn":"Y","cpcpProdCode":"1166009","cpcpPdgrMdcfCode":"A2000","rgstPrgmId":"smpmJob203","lastChngPrgmId":"smpmJob203"}
+2026-09-02 01:05:16.019 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0601.updateHliProduct */
+
+... [TRIMMED 3 LINES] ...
+2026-09-02 01:05:16.031 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"prodId":0,"pdgrId":"03061501020906202070","isrnCmpyDvsnCode":"L","isrnCmpyCode":"L01","prodNm":"뉴연금플랜자유적립보험 확정연금형","summProdNm":"뉴연금플랜","prodAbrvNm":"뉴연금플랜자유적립보험확정연금형","pdgrMdcfCode":"A2000","saleStarDate":"1999-04-01 00:00:00","saleEndDate":"9999-12-31 00:00:00","useYn":"Y","prodCmprTrgtYn":"Y","cpcpProdCode":"1166010","cpcpPdgrMdcfCode":"A2000","rgstPrgmId":"smpmJob203","lastChngPrgmId":"smpmJob203"}
+2026-09-02 01:05:16.032 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0601.updateHliProduct */
+
+... [TRIMMED 3 LINES] ...
+2026-09-02 01:05:16.044 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"prodId":0,"pdgrId":"34061501020906202250","isrnCmpyDvsnCode":"L","isrnCmpyCode":"L01","prodNm":"뉴연금플랜자유적립보험 상속연금형","summProdNm":"뉴연금플랜","prodAbrvNm":"뉴연금플랜자유적립보험상속연금형","pdgrMdcfCode":"A2000","saleStarDate":"1999-04-01 00:00:00","saleEndDate":"9999-12-31 00:00:00","useYn":"Y","prodCmprTrgtYn":"Y","cpcpProdCode":"1166011","cpcpPdgrMdcfCode":"A2000","rgstPrgmId":"smpmJob203","lastChngPrgmId":"smpmJob203"}
+2026-09-02 01:05:16.053 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0601.updateHliProduct */
+
+... [TRIMMED 3 LINES] ...
+2026-09-02 01:05:16.064 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"prodId":0,"pdgrId":"46061501020906202423","isrnCmpyDvsnCode":"L","isrnCmpyCode":"L01","prodNm":"뉴교육플랜자유적립보험 태아가입","summProdNm":"뉴교육플랜","prodAbrvNm":"뉴교육플랜자유적립보험태아가입","pdgrMdcfCode":"A3000","saleStarDate":"1998-04-15 00:00:00","saleEndDate":"9999-12-31 00:00:00","useYn":"Y","prodCmprTrgtYn":"Y","cpcpProdCode":"1167003","cpcpPdgrMdcfCode":"A3000","rgstPrgmId":"smpmJob203","lastChngPrgmId":"smpmJob203"}
+2026-09-02 01:05:16.066 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0601.updateHliProduct */
+
+... [TRIMMED 3 LINES] ...
+2026-09-02 01:05:16.080 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"prodId":0,"pdgrId":"97061501020906202358","isrnCmpyDvsnCode":"L","isrnCmpyCode":"L01","prodNm":"뉴교육플랜자유적립보험 출생후가입","summProdNm":"뉴교육플랜","prodAbrvNm":"뉴교육플랜자유적립보험출생후가입","pdgrMdcfCode":"A3000","saleStarDate":"1998-04-15 00:00:00","saleEndDate":"9999-12-31 00:00:00","useYn":"Y","prodCmprTrgtYn":"Y","cpcpProdCode":"1167004","cpcpPdgrMdcfCode":"A3000","rgstPrgmId":"smpmJob203","lastChngPrgmId":"smpmJob203"}
+2026-09-02 01:05:16.082 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0601.updateHliProduct */
+
+... [TRIMMED 3 LINES] ...
+2026-09-02 01:05:16.098 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"prodId":0,"pdgrId":"69061501020906202468","isrnCmpyDvsnCode":"L","isrnCmpyCode":"L01","prodNm":"뉴교육플랜자유적립보험 태아가입","summProdNm":"뉴교육플랜","prodAbrvNm":"뉴교육플랜자유적립보험태아가입","pdgrMdcfCode":"A3000","saleStarDate":"1999-04-01 00:00:00","saleEndDate":"9999-12-31 00:00:00","useYn":"Y","prodCmprTrgtYn":"Y","cpcpProdCode":"1167005","cpcpPdgrMdcfCode":"A3000","rgstPrgmId":"smpmJob203","lastChngPrgmId":"smpmJob203"}
+2026-09-02 01:05:16.100 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0601.updateHliProduct */
+
+... [TRIMMED 3 LINES] ...
+2026-09-02 01:05:16.112 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"prodId":0,"pdgrId":"11161501020906202477","isrnCmpyDvsnCode":"L","isrnCmpyCode":"L01","prodNm":"뉴교육플랜자유적립보험 출생후가입","summProdNm":"뉴교육플랜","prodAbrvNm":"뉴교육플랜자유적립보험출생후가입","pdgrMdcfCode":"A3000","saleStarDate":"1999-04-01 00:00:00","saleEndDate":"9999-12-31 00:00:00","useYn":"Y","prodCmprTrgtYn":"Y","cpcpProdCode":"1167006","cpcpPdgrMdcfCode":"A3000","rgstPrgmId":"smpmJob203","lastChngPrgmId":"smpmJob203"}
+2026-09-02 01:05:16.114 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0601.updateHliProduct */
+
+... [TRIMMED 3 LINES] ...
+2026-09-02 01:05:16.129 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"prodId":0,"pdgrId":"82161501020906202488","isrnCmpyDvsnCode":"L","isrnCmpyCode":"L01","prodNm":"눈높이사랑교육보험(1종:전문교육형) 1종 전문교육형 태아가입","summProdNm":"눈높이사랑교육","prodAbrvNm":"눈높이사랑교육보험(1종:전문교육형)1종전문교육형태아가입","pdgrMdcfCode":"A3000","saleStarDate":"1997-07-01 00:00:00","saleEndDate":"9999-12-31 00:00:00","useYn":"Y","prodCmprTrgtYn":"Y","cpcpProdCode":"1168001","cpcpPdgrMdcfCode":"A3000","rgstPrgmId":"smpmJob203","lastChngPrgmId":"smpmJob203"}
+2026-09-02 01:05:16.131 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0601.updateHliProduct */
+
+... [TRIMMED 3 LINES] ...
+2026-09-02 01:05:16.143 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"prodId":0,"pdgrId":"24161501020906202280","isrnCmpyDvsnCode":"L","isrnCmpyCode":"L01","prodNm":"눈높이사랑교육보험(1종:전문교육형) 1종 전문교육형 출생후가입","summProdNm":"눈높이사랑교육","prodAbrvNm":"눈높이사랑교육보험(1종:전문교육형)1종전문교육형출생후가입","pdgrMdcfCode":"A3000","saleStarDate":"1997-07-01 00:00:00","saleEndDate":"9999-12-31 00:00:00","useYn":"Y","prodCmprTrgtYn":"Y","cpcpProdCode":"1168002","cpcpPdgrMdcfCode":"A3000","rgstPrgmId":"smpmJob203","lastChngPrgmId":"smpmJob203"}
+2026-09-02 01:05:16.146 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0601.updateHliProduct */
+
+... [TRIMMED 3 LINES] ...
+2026-09-02 01:05:16.158 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"prodId":0,"pdgrId":"75161501020906202687","isrnCmpyDvsnCode":"L","isrnCmpyCode":"L01","prodNm":"눈높이사랑교육보험(2종:종합교육형) 2종 종합교육형 태아가입","summProdNm":"눈높이사랑교육","prodAbrvNm":"눈높이사랑교육보험(2종:종합교육형)2종종합교육형태아가입","pdgrMdcfCode":"A3000","saleStarDate":"1997-07-01 00:00:00","saleEndDate":"9999-12-31 00:00:00","useYn":"Y","prodCmprTrgtYn":"Y","cpcpProdCode":"1168003","cpcpPdgrMdcfCode":"A3000","rgstPrgmId":"smpmJob203","lastChngPrgmId":"smpmJob203"}
+2026-09-02 01:05:16.164 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0601.updateHliProduct */
+
+... [TRIMMED 3 LINES] ...
+2026-09-02 01:05:16.176 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"prodId":0,"pdgrId":"57161501020906202465","isrnCmpyDvsnCode":"L","isrnCmpyCode":"L01","prodNm":"눈높이사랑교육보험(2종:종합교육형) 2종 종합교육형 출생후가입","summProdNm":"눈높이사랑교육","prodAbrvNm":"눈높이사랑교육보험(2종:종합교육형)2종종합교육형출생후가입","pdgrMdcfCode":"A3000","saleStarDate":"1997-07-01 00:00:00","saleEndDate":"9999-12-31 00:00:00","useYn":"Y","prodCmprTrgtYn":"Y","cpcpProdCode":"1168004","cpcpPdgrMdcfCode":"A3000","rgstPrgmId":"smpmJob203","lastChngPrgmId":"smpmJob203"}
+2026-09-02 01:05:16.180 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0601.updateHliProduct */
+
+... [TRIMMED 3 LINES] ...
+2026-09-02 01:05:16.198 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"prodId":0,"pdgrId":"79161501020906202610","isrnCmpyDvsnCode":"L","isrnCmpyCode":"L01","prodNm":"63영재교육보험 (1종:전문교육형)태아가입","summProdNm":"63영재교육","prodAbrvNm":"63영재교육보험(1종:전문교육형)태아가입","pdgrMdcfCode":"A3000","saleStarDate":"1998-04-23 00:00:00","saleEndDate":"9999-12-31 00:00:00","useYn":"Y","prodCmprTrgtYn":"Y","cpcpProdCode":"1168005","cpcpPdgrMdcfCode":"A3000","rgstPrgmId":"smpmJob203","lastChngPrgmId":"smpmJob203"}
+2026-09-02 01:05:16.199 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0601.updateHliProduct */
+
+... [TRIMMED 66030 LINES] ...
+			, A.RGST_PRGM_ID
+			, A.LAST_CHNG_USER_ID
+			, A.LAST_CHNG_DTTM
+			, A.LAST_CHNG_PRGM_ID
+	FROM TB_SMPM0601 A
+	LEFT JOIN (
+		SELECT 	  A.PROD_ID
+				, MAX(A.HIST_SQNO) AS HIST_SQNO
+		FROM TB_SMPM0601H A
+		GROUP BY A.PROD_ID
+	) HM ON A.PROD_ID = HM.PROD_ID
+	LEFT JOIN TB_SMPM0601H H ON H.PROD_ID = HM.PROD_ID AND H.HIST_SQNO = HM.HIST_SQNO
+	WHERE 1=1
+	AND (
+		   NOT(A.PROD_NM                     <=>   H.PROD_NM                  )
+		OR NOT(A.PROD_ABRV_NM                <=>   H.PROD_ABRV_NM             )
+		OR NOT(A.SUMM_PROD_NM                <=>   H.SUMM_PROD_NM             )
+		OR NOT(A.PROD_ISTC                   <=>   H.PROD_ISTC                )
+		OR NOT(A.SALE_STAR_DATE              <=>   H.SALE_STAR_DATE           )
+		OR NOT(A.SALE_END_DATE               <=>   H.SALE_END_DATE            )
+		OR NOT(A.PDGR_LGCF_CODE              <=>   H.PDGR_LGCF_CODE           )
+		OR NOT(A.PDGR_MDCF_CODE              <=>   H.PDGR_MDCF_CODE           )
+		OR NOT(A.PDGR_SMCF_CODE              <=>   H.PDGR_SMCF_CODE           )
+		OR NOT(A.CPCP_PROD_CODE              <=>   H.CPCP_PROD_CODE           )
+	)
+2026-09-02 01:07:25.163 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::null
+2026-09-02 01:07:26.236 INFO  [StaticLogListener.java:20 - afterStep] ================================================
+2026-09-02 01:07:26.236 INFO  [StaticLogListener.java:21 - afterStep]      StepName : smpmJob203001
+2026-09-02 01:07:26.236 INFO  [StaticLogListener.java:22 - afterStep]     ReadCount : 0
+2026-09-02 01:07:26.236 INFO  [StaticLogListener.java:23 - afterStep]    WriteCount : 0
+2026-09-02 01:07:26.236 INFO  [StaticLogListener.java:24 - afterStep]   CommitCount : 1
+2026-09-02 01:07:26.236 INFO  [StaticLogListener.java:25 - afterStep] RollbackCount : 0
+2026-09-02 01:07:26.237 INFO  [StaticLogListener.java:26 - afterStep] ================================================
+2026-09-02 01:07:26.262 INFO  [AbstractStep.java:273 - execute] Step: [smpmJob203001] executed in 2m12s336ms
+2026-09-02 01:07:26.287 INFO  [SimpleJobLauncher.java:152 - run] Job: [SimpleJob: [name=smpmJob203]] completed with the following parameters: [{message=hello,, jobDate=20260902, run.id=1}] and the following status: [COMPLETED] in 2m12s391ms
+2026-09-02 01:07:26.378 INFO  [EventDrivenConsumer.java:107 - logComponentSubscriptionEvent] Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2026-09-02 01:07:26.378 INFO  [AbstractSubscribableChannel.java:64 - adjustCounterIfNecessary] Channel 'batch-1.errorChannel' has 0 subscriber(s).
+2026-09-02 01:07:26.378 INFO  [AbstractEndpoint.java:193 - stop] stopped bean '_org.springframework.integration.errorLogger'
+2026-09-02 01:07:26.484 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep144001AsyncExecutor'
+2026-09-02 01:07:26.488 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep055001AsyncExecutor'
+2026-09-02 01:07:26.490 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep051001AsyncExecutor'
+2026-09-02 01:07:26.538 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep010001AsyncExecutor'
+2026-09-02 01:07:26.540 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep008001AsyncExecutor'
+2026-09-02 01:07:26.877 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201008TaskExecutor'
+2026-09-02 01:07:26.878 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201005TaskExecutor'
+2026-09-02 01:07:26.879 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201TaskExecutor'
+2026-09-02 01:07:27.339 INFO  [HikariDataSource.java:350 - close] smDataSource - Shutdown initiated...
+2026-09-02 01:07:27.379 INFO  [HikariDataSource.java:352 - close] smDataSource - Shutdown completed.
+2026-09-02 01:07:27.508 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'taskExecutor'
+2026-09-02 01:07:29.545 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'taskScheduler'

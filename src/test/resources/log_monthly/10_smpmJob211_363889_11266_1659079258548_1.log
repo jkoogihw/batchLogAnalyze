@@ -1,0 +1,140 @@
+ip-10-237-6-165.ap-northeast-2.compute.internal
+PARAMETER=--job.name=smpmJob211 jobDate=20260901 ecareNo=247 senderNm=한화생명금융서비스 sender=master@mail.hanwhalifefs.com receiverId=2241010,2241182,2241193
+No Active GA_CODE set. falling back to default GA_CODE: default
+APPLICATION_PATH=/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar
+SPRING_PROFILES_ACTIVE=main,lazyload
+PARAMETER=--job.name=smpmJob211 jobDate=20260901 ecareNo=247 senderNm=한화생명금융서비스 sender=master@mail.hanwhalifefs.com receiverId=2241010,2241182,2241193
+_JAVA_OPTIONS= -Dfile.encoding=UTF-8
+Picked up _JAVA_OPTIONS:  -Dfile.encoding=UTF-8
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/logback-classic-1.2.11.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/log4j-slf4j-impl-2.13.3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [ch.qos.logback.classic.util.ContextSelectorStaticBinder]
+2026-09-02 08:00:15.857 INFO  [Version.java:21 - <clinit>] HV000001: Hibernate Validator 6.1.7.Final
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.codehaus.groovy.reflection.CachedClass (jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/groovy-2.5.14.jar!/) to method java.lang.Object.finalize()
+WARNING: Please consider reporting this to the maintainers of org.codehaus.groovy.reflection.CachedClass
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2026-09-02 08:00:22.749 INFO  [EnableEncryptablePropertiesBeanFactoryPostProcessor.java:39 - postProcessBeanFactory] Post-processing PropertySource instances
+2026-09-02 08:00:23.093 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource configurationProperties [org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource] to AOP Proxy
+2026-09-02 08:00:23.118 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrap [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-02 08:00:23.119 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource commandLineArgs [org.springframework.core.env.SimpleCommandLinePropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-02 08:00:23.119 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource systemProperties [org.springframework.core.env.PropertiesPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-02 08:00:23.120 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableSystemEnvironmentPropertySourceWrapper
+2026-09-02 08:00:23.120 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
+2026-09-02 08:00:23.120 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource springCloudClientHostInfo [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-02 08:00:23.121 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource applicationConfig: [classpath:/bootstrap.yml] [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-02 08:00:23.121 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource kafkaBinderDefaultProperties [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-02 08:00:23.792 INFO  [DefaultLazyPropertyFilter.java:31 - lambda$null$2] Property Filter custom Bean not found with name 'encryptablePropertyFilter'. Initializing Default Property Filter
+2026-09-02 08:00:23.882 INFO  [DefaultLazyPropertyResolver.java:35 - lambda$null$2] Property Resolver custom Bean not found with name 'encryptablePropertyResolver'. Initializing Default Property Resolver
+2026-09-02 08:00:23.915 INFO  [DefaultLazyPropertyDetector.java:35 - lambda$null$2] Property Detector custom Bean not found with name 'encryptablePropertyDetector'. Initializing Default Property Detector
+    ____            ____           ____              __
+   / __ /___ _   __/ __ /____     / __ )____  ____  / /_
+  / / / / _ / | / / / / / __ /   / __  / __ // __ // __/
+ / /_/ /  __/ |/ / /_/ / / / /  / /_/ / /_/ / /_/ //_
+/_____/ ___/|___//____/_/ /_/  /_____//____//____//__/ 
+ :: DevOn Boot ::   
+ :: Embedded LENA :: v1.3.1.2
+
+2026-09-02 08:00:34.893 INFO  [PropertySourceBootstrapConfiguration.java:112 - initialize] Located property source: [BootstrapPropertySource {name='bootstrapProperties-/ospp/batch_main/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/batch_lazyload/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/batch/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/application_main/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/application_lazyload/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/application/'}]
+2026-09-02 08:00:35.286 INFO  [SpringApplication.java:652 - logStartupProfileInfo] The following profiles are active: main,lazyload
+2026-09-02 08:01:00.210 INFO  [CommonDaoOnSingleCondition.java:54 - sqlSessionTypeMatches] dataSourceType is not single
+2026-09-02 08:01:12.647 INFO  [RepositoryConfigurationDelegate.java:249 - multipleStoresDetected] Multiple Spring Data modules found, entering strict repository configuration mode!
+2026-09-02 08:01:12.674 INFO  [RepositoryConfigurationDelegate.java:127 - registerRepositoriesIn] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-09-02 08:01:12.983 INFO  [RepositoryConfigurationDelegate.java:187 - registerRepositoriesIn] Finished Spring Data repository scanning in 230ms. Found 0 Redis repository interfaces.
+2026-09-02 08:01:27.431 INFO  [GenericScope.java:295 - setSerializationId] BeanFactory id=bf21df6d-a3d8-3d8f-b3ae-2a9c101d8cf7
+2026-09-02 08:01:30.527 INFO  [EnableEncryptablePropertiesBeanFactoryPostProcessor.java:39 - postProcessBeanFactory] Post-processing PropertySource instances
+2026-09-02 08:01:30.528 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/batch_main/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-02 08:01:30.541 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/batch_lazyload/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-02 08:01:30.541 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/batch/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-02 08:01:30.542 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/application_main/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-02 08:01:30.542 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/application_lazyload/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-02 08:01:30.542 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/application/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-02 08:01:30.542 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource configurationProperties [org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource] to AOP Proxy
+2026-09-02 08:01:30.542 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource commandLineArgs [org.springframework.core.env.SimpleCommandLinePropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-02 08:01:30.542 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource systemProperties [org.springframework.core.env.PropertiesPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-02 08:01:30.542 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableSystemEnvironmentPropertySourceWrapper
+2026-09-02 08:01:30.546 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
+2026-09-02 08:01:30.547 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource springCloudClientHostInfo [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+... [TRIMMED 87 LINES] ...
+2026-09-02 08:04:36.947 WARN  [DefaultBatchConfigurer.java:98 - initialize] No datasource was provided...using a Map based JobRepository
+2026-09-02 08:04:36.948 WARN  [DefaultBatchConfigurer.java:101 - initialize] No transaction manager was provided, using a ResourcelessTransactionManager
+2026-09-02 08:04:36.991 INFO  [SimpleJobLauncher.java:215 - afterPropertiesSet] No TaskExecutor has been set, defaulting to synchronous executor.
+2026-09-02 08:04:37.109 INFO  [SimpleJobLauncher.java:146 - run] Job: [SimpleJob: [name=smpmJob211]] launched with the following parameters: [{jobDate=20260901, receiverId=2241010,2241182,2241193, run.id=1, sender=master@mail.hanwhalifefs.com, ecareNo=247, senderNm=한화생명금융서비스}]
+2026-09-02 08:04:37.167 DEBUG [SmpmJobExecutionLogListener.java:20 - beforeJob] JobExecutionListener.beforeJob Execution : exitCode=UNKNOWN;exitDescription=
+2026-09-02 08:04:37.209 INFO  [SimpleStepHandler.java:149 - handleStep] Executing step: [smpmStep211001]
+... [TRIMMED 7 LINES] ...
+2026-09-02 08:05:47.372 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] {"clientSeq":"9a657ac6-28e6-44a3-9846-3d1c8c0fd3b5","ecareNo":247,"channel":"M","receiverId":"2241010","receiverNm":"김혜영","receiver":"2241010@hanwha.com","subject":"2026년 09월 01일자 상품비교설명확인서 징구현황 공유 건.","jonmun":"{\"pcicDate\":\"2026년 09월 01일\"}","tmplType":"J","senderNm":"한화생명금융서비스","sender":"master@mail.hanwhalifefs.com","slot1":null,"slot2":null,"slot3":null,"slot4":null,"slot5":null,"slot6":null,"slot7":null,"slot8":null,"slot9":null,"slot10":null,"customData":null,"filePath1":"/efs/shared/solution/ums/smpm/pcic/상품비교설명확인서징구현황_2026년09월01일_202609020804.xlsx"}
+2026-09-02 08:05:47.372 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] ---> END HTTP (668-byte body)
+2026-09-02 08:05:47.488 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] <--- HTTP/1.1 200  (115ms)
+2026-09-02 08:05:47.488 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] connection: keep-alive
+2026-09-02 08:05:47.488 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] content-length: 139
+... [TRIMMED 33 LINES] ...
+2026-09-02 08:05:47.548 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] {"clientSeq":"02a02a94-a71f-4ce4-ac84-38cdf3cad0f4","ecareNo":247,"channel":"M","receiverId":"2241182","receiverNm":"명성열","receiver":"2241182@hanwha.com","subject":"2026년 09월 01일자 상품비교설명확인서 징구현황 공유 건.","jonmun":"{\"pcicDate\":\"2026년 09월 01일\"}","tmplType":"J","senderNm":"한화생명금융서비스","sender":"master@mail.hanwhalifefs.com","slot1":null,"slot2":null,"slot3":null,"slot4":null,"slot5":null,"slot6":null,"slot7":null,"slot8":null,"slot9":null,"slot10":null,"customData":null,"filePath1":"/efs/shared/solution/ums/smpm/pcic/상품비교설명확인서징구현황_2026년09월01일_202609020804.xlsx"}
+2026-09-02 08:05:47.548 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] ---> END HTTP (668-byte body)
+2026-09-02 08:05:47.601 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] <--- HTTP/1.1 200  (52ms)
+2026-09-02 08:05:47.601 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] connection: keep-alive
+2026-09-02 08:05:47.601 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] content-length: 139
+... [TRIMMED 26 LINES] ...
+2026-09-02 08:05:47.603 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"fpUniqNo":"2241193"}
+2026-09-02 08:05:47.604 INFO  [SmpmStep211001Tasklet.java:303 - execute] SmpmStep211001Tasklet log UniqNo :: 2241193
+2026-09-02 08:05:47.605 INFO  [SmpmStep211001Tasklet.java:304 - execute] SmpmStep211001Tasklet log email Adress :: eunsuk.kim@hanwha.com
+2026-09-02 08:05:47.605 INFO  [SmpmStep211001Tasklet.java:305 - execute] SmpmStep211001Tasklet log log jonmun :: {"pcicDate":"2026년 09월 01일"}
+2026-09-02 08:05:47.605 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] ---> POST https://ums-api.orange-tree.co.kr/api/v1/send/realtime HTTP/1.1
+2026-09-02 08:05:47.606 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] Content-Length: 671
+2026-09-02 08:05:47.606 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] Content-Type: application/json
+2026-09-02 08:05:47.606 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] X-From-Feign: true
+2026-09-02 08:05:47.606 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] 
+2026-09-02 08:05:47.606 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] {"clientSeq":"36e4a67d-fd57-458b-898a-f8b794c672af","ecareNo":247,"channel":"M","receiverId":"2241193","receiverNm":"김은석","receiver":"eunsuk.kim@hanwha.com","subject":"2026년 09월 01일자 상품비교설명확인서 징구현황 공유 건.","jonmun":"{\"pcicDate\":\"2026년 09월 01일\"}","tmplType":"J","senderNm":"한화생명금융서비스","sender":"master@mail.hanwhalifefs.com","slot1":null,"slot2":null,"slot3":null,"slot4":null,"slot5":null,"slot6":null,"slot7":null,"slot8":null,"slot9":null,"slot10":null,"customData":null,"filePath1":"/efs/shared/solution/ums/smpm/pcic/상품비교설명확인서징구현황_2026년09월01일_202609020804.xlsx"}
+2026-09-02 08:05:47.606 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] ---> END HTTP (671-byte body)
+2026-09-02 08:05:47.653 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] <--- HTTP/1.1 200  (46ms)
+2026-09-02 08:05:47.653 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] connection: keep-alive
+2026-09-02 08:05:47.653 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] content-length: 139
+2026-09-02 08:05:47.653 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] content-type: application/json;charset=UTF-8
+2026-09-02 08:05:47.653 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] date: Tue, 01 Sep 2026 23:05:47 GMT
+2026-09-02 08:05:47.653 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] 
+2026-09-02 08:05:47.653 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] {"code":"200","message":"success","data":{"clientSeq":"36e4a67d-fd57-458b-898a-f8b794c672af","Seq":"74e4be98-e1c9-4d24-b545-5209b5a6635f"}}
+2026-09-02 08:05:47.653 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] <--- END HTTP (139-byte body)
+2026-09-02 08:05:47.655 INFO  [SmpmStep211001Tasklet.java:322 - execute] Emali 발송결과 -> 리턴코드 200 : 메세지 : success
+2026-09-02 08:05:47.655 INFO  [SmpmStep211001Tasklet.java:326 - execute] ### SmpmStep211001Tasklet for done. userArray : [2241010, 2241182, 2241193]
+2026-09-02 08:05:47.655 INFO  [SmpmStep211001Tasklet.java:337 - execute] ### SmpmStep211001Tasklet end 
+2026-09-02 08:05:47.738 INFO  [StaticLogListener.java:20 - afterStep] ================================================
+2026-09-02 08:05:47.739 INFO  [StaticLogListener.java:21 - afterStep]      StepName : smpmStep211001
+2026-09-02 08:05:47.739 INFO  [StaticLogListener.java:22 - afterStep]     ReadCount : 0
+2026-09-02 08:05:47.739 INFO  [StaticLogListener.java:23 - afterStep]    WriteCount : 0
+2026-09-02 08:05:47.739 INFO  [StaticLogListener.java:24 - afterStep]   CommitCount : 1
+2026-09-02 08:05:47.739 INFO  [StaticLogListener.java:25 - afterStep] RollbackCount : 0
+2026-09-02 08:05:47.739 INFO  [StaticLogListener.java:26 - afterStep] ================================================
+2026-09-02 08:05:47.745 INFO  [AbstractStep.java:273 - execute] Step: [smpmStep211001] executed in 1m10s536ms
+2026-09-02 08:05:47.787 DEBUG [SmpmJobExecutionLogListener.java:25 - afterJob] JobExecutionListener.afterJob Execution
+2026-09-02 08:05:47.787 INFO  [SmpmJobExecutionLogListener.java:27 - lambda$afterJob$0] ================================================
+2026-09-02 08:05:47.787 INFO  [SmpmJobExecutionLogListener.java:28 - lambda$afterJob$0]      StepName : smpmStep211001
+2026-09-02 08:05:47.787 INFO  [SmpmJobExecutionLogListener.java:29 - lambda$afterJob$0]     ReadCount : 0
+2026-09-02 08:05:47.787 INFO  [SmpmJobExecutionLogListener.java:30 - lambda$afterJob$0]    WriteCount : 0
+2026-09-02 08:05:47.787 INFO  [SmpmJobExecutionLogListener.java:31 - lambda$afterJob$0]   CommitCount : 1
+2026-09-02 08:05:47.787 INFO  [SmpmJobExecutionLogListener.java:32 - lambda$afterJob$0] RollbackCount : 0
+2026-09-02 08:05:47.787 INFO  [SmpmJobExecutionLogListener.java:33 - lambda$afterJob$0] ================================================
+2026-09-02 08:05:47.791 INFO  [SimpleJobLauncher.java:152 - run] Job: [SimpleJob: [name=smpmJob211]] completed with the following parameters: [{jobDate=20260901, receiverId=2241010,2241182,2241193, run.id=1, sender=master@mail.hanwhalifefs.com, ecareNo=247, senderNm=한화생명금융서비스}] and the following status: [COMPLETED] in 1m10s638ms
+2026-09-02 08:05:47.909 INFO  [EventDrivenConsumer.java:107 - logComponentSubscriptionEvent] Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2026-09-02 08:05:47.909 INFO  [AbstractSubscribableChannel.java:64 - adjustCounterIfNecessary] Channel 'batch-1.errorChannel' has 0 subscriber(s).
+2026-09-02 08:05:47.910 INFO  [AbstractEndpoint.java:193 - stop] stopped bean '_org.springframework.integration.errorLogger'
+2026-09-02 08:05:48.069 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep144001AsyncExecutor'
+2026-09-02 08:05:48.071 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep055001AsyncExecutor'
+2026-09-02 08:05:48.072 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep051001AsyncExecutor'
+2026-09-02 08:05:48.083 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep010001AsyncExecutor'
+2026-09-02 08:05:48.084 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep008001AsyncExecutor'
+2026-09-02 08:05:48.346 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201008TaskExecutor'
+2026-09-02 08:05:48.347 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201005TaskExecutor'
+2026-09-02 08:05:48.348 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201TaskExecutor'
+2026-09-02 08:05:48.923 INFO  [HikariDataSource.java:350 - close] w1neDataSource - Shutdown initiated...
+2026-09-02 08:05:48.965 INFO  [HikariDataSource.java:352 - close] w1neDataSource - Shutdown completed.
+2026-09-02 08:05:48.966 INFO  [HikariDataSource.java:350 - close] rcDataSource - Shutdown initiated...
+2026-09-02 08:05:48.994 INFO  [HikariDataSource.java:352 - close] rcDataSource - Shutdown completed.
+2026-09-02 08:05:48.994 INFO  [HikariDataSource.java:350 - close] gaDataSource - Shutdown initiated...
+2026-09-02 08:05:49.022 INFO  [HikariDataSource.java:352 - close] gaDataSource - Shutdown completed.
+2026-09-02 08:05:49.041 INFO  [HikariDataSource.java:350 - close] smDataSource - Shutdown initiated...
+2026-09-02 08:05:49.061 INFO  [HikariDataSource.java:352 - close] smDataSource - Shutdown completed.
+2026-09-02 08:05:49.269 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'taskExecutor'
+2026-09-02 08:05:51.307 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'taskScheduler'

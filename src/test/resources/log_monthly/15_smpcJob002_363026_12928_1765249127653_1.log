@@ -1,0 +1,413 @@
+ip-10-237-6-165.ap-northeast-2.compute.internal
+PARAMETER=--job.name=smpcJob002 afterBlngTerm=3 beforeBlngTerm=1 afterBlngDate= beforeBlngDate=
+No Active GA_CODE set. falling back to default GA_CODE: default
+APPLICATION_PATH=/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar
+SPRING_PROFILES_ACTIVE=main,lazyload
+PARAMETER=--job.name=smpcJob002 afterBlngTerm=3 beforeBlngTerm=1 afterBlngDate= beforeBlngDate=
+_JAVA_OPTIONS= -Dfile.encoding=UTF-8
+Picked up _JAVA_OPTIONS:  -Dfile.encoding=UTF-8
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/logback-classic-1.2.11.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/log4j-slf4j-impl-2.13.3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [ch.qos.logback.classic.util.ContextSelectorStaticBinder]
+2026-09-02 00:30:06.700 INFO  [Version.java:21 - <clinit>] HV000001: Hibernate Validator 6.1.7.Final
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.codehaus.groovy.reflection.CachedClass (jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/groovy-2.5.14.jar!/) to method java.lang.Object.finalize()
+WARNING: Please consider reporting this to the maintainers of org.codehaus.groovy.reflection.CachedClass
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2026-09-02 00:30:09.656 INFO  [EnableEncryptablePropertiesBeanFactoryPostProcessor.java:39 - postProcessBeanFactory] Post-processing PropertySource instances
+2026-09-02 00:30:09.918 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource configurationProperties [org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource] to AOP Proxy
+2026-09-02 00:30:09.918 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrap [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-02 00:30:09.918 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource commandLineArgs [org.springframework.core.env.SimpleCommandLinePropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-02 00:30:09.919 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource systemProperties [org.springframework.core.env.PropertiesPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-02 00:30:09.919 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableSystemEnvironmentPropertySourceWrapper
+2026-09-02 00:30:09.925 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
+2026-09-02 00:30:09.925 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource springCloudClientHostInfo [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-02 00:30:09.925 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource applicationConfig: [classpath:/bootstrap.yml] [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-02 00:30:09.925 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource kafkaBinderDefaultProperties [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-02 00:30:10.296 INFO  [DefaultLazyPropertyFilter.java:31 - lambda$null$2] Property Filter custom Bean not found with name 'encryptablePropertyFilter'. Initializing Default Property Filter
+2026-09-02 00:30:10.372 INFO  [DefaultLazyPropertyResolver.java:35 - lambda$null$2] Property Resolver custom Bean not found with name 'encryptablePropertyResolver'. Initializing Default Property Resolver
+2026-09-02 00:30:10.400 INFO  [DefaultLazyPropertyDetector.java:35 - lambda$null$2] Property Detector custom Bean not found with name 'encryptablePropertyDetector'. Initializing Default Property Detector
+    ____            ____           ____              __
+   / __ /___ _   __/ __ /____     / __ )____  ____  / /_
+  / / / / _ / | / / / / / __ /   / __  / __ // __ // __/
+ / /_/ /  __/ |/ / /_/ / / / /  / /_/ / /_/ / /_/ //_
+/_____/ ___/|___//____/_/ /_/  /_____//____//____//__/ 
+ :: DevOn Boot ::   
+ :: Embedded LENA :: v1.3.1.2
+
+2026-09-02 00:30:17.333 INFO  [PropertySourceBootstrapConfiguration.java:112 - initialize] Located property source: [BootstrapPropertySource {name='bootstrapProperties-/ospp/batch_main/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/batch_lazyload/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/batch/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/application_main/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/application_lazyload/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/application/'}]
+2026-09-02 00:30:17.499 INFO  [SpringApplication.java:652 - logStartupProfileInfo] The following profiles are active: main,lazyload
+2026-09-02 00:30:30.258 INFO  [CommonDaoOnSingleCondition.java:54 - sqlSessionTypeMatches] dataSourceType is not single
+2026-09-02 00:30:37.807 INFO  [RepositoryConfigurationDelegate.java:249 - multipleStoresDetected] Multiple Spring Data modules found, entering strict repository configuration mode!
+2026-09-02 00:30:37.878 INFO  [RepositoryConfigurationDelegate.java:127 - registerRepositoriesIn] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-09-02 00:30:38.161 INFO  [RepositoryConfigurationDelegate.java:187 - registerRepositoriesIn] Finished Spring Data repository scanning in 202ms. Found 0 Redis repository interfaces.
+2026-09-02 00:30:45.257 INFO  [GenericScope.java:295 - setSerializationId] BeanFactory id=bf21df6d-a3d8-3d8f-b3ae-2a9c101d8cf7
+2026-09-02 00:30:46.328 INFO  [EnableEncryptablePropertiesBeanFactoryPostProcessor.java:39 - postProcessBeanFactory] Post-processing PropertySource instances
+2026-09-02 00:30:46.329 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/batch_main/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-02 00:30:46.329 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/batch_lazyload/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+... [TRIMMED 19 LINES] ...
+2026-09-02 00:32:32.022 WARN  [SmpcStep002001Tasklet.java:149 - execute] 00.상품비교설명확인서 관리 파기목록 조회[{afterBlngTerm=3, isOption=false, beforeBlngTerm=1}] : 678건
+2026-09-02 00:32:32.034 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[82731] : item : PcicBlngReqDto(pcicMgmtSqno=82731, pcicCustSqno=82731, pcicSttsCode=30, pcicBlngSttsCode=30, rgstDttm=2026-06-01 07:17:40, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:32.066 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0102.deletePcicCustDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:32.083 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[82734] : item : PcicBlngReqDto(pcicMgmtSqno=82734, pcicCustSqno=82734, pcicSttsCode=30, pcicBlngSttsCode=30, rgstDttm=2026-06-01 08:02:38, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:32.084 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0102.deletePcicCustDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:32.098 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[82735] : item : PcicBlngReqDto(pcicMgmtSqno=82735, pcicCustSqno=82735, pcicSttsCode=30, pcicBlngSttsCode=30, rgstDttm=2026-06-01 08:05:00, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:32.099 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0102.deletePcicCustDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:32.112 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[82736] : item : PcicBlngReqDto(pcicMgmtSqno=82736, pcicCustSqno=82736, pcicSttsCode=30, pcicBlngSttsCode=30, rgstDttm=2026-06-01 08:14:03, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:32.112 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0102.deletePcicCustDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:32.119 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[82741] : item : PcicBlngReqDto(pcicMgmtSqno=82741, pcicCustSqno=82741, pcicSttsCode=30, pcicBlngSttsCode=30, rgstDttm=2026-06-01 08:36:01, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:32.119 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0102.deletePcicCustDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:32.135 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[82742] : item : PcicBlngReqDto(pcicMgmtSqno=82742, pcicCustSqno=82742, pcicSttsCode=30, pcicBlngSttsCode=30, rgstDttm=2026-06-01 08:36:29, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:32.135 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0102.deletePcicCustDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:32.140 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[82743] : item : PcicBlngReqDto(pcicMgmtSqno=82743, pcicCustSqno=82743, pcicSttsCode=30, pcicBlngSttsCode=30, rgstDttm=2026-06-01 08:37:20, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:32.141 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0102.deletePcicCustDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:32.145 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[82746] : item : PcicBlngReqDto(pcicMgmtSqno=82746, pcicCustSqno=82746, pcicSttsCode=30, pcicBlngSttsCode=30, rgstDttm=2026-06-01 08:43:43, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:32.146 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0102.deletePcicCustDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:32.159 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[82747] : item : PcicBlngReqDto(pcicMgmtSqno=82747, pcicCustSqno=82747, pcicSttsCode=30, pcicBlngSttsCode=30, rgstDttm=2026-06-01 08:44:31, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:32.159 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0102.deletePcicCustDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:32.163 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[82748] : item : PcicBlngReqDto(pcicMgmtSqno=82748, pcicCustSqno=82748, pcicSttsCode=30, pcicBlngSttsCode=30, rgstDttm=2026-06-01 08:48:25, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:32.163 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0102.deletePcicCustDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:32.175 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[82749] : item : PcicBlngReqDto(pcicMgmtSqno=82749, pcicCustSqno=82749, pcicSttsCode=30, pcicBlngSttsCode=30, rgstDttm=2026-06-01 08:48:29, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:32.176 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0102.deletePcicCustDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:32.182 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[82750] : item : PcicBlngReqDto(pcicMgmtSqno=82750, pcicCustSqno=82750, pcicSttsCode=30, pcicBlngSttsCode=30, rgstDttm=2026-06-01 08:49:45, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:32.182 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0102.deletePcicCustDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:32.201 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[82753] : item : PcicBlngReqDto(pcicMgmtSqno=82753, pcicCustSqno=82753, pcicSttsCode=30, pcicBlngSttsCode=30, rgstDttm=2026-06-01 08:50:43, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:32.201 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0102.deletePcicCustDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:32.205 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[82756] : item : PcicBlngReqDto(pcicMgmtSqno=82756, pcicCustSqno=82756, pcicSttsCode=30, pcicBlngSttsCode=30, rgstDttm=2026-06-01 08:56:21, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:32.205 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0102.deletePcicCustDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:32.210 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[82758] : item : PcicBlngReqDto(pcicMgmtSqno=82758, pcicCustSqno=82758, pcicSttsCode=30, pcicBlngSttsCode=30, rgstDttm=2026-06-01 08:58:00, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:32.210 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0102.deletePcicCustDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:32.217 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[82769] : item : PcicBlngReqDto(pcicMgmtSqno=82769, pcicCustSqno=82769, pcicSttsCode=30, pcicBlngSttsCode=30, rgstDttm=2026-06-01 09:02:14, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:32.218 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0102.deletePcicCustDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:32.229 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[82778] : item : PcicBlngReqDto(pcicMgmtSqno=82778, pcicCustSqno=82778, pcicSttsCode=30, pcicBlngSttsCode=30, rgstDttm=2026-06-01 09:07:48, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:32.229 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0102.deletePcicCustDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:32.234 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[82779] : item : PcicBlngReqDto(pcicMgmtSqno=82779, pcicCustSqno=82779, pcicSttsCode=30, pcicBlngSttsCode=30, rgstDttm=2026-06-01 09:08:06, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:32.234 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0102.deletePcicCustDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:32.245 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[82781] : item : PcicBlngReqDto(pcicMgmtSqno=82781, pcicCustSqno=82781, pcicSttsCode=30, pcicBlngSttsCode=30, rgstDttm=2026-06-01 09:10:00, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:32.245 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0102.deletePcicCustDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:32.258 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[82782] : item : PcicBlngReqDto(pcicMgmtSqno=82782, pcicCustSqno=82782, pcicSttsCode=30, pcicBlngSttsCode=30, rgstDttm=2026-06-01 09:10:47, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:32.258 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0102.deletePcicCustDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:32.267 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[82783] : item : PcicBlngReqDto(pcicMgmtSqno=82783, pcicCustSqno=82783, pcicSttsCode=30, pcicBlngSttsCode=30, rgstDttm=2026-06-01 09:12:14, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:32.267 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0102.deletePcicCustDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:32.279 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[82784] : item : PcicBlngReqDto(pcicMgmtSqno=82784, pcicCustSqno=82784, pcicSttsCode=30, pcicBlngSttsCode=30, rgstDttm=2026-06-01 09:15:04, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:32.283 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0102.deletePcicCustDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:32.298 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[82787] : item : PcicBlngReqDto(pcicMgmtSqno=82787, pcicCustSqno=82787, pcicSttsCode=30, pcicBlngSttsCode=30, rgstDttm=2026-06-01 09:16:16, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:32.298 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0102.deletePcicCustDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:32.310 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[82788] : item : PcicBlngReqDto(pcicMgmtSqno=82788, pcicCustSqno=82788, pcicSttsCode=30, pcicBlngSttsCode=30, rgstDttm=2026-06-01 09:16:20, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:32.310 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0102.deletePcicCustDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:32.320 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[82790] : item : PcicBlngReqDto(pcicMgmtSqno=82790, pcicCustSqno=82790, pcicSttsCode=30, pcicBlngSttsCode=30, rgstDttm=2026-06-01 09:17:04, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:32.320 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0102.deletePcicCustDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:32.329 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[82791] : item : PcicBlngReqDto(pcicMgmtSqno=82791, pcicCustSqno=82791, pcicSttsCode=30, pcicBlngSttsCode=30, rgstDttm=2026-06-01 09:18:43, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:32.329 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0102.deletePcicCustDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:32.362 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[82793] : item : PcicBlngReqDto(pcicMgmtSqno=82793, pcicCustSqno=82793, pcicSttsCode=30, pcicBlngSttsCode=30, rgstDttm=2026-06-01 09:19:43, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:32.363 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0102.deletePcicCustDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:32.382 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[82796] : item : PcicBlngReqDto(pcicMgmtSqno=82796, pcicCustSqno=82796, pcicSttsCode=30, pcicBlngSttsCode=30, rgstDttm=2026-06-01 09:21:20, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:32.382 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0102.deletePcicCustDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:32.406 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[82799] : item : PcicBlngReqDto(pcicMgmtSqno=82799, pcicCustSqno=82799, pcicSttsCode=30, pcicBlngSttsCode=30, rgstDttm=2026-06-01 09:24:39, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:32.406 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0102.deletePcicCustDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:32.419 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[82800] : item : PcicBlngReqDto(pcicMgmtSqno=82800, pcicCustSqno=82800, pcicSttsCode=30, pcicBlngSttsCode=30, rgstDttm=2026-06-01 09:25:33, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:32.419 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0102.deletePcicCustDstc */
+... [TRIMMED 3495 LINES] ...
+
+2026-09-02 00:32:35.248 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139441] : item : PcicBlngReqDto(pcicMgmtSqno=139441, pcicCustSqno=139441, pcicSttsCode=20, pcicBlngSttsCode=, rgstDttm=2026-08-01 07:24:00, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:35.248 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:35.349 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139442] : item : PcicBlngReqDto(pcicMgmtSqno=139442, pcicCustSqno=139442, pcicSttsCode=10, pcicBlngSttsCode=, rgstDttm=2026-08-01 08:37:06, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:35.349 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:35.380 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139443] : item : PcicBlngReqDto(pcicMgmtSqno=139443, pcicCustSqno=139443, pcicSttsCode=10, pcicBlngSttsCode=, rgstDttm=2026-08-01 08:40:05, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:35.381 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:35.402 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139446] : item : PcicBlngReqDto(pcicMgmtSqno=139446, pcicCustSqno=139446, pcicSttsCode=10, pcicBlngSttsCode=, rgstDttm=2026-08-01 09:28:51, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:35.402 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:35.420 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139449] : item : PcicBlngReqDto(pcicMgmtSqno=139449, pcicCustSqno=139449, pcicSttsCode=20, pcicBlngSttsCode=, rgstDttm=2026-08-01 09:54:59, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:35.420 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:35.464 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139451] : item : PcicBlngReqDto(pcicMgmtSqno=139451, pcicCustSqno=139451, pcicSttsCode=20, pcicBlngSttsCode=, rgstDttm=2026-08-01 09:56:00, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:35.464 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:35.514 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139452] : item : PcicBlngReqDto(pcicMgmtSqno=139452, pcicCustSqno=139452, pcicSttsCode=20, pcicBlngSttsCode=, rgstDttm=2026-08-01 09:56:56, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:35.514 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:35.552 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139453] : item : PcicBlngReqDto(pcicMgmtSqno=139453, pcicCustSqno=139453, pcicSttsCode=20, pcicBlngSttsCode=, rgstDttm=2026-08-01 10:02:16, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:35.552 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:35.593 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139454] : item : PcicBlngReqDto(pcicMgmtSqno=139454, pcicCustSqno=139454, pcicSttsCode=20, pcicBlngSttsCode=, rgstDttm=2026-08-01 10:07:09, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:35.593 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:35.640 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139455] : item : PcicBlngReqDto(pcicMgmtSqno=139455, pcicCustSqno=139455, pcicSttsCode=10, pcicBlngSttsCode=, rgstDttm=2026-08-01 10:09:59, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:35.640 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:35.680 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139456] : item : PcicBlngReqDto(pcicMgmtSqno=139456, pcicCustSqno=139456, pcicSttsCode=10, pcicBlngSttsCode=, rgstDttm=2026-08-01 10:29:13, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:35.680 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:35.698 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139457] : item : PcicBlngReqDto(pcicMgmtSqno=139457, pcicCustSqno=139457, pcicSttsCode=10, pcicBlngSttsCode=, rgstDttm=2026-08-01 10:44:51, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:35.698 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:35.724 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139458] : item : PcicBlngReqDto(pcicMgmtSqno=139458, pcicCustSqno=139458, pcicSttsCode=10, pcicBlngSttsCode=, rgstDttm=2026-08-01 10:45:01, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:35.724 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:35.763 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139459] : item : PcicBlngReqDto(pcicMgmtSqno=139459, pcicCustSqno=139459, pcicSttsCode=10, pcicBlngSttsCode=, rgstDttm=2026-08-01 10:46:06, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:35.763 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:35.785 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139460] : item : PcicBlngReqDto(pcicMgmtSqno=139460, pcicCustSqno=139460, pcicSttsCode=10, pcicBlngSttsCode=, rgstDttm=2026-08-01 10:46:24, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:35.785 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:35.805 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139461] : item : PcicBlngReqDto(pcicMgmtSqno=139461, pcicCustSqno=139461, pcicSttsCode=10, pcicBlngSttsCode=, rgstDttm=2026-08-01 10:50:40, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:35.805 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:35.825 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139462] : item : PcicBlngReqDto(pcicMgmtSqno=139462, pcicCustSqno=139462, pcicSttsCode=10, pcicBlngSttsCode=, rgstDttm=2026-08-01 10:54:00, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:35.825 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:35.844 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139464] : item : PcicBlngReqDto(pcicMgmtSqno=139464, pcicCustSqno=139464, pcicSttsCode=20, pcicBlngSttsCode=, rgstDttm=2026-08-01 11:07:05, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:35.845 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:35.891 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139465] : item : PcicBlngReqDto(pcicMgmtSqno=139465, pcicCustSqno=139465, pcicSttsCode=20, pcicBlngSttsCode=, rgstDttm=2026-08-01 11:20:49, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:35.891 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:35.937 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139469] : item : PcicBlngReqDto(pcicMgmtSqno=139469, pcicCustSqno=139469, pcicSttsCode=20, pcicBlngSttsCode=, rgstDttm=2026-08-01 11:30:46, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:35.937 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:35.974 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139470] : item : PcicBlngReqDto(pcicMgmtSqno=139470, pcicCustSqno=139470, pcicSttsCode=10, pcicBlngSttsCode=, rgstDttm=2026-08-01 11:46:17, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:35.974 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:35.999 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139471] : item : PcicBlngReqDto(pcicMgmtSqno=139471, pcicCustSqno=139471, pcicSttsCode=10, pcicBlngSttsCode=, rgstDttm=2026-08-01 11:46:35, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:35.999 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:36.016 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139472] : item : PcicBlngReqDto(pcicMgmtSqno=139472, pcicCustSqno=139472, pcicSttsCode=10, pcicBlngSttsCode=, rgstDttm=2026-08-01 11:47:31, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:36.016 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:36.034 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139476] : item : PcicBlngReqDto(pcicMgmtSqno=139476, pcicCustSqno=139476, pcicSttsCode=10, pcicBlngSttsCode=, rgstDttm=2026-08-01 12:08:09, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:36.034 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:36.050 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139479] : item : PcicBlngReqDto(pcicMgmtSqno=139479, pcicCustSqno=139479, pcicSttsCode=10, pcicBlngSttsCode=, rgstDttm=2026-08-01 12:11:25, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:36.050 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:36.087 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139482] : item : PcicBlngReqDto(pcicMgmtSqno=139482, pcicCustSqno=139482, pcicSttsCode=10, pcicBlngSttsCode=, rgstDttm=2026-08-01 12:45:04, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:36.087 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:36.121 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139483] : item : PcicBlngReqDto(pcicMgmtSqno=139483, pcicCustSqno=139483, pcicSttsCode=10, pcicBlngSttsCode=, rgstDttm=2026-08-01 13:22:00, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:36.121 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:36.145 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139486] : item : PcicBlngReqDto(pcicMgmtSqno=139486, pcicCustSqno=139486, pcicSttsCode=10, pcicBlngSttsCode=, rgstDttm=2026-08-01 13:32:16, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:36.145 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:36.168 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139488] : item : PcicBlngReqDto(pcicMgmtSqno=139488, pcicCustSqno=139488, pcicSttsCode=10, pcicBlngSttsCode=, rgstDttm=2026-08-01 13:48:19, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:36.168 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:36.185 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139490] : item : PcicBlngReqDto(pcicMgmtSqno=139490, pcicCustSqno=139490, pcicSttsCode=20, pcicBlngSttsCode=, rgstDttm=2026-08-01 14:05:21, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:36.185 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:36.219 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139491] : item : PcicBlngReqDto(pcicMgmtSqno=139491, pcicCustSqno=139491, pcicSttsCode=10, pcicBlngSttsCode=, rgstDttm=2026-08-01 14:06:34, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:36.219 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:36.239 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139493] : item : PcicBlngReqDto(pcicMgmtSqno=139493, pcicCustSqno=139493, pcicSttsCode=10, pcicBlngSttsCode=, rgstDttm=2026-08-01 14:13:40, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:36.239 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:36.254 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139494] : item : PcicBlngReqDto(pcicMgmtSqno=139494, pcicCustSqno=139494, pcicSttsCode=10, pcicBlngSttsCode=, rgstDttm=2026-08-01 14:14:06, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:36.254 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:36.274 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139496] : item : PcicBlngReqDto(pcicMgmtSqno=139496, pcicCustSqno=139496, pcicSttsCode=10, pcicBlngSttsCode=, rgstDttm=2026-08-01 14:16:18, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:36.274 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:36.291 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139499] : item : PcicBlngReqDto(pcicMgmtSqno=139499, pcicCustSqno=139499, pcicSttsCode=10, pcicBlngSttsCode=, rgstDttm=2026-08-01 14:19:56, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:36.291 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:36.307 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139500] : item : PcicBlngReqDto(pcicMgmtSqno=139500, pcicCustSqno=139500, pcicSttsCode=10, pcicBlngSttsCode=, rgstDttm=2026-08-01 14:21:10, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:36.307 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:36.324 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139501] : item : PcicBlngReqDto(pcicMgmtSqno=139501, pcicCustSqno=139501, pcicSttsCode=10, pcicBlngSttsCode=, rgstDttm=2026-08-01 14:22:13, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:36.324 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:36.339 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139502] : item : PcicBlngReqDto(pcicMgmtSqno=139502, pcicCustSqno=139502, pcicSttsCode=10, pcicBlngSttsCode=, rgstDttm=2026-08-01 14:22:41, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:36.339 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:36.359 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139504] : item : PcicBlngReqDto(pcicMgmtSqno=139504, pcicCustSqno=139504, pcicSttsCode=10, pcicBlngSttsCode=, rgstDttm=2026-08-01 14:26:33, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:36.359 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:36.374 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139505] : item : PcicBlngReqDto(pcicMgmtSqno=139505, pcicCustSqno=139505, pcicSttsCode=10, pcicBlngSttsCode=, rgstDttm=2026-08-01 14:27:00, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:36.374 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 45 LINES] ...
+
+2026-09-02 00:32:36.507 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139514] : item : PcicBlngReqDto(pcicMgmtSqno=139514, pcicCustSqno=139514, pcicSttsCode=20, pcicBlngSttsCode=, rgstDttm=2026-08-01 15:03:07, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:36.507 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:36.535 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139515] : item : PcicBlngReqDto(pcicMgmtSqno=139515, pcicCustSqno=139515, pcicSttsCode=20, pcicBlngSttsCode=, rgstDttm=2026-08-01 15:04:09, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:36.535 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 9 LINES] ...
+
+2026-09-02 00:32:36.581 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139520] : item : PcicBlngReqDto(pcicMgmtSqno=139520, pcicCustSqno=139520, pcicSttsCode=20, pcicBlngSttsCode=, rgstDttm=2026-08-01 15:29:08, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:36.581 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 45 LINES] ...
+
+2026-09-02 00:32:36.730 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139540] : item : PcicBlngReqDto(pcicMgmtSqno=139540, pcicCustSqno=139540, pcicSttsCode=20, pcicBlngSttsCode=, rgstDttm=2026-08-01 20:15:28, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:36.730 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:36.770 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139541] : item : PcicBlngReqDto(pcicMgmtSqno=139541, pcicCustSqno=139541, pcicSttsCode=20, pcicBlngSttsCode=, rgstDttm=2026-08-01 20:18:21, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:36.770 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:36.805 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139543] : item : PcicBlngReqDto(pcicMgmtSqno=139543, pcicCustSqno=139543, pcicSttsCode=20, pcicBlngSttsCode=, rgstDttm=2026-08-01 20:23:23, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:36.806 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:36.866 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139544] : item : PcicBlngReqDto(pcicMgmtSqno=139544, pcicCustSqno=139544, pcicSttsCode=20, pcicBlngSttsCode=, rgstDttm=2026-08-01 20:29:28, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:36.866 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 3 LINES] ...
+
+2026-09-02 00:32:36.901 DEBUG [SmpcStep002001Tasklet.java:159 - lambda$execute$1] 1.0 삭제데이터[139547] : item : PcicBlngReqDto(pcicMgmtSqno=139547, pcicCustSqno=139547, pcicSttsCode=20, pcicBlngSttsCode=, rgstDttm=2026-08-01 21:08:46, fpUniqNo=null, isrnCmpyCode=null, polyNo=null, appnMthdCode=null, atcmFileId=null, atcmFileNm=null, datRfdt=null, datLdngDate=null)
+2026-09-02 00:32:36.901 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0104H.deletePcicSendDstc */
+... [TRIMMED 30 LINES] ...
+, 
+   -> [10-'139530'] : 관리0101(1건), 고객0102(1건), 알림0104H(0건), 첨부파일[물리파일-71건 / 물리오류-0건 / 1901공통-71건 / 0103확인서-1건], 
+, 
+   -> [20-'139540'] : 관리0101(1건), 고객0102(1건), 알림0104H(0건), 첨부파일[물리파일-73건 / 물리오류-0건 / 1901공통-73건 / 0103확인서-2건], 
+, 
+   -> [20-'139541'] : 관리0101(1건), 고객0102(1건), 알림0104H(0건), 첨부파일[물리파일-75건 / 물리오류-0건 / 1901공통-75건 / 0103확인서-2건], 
+, 
+   -> [20-'139543'] : 관리0101(1건), 고객0102(1건), 알림0104H(0건), 첨부파일[물리파일-77건 / 물리오류-0건 / 1901공통-77건 / 0103확인서-2건], 
+, 
+   -> [20-'139544'] : 관리0101(1건), 고객0102(1건), 알림0104H(0건), 첨부파일[물리파일-79건 / 물리오류-0건 / 1901공통-79건 / 0103확인서-2건], 
+, 
+   -> [20-'139547'] : 관리0101(1건), 고객0102(1건), 알림0104H(1건), 첨부파일[물리파일-81건 / 물리오류-0건 / 1901공통-81건 / 0103확인서-2건], 
+, 
+   -> [10-'139548'] : 관리0101(1건), 고객0102(1건), 알림0104H(1건), 첨부파일[물리파일-82건 / 물리오류-0건 / 1901공통-82건 / 0103확인서-1건], 
+, 
+   -> [10-'139549'] : 관리0101(1건), 고객0102(1건), 알림0104H(1건), 첨부파일[물리파일-83건 / 물리오류-0건 / 1901공통-83건 / 0103확인서-1건], 
+, 
+   -> [10-'139552'] : 관리0101(1건), 고객0102(1건), 알림0104H(1건), 첨부파일[물리파일-84건 / 물리오류-0건 / 1901공통-84건 / 0103확인서-1건], 
+]}
+2026-09-02 00:33:35.889 INFO  [SmpcStep002001Tasklet.java:297 - afterStep] ==== SmpcStep002001Tasklet END ====
+2026-09-02 00:33:35.889 INFO  [StaticLogListener.java:20 - afterStep] ================================================
+2026-09-02 00:33:35.889 INFO  [StaticLogListener.java:21 - afterStep]      StepName : smpcJob002001
+2026-09-02 00:33:35.889 INFO  [StaticLogListener.java:22 - afterStep]     ReadCount : 0
+2026-09-02 00:33:35.889 INFO  [StaticLogListener.java:23 - afterStep]    WriteCount : 0
+2026-09-02 00:33:35.889 INFO  [StaticLogListener.java:24 - afterStep]   CommitCount : 1
+2026-09-02 00:33:35.889 INFO  [StaticLogListener.java:25 - afterStep] RollbackCount : 0
+2026-09-02 00:33:35.889 INFO  [StaticLogListener.java:26 - afterStep] ================================================
+2026-09-02 00:33:35.893 INFO  [AbstractStep.java:273 - execute] Step: [smpcJob002001] executed in 1m6s369ms
+2026-09-02 00:33:35.900 INFO  [SimpleJobLauncher.java:152 - run] Job: [SimpleJob: [name=smpcJob002]] completed with the following parameters: [{afterBlngTerm=3, beforeBlngTerm=1, run.id=1, afterBlngDate=, beforeBlngDate=}] and the following status: [COMPLETED] in 1m6s401ms
+2026-09-02 00:33:35.937 INFO  [EventDrivenConsumer.java:107 - logComponentSubscriptionEvent] Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2026-09-02 00:33:35.937 INFO  [AbstractSubscribableChannel.java:64 - adjustCounterIfNecessary] Channel 'batch-1.errorChannel' has 0 subscriber(s).
+2026-09-02 00:33:35.937 INFO  [AbstractEndpoint.java:193 - stop] stopped bean '_org.springframework.integration.errorLogger'
+2026-09-02 00:33:35.974 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep144001AsyncExecutor'
+2026-09-02 00:33:35.976 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep055001AsyncExecutor'
+2026-09-02 00:33:35.977 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep051001AsyncExecutor'
+2026-09-02 00:33:35.989 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep010001AsyncExecutor'
+2026-09-02 00:33:35.990 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep008001AsyncExecutor'
+2026-09-02 00:33:36.151 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201008TaskExecutor'
+2026-09-02 00:33:36.152 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201005TaskExecutor'
+2026-09-02 00:33:36.152 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201TaskExecutor'
+2026-09-02 00:33:36.380 INFO  [HikariDataSource.java:350 - close] w1neDataSource - Shutdown initiated...
+2026-09-02 00:33:36.396 INFO  [HikariDataSource.java:352 - close] w1neDataSource - Shutdown completed.
+2026-09-02 00:33:36.396 INFO  [HikariDataSource.java:350 - close] rcDataSource - Shutdown initiated...
+2026-09-02 00:33:36.410 INFO  [HikariDataSource.java:352 - close] rcDataSource - Shutdown completed.
+2026-09-02 00:33:36.410 INFO  [HikariDataSource.java:350 - close] gaDataSource - Shutdown initiated...
+2026-09-02 00:33:36.420 INFO  [HikariDataSource.java:352 - close] gaDataSource - Shutdown completed.
+2026-09-02 00:33:36.429 INFO  [HikariDataSource.java:350 - close] smDataSource - Shutdown initiated...
+2026-09-02 00:33:36.432 INFO  [HikariDataSource.java:352 - close] smDataSource - Shutdown completed.
+2026-09-02 00:33:36.502 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'taskExecutor'
+2026-09-02 00:33:38.511 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'taskScheduler'

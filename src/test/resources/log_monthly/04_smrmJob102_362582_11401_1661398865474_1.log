@@ -1,0 +1,134 @@
+ip-10-237-6-119.ap-northeast-2.compute.internal
+PARAMETER=--job.name=smrmJob102 baseDate=20260901110000
+No Active GA_CODE set. falling back to default GA_CODE: default
+APPLICATION_PATH=/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar
+SPRING_PROFILES_ACTIVE=main,lazyload
+PARAMETER=--job.name=smrmJob102 baseDate=20260901110000
+_JAVA_OPTIONS= -Dfile.encoding=UTF-8
+Picked up _JAVA_OPTIONS:  -Dfile.encoding=UTF-8
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/logback-classic-1.2.11.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/log4j-slf4j-impl-2.13.3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [ch.qos.logback.classic.util.ContextSelectorStaticBinder]
+2026-09-01 11:00:02.673 INFO  [Version.java:21 - <clinit>] HV000001: Hibernate Validator 6.1.7.Final
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.codehaus.groovy.reflection.CachedClass (jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/groovy-2.5.14.jar!/) to method java.lang.Object.finalize()
+WARNING: Please consider reporting this to the maintainers of org.codehaus.groovy.reflection.CachedClass
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2026-09-01 11:00:03.755 INFO  [EnableEncryptablePropertiesBeanFactoryPostProcessor.java:39 - postProcessBeanFactory] Post-processing PropertySource instances
+2026-09-01 11:00:03.802 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource configurationProperties [org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource] to AOP Proxy
+2026-09-01 11:00:03.803 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrap [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-01 11:00:03.803 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource commandLineArgs [org.springframework.core.env.SimpleCommandLinePropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-01 11:00:03.803 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource systemProperties [org.springframework.core.env.PropertiesPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-01 11:00:03.803 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableSystemEnvironmentPropertySourceWrapper
+2026-09-01 11:00:03.803 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
+2026-09-01 11:00:03.803 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource springCloudClientHostInfo [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-01 11:00:03.803 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource applicationConfig: [classpath:/bootstrap.yml] [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-01 11:00:03.803 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource kafkaBinderDefaultProperties [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-01 11:00:03.903 INFO  [DefaultLazyPropertyFilter.java:31 - lambda$null$2] Property Filter custom Bean not found with name 'encryptablePropertyFilter'. Initializing Default Property Filter
+2026-09-01 11:00:03.923 INFO  [DefaultLazyPropertyResolver.java:35 - lambda$null$2] Property Resolver custom Bean not found with name 'encryptablePropertyResolver'. Initializing Default Property Resolver
+2026-09-01 11:00:03.927 INFO  [DefaultLazyPropertyDetector.java:35 - lambda$null$2] Property Detector custom Bean not found with name 'encryptablePropertyDetector'. Initializing Default Property Detector
+    ____            ____           ____              __
+   / __ /___ _   __/ __ /____     / __ )____  ____  / /_
+  / / / / _ / | / / / / / __ /   / __  / __ // __ // __/
+ / /_/ /  __/ |/ / /_/ / / / /  / /_/ / /_/ / /_/ //_
+/_____/ ___/|___//____/_/ /_/  /_____//____//____//__/ 
+ :: DevOn Boot ::   
+ :: Embedded LENA :: v1.3.1.2
+
+2026-09-01 11:00:07.259 INFO  [PropertySourceBootstrapConfiguration.java:112 - initialize] Located property source: [BootstrapPropertySource {name='bootstrapProperties-/ospp/batch_main/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/batch_lazyload/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/batch/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/application_main/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/application_lazyload/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/application/'}]
+2026-09-01 11:00:07.328 INFO  [SpringApplication.java:652 - logStartupProfileInfo] The following profiles are active: main,lazyload
+2026-09-01 11:00:11.003 INFO  [CommonDaoOnSingleCondition.java:54 - sqlSessionTypeMatches] dataSourceType is not single
+2026-09-01 11:00:12.924 INFO  [RepositoryConfigurationDelegate.java:249 - multipleStoresDetected] Multiple Spring Data modules found, entering strict repository configuration mode!
+2026-09-01 11:00:12.929 INFO  [RepositoryConfigurationDelegate.java:127 - registerRepositoriesIn] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-09-01 11:00:13.024 INFO  [RepositoryConfigurationDelegate.java:187 - registerRepositoriesIn] Finished Spring Data repository scanning in 76ms. Found 0 Redis repository interfaces.
+2026-09-01 11:00:15.036 INFO  [GenericScope.java:295 - setSerializationId] BeanFactory id=bf21df6d-a3d8-3d8f-b3ae-2a9c101d8cf7
+2026-09-01 11:00:15.343 INFO  [EnableEncryptablePropertiesBeanFactoryPostProcessor.java:39 - postProcessBeanFactory] Post-processing PropertySource instances
+2026-09-01 11:00:15.343 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/batch_main/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-01 11:00:15.343 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/batch_lazyload/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-01 11:00:15.344 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/batch/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-01 11:00:15.344 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/application_main/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-01 11:00:15.344 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/application_lazyload/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-01 11:00:15.344 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/application/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-01 11:00:15.344 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource configurationProperties [org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource] to AOP Proxy
+2026-09-01 11:00:15.344 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource commandLineArgs [org.springframework.core.env.SimpleCommandLinePropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-01 11:00:15.344 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource systemProperties [org.springframework.core.env.PropertiesPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-01 11:00:15.344 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableSystemEnvironmentPropertySourceWrapper
+2026-09-01 11:00:15.344 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
+2026-09-01 11:00:15.344 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource springCloudClientHostInfo [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+... [TRIMMED 87 LINES] ...
+2026-09-01 11:00:54.195 WARN  [DefaultBatchConfigurer.java:98 - initialize] No datasource was provided...using a Map based JobRepository
+2026-09-01 11:00:54.195 WARN  [DefaultBatchConfigurer.java:101 - initialize] No transaction manager was provided, using a ResourcelessTransactionManager
+2026-09-01 11:00:54.217 INFO  [SimpleJobLauncher.java:215 - afterPropertiesSet] No TaskExecutor has been set, defaulting to synchronous executor.
+2026-09-01 11:00:54.260 INFO  [SimpleJobLauncher.java:146 - run] Job: [SimpleJob: [name=smrmJob102]] launched with the following parameters: [{run.id=1, baseDate=20260901110000}]
+2026-09-01 11:00:54.279 INFO  [SimpleStepHandler.java:149 - handleStep] Executing step: [smrmJob102001]
+2026-09-01 11:00:54.296 INFO  [SmrmJob102001Tasklet.java:39 - execute] SmrmJob102001Tasklet execute...
+... [TRIMMED 108 LINES] ...
+2026-09-01 11:02:33.928 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] {"batchSeq":"BATCHSMRMF20260901110000","ecareNo":45,"filePath":"/efs/shared/solution/ums/batch/gas_smrm_sms_fp_20260901110000.dat","datCnt":"3265"}
+2026-09-01 11:02:33.928 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] ---> END HTTP (147-byte body)
+2026-09-01 11:02:34.004 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] <--- HTTP/1.1 200  (75ms)
+2026-09-01 11:02:34.004 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] connection: keep-alive
+2026-09-01 11:02:34.004 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] content-length: 81
+... [TRIMMED 68 LINES] ...
+			                      AND C2.CUST_ID IS NOT NULL
+				             ) D
+				             LIMIT 1
+			          ) AS CR_POLR_TLNO
+					 , I.IMSM_CNFM_RSLT_CODE AS IMSM_CNFM_RSLT_CODE
+					 , I.IMSM_CUST_CNFM_DATE AS IMSM_CUST_CNFM_DATE
+					 , I.SELF_CTFN_DTTM AS SELF_CTFN_DTTM
+					 , I.IMSM_LAST_LTRS_SEND_CTNB AS IMSM_LAST_LTRS_SEND_CTNB
+					 , C.RCRT_FP_NM AS RCRT_FP_NM
+					 , C.POLR_NM AS POLR_NAME
+					 , C.PROD_NM AS PROD_NM
+					 , C.SUM_PREM AS SUM_PREM
+					 , HO.HPNO AS RCRT_FP_TLNO
+			      from tb_smrm1011 H
+				 inner join tb_smrm1012 M
+				    on H.IMSM_SEND_HIST_UUID = M.IMSM_SEND_HIST_UUID
+				 inner join tb_smrm1010 I
+				    on M.IMSM_MGMT_UUID = I.IMSM_MGMT_UUID
+				 inner join tb_smpm0101 C
+				    on I.POLY_NO = C.POLY_NO
+				   and I.ISRN_CMPY_CODE = C.ISRN_CMPY_CODE
+				 inner join tb_smho1001 HO
+				    on C.RCRT_FP_UNIQ_NO = HO.UNIQ_NO
+			     where H.SMS_SEND_PRGS_STTS_CODE = ?
+			 ) TT
+			 WHERE CR_POLR_TLNO IS NOT NULL
+		)
+    UPDATE TB_SMRM1011
+       SET SMS_SEND_PRGS_STTS_CODE = ?
+     
+      , LAST_CHNG_USER_ID = 'Batch'
+      , LAST_CHNG_DTTM = now()
+      , LAST_CHNG_PRGM_ID = ?
+     WHERE IMSM_SEND_HIST_UUID IN (SELECT IMSM_SEND_HIST_UUID FROM RDATA)
+2026-09-01 11:02:34.016 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"toStatusCode":"20","fromStatusCode":"10","lastChngPrgmId":"SmrmJob102003Tasklet"}
+2026-09-01 11:02:46.536 INFO  [SmrmJob102003Tasklet.java:115 - execute] ==============================================불완전판매 SMS FP 발송 완료 건 
+- TB_SMRM1011 : 3265 건.
+2026-09-01 11:02:46.557 INFO  [AbstractStep.java:273 - execute] Step: [smrmJob102003] executed in 12s791ms
+2026-09-01 11:02:46.561 INFO  [SimpleJobLauncher.java:152 - run] Job: [SimpleJob: [name=smrmJob102]] completed with the following parameters: [{run.id=1, baseDate=20260901110000}] and the following status: [COMPLETED] in 1m52s288ms
+2026-09-01 11:02:46.586 INFO  [EventDrivenConsumer.java:107 - logComponentSubscriptionEvent] Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2026-09-01 11:02:46.586 INFO  [AbstractSubscribableChannel.java:64 - adjustCounterIfNecessary] Channel 'batch-1.errorChannel' has 0 subscriber(s).
+2026-09-01 11:02:46.586 INFO  [AbstractEndpoint.java:193 - stop] stopped bean '_org.springframework.integration.errorLogger'
+2026-09-01 11:02:46.639 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep144001AsyncExecutor'
+2026-09-01 11:02:46.643 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep055001AsyncExecutor'
+2026-09-01 11:02:46.644 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep051001AsyncExecutor'
+2026-09-01 11:02:46.658 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep010001AsyncExecutor'
+2026-09-01 11:02:46.658 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep008001AsyncExecutor'
+2026-09-01 11:02:46.810 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201008TaskExecutor'
+2026-09-01 11:02:46.811 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201005TaskExecutor'
+2026-09-01 11:02:46.812 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201TaskExecutor'
+2026-09-01 11:02:47.017 INFO  [HikariDataSource.java:350 - close] w1neDataSource - Shutdown initiated...
+2026-09-01 11:02:47.025 INFO  [HikariDataSource.java:352 - close] w1neDataSource - Shutdown completed.
+2026-09-01 11:02:47.026 INFO  [HikariDataSource.java:350 - close] rcDataSource - Shutdown initiated...
+2026-09-01 11:02:47.031 INFO  [HikariDataSource.java:352 - close] rcDataSource - Shutdown completed.
+2026-09-01 11:02:47.031 INFO  [HikariDataSource.java:350 - close] gaDataSource - Shutdown initiated...
+2026-09-01 11:02:47.034 INFO  [HikariDataSource.java:352 - close] gaDataSource - Shutdown completed.
+2026-09-01 11:02:47.043 INFO  [HikariDataSource.java:350 - close] smDataSource - Shutdown initiated...
+2026-09-01 11:02:47.052 INFO  [HikariDataSource.java:352 - close] smDataSource - Shutdown completed.
+2026-09-01 11:02:47.142 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'taskExecutor'
+2026-09-01 11:02:49.152 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'taskScheduler'

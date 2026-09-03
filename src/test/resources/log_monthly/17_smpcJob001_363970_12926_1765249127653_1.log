@@ -1,0 +1,974 @@
+ip-10-237-6-165.ap-northeast-2.compute.internal
+PARAMETER=--job.name=smpcJob001
+No Active GA_CODE set. falling back to default GA_CODE: default
+APPLICATION_PATH=/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar
+SPRING_PROFILES_ACTIVE=main,lazyload
+PARAMETER=--job.name=smpcJob001
+_JAVA_OPTIONS= -Dfile.encoding=UTF-8
+Picked up _JAVA_OPTIONS:  -Dfile.encoding=UTF-8
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/logback-classic-1.2.11.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/log4j-slf4j-impl-2.13.3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [ch.qos.logback.classic.util.ContextSelectorStaticBinder]
+2026-09-02 09:05:03.894 INFO  [Version.java:21 - <clinit>] HV000001: Hibernate Validator 6.1.7.Final
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.codehaus.groovy.reflection.CachedClass (jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/groovy-2.5.14.jar!/) to method java.lang.Object.finalize()
+WARNING: Please consider reporting this to the maintainers of org.codehaus.groovy.reflection.CachedClass
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2026-09-02 09:05:05.809 INFO  [EnableEncryptablePropertiesBeanFactoryPostProcessor.java:39 - postProcessBeanFactory] Post-processing PropertySource instances
+2026-09-02 09:05:05.926 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource configurationProperties [org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource] to AOP Proxy
+2026-09-02 09:05:05.927 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrap [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-02 09:05:05.927 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource commandLineArgs [org.springframework.core.env.SimpleCommandLinePropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-02 09:05:05.927 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource systemProperties [org.springframework.core.env.PropertiesPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-02 09:05:05.927 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableSystemEnvironmentPropertySourceWrapper
+2026-09-02 09:05:05.928 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
+2026-09-02 09:05:05.928 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource springCloudClientHostInfo [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-02 09:05:05.928 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource applicationConfig: [classpath:/bootstrap.yml] [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-02 09:05:05.928 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource kafkaBinderDefaultProperties [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-02 09:05:06.156 INFO  [DefaultLazyPropertyFilter.java:31 - lambda$null$2] Property Filter custom Bean not found with name 'encryptablePropertyFilter'. Initializing Default Property Filter
+2026-09-02 09:05:06.210 INFO  [DefaultLazyPropertyResolver.java:35 - lambda$null$2] Property Resolver custom Bean not found with name 'encryptablePropertyResolver'. Initializing Default Property Resolver
+2026-09-02 09:05:06.227 INFO  [DefaultLazyPropertyDetector.java:35 - lambda$null$2] Property Detector custom Bean not found with name 'encryptablePropertyDetector'. Initializing Default Property Detector
+    ____            ____           ____              __
+   / __ /___ _   __/ __ /____     / __ )____  ____  / /_
+  / / / / _ / | / / / / / __ /   / __  / __ // __ // __/
+ / /_/ /  __/ |/ / /_/ / / / /  / /_/ / /_/ / /_/ //_
+/_____/ ___/|___//____/_/ /_/  /_____//____//____//__/ 
+ :: DevOn Boot ::   
+ :: Embedded LENA :: v1.3.1.2
+
+2026-09-02 09:05:10.896 INFO  [PropertySourceBootstrapConfiguration.java:112 - initialize] Located property source: [BootstrapPropertySource {name='bootstrapProperties-/ospp/batch_main/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/batch_lazyload/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/batch/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/application_main/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/application_lazyload/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/application/'}]
+2026-09-02 09:05:11.074 INFO  [SpringApplication.java:652 - logStartupProfileInfo] The following profiles are active: main,lazyload
+2026-09-02 09:05:17.417 INFO  [CommonDaoOnSingleCondition.java:54 - sqlSessionTypeMatches] dataSourceType is not single
+2026-09-02 09:05:21.123 INFO  [RepositoryConfigurationDelegate.java:249 - multipleStoresDetected] Multiple Spring Data modules found, entering strict repository configuration mode!
+2026-09-02 09:05:21.127 INFO  [RepositoryConfigurationDelegate.java:127 - registerRepositoriesIn] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-09-02 09:05:21.185 INFO  [RepositoryConfigurationDelegate.java:187 - registerRepositoriesIn] Finished Spring Data repository scanning in 42ms. Found 0 Redis repository interfaces.
+2026-09-02 09:05:23.709 INFO  [GenericScope.java:295 - setSerializationId] BeanFactory id=bf21df6d-a3d8-3d8f-b3ae-2a9c101d8cf7
+2026-09-02 09:05:24.366 INFO  [EnableEncryptablePropertiesBeanFactoryPostProcessor.java:39 - postProcessBeanFactory] Post-processing PropertySource instances
+2026-09-02 09:05:24.367 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/batch_main/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-02 09:05:24.367 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/batch_lazyload/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-02 09:05:24.368 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/batch/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-02 09:05:24.368 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/application_main/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-02 09:05:24.368 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/application_lazyload/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-02 09:05:24.368 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/application/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-02 09:05:24.368 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource configurationProperties [org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource] to AOP Proxy
+2026-09-02 09:05:24.368 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource commandLineArgs [org.springframework.core.env.SimpleCommandLinePropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-02 09:05:24.368 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource systemProperties [org.springframework.core.env.PropertiesPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-02 09:05:24.368 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableSystemEnvironmentPropertySourceWrapper
+2026-09-02 09:05:24.369 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
+2026-09-02 09:05:24.369 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource springCloudClientHostInfo [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+... [TRIMMED 87 LINES] ...
+2026-09-02 09:06:27.707 WARN  [DefaultBatchConfigurer.java:98 - initialize] No datasource was provided...using a Map based JobRepository
+2026-09-02 09:06:27.707 WARN  [DefaultBatchConfigurer.java:101 - initialize] No transaction manager was provided, using a ResourcelessTransactionManager
+2026-09-02 09:06:27.725 INFO  [SimpleJobLauncher.java:215 - afterPropertiesSet] No TaskExecutor has been set, defaulting to synchronous executor.
+2026-09-02 09:06:27.761 INFO  [SimpleJobLauncher.java:146 - run] Job: [SimpleJob: [name=smpcJob001]] launched with the following parameters: [{run.id=1}]
+2026-09-02 09:06:27.784 INFO  [SimpleStepHandler.java:149 - handleStep] Executing step: [smpcJob001001]
+2026-09-02 09:06:27.794 INFO  [SmpcStep001001Tasklet.java:56 - beforeStep] ==== SmpcStep001001Tasklet START ====
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:29.839 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"573d72d7a5dd4396b152c5a81d13a2f2","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N08","newRfrnKeyVal2":"52619410120000"}
+2026-09-02 09:06:29.843 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=158778, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22439393, isrnCmpyCode=N08, polyNo=52619410120000, appnMthdCode=01, atcmFileId=573d72d7a5dd4396b152c5a81d13a2f2, atcmFileNm=NGUYEN TA NHAT HUY_삼성화재해상보험_서명완료_20260826.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:29.905 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:29.905 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N08","polyNo":"52619410120000","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"573d72d7a5dd4396b152c5a81d13a2f2","atcmFileNm":"NGUYEN TA NHAT HUY_삼성화재해상보험_서명완료_20260826.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"22439393"}
+2026-09-02 09:06:29.917 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:29.917 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=158778, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22439393, isrnCmpyCode=N08, polyNo=52619410120000, appnMthdCode=01, atcmFileId=573d72d7a5dd4396b152c5a81d13a2f2, atcmFileNm=NGUYEN TA NHAT HUY_삼성화재해상보험_서명완료_20260826.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:29.917 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=158778, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:29.966 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:29.971 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"9c919564b21b44509c6ac11b445f1af7","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N09","newRfrnKeyVal2":"M2026J1599300000"}
+2026-09-02 09:06:29.974 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=158889, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=21325004, isrnCmpyCode=N09, polyNo=M2026J1599300000, appnMthdCode=01, atcmFileId=9c919564b21b44509c6ac11b445f1af7, atcmFileNm=이병국_현대해상화재보험_서명완료_20260826.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:29.977 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:29.977 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N09","polyNo":"M2026J1599300000","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"9c919564b21b44509c6ac11b445f1af7","atcmFileNm":"이병국_현대해상화재보험_서명완료_20260826.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"21325004"}
+2026-09-02 09:06:29.985 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:29.986 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=158889, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=21325004, isrnCmpyCode=N09, polyNo=M2026J1599300000, appnMthdCode=01, atcmFileId=9c919564b21b44509c6ac11b445f1af7, atcmFileNm=이병국_현대해상화재보험_서명완료_20260826.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:29.986 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=158889, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:29.986 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:29.988 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"c148af97ede84f8b8e6db8bfbfc05f2a","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N09","newRfrnKeyVal2":"M2026J296883-000"}
+2026-09-02 09:06:29.990 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=158940, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22452558, isrnCmpyCode=N09, polyNo=M2026J296883-000, appnMthdCode=01, atcmFileId=c148af97ede84f8b8e6db8bfbfc05f2a, atcmFileNm=정윤정_현대해상화재보험_서명완료_20260826.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:29.991 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:29.991 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N09","polyNo":"M2026J296883-000","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"c148af97ede84f8b8e6db8bfbfc05f2a","atcmFileNm":"정윤정_현대해상화재보험_서명완료_20260826.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"22452558"}
+2026-09-02 09:06:29.993 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:29.993 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=158940, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22452558, isrnCmpyCode=N09, polyNo=M2026J296883-000, appnMthdCode=01, atcmFileId=c148af97ede84f8b8e6db8bfbfc05f2a, atcmFileNm=정윤정_현대해상화재보험_서명완료_20260826.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:29.994 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=158940, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:29.994 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:29.998 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"74ff24ed2c0f4512b8b61079d73d6303","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N08","newRfrnKeyVal2":"5262286910000"}
+2026-09-02 09:06:30.000 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=159215, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22425968, isrnCmpyCode=N08, polyNo=5262286910000, appnMthdCode=01, atcmFileId=74ff24ed2c0f4512b8b61079d73d6303, atcmFileNm=김지혜_삼성화재해상보험_서명완료_20260826.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.001 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.001 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N08","polyNo":"5262286910000","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"74ff24ed2c0f4512b8b61079d73d6303","atcmFileNm":"김지혜_삼성화재해상보험_서명완료_20260826.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"22425968"}
+2026-09-02 09:06:30.003 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:30.004 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=159215, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22425968, isrnCmpyCode=N08, polyNo=5262286910000, appnMthdCode=01, atcmFileId=74ff24ed2c0f4512b8b61079d73d6303, atcmFileNm=김지혜_삼성화재해상보험_서명완료_20260826.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.004 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=159215, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.004 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.007 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"73fdd97c808d4f6b8fbc892a1747c7c5","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N02","newRfrnKeyVal2":"CA2026728450000"}
+2026-09-02 09:06:30.008 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=159402, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=9518124, isrnCmpyCode=N02, polyNo=CA2026728450000, appnMthdCode=01, atcmFileId=73fdd97c808d4f6b8fbc892a1747c7c5, atcmFileNm=조태순_한화손해보험_서명완료_20260828.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.011 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.011 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N02","polyNo":"CA2026728450000","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"73fdd97c808d4f6b8fbc892a1747c7c5","atcmFileNm":"조태순_한화손해보험_서명완료_20260828.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"9518124"}
+2026-09-02 09:06:30.017 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:30.017 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=159402, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=9518124, isrnCmpyCode=N02, polyNo=CA2026728450000, appnMthdCode=01, atcmFileId=73fdd97c808d4f6b8fbc892a1747c7c5, atcmFileNm=조태순_한화손해보험_서명완료_20260828.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.017 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=159402, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.018 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.020 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"2e038eaff92f40e5ada366bd6c54d757","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N09","newRfrnKeyVal2":"M20261224337000"}
+2026-09-02 09:06:30.022 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=159441, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=21123619, isrnCmpyCode=N09, polyNo=M20261224337000, appnMthdCode=01, atcmFileId=2e038eaff92f40e5ada366bd6c54d757, atcmFileNm=김혜옥_현대해상화재보험_서명완료_20260828.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.022 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.023 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N09","polyNo":"M20261224337000","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"2e038eaff92f40e5ada366bd6c54d757","atcmFileNm":"김혜옥_현대해상화재보험_서명완료_20260828.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"21123619"}
+2026-09-02 09:06:30.024 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:30.024 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=159441, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=21123619, isrnCmpyCode=N09, polyNo=M20261224337000, appnMthdCode=01, atcmFileId=2e038eaff92f40e5ada366bd6c54d757, atcmFileNm=김혜옥_현대해상화재보험_서명완료_20260828.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.024 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=159441, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.025 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.028 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"18277232d65e4e10bb899d374994b408","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N10","newRfrnKeyVal2":"RQ2655161912"}
+2026-09-02 09:06:30.030 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=160133, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H2301008, isrnCmpyCode=N10, polyNo=RQ2655161912, appnMthdCode=01, atcmFileId=18277232d65e4e10bb899d374994b408, atcmFileNm=전윤_KB손해보험_서명완료_20260827.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.030 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.030 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N10","polyNo":"RQ2655161912","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"18277232d65e4e10bb899d374994b408","atcmFileNm":"전윤_KB손해보험_서명완료_20260827.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"H2301008"}
+2026-09-02 09:06:30.039 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:30.040 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=160133, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H2301008, isrnCmpyCode=N10, polyNo=RQ2655161912, appnMthdCode=01, atcmFileId=18277232d65e4e10bb899d374994b408, atcmFileNm=전윤_KB손해보험_서명완료_20260827.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.040 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=160133, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.040 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.047 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"9fbcb210f5d3469990ce27e528332dd1","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N10","newRfrnKeyVal2":"RQ2656284221"}
+2026-09-02 09:06:30.050 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=160140, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H2301008, isrnCmpyCode=N10, polyNo=RQ2656284221, appnMthdCode=01, atcmFileId=9fbcb210f5d3469990ce27e528332dd1, atcmFileNm=전윤_KB손해보험_서명완료_20260827.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.050 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.050 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N10","polyNo":"RQ2656284221","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"9fbcb210f5d3469990ce27e528332dd1","atcmFileNm":"전윤_KB손해보험_서명완료_20260827.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"H2301008"}
+2026-09-02 09:06:30.054 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:30.054 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=160140, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H2301008, isrnCmpyCode=N10, polyNo=RQ2656284221, appnMthdCode=01, atcmFileId=9fbcb210f5d3469990ce27e528332dd1, atcmFileNm=전윤_KB손해보험_서명완료_20260827.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.054 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=160140, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.055 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.059 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"20d7bbb85ca54094a13977ef919921f2","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N08","newRfrnKeyVal2":"20265590756"}
+2026-09-02 09:06:30.062 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=160532, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=21221807, isrnCmpyCode=N08, polyNo=20265590756, appnMthdCode=01, atcmFileId=20d7bbb85ca54094a13977ef919921f2, atcmFileNm=김향란_삼성화재해상보험_서명완료_20260828.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.063 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.063 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N08","polyNo":"20265590756","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"20d7bbb85ca54094a13977ef919921f2","atcmFileNm":"김향란_삼성화재해상보험_서명완료_20260828.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"21221807"}
+2026-09-02 09:06:30.085 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:30.086 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=160532, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=21221807, isrnCmpyCode=N08, polyNo=20265590756, appnMthdCode=01, atcmFileId=20d7bbb85ca54094a13977ef919921f2, atcmFileNm=김향란_삼성화재해상보험_서명완료_20260828.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.086 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=160532, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.086 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.090 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"2e805385effc49e8898d82cbdce3e61d","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"L51","newRfrnKeyVal2":"G2608260006808"}
+2026-09-02 09:06:30.096 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=160636, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H2301008, isrnCmpyCode=L51, polyNo=G2608260006808, appnMthdCode=01, atcmFileId=2e805385effc49e8898d82cbdce3e61d, atcmFileNm=전윤_라이나생명_서명완료_20260828.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.097 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.097 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"L51","polyNo":"G2608260006808","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"2e805385effc49e8898d82cbdce3e61d","atcmFileNm":"전윤_라이나생명_서명완료_20260828.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"H2301008"}
+2026-09-02 09:06:30.098 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:30.099 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=160636, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H2301008, isrnCmpyCode=L51, polyNo=G2608260006808, appnMthdCode=01, atcmFileId=2e805385effc49e8898d82cbdce3e61d, atcmFileNm=전윤_라이나생명_서명완료_20260828.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.099 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=160636, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.099 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.100 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"195350fdc0a64e80b757bfa65b5f3e4d","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N09","newRfrnKeyVal2":"M2026J296883-000"}
+2026-09-02 09:06:30.102 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=161174, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22452558, isrnCmpyCode=N09, polyNo=M2026J296883-000, appnMthdCode=01, atcmFileId=195350fdc0a64e80b757bfa65b5f3e4d, atcmFileNm=이미경_현대해상화재보험_서명완료_20260828.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.103 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.103 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N09","polyNo":"M2026J296883-000","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"195350fdc0a64e80b757bfa65b5f3e4d","atcmFileNm":"이미경_현대해상화재보험_서명완료_20260828.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"22452558"}
+2026-09-02 09:06:30.108 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:30.108 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=161174, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22452558, isrnCmpyCode=N09, polyNo=M2026J296883-000, appnMthdCode=01, atcmFileId=195350fdc0a64e80b757bfa65b5f3e4d, atcmFileNm=이미경_현대해상화재보험_서명완료_20260828.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.108 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=161174, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.108 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.110 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"76e14715e59b45f78df0598f0bccd3ad","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"L05","newRfrnKeyVal2":"12346655"}
+2026-09-02 09:06:30.116 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=161389, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H2606198, isrnCmpyCode=L05, polyNo=12346655, appnMthdCode=02, atcmFileId=76e14715e59b45f78df0598f0bccd3ad, atcmFileNm=심효진_교보생명_20260828.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.117 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.117 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"L05","polyNo":"12346655","appnMthdCode":"02","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"76e14715e59b45f78df0598f0bccd3ad","atcmFileNm":"심효진_교보생명_20260828.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"H2606198"}
+2026-09-02 09:06:30.120 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:30.120 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=161389, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H2606198, isrnCmpyCode=L05, polyNo=12346655, appnMthdCode=02, atcmFileId=76e14715e59b45f78df0598f0bccd3ad, atcmFileNm=심효진_교보생명_20260828.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.120 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=161389, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.121 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.122 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"f29e8d697cef46e5aab3d2b841e48eca","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N02","newRfrnKeyVal2":"LA260813611390"}
+2026-09-02 09:06:30.124 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=161463, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=20901285, isrnCmpyCode=N02, polyNo=LA260813611390, appnMthdCode=01, atcmFileId=f29e8d697cef46e5aab3d2b841e48eca, atcmFileNm=박효순_한화손해보험_서명완료_20260828.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.125 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.125 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N02","polyNo":"LA260813611390","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"f29e8d697cef46e5aab3d2b841e48eca","atcmFileNm":"박효순_한화손해보험_서명완료_20260828.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"20901285"}
+2026-09-02 09:06:30.127 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:30.128 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=161463, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=20901285, isrnCmpyCode=N02, polyNo=LA260813611390, appnMthdCode=01, atcmFileId=f29e8d697cef46e5aab3d2b841e48eca, atcmFileNm=박효순_한화손해보험_서명완료_20260828.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.128 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=161463, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.128 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.130 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"5d343a8a7f5f441cb5eeb79d7d6a512f","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N09","newRfrnKeyVal2":"M2026J510656*000"}
+2026-09-02 09:06:30.132 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=162312, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22305198, isrnCmpyCode=N09, polyNo=M2026J510656*000, appnMthdCode=01, atcmFileId=5d343a8a7f5f441cb5eeb79d7d6a512f, atcmFileNm=하영래_현대해상화재보험_서명완료_20260831.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.132 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.132 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N09","polyNo":"M2026J510656*000","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"5d343a8a7f5f441cb5eeb79d7d6a512f","atcmFileNm":"하영래_현대해상화재보험_서명완료_20260831.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"22305198"}
+2026-09-02 09:06:30.135 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:30.135 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=162312, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22305198, isrnCmpyCode=N09, polyNo=M2026J510656*000, appnMthdCode=01, atcmFileId=5d343a8a7f5f441cb5eeb79d7d6a512f, atcmFileNm=하영래_현대해상화재보험_서명완료_20260831.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.136 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=162312, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.136 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.140 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"2c582d049d314e5482b699b23384680b","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N01","newRfrnKeyVal2":"6AKFN-30445"}
+2026-09-02 09:06:30.141 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=162409, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H2503930, isrnCmpyCode=N01, polyNo=6AKFN-30445, appnMthdCode=01, atcmFileId=2c582d049d314e5482b699b23384680b, atcmFileNm=조미애_메리츠화재해상보험_서명완료_20260831.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.141 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.144 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N01","polyNo":"6AKFN-30445","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"2c582d049d314e5482b699b23384680b","atcmFileNm":"조미애_메리츠화재해상보험_서명완료_20260831.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"H2503930"}
+2026-09-02 09:06:30.148 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:30.148 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=162409, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H2503930, isrnCmpyCode=N01, polyNo=6AKFN-30445, appnMthdCode=01, atcmFileId=2c582d049d314e5482b699b23384680b, atcmFileNm=조미애_메리츠화재해상보험_서명완료_20260831.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.148 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=162409, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.148 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.159 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"3f7dcd3db9574a46acec34f2659d0d86","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N09","newRfrnKeyVal2":"M2026J49807600000"}
+2026-09-02 09:06:30.175 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=162479, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=21621694, isrnCmpyCode=N09, polyNo=M2026J49807600000, appnMthdCode=01, atcmFileId=3f7dcd3db9574a46acec34f2659d0d86, atcmFileNm=정현영_현대해상화재보험_서명완료_20260831.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.176 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.176 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N09","polyNo":"M2026J49807600000","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"3f7dcd3db9574a46acec34f2659d0d86","atcmFileNm":"정현영_현대해상화재보험_서명완료_20260831.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"21621694"}
+2026-09-02 09:06:30.190 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:30.190 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=162479, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=21621694, isrnCmpyCode=N09, polyNo=M2026J49807600000, appnMthdCode=01, atcmFileId=3f7dcd3db9574a46acec34f2659d0d86, atcmFileNm=정현영_현대해상화재보험_서명완료_20260831.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.190 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=162479, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.190 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.192 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"59e006dd0d5e4cf9880e04078afd680e","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"L20","newRfrnKeyVal2":"3180459340591"}
+2026-09-02 09:06:30.197 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=162623, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H2605532, isrnCmpyCode=L20, polyNo=3180459340591, appnMthdCode=02, atcmFileId=59e006dd0d5e4cf9880e04078afd680e, atcmFileNm=Scan0831농생.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.199 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.200 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"L20","polyNo":"3180459340591","appnMthdCode":"02","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"59e006dd0d5e4cf9880e04078afd680e","atcmFileNm":"Scan0831농생.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"H2605532"}
+2026-09-02 09:06:30.202 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:30.202 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=162623, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H2605532, isrnCmpyCode=L20, polyNo=3180459340591, appnMthdCode=02, atcmFileId=59e006dd0d5e4cf9880e04078afd680e, atcmFileNm=Scan0831농생.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.202 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=162623, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.202 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.208 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"81edc4cf67694f6f8e64ecca83f86425","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N09","newRfrnKeyVal2":"M2026j50979500000"}
+2026-09-02 09:06:30.209 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=162776, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=20401953, isrnCmpyCode=N09, polyNo=M2026j50979500000, appnMthdCode=01, atcmFileId=81edc4cf67694f6f8e64ecca83f86425, atcmFileNm=이주송_현대해상화재보험_서명완료_20260831.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.210 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.210 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N09","polyNo":"M2026j50979500000","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"81edc4cf67694f6f8e64ecca83f86425","atcmFileNm":"이주송_현대해상화재보험_서명완료_20260831.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"20401953"}
+2026-09-02 09:06:30.212 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:30.212 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=162776, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=20401953, isrnCmpyCode=N09, polyNo=M2026j50979500000, appnMthdCode=01, atcmFileId=81edc4cf67694f6f8e64ecca83f86425, atcmFileNm=이주송_현대해상화재보험_서명완료_20260831.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.212 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=162776, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.212 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.215 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"30d911cfa7df44c7a015693509a5d793","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N09","newRfrnKeyVal2":"M2026j50850400000"}
+2026-09-02 09:06:30.225 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=162782, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=20401953, isrnCmpyCode=N09, polyNo=M2026j50850400000, appnMthdCode=01, atcmFileId=30d911cfa7df44c7a015693509a5d793, atcmFileNm=이주송_현대해상화재보험_서명완료_20260831.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.226 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.226 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N09","polyNo":"M2026j50850400000","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"30d911cfa7df44c7a015693509a5d793","atcmFileNm":"이주송_현대해상화재보험_서명완료_20260831.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"20401953"}
+2026-09-02 09:06:30.227 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:30.227 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=162782, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=20401953, isrnCmpyCode=N09, polyNo=M2026j50850400000, appnMthdCode=01, atcmFileId=30d911cfa7df44c7a015693509a5d793, atcmFileNm=이주송_현대해상화재보험_서명완료_20260831.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.227 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=162782, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.227 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.229 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"4ac60cfaa5a84b7d9a837e2619979f1a","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N09","newRfrnKeyVal2":"150481368"}
+2026-09-02 09:06:30.230 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=162803, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22552827, isrnCmpyCode=N09, polyNo=150481368, appnMthdCode=02, atcmFileId=4ac60cfaa5a84b7d9a837e2619979f1a, atcmFileNm=박희복_현대해상화재보험_서명완료_20260831.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.231 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.231 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N09","polyNo":"150481368","appnMthdCode":"02","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"4ac60cfaa5a84b7d9a837e2619979f1a","atcmFileNm":"박희복_현대해상화재보험_서명완료_20260831.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"22552827"}
+2026-09-02 09:06:30.235 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:30.235 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=162803, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22552827, isrnCmpyCode=N09, polyNo=150481368, appnMthdCode=02, atcmFileId=4ac60cfaa5a84b7d9a837e2619979f1a, atcmFileNm=박희복_현대해상화재보험_서명완료_20260831.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.235 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=162803, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.236 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.237 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"34c2ecc020674f3a8dfb1e424ae9e1b9","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N08","newRfrnKeyVal2":"52622467370000"}
+2026-09-02 09:06:30.238 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=162878, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22638870, isrnCmpyCode=N08, polyNo=52622467370000, appnMthdCode=01, atcmFileId=34c2ecc020674f3a8dfb1e424ae9e1b9, atcmFileNm=박윤실_삼성화재해상보험_서명완료_20260831.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.239 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.239 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N08","polyNo":"52622467370000","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"34c2ecc020674f3a8dfb1e424ae9e1b9","atcmFileNm":"박윤실_삼성화재해상보험_서명완료_20260831.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"22638870"}
+2026-09-02 09:06:30.240 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:30.240 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=162878, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22638870, isrnCmpyCode=N08, polyNo=52622467370000, appnMthdCode=01, atcmFileId=34c2ecc020674f3a8dfb1e424ae9e1b9, atcmFileNm=박윤실_삼성화재해상보험_서명완료_20260831.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.240 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=162878, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.240 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.241 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"831a4fe560bd4c13b5cfbced63014080","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N02","newRfrnKeyVal2":"Ca20267357685000"}
+2026-09-02 09:06:30.244 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=162915, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=20401953, isrnCmpyCode=N02, polyNo=Ca20267357685000, appnMthdCode=01, atcmFileId=831a4fe560bd4c13b5cfbced63014080, atcmFileNm=이은경_한화손해보험_서명완료_20260831.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.244 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.244 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N02","polyNo":"Ca20267357685000","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"831a4fe560bd4c13b5cfbced63014080","atcmFileNm":"이은경_한화손해보험_서명완료_20260831.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"20401953"}
+2026-09-02 09:06:30.250 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:30.250 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=162915, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=20401953, isrnCmpyCode=N02, polyNo=Ca20267357685000, appnMthdCode=01, atcmFileId=831a4fe560bd4c13b5cfbced63014080, atcmFileNm=이은경_한화손해보험_서명완료_20260831.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.250 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=162915, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.251 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.255 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"131aa672ae56497fbf0303cf730bc2eb","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N08","newRfrnKeyVal2":"126R112803"}
+2026-09-02 09:06:30.256 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=162940, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=20406123, isrnCmpyCode=N08, polyNo=126R112803, appnMthdCode=01, atcmFileId=131aa672ae56497fbf0303cf730bc2eb, atcmFileNm=한경훈_삼성화재해상보험_서명완료_20260831.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.257 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.257 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N08","polyNo":"126R112803","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"131aa672ae56497fbf0303cf730bc2eb","atcmFileNm":"한경훈_삼성화재해상보험_서명완료_20260831.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"20406123"}
+2026-09-02 09:06:30.258 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:30.258 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=162940, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=20406123, isrnCmpyCode=N08, polyNo=126R112803, appnMthdCode=01, atcmFileId=131aa672ae56497fbf0303cf730bc2eb, atcmFileNm=한경훈_삼성화재해상보험_서명완료_20260831.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.258 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=162940, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.258 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.260 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"a9a2f5d2f3a14edf8d524b8b52ef71c6","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N05","newRfrnKeyVal2":"42668066660000"}
+2026-09-02 09:06:30.269 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=163086, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H2503930, isrnCmpyCode=N05, polyNo=42668066660000, appnMthdCode=01, atcmFileId=a9a2f5d2f3a14edf8d524b8b52ef71c6, atcmFileNm=정승원_흥국화재해상보험_서명완료_20260831.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.269 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.270 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N05","polyNo":"42668066660000","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"a9a2f5d2f3a14edf8d524b8b52ef71c6","atcmFileNm":"정승원_흥국화재해상보험_서명완료_20260831.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"H2503930"}
+2026-09-02 09:06:30.288 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 1
+2026-09-02 09:06:30.288 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=163086, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H2503930, isrnCmpyCode=N05, polyNo=42668066660000, appnMthdCode=01, atcmFileId=a9a2f5d2f3a14edf8d524b8b52ef71c6, atcmFileNm=정승원_흥국화재해상보험_서명완료_20260831.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.288 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=163086, pcicBlngSttsCode=30, pcicSttsCode=30, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.289 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.300 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"fe17fdc6ed5c479089ebe6552cc6ef11","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N01","newRfrnKeyVal2":"6AFHO-78481"}
+2026-09-02 09:06:30.305 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=163135, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22501988, isrnCmpyCode=N01, polyNo=6AFHO-78481, appnMthdCode=01, atcmFileId=fe17fdc6ed5c479089ebe6552cc6ef11, atcmFileNm=이수경_메리츠화재해상보험_서명완료_20260831.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.305 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.305 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N01","polyNo":"6AFHO-78481","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"fe17fdc6ed5c479089ebe6552cc6ef11","atcmFileNm":"이수경_메리츠화재해상보험_서명완료_20260831.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"22501988"}
+2026-09-02 09:06:30.309 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 1
+2026-09-02 09:06:30.309 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=163135, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22501988, isrnCmpyCode=N01, polyNo=6AFHO-78481, appnMthdCode=01, atcmFileId=fe17fdc6ed5c479089ebe6552cc6ef11, atcmFileNm=이수경_메리츠화재해상보험_서명완료_20260831.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.309 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=163135, pcicBlngSttsCode=30, pcicSttsCode=30, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.309 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.311 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"680ae9ad31e641e2ac4efc3d3a25a100","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N09","newRfrnKeyVal2":"M2026J284232-000"}
+2026-09-02 09:06:30.317 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=163307, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22552800, isrnCmpyCode=N09, polyNo=M2026J284232-000, appnMthdCode=01, atcmFileId=680ae9ad31e641e2ac4efc3d3a25a100, atcmFileNm=김호영_현대해상화재보험_서명완료_20260831.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.318 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.318 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N09","polyNo":"M2026J284232-000","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"680ae9ad31e641e2ac4efc3d3a25a100","atcmFileNm":"김호영_현대해상화재보험_서명완료_20260831.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"22552800"}
+2026-09-02 09:06:30.321 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:30.321 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=163307, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22552800, isrnCmpyCode=N09, polyNo=M2026J284232-000, appnMthdCode=01, atcmFileId=680ae9ad31e641e2ac4efc3d3a25a100, atcmFileNm=김호영_현대해상화재보험_서명완료_20260831.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.321 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=163307, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.321 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.323 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"26c76268b1bf43e4800d8697286a60cf","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N01","newRfrnKeyVal2":"6AFKN-33278"}
+2026-09-02 09:06:30.333 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=163333, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=9223595, isrnCmpyCode=N01, polyNo=6AFKN-33278, appnMthdCode=01, atcmFileId=26c76268b1bf43e4800d8697286a60cf, atcmFileNm=곽화원_메리츠화재해상보험_서명완료_20260831.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.333 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.336 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N01","polyNo":"6AFKN-33278","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"26c76268b1bf43e4800d8697286a60cf","atcmFileNm":"곽화원_메리츠화재해상보험_서명완료_20260831.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"9223595"}
+2026-09-02 09:06:30.338 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 1
+2026-09-02 09:06:30.338 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=163333, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=9223595, isrnCmpyCode=N01, polyNo=6AFKN-33278, appnMthdCode=01, atcmFileId=26c76268b1bf43e4800d8697286a60cf, atcmFileNm=곽화원_메리츠화재해상보험_서명완료_20260831.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.338 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=163333, pcicBlngSttsCode=30, pcicSttsCode=30, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.338 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.351 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"18bbd98b6fb149eeb128a94dd7af388c","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N01","newRfrnKeyVal2":"6AFKN-33380"}
+2026-09-02 09:06:30.353 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=163339, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=20401391, isrnCmpyCode=N01, polyNo=6AFKN-33380, appnMthdCode=01, atcmFileId=18bbd98b6fb149eeb128a94dd7af388c, atcmFileNm=현명우_메리츠화재해상보험_서명완료_20260831.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.354 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.354 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N01","polyNo":"6AFKN-33380","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"18bbd98b6fb149eeb128a94dd7af388c","atcmFileNm":"현명우_메리츠화재해상보험_서명완료_20260831.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"20401391"}
+2026-09-02 09:06:30.356 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 1
+2026-09-02 09:06:30.356 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=163339, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=20401391, isrnCmpyCode=N01, polyNo=6AFKN-33380, appnMthdCode=01, atcmFileId=18bbd98b6fb149eeb128a94dd7af388c, atcmFileNm=현명우_메리츠화재해상보험_서명완료_20260831.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.356 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=163339, pcicBlngSttsCode=30, pcicSttsCode=30, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.356 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.358 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"d2634510717145d492e5d8d3351f0058","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N09","newRfrnKeyVal2":"M2026J504816000"}
+2026-09-02 09:06:30.367 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=163354, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22317206, isrnCmpyCode=N09, polyNo=M2026J504816000, appnMthdCode=01, atcmFileId=d2634510717145d492e5d8d3351f0058, atcmFileNm=TRAN TRONG BINH_현대해상화재보험_서명완료_20260831.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.368 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.368 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N09","polyNo":"M2026J504816000","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"d2634510717145d492e5d8d3351f0058","atcmFileNm":"TRAN TRONG BINH_현대해상화재보험_서명완료_20260831.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"22317206"}
+2026-09-02 09:06:30.369 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:30.369 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=163354, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22317206, isrnCmpyCode=N09, polyNo=M2026J504816000, appnMthdCode=01, atcmFileId=d2634510717145d492e5d8d3351f0058, atcmFileNm=TRAN TRONG BINH_현대해상화재보험_서명완료_20260831.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.369 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=163354, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.369 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.370 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"2774509a9c4e4696add64789cd49a7a9","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N11","newRfrnKeyVal2":"320261608849"}
+2026-09-02 09:06:30.371 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=163573, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H0212207, isrnCmpyCode=N11, polyNo=320261608849, appnMthdCode=01, atcmFileId=2774509a9c4e4696add64789cd49a7a9, atcmFileNm=최미송_DB손해보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260902)
+2026-09-02 09:06:30.372 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.372 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N11","polyNo":"320261608849","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"2774509a9c4e4696add64789cd49a7a9","atcmFileNm":"최미송_DB손해보험_서명완료_20260901.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260902","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"H0212207"}
+2026-09-02 09:06:30.376 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:30.376 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=163573, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H0212207, isrnCmpyCode=N11, polyNo=320261608849, appnMthdCode=01, atcmFileId=2774509a9c4e4696add64789cd49a7a9, atcmFileNm=최미송_DB손해보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260902)
+2026-09-02 09:06:30.376 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=163573, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.377 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.378 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"feea632e4f1442388611b2941e665934","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N01","newRfrnKeyVal2":"6AFHO-79845"}
+2026-09-02 09:06:30.380 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=163676, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H0212207, isrnCmpyCode=N01, polyNo=6AFHO-79845, appnMthdCode=01, atcmFileId=feea632e4f1442388611b2941e665934, atcmFileNm=박영주_메리츠화재해상보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.380 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.381 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N01","polyNo":"6AFHO-79845","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"feea632e4f1442388611b2941e665934","atcmFileNm":"박영주_메리츠화재해상보험_서명완료_20260901.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"H0212207"}
+2026-09-02 09:06:30.382 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 1
+2026-09-02 09:06:30.382 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=163676, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H0212207, isrnCmpyCode=N01, polyNo=6AFHO-79845, appnMthdCode=01, atcmFileId=feea632e4f1442388611b2941e665934, atcmFileNm=박영주_메리츠화재해상보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.382 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=163676, pcicBlngSttsCode=30, pcicSttsCode=30, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.382 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.385 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"0f08a9a32e074d08aa8128b564ae31de","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N09","newRfrnKeyVal2":"L2631922649"}
+2026-09-02 09:06:30.387 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=163692, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22610049, isrnCmpyCode=N09, polyNo=L2631922649, appnMthdCode=01, atcmFileId=0f08a9a32e074d08aa8128b564ae31de, atcmFileNm=윤천수_현대해상화재보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.387 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.387 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N09","polyNo":"L2631922649","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"0f08a9a32e074d08aa8128b564ae31de","atcmFileNm":"윤천수_현대해상화재보험_서명완료_20260901.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"22610049"}
+2026-09-02 09:06:30.388 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:30.389 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=163692, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22610049, isrnCmpyCode=N09, polyNo=L2631922649, appnMthdCode=01, atcmFileId=0f08a9a32e074d08aa8128b564ae31de, atcmFileNm=윤천수_현대해상화재보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.389 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=163692, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.389 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.390 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"d85529bec4cc43c8b7242f68b6ea8649","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N02","newRfrnKeyVal2":"CA260827826710"}
+2026-09-02 09:06:30.392 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=163768, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=20708076, isrnCmpyCode=N02, polyNo=CA260827826710, appnMthdCode=01, atcmFileId=d85529bec4cc43c8b7242f68b6ea8649, atcmFileNm=오희철_한화손해보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.393 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.393 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N02","polyNo":"CA260827826710","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"d85529bec4cc43c8b7242f68b6ea8649","atcmFileNm":"오희철_한화손해보험_서명완료_20260901.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"20708076"}
+2026-09-02 09:06:30.393 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:30.393 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=163768, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=20708076, isrnCmpyCode=N02, polyNo=CA260827826710, appnMthdCode=01, atcmFileId=d85529bec4cc43c8b7242f68b6ea8649, atcmFileNm=오희철_한화손해보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.393 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=163768, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.394 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.395 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"5e94155e04ce43a3b63f5278830743b4","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N10","newRfrnKeyVal2":"20265776249"}
+2026-09-02 09:06:30.396 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=163830, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H0231003, isrnCmpyCode=N10, polyNo=20265776249, appnMthdCode=01, atcmFileId=5e94155e04ce43a3b63f5278830743b4, atcmFileNm=성유현_KB손해보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.396 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.396 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N10","polyNo":"20265776249","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"5e94155e04ce43a3b63f5278830743b4","atcmFileNm":"성유현_KB손해보험_서명완료_20260901.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"H0231003"}
+2026-09-02 09:06:30.397 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 1
+2026-09-02 09:06:30.397 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=163830, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H0231003, isrnCmpyCode=N10, polyNo=20265776249, appnMthdCode=01, atcmFileId=5e94155e04ce43a3b63f5278830743b4, atcmFileNm=성유현_KB손해보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.398 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=163830, pcicBlngSttsCode=30, pcicSttsCode=30, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.398 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.400 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"b84b7ab3bf984f42b101b0c0c78b969a","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N11","newRfrnKeyVal2":"320261602579"}
+2026-09-02 09:06:30.401 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=163833, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H0211301, isrnCmpyCode=N11, polyNo=320261602579, appnMthdCode=01, atcmFileId=b84b7ab3bf984f42b101b0c0c78b969a, atcmFileNm=조아영_DB손해보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.402 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.402 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N11","polyNo":"320261602579","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"b84b7ab3bf984f42b101b0c0c78b969a","atcmFileNm":"조아영_DB손해보험_서명완료_20260901.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"H0211301"}
+2026-09-02 09:06:30.403 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 1
+2026-09-02 09:06:30.403 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=163833, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H0211301, isrnCmpyCode=N11, polyNo=320261602579, appnMthdCode=01, atcmFileId=b84b7ab3bf984f42b101b0c0c78b969a, atcmFileNm=조아영_DB손해보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.404 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=163833, pcicBlngSttsCode=30, pcicSttsCode=30, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.404 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.414 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"8b7915d24d5349d1843bbbf47587d470","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N11","newRfrnKeyVal2":"320261598208"}
+2026-09-02 09:06:30.418 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=163843, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H0211301, isrnCmpyCode=N11, polyNo=320261598208, appnMthdCode=01, atcmFileId=8b7915d24d5349d1843bbbf47587d470, atcmFileNm=손창환_DB손해보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.418 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.418 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N11","polyNo":"320261598208","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"8b7915d24d5349d1843bbbf47587d470","atcmFileNm":"손창환_DB손해보험_서명완료_20260901.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"H0211301"}
+2026-09-02 09:06:30.420 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 1
+2026-09-02 09:06:30.420 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=163843, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H0211301, isrnCmpyCode=N11, polyNo=320261598208, appnMthdCode=01, atcmFileId=8b7915d24d5349d1843bbbf47587d470, atcmFileNm=손창환_DB손해보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.420 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=163843, pcicBlngSttsCode=30, pcicSttsCode=30, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.420 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.422 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"fbaac82638944419a2018b1d8cef5444","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N11","newRfrnKeyVal2":"220264948555000"}
+2026-09-02 09:06:30.426 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=163878, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22511812, isrnCmpyCode=N11, polyNo=220264948555000, appnMthdCode=01, atcmFileId=fbaac82638944419a2018b1d8cef5444, atcmFileNm=이근석_DB손해보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.426 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.426 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N11","polyNo":"220264948555000","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"fbaac82638944419a2018b1d8cef5444","atcmFileNm":"이근석_DB손해보험_서명완료_20260901.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"22511812"}
+2026-09-02 09:06:30.427 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 1
+2026-09-02 09:06:30.427 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=163878, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22511812, isrnCmpyCode=N11, polyNo=220264948555000, appnMthdCode=01, atcmFileId=fbaac82638944419a2018b1d8cef5444, atcmFileNm=이근석_DB손해보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.428 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=163878, pcicBlngSttsCode=30, pcicSttsCode=30, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.428 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.429 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"a5a1ba8eb891475f991f3fc4a5c227df","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N08","newRfrnKeyVal2":"52622809190000"}
+2026-09-02 09:06:30.431 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=163887, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H2504703, isrnCmpyCode=N08, polyNo=52622809190000, appnMthdCode=01, atcmFileId=a5a1ba8eb891475f991f3fc4a5c227df, atcmFileNm=김부용_삼성화재해상보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.431 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.431 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N08","polyNo":"52622809190000","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"a5a1ba8eb891475f991f3fc4a5c227df","atcmFileNm":"김부용_삼성화재해상보험_서명완료_20260901.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"H2504703"}
+2026-09-02 09:06:30.433 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 1
+2026-09-02 09:06:30.433 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=163887, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H2504703, isrnCmpyCode=N08, polyNo=52622809190000, appnMthdCode=01, atcmFileId=a5a1ba8eb891475f991f3fc4a5c227df, atcmFileNm=김부용_삼성화재해상보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.433 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=163887, pcicBlngSttsCode=30, pcicSttsCode=30, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.433 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.437 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"2a9a94d6b43a42e88ec3748904ace4eb","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"L11","newRfrnKeyVal2":"00303863967"}
+2026-09-02 09:06:30.441 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=163981, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H2402059, isrnCmpyCode=L11, polyNo=00303863967, appnMthdCode=02, atcmFileId=2a9a94d6b43a42e88ec3748904ace4eb, atcmFileNm=변영민_신한라이프생명_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.441 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.442 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"L11","polyNo":"00303863967","appnMthdCode":"02","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"2a9a94d6b43a42e88ec3748904ace4eb","atcmFileNm":"변영민_신한라이프생명_서명완료_20260901.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"H2402059"}
+2026-09-02 09:06:30.446 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 1
+2026-09-02 09:06:30.446 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=163981, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H2402059, isrnCmpyCode=L11, polyNo=00303863967, appnMthdCode=02, atcmFileId=2a9a94d6b43a42e88ec3748904ace4eb, atcmFileNm=변영민_신한라이프생명_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.446 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=163981, pcicBlngSttsCode=30, pcicSttsCode=30, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.446 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.458 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"2c7f6b091a324ddaadfb1a4d3ba8580f","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N08","newRfrnKeyVal2":"00052622790370000"}
+2026-09-02 09:06:30.463 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=164041, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H2502987, isrnCmpyCode=N08, polyNo=00052622790370000, appnMthdCode=01, atcmFileId=2c7f6b091a324ddaadfb1a4d3ba8580f, atcmFileNm=유순남_삼성화재해상보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.463 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.463 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N08","polyNo":"00052622790370000","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"2c7f6b091a324ddaadfb1a4d3ba8580f","atcmFileNm":"유순남_삼성화재해상보험_서명완료_20260901.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"H2502987"}
+2026-09-02 09:06:30.465 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:30.465 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=164041, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H2502987, isrnCmpyCode=N08, polyNo=00052622790370000, appnMthdCode=01, atcmFileId=2c7f6b091a324ddaadfb1a4d3ba8580f, atcmFileNm=유순남_삼성화재해상보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.465 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=164041, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.465 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.467 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"fb22c7b4571648ccbe49c771cc515f2e","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N11","newRfrnKeyVal2":"2-2026-4955408-000"}
+2026-09-02 09:06:30.471 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=164122, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22201062, isrnCmpyCode=N11, polyNo=2-2026-4955408-000, appnMthdCode=01, atcmFileId=fb22c7b4571648ccbe49c771cc515f2e, atcmFileNm=장석호_DB손해보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.472 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.472 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N11","polyNo":"2-2026-4955408-000","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"fb22c7b4571648ccbe49c771cc515f2e","atcmFileNm":"장석호_DB손해보험_서명완료_20260901.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"22201062"}
+2026-09-02 09:06:30.479 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:30.479 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=164122, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22201062, isrnCmpyCode=N11, polyNo=2-2026-4955408-000, appnMthdCode=01, atcmFileId=fb22c7b4571648ccbe49c771cc515f2e, atcmFileNm=장석호_DB손해보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.479 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=164122, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.479 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.486 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"65efe18fae7e4d1fb0af06024fce2026","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N11","newRfrnKeyVal2":"220264954081000"}
+2026-09-02 09:06:30.488 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=164125, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=20401953, isrnCmpyCode=N11, polyNo=220264954081000, appnMthdCode=01, atcmFileId=65efe18fae7e4d1fb0af06024fce2026, atcmFileNm=김창희_DB손해보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.489 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.489 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N11","polyNo":"220264954081000","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"65efe18fae7e4d1fb0af06024fce2026","atcmFileNm":"김창희_DB손해보험_서명완료_20260901.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"20401953"}
+2026-09-02 09:06:30.490 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 1
+2026-09-02 09:06:30.490 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=164125, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=20401953, isrnCmpyCode=N11, polyNo=220264954081000, appnMthdCode=01, atcmFileId=65efe18fae7e4d1fb0af06024fce2026, atcmFileNm=김창희_DB손해보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.490 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=164125, pcicBlngSttsCode=30, pcicSttsCode=30, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.490 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.492 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"38377d97f49a47e5adb511e05da5444c","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N01","newRfrnKeyVal2":"6AFKN-34552"}
+2026-09-02 09:06:30.493 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=164129, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=21329236, isrnCmpyCode=N01, polyNo=6AFKN-34552, appnMthdCode=01, atcmFileId=38377d97f49a47e5adb511e05da5444c, atcmFileNm=김혜단_메리츠화재해상보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.493 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.493 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N01","polyNo":"6AFKN-34552","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"38377d97f49a47e5adb511e05da5444c","atcmFileNm":"김혜단_메리츠화재해상보험_서명완료_20260901.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"21329236"}
+2026-09-02 09:06:30.494 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 1
+2026-09-02 09:06:30.494 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=164129, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=21329236, isrnCmpyCode=N01, polyNo=6AFKN-34552, appnMthdCode=01, atcmFileId=38377d97f49a47e5adb511e05da5444c, atcmFileNm=김혜단_메리츠화재해상보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.495 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=164129, pcicBlngSttsCode=30, pcicSttsCode=30, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.495 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.496 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"ee97fd3be827431093e41cebac71f705","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N11","newRfrnKeyVal2":"220264953973000"}
+2026-09-02 09:06:30.498 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=164138, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=20401953, isrnCmpyCode=N11, polyNo=220264953973000, appnMthdCode=01, atcmFileId=ee97fd3be827431093e41cebac71f705, atcmFileNm=김창희_DB손해보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.498 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.498 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N11","polyNo":"220264953973000","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"ee97fd3be827431093e41cebac71f705","atcmFileNm":"김창희_DB손해보험_서명완료_20260901.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"20401953"}
+2026-09-02 09:06:30.500 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 1
+2026-09-02 09:06:30.500 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=164138, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=20401953, isrnCmpyCode=N11, polyNo=220264953973000, appnMthdCode=01, atcmFileId=ee97fd3be827431093e41cebac71f705, atcmFileNm=김창희_DB손해보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.500 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=164138, pcicBlngSttsCode=30, pcicSttsCode=30, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.500 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.502 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"228282b0f8c445fb903748962ffad6e7","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"L17","newRfrnKeyVal2":"202608079699"}
+2026-09-02 09:06:30.507 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=164169, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=1446072, isrnCmpyCode=L17, polyNo=202608079699, appnMthdCode=02, atcmFileId=228282b0f8c445fb903748962ffad6e7, atcmFileNm=SKM_36726090115570.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.507 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.507 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"L17","polyNo":"202608079699","appnMthdCode":"02","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"228282b0f8c445fb903748962ffad6e7","atcmFileNm":"SKM_36726090115570.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"1446072"}
+2026-09-02 09:06:30.515 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:30.515 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=164169, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=1446072, isrnCmpyCode=L17, polyNo=202608079699, appnMthdCode=02, atcmFileId=228282b0f8c445fb903748962ffad6e7, atcmFileNm=SKM_36726090115570.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.515 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=164169, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.515 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.523 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"a4a049cd926340049914ef91a0af0d14","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"L11","newRfrnKeyVal2":"00303864410"}
+2026-09-02 09:06:30.538 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=164222, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H2402059, isrnCmpyCode=L11, polyNo=00303864410, appnMthdCode=02, atcmFileId=a4a049cd926340049914ef91a0af0d14, atcmFileNm=김영숙_신한라이프생명_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.538 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.538 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"L11","polyNo":"00303864410","appnMthdCode":"02","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"a4a049cd926340049914ef91a0af0d14","atcmFileNm":"김영숙_신한라이프생명_서명완료_20260901.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"H2402059"}
+2026-09-02 09:06:30.541 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 1
+2026-09-02 09:06:30.541 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=164222, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H2402059, isrnCmpyCode=L11, polyNo=00303864410, appnMthdCode=02, atcmFileId=a4a049cd926340049914ef91a0af0d14, atcmFileNm=김영숙_신한라이프생명_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.541 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=164222, pcicBlngSttsCode=30, pcicSttsCode=30, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.541 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.544 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"7fa85578b1de430d88872c178751faf1","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N10","newRfrnKeyVal2":"RQ2656009088"}
+2026-09-02 09:06:30.553 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=164261, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22623892, isrnCmpyCode=N10, polyNo=RQ2656009088, appnMthdCode=01, atcmFileId=7fa85578b1de430d88872c178751faf1, atcmFileNm=김영학_KB손해보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.554 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.554 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N10","polyNo":"RQ2656009088","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"7fa85578b1de430d88872c178751faf1","atcmFileNm":"김영학_KB손해보험_서명완료_20260901.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"22623892"}
+2026-09-02 09:06:30.555 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:30.555 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=164261, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22623892, isrnCmpyCode=N10, polyNo=RQ2656009088, appnMthdCode=01, atcmFileId=7fa85578b1de430d88872c178751faf1, atcmFileNm=김영학_KB손해보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.555 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=164261, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.559 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.561 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"620235ff874d4962a2238930fdb6feea","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N01","newRfrnKeyVal2":"6AFHU-18187"}
+2026-09-02 09:06:30.562 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=164270, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H0212207, isrnCmpyCode=N01, polyNo=6AFHU-18187, appnMthdCode=01, atcmFileId=620235ff874d4962a2238930fdb6feea, atcmFileNm=최현국_메리츠화재해상보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.563 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.563 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N01","polyNo":"6AFHU-18187","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"620235ff874d4962a2238930fdb6feea","atcmFileNm":"최현국_메리츠화재해상보험_서명완료_20260901.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"H0212207"}
+2026-09-02 09:06:30.564 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 1
+2026-09-02 09:06:30.564 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=164270, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H0212207, isrnCmpyCode=N01, polyNo=6AFHU-18187, appnMthdCode=01, atcmFileId=620235ff874d4962a2238930fdb6feea, atcmFileNm=최현국_메리츠화재해상보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.564 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=164270, pcicBlngSttsCode=30, pcicSttsCode=30, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.564 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.566 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"f116c4aaa7924bdb989ae3e9947b0b78","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N08","newRfrnKeyVal2":"126S172108000"}
+2026-09-02 09:06:30.568 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=164297, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=9537523, isrnCmpyCode=N08, polyNo=126S172108000, appnMthdCode=01, atcmFileId=f116c4aaa7924bdb989ae3e9947b0b78, atcmFileNm=주명훈_삼성화재해상보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.569 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.569 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N08","polyNo":"126S172108000","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"f116c4aaa7924bdb989ae3e9947b0b78","atcmFileNm":"주명훈_삼성화재해상보험_서명완료_20260901.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"9537523"}
+2026-09-02 09:06:30.575 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:30.575 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=164297, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=9537523, isrnCmpyCode=N08, polyNo=126S172108000, appnMthdCode=01, atcmFileId=f116c4aaa7924bdb989ae3e9947b0b78, atcmFileNm=주명훈_삼성화재해상보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.575 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=164297, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.575 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.577 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"95c36c1477a542a1941dbd45da66eb22","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N03","newRfrnKeyVal2":"LA20268761314000"}
+2026-09-02 09:06:30.579 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=164378, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H2605835, isrnCmpyCode=N03, polyNo=LA20268761314000, appnMthdCode=02, atcmFileId=95c36c1477a542a1941dbd45da66eb22, atcmFileNm=송정균_롯데손해보험_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.579 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.579 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N03","polyNo":"LA20268761314000","appnMthdCode":"02","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"95c36c1477a542a1941dbd45da66eb22","atcmFileNm":"송정균_롯데손해보험_20260901.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"H2605835"}
+2026-09-02 09:06:30.583 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 1
+2026-09-02 09:06:30.584 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=164378, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H2605835, isrnCmpyCode=N03, polyNo=LA20268761314000, appnMthdCode=02, atcmFileId=95c36c1477a542a1941dbd45da66eb22, atcmFileNm=송정균_롯데손해보험_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.584 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=164378, pcicBlngSttsCode=30, pcicSttsCode=30, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.584 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.585 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"7440d919b4a04f8da09310b6956af6b8","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N03","newRfrnKeyVal2":"LA20268761758000"}
+2026-09-02 09:06:30.587 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=164407, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H2605835, isrnCmpyCode=N03, polyNo=LA20268761758000, appnMthdCode=02, atcmFileId=7440d919b4a04f8da09310b6956af6b8, atcmFileNm=송정균_롯데손해보험_20260901 (1).pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.587 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.587 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N03","polyNo":"LA20268761758000","appnMthdCode":"02","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"7440d919b4a04f8da09310b6956af6b8","atcmFileNm":"송정균_롯데손해보험_20260901 (1).pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"H2605835"}
+2026-09-02 09:06:30.590 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 1
+2026-09-02 09:06:30.590 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=164407, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H2605835, isrnCmpyCode=N03, polyNo=LA20268761758000, appnMthdCode=02, atcmFileId=7440d919b4a04f8da09310b6956af6b8, atcmFileNm=송정균_롯데손해보험_20260901 (1).pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.590 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=164407, pcicBlngSttsCode=30, pcicSttsCode=30, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.590 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.592 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"5c6ced28c1154e4bbf1f85f8aed79546","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N09","newRfrnKeyVal2":"M2026J341177000"}
+2026-09-02 09:06:30.597 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=164428, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22643508, isrnCmpyCode=N09, polyNo=M2026J341177000, appnMthdCode=01, atcmFileId=5c6ced28c1154e4bbf1f85f8aed79546, atcmFileNm=조용의_현대해상화재보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.597 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.597 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N09","polyNo":"M2026J341177000","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"5c6ced28c1154e4bbf1f85f8aed79546","atcmFileNm":"조용의_현대해상화재보험_서명완료_20260901.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"22643508"}
+2026-09-02 09:06:30.605 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:30.605 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=164428, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22643508, isrnCmpyCode=N09, polyNo=M2026J341177000, appnMthdCode=01, atcmFileId=5c6ced28c1154e4bbf1f85f8aed79546, atcmFileNm=조용의_현대해상화재보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.605 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=164428, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.605 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.607 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"79ac0bda7fcb4e4ca6cc129002bc0ef8","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N08","newRfrnKeyVal2":"52622870890000"}
+2026-09-02 09:06:30.608 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=164462, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=20401391, isrnCmpyCode=N08, polyNo=52622870890000, appnMthdCode=01, atcmFileId=79ac0bda7fcb4e4ca6cc129002bc0ef8, atcmFileNm=김예자_삼성화재해상보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.609 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.609 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N08","polyNo":"52622870890000","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"79ac0bda7fcb4e4ca6cc129002bc0ef8","atcmFileNm":"김예자_삼성화재해상보험_서명완료_20260901.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"20401391"}
+2026-09-02 09:06:30.614 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 1
+2026-09-02 09:06:30.614 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=164462, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=20401391, isrnCmpyCode=N08, polyNo=52622870890000, appnMthdCode=01, atcmFileId=79ac0bda7fcb4e4ca6cc129002bc0ef8, atcmFileNm=김예자_삼성화재해상보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.615 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=164462, pcicBlngSttsCode=30, pcicSttsCode=30, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.615 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.616 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"0385742876fe4553a63effac689b645e","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N08","newRfrnKeyVal2":"52622873670000"}
+2026-09-02 09:06:30.618 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=164464, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=20401391, isrnCmpyCode=N08, polyNo=52622873670000, appnMthdCode=01, atcmFileId=0385742876fe4553a63effac689b645e, atcmFileNm=김예자_삼성화재해상보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.618 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.619 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N08","polyNo":"52622873670000","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"0385742876fe4553a63effac689b645e","atcmFileNm":"김예자_삼성화재해상보험_서명완료_20260901.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"20401391"}
+2026-09-02 09:06:30.620 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 1
+2026-09-02 09:06:30.620 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=164464, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=20401391, isrnCmpyCode=N08, polyNo=52622873670000, appnMthdCode=01, atcmFileId=0385742876fe4553a63effac689b645e, atcmFileNm=김예자_삼성화재해상보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.620 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=164464, pcicBlngSttsCode=30, pcicSttsCode=30, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.620 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.622 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"a1600a017861416790249c69cc2a1846","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N10","newRfrnKeyVal2":"RQ265776981"}
+2026-09-02 09:06:30.623 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=164466, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22536551, isrnCmpyCode=N10, polyNo=RQ265776981, appnMthdCode=01, atcmFileId=a1600a017861416790249c69cc2a1846, atcmFileNm=김근희_KB손해보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.623 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.623 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N10","polyNo":"RQ265776981","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"a1600a017861416790249c69cc2a1846","atcmFileNm":"김근희_KB손해보험_서명완료_20260901.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"22536551"}
+2026-09-02 09:06:30.624 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:30.625 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=164466, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22536551, isrnCmpyCode=N10, polyNo=RQ265776981, appnMthdCode=01, atcmFileId=a1600a017861416790249c69cc2a1846, atcmFileNm=김근희_KB손해보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.625 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=164466, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.625 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.626 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"69985cd2b9d64f46922eaf4edf071d1f","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"L11","newRfrnKeyVal2":"00303863967"}
+2026-09-02 09:06:30.628 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=164505, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H2402059, isrnCmpyCode=L11, polyNo=00303863967, appnMthdCode=02, atcmFileId=69985cd2b9d64f46922eaf4edf071d1f, atcmFileNm=김성현_신한라이프생명_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.628 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.628 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"L11","polyNo":"00303863967","appnMthdCode":"02","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"69985cd2b9d64f46922eaf4edf071d1f","atcmFileNm":"김성현_신한라이프생명_서명완료_20260901.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"H2402059"}
+2026-09-02 09:06:30.630 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 1
+2026-09-02 09:06:30.637 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=164505, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=H2402059, isrnCmpyCode=L11, polyNo=00303863967, appnMthdCode=02, atcmFileId=69985cd2b9d64f46922eaf4edf071d1f, atcmFileNm=김성현_신한라이프생명_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.637 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=164505, pcicBlngSttsCode=30, pcicSttsCode=30, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.638 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.639 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"919580c4ff2d49948f8e7d885e5cd076","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N02","newRfrnKeyVal2":"CA20267376481000"}
+2026-09-02 09:06:30.641 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=164515, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=20812534, isrnCmpyCode=N02, polyNo=CA20267376481000, appnMthdCode=01, atcmFileId=919580c4ff2d49948f8e7d885e5cd076, atcmFileNm=신상훈_한화손해보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.642 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.642 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N02","polyNo":"CA20267376481000","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"919580c4ff2d49948f8e7d885e5cd076","atcmFileNm":"신상훈_한화손해보험_서명완료_20260901.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"20812534"}
+2026-09-02 09:06:30.643 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 1
+2026-09-02 09:06:30.643 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=164515, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=20812534, isrnCmpyCode=N02, polyNo=CA20267376481000, appnMthdCode=01, atcmFileId=919580c4ff2d49948f8e7d885e5cd076, atcmFileNm=신상훈_한화손해보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.643 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=164515, pcicBlngSttsCode=30, pcicSttsCode=30, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.643 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.645 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"0f2b07d5c6cb462b864bba978b3793a2","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N09","newRfrnKeyVal2":"L02632493540"}
+2026-09-02 09:06:30.647 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=164526, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22416295, isrnCmpyCode=N09, polyNo=L02632493540, appnMthdCode=01, atcmFileId=0f2b07d5c6cb462b864bba978b3793a2, atcmFileNm=윤정열_현대해상화재보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.647 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.647 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N09","polyNo":"L02632493540","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"0f2b07d5c6cb462b864bba978b3793a2","atcmFileNm":"윤정열_현대해상화재보험_서명완료_20260901.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"22416295"}
+2026-09-02 09:06:30.648 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 1
+2026-09-02 09:06:30.648 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=164526, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22416295, isrnCmpyCode=N09, polyNo=L02632493540, appnMthdCode=01, atcmFileId=0f2b07d5c6cb462b864bba978b3793a2, atcmFileNm=윤정열_현대해상화재보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.649 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=164526, pcicBlngSttsCode=30, pcicSttsCode=30, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.649 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.650 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"d11b1cbefdcf4389ab9ee83357ef4ea2","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N09","newRfrnKeyVal2":"L02632493065"}
+2026-09-02 09:06:30.652 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=164527, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22416295, isrnCmpyCode=N09, polyNo=L02632493065, appnMthdCode=01, atcmFileId=d11b1cbefdcf4389ab9ee83357ef4ea2, atcmFileNm=윤정열_현대해상화재보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.652 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.652 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N09","polyNo":"L02632493065","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"d11b1cbefdcf4389ab9ee83357ef4ea2","atcmFileNm":"윤정열_현대해상화재보험_서명완료_20260901.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"22416295"}
+2026-09-02 09:06:30.653 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 1
+2026-09-02 09:06:30.654 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=164527, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22416295, isrnCmpyCode=N09, polyNo=L02632493065, appnMthdCode=01, atcmFileId=d11b1cbefdcf4389ab9ee83357ef4ea2, atcmFileNm=윤정열_현대해상화재보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.654 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=164527, pcicBlngSttsCode=30, pcicSttsCode=30, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.654 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 7 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.655 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"171ed95c1eca4b8995946ce3e0c149e1","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N11","newRfrnKeyVal2":"320261606906"}
+2026-09-02 09:06:30.657 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=164533, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=20401391, isrnCmpyCode=N11, polyNo=320261606906, appnMthdCode=01, atcmFileId=171ed95c1eca4b8995946ce3e0c149e1, atcmFileNm=장춘순_DB손해보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.657 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 7 LINES] ...
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.657 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N11","polyNo":"320261606906","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"171ed95c1eca4b8995946ce3e0c149e1","atcmFileNm":"장춘순_DB손해보험_서명완료_20260901.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"20401391"}
+2026-09-02 09:06:30.659 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 1
+2026-09-02 09:06:30.659 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=164533, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=20401391, isrnCmpyCode=N11, polyNo=320261606906, appnMthdCode=01, atcmFileId=171ed95c1eca4b8995946ce3e0c149e1, atcmFileNm=장춘순_DB손해보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.659 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=164533, pcicBlngSttsCode=30, pcicSttsCode=30, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.659 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+... [TRIMMED 17 LINES] ...
+     WHERE ATCM_FILE_ID = ?
+2026-09-02 09:06:30.660 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"atcmFileId":"12501e81055c4d1fbdfb53d2bf1ee41e","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","newRfrnKeyVal1":"N09","newRfrnKeyVal2":"M2025J612538-000"}
+2026-09-02 09:06:30.668 WARN  [SmpcStep001001Tasklet.java:121 - reqBlng] 	 STEP_02-21. - 처리요청 : PcicBlngReqDto(pcicMgmtSqno=164602, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22301189, isrnCmpyCode=N09, polyNo=M2025J612538-000, appnMthdCode=01, atcmFileId=12501e81055c4d1fbdfb53d2bf1ee41e, atcmFileNm=이형숙_현대해상화재보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.669 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0624.insertPcicAtcmListForPcicBat */
+
+... [TRIMMED 32 LINES] ...
+			, ?
+			, ?
+			, ?
+			, NOW()
+			, ?
+			, ?
+			, NOW()
+			, ?
+		FROM TB_SMPM0101
+		WHERE POLY_NO = ?
+		AND ISRN_CMPY_CODE = ?
+		AND RCRT_FP_UNIQ_NO = ?
+2026-09-02 09:06:30.669 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicLdngId":0,"isrnCmpyCode":"N09","polyNo":"M2025J612538-000","appnMthdCode":"01","pcicLdngPath":"PCIC","pcicAtcmYn":"Y","atcmFileId":"12501e81055c4d1fbdfb53d2bf1ee41e","atcmFileNm":"이형숙_현대해상화재보험_서명완료_20260901.pdf","cntcMpngYn":"Y","datRfdt":"20260902","datLdngDate":"20260901","dltnYn":"N","rgstUserId":"SmpcJob001","rgstPrgmId":"SmpcStep001001Tasklet","lastChngUserId":"SmpcJob001","lastChngPrgmId":"SmpcStep001001Tasklet","rcrtFpUniqNo":"22301189"}
+2026-09-02 09:06:30.678 WARN  [SmpcStep001001Tasklet.java:126 - reqBlng] 	 STEP_02-21. - piciBlngCnt : 0
+2026-09-02 09:06:30.678 WARN  [SmpcStep001001Tasklet.java:147 - reqBlng] 	 STEP_02-22. - 처리결과 : PcicBlngReqDto(pcicMgmtSqno=164602, pcicCustSqno=null, pcicSttsCode=20, pcicBlngSttsCode=20, rgstDttm=null, fpUniqNo=22301189, isrnCmpyCode=N09, polyNo=M2025J612538-000, appnMthdCode=01, atcmFileId=12501e81055c4d1fbdfb53d2bf1ee41e, atcmFileNm=이형숙_현대해상화재보험_서명완료_20260901.pdf, datRfdt=20260902, datLdngDate=20260901)
+2026-09-02 09:06:30.678 DEBUG [SmpcStep001001Tasklet.java:111 - callBack] 	 STEP_02-3. 징구요청 결과 현행화 : PcicBlngResDto(pcicMgmtSqno=164602, pcicBlngSttsCode=20, pcicSttsCode=20, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 09:06:30.678 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPC0101.updatePcicBlngResult */
+
+	/* 징구처리결과 수정 */
+	UPDATE TB_SMPC0101
+	   SET PCIC_STTS_CODE = ?
+		 , PCIC_BLNG_STTS_CODE = ?
+		 , LAST_CHNG_USER_ID = 'BATCH'
+		 , LAST_CHNG_DTTM = NOW()
+		 , LAST_CHNG_PRGM_ID = 'SmpcJob001'
+	 WHERE PCIC_MGMT_SQNO = ?
+2026-09-02 09:06:30.678 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicMgmtSqno":164602,"pcicBlngSttsCode":"20","pcicSttsCode":"20"}
+2026-09-02 09:06:30.679 INFO  [SmpcStep001001Tasklet.java:104 - execute] smpcJob001001.execute...END
+2026-09-02 09:06:30.721 WARN  [SmpcStep001001Tasklet.java:180 - afterStep] ## report : {# baseSize=61, BlngOnCnt=25, BlngOffCnt=36}
+2026-09-02 09:06:30.721 INFO  [SmpcStep001001Tasklet.java:181 - afterStep] ==== SmpcStep001001Tasklet END ====
+2026-09-02 09:06:30.721 INFO  [StaticLogListener.java:20 - afterStep] ================================================
+2026-09-02 09:06:30.721 INFO  [StaticLogListener.java:21 - afterStep]      StepName : smpcJob001001
+2026-09-02 09:06:30.722 INFO  [StaticLogListener.java:22 - afterStep]     ReadCount : 0
+2026-09-02 09:06:30.722 INFO  [StaticLogListener.java:23 - afterStep]    WriteCount : 0
+2026-09-02 09:06:30.722 INFO  [StaticLogListener.java:24 - afterStep]   CommitCount : 1
+2026-09-02 09:06:30.722 INFO  [StaticLogListener.java:25 - afterStep] RollbackCount : 0
+2026-09-02 09:06:30.722 INFO  [StaticLogListener.java:26 - afterStep] ================================================
+2026-09-02 09:06:30.725 INFO  [AbstractStep.java:273 - execute] Step: [smpcJob001001] executed in 2s941ms
+2026-09-02 09:06:30.751 INFO  [SimpleJobLauncher.java:152 - run] Job: [SimpleJob: [name=smpcJob001]] completed with the following parameters: [{run.id=1}] and the following status: [COMPLETED] in 2s955ms
+2026-09-02 09:06:30.795 INFO  [EventDrivenConsumer.java:107 - logComponentSubscriptionEvent] Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2026-09-02 09:06:30.795 INFO  [AbstractSubscribableChannel.java:64 - adjustCounterIfNecessary] Channel 'batch-1.errorChannel' has 0 subscriber(s).
+2026-09-02 09:06:30.795 INFO  [AbstractEndpoint.java:193 - stop] stopped bean '_org.springframework.integration.errorLogger'
+2026-09-02 09:06:30.910 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep144001AsyncExecutor'
+2026-09-02 09:06:30.914 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep055001AsyncExecutor'
+2026-09-02 09:06:30.920 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep051001AsyncExecutor'
+2026-09-02 09:06:30.948 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep010001AsyncExecutor'
+2026-09-02 09:06:30.949 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep008001AsyncExecutor'
+2026-09-02 09:06:31.157 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201008TaskExecutor'
+2026-09-02 09:06:31.157 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201005TaskExecutor'
+2026-09-02 09:06:31.158 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201TaskExecutor'
+2026-09-02 09:06:31.440 INFO  [HikariDataSource.java:350 - close] w1neDataSource - Shutdown initiated...
+2026-09-02 09:06:31.457 INFO  [HikariDataSource.java:352 - close] w1neDataSource - Shutdown completed.
+2026-09-02 09:06:31.457 INFO  [HikariDataSource.java:350 - close] rcDataSource - Shutdown initiated...
+2026-09-02 09:06:31.474 INFO  [HikariDataSource.java:352 - close] rcDataSource - Shutdown completed.
+2026-09-02 09:06:31.474 INFO  [HikariDataSource.java:350 - close] gaDataSource - Shutdown initiated...
+2026-09-02 09:06:31.485 INFO  [HikariDataSource.java:352 - close] gaDataSource - Shutdown completed.
+2026-09-02 09:06:31.498 INFO  [HikariDataSource.java:350 - close] smDataSource - Shutdown initiated...
+2026-09-02 09:06:31.501 INFO  [HikariDataSource.java:352 - close] smDataSource - Shutdown completed.
+2026-09-02 09:06:31.572 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'taskExecutor'
+2026-09-02 09:06:33.583 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'taskScheduler'

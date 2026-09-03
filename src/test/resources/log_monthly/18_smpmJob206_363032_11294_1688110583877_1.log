@@ -1,0 +1,1048 @@
+ip-10-237-6-165.ap-northeast-2.compute.internal
+PARAMETER=--job.name=smpmJob206 20260902
+No Active GA_CODE set. falling back to default GA_CODE: default
+APPLICATION_PATH=/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar
+SPRING_PROFILES_ACTIVE=main,lazyload
+PARAMETER=--job.name=smpmJob206 20260902
+_JAVA_OPTIONS= -Dfile.encoding=UTF-8
+Picked up _JAVA_OPTIONS:  -Dfile.encoding=UTF-8
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/logback-classic-1.2.11.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/log4j-slf4j-impl-2.13.3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [ch.qos.logback.classic.util.ContextSelectorStaticBinder]
+2026-09-02 00:45:03.240 INFO  [Version.java:21 - <clinit>] HV000001: Hibernate Validator 6.1.7.Final
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.codehaus.groovy.reflection.CachedClass (jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/groovy-2.5.14.jar!/) to method java.lang.Object.finalize()
+WARNING: Please consider reporting this to the maintainers of org.codehaus.groovy.reflection.CachedClass
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+2026-09-02 00:45:05.155 INFO  [EnableEncryptablePropertiesBeanFactoryPostProcessor.java:39 - postProcessBeanFactory] Post-processing PropertySource instances
+2026-09-02 00:45:05.256 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource configurationProperties [org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource] to AOP Proxy
+2026-09-02 00:45:05.256 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrap [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-02 00:45:05.258 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource commandLineArgs [org.springframework.core.env.SimpleCommandLinePropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-02 00:45:05.259 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource systemProperties [org.springframework.core.env.PropertiesPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-02 00:45:05.260 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableSystemEnvironmentPropertySourceWrapper
+2026-09-02 00:45:05.266 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
+2026-09-02 00:45:05.266 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource springCloudClientHostInfo [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-02 00:45:05.267 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource applicationConfig: [classpath:/bootstrap.yml] [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-02 00:45:05.267 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource kafkaBinderDefaultProperties [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-02 00:45:05.509 INFO  [DefaultLazyPropertyFilter.java:31 - lambda$null$2] Property Filter custom Bean not found with name 'encryptablePropertyFilter'. Initializing Default Property Filter
+2026-09-02 00:45:05.579 INFO  [DefaultLazyPropertyResolver.java:35 - lambda$null$2] Property Resolver custom Bean not found with name 'encryptablePropertyResolver'. Initializing Default Property Resolver
+2026-09-02 00:45:05.585 INFO  [DefaultLazyPropertyDetector.java:35 - lambda$null$2] Property Detector custom Bean not found with name 'encryptablePropertyDetector'. Initializing Default Property Detector
+    ____            ____           ____              __
+   / __ /___ _   __/ __ /____     / __ )____  ____  / /_
+  / / / / _ / | / / / / / __ /   / __  / __ // __ // __/
+ / /_/ /  __/ |/ / /_/ / / / /  / /_/ / /_/ / /_/ //_
+/_____/ ___/|___//____/_/ /_/  /_____//____//____//__/ 
+ :: DevOn Boot ::   
+ :: Embedded LENA :: v1.3.1.2
+
+2026-09-02 00:45:10.541 INFO  [PropertySourceBootstrapConfiguration.java:112 - initialize] Located property source: [BootstrapPropertySource {name='bootstrapProperties-/ospp/batch_main/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/batch_lazyload/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/batch/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/application_main/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/application_lazyload/'}, BootstrapPropertySource {name='bootstrapProperties-/ospp/application/'}]
+2026-09-02 00:45:10.606 INFO  [SpringApplication.java:652 - logStartupProfileInfo] The following profiles are active: main,lazyload
+2026-09-02 00:45:17.042 INFO  [CommonDaoOnSingleCondition.java:54 - sqlSessionTypeMatches] dataSourceType is not single
+2026-09-02 00:45:20.759 INFO  [RepositoryConfigurationDelegate.java:249 - multipleStoresDetected] Multiple Spring Data modules found, entering strict repository configuration mode!
+2026-09-02 00:45:20.765 INFO  [RepositoryConfigurationDelegate.java:127 - registerRepositoriesIn] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-09-02 00:45:20.855 INFO  [RepositoryConfigurationDelegate.java:187 - registerRepositoriesIn] Finished Spring Data repository scanning in 67ms. Found 0 Redis repository interfaces.
+2026-09-02 00:45:24.572 INFO  [GenericScope.java:295 - setSerializationId] BeanFactory id=bf21df6d-a3d8-3d8f-b3ae-2a9c101d8cf7
+2026-09-02 00:45:25.182 INFO  [EnableEncryptablePropertiesBeanFactoryPostProcessor.java:39 - postProcessBeanFactory] Post-processing PropertySource instances
+2026-09-02 00:45:25.183 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/batch_main/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-02 00:45:25.183 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/batch_lazyload/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-02 00:45:25.183 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/batch/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-02 00:45:25.183 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/application_main/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-02 00:45:25.183 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/application_lazyload/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-02 00:45:25.183 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource bootstrapProperties-/ospp/application/ [org.springframework.cloud.bootstrap.config.BootstrapPropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-02 00:45:25.183 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource configurationProperties [org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource] to AOP Proxy
+2026-09-02 00:45:25.183 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource commandLineArgs [org.springframework.core.env.SimpleCommandLinePropertySource] to EncryptableEnumerablePropertySourceWrapper
+2026-09-02 00:45:25.183 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource systemProperties [org.springframework.core.env.PropertiesPropertySource] to EncryptableMapPropertySourceWrapper
+2026-09-02 00:45:25.183 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableSystemEnvironmentPropertySourceWrapper
+2026-09-02 00:45:25.183 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
+2026-09-02 00:45:25.183 INFO  [EncryptablePropertySourceConverter.java:56 - makeEncryptable] Converting PropertySource springCloudClientHostInfo [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+... [TRIMMED 87 LINES] ...
+2026-09-02 00:46:19.952 WARN  [DefaultBatchConfigurer.java:98 - initialize] No datasource was provided...using a Map based JobRepository
+2026-09-02 00:46:19.952 WARN  [DefaultBatchConfigurer.java:101 - initialize] No transaction manager was provided, using a ResourcelessTransactionManager
+2026-09-02 00:46:19.978 INFO  [SimpleJobLauncher.java:215 - afterPropertiesSet] No TaskExecutor has been set, defaulting to synchronous executor.
+2026-09-02 00:46:20.039 INFO  [SimpleJobLauncher.java:146 - run] Job: [SimpleJob: [name=smpmJob206]] launched with the following parameters: [{run.id=1}]
+2026-09-02 00:46:20.076 INFO  [SimpleStepHandler.java:149 - handleStep] Executing step: [smpmJob206001]
+2026-09-02 00:46:20.097 INFO  [HikariDataSource.java:110 - getConnection] smDataSource - Starting...
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:20.742 DEBUG [Slf4jLogger.java:72 - log] [LongTermFepFeign#send] {"sys_hrd":{"HEDR_SCLT_WRTE_DT":"20260902","HEDR_SCLT_CRET_SYS_NM":"1900125860","HEDR_ST_SCLT_SQNO":"0046204450001","HEDR_ST_SCLT_PRGS_NO":"000","HEDR_FRST_TRNM_SYS_CODE":"GAP","HEDR_RQST_RSPN_DVSN_CODE":"Q","HEDR_TRNN_MOTV_DVSN_CODE":"S","HEDR_ITET_DVSN_CODE":"2","HEDR_SCLT_TRNM_DTTM":"20260902","HEDR_SCLT_TRNM_TME":"004620","HEDR_ITFC_ID":"IAA02000102","HEDR_HNDR_EMNB":null},"biz_data":{"mb_id":"h001","password":null,"range":null,"insco_cd":null,"start_dtm":null,"end_dtm":null,"ss_start_dtm":null,"ss_end_dtm":null,"se_start_dtm":null,"se_end_dtm":null,"use_start_dtm":null,"use_end_dtm":null,"option1":null,"option2":null,"typea":null,"typeb":null,"isvary":null,"inrate":null,"cmsn_grad":null,"prod_vrsn":null,"page_no":null,"page_size":null}}
+2026-09-02 00:46:20.742 DEBUG [Slf4jLogger.java:72 - log] [LongTermFepFeign#send] ---> END HTTP (751-byte body)
+2026-09-02 00:46:20.943 DEBUG [Slf4jLogger.java:72 - log] [LongTermFepFeign#send] <--- HTTP/1.1 200  (198ms)
+2026-09-02 00:46:20.943 DEBUG [Slf4jLogger.java:72 - log] [LongTermFepFeign#send] cache-control: no-cache, no-store, max-age=0, must-revalidate
+2026-09-02 00:46:20.943 DEBUG [Slf4jLogger.java:72 - log] [LongTermFepFeign#send] connection: keep-alive
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.003 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","sortOrdr":0}
+2026-09-02 00:46:21.017 INFO  [SmpmStep206001Tasklet.java:88 - execute] prodList.size : 40 / delParam : SmpmJob206SqlDto(intgCode=INSCO_CD, intgDetlCode=null, intgDetlCodeNm=null, iscmCode=null, iscmNm=null, cpcpProdCode=null, saleStarDate=null, prodRgstDttm=null, prodAltrDttm=null, valdStarDate=null, valdEndDate=null, codeHgrnCgryVal=null, codeCgryVal=null, sortOrdr=0, dltnYn=null, rgstUserId=null, rgstDttm=null, rgstPrgmId=null, lastChngUserId=null, lastChngDttm=null, lastChngPrgmId=null)
+2026-09-02 00:46:21.043 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=L01, inscoNm=한화생명, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.051 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.051 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"L01","intgDetlCodeNm":"한화생명","sortOrdr":1}
+2026-09-02 00:46:21.054 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=L02, inscoNm=ABL생명, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.055 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.055 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"L02","intgDetlCodeNm":"ABL생명","sortOrdr":2}
+2026-09-02 00:46:21.056 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=L03, inscoNm=삼성생명, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.057 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.057 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"L03","intgDetlCodeNm":"삼성생명","sortOrdr":3}
+2026-09-02 00:46:21.059 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=L04, inscoNm=흥국생명, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.059 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.059 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"L04","intgDetlCodeNm":"흥국생명","sortOrdr":4}
+2026-09-02 00:46:21.060 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=L05, inscoNm=교보생명, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.061 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.061 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"L05","intgDetlCodeNm":"교보생명","sortOrdr":5}
+2026-09-02 00:46:21.062 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=L11, inscoNm=신한라이프생명, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.063 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.063 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"L11","intgDetlCodeNm":"신한라이프생명","sortOrdr":6}
+2026-09-02 00:46:21.064 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=L17, inscoNm=푸본현대생명, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.065 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.065 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"L17","intgDetlCodeNm":"푸본현대생명","sortOrdr":7}
+2026-09-02 00:46:21.066 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=L31, inscoNm=iM라이프생명, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.067 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.067 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"L31","intgDetlCodeNm":"iM라이프생명","sortOrdr":8}
+2026-09-02 00:46:21.068 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=L33, inscoNm=KDB생명, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.069 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.069 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"L33","intgDetlCodeNm":"KDB생명","sortOrdr":9}
+2026-09-02 00:46:21.070 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=L34, inscoNm=미래에셋생명, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.071 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.071 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"L34","intgDetlCodeNm":"미래에셋생명","sortOrdr":10}
+2026-09-02 00:46:21.072 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=L41, inscoNm=IBK연금보험, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.073 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.073 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"L41","intgDetlCodeNm":"IBK연금보험","sortOrdr":11}
+2026-09-02 00:46:21.074 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=L42, inscoNm=NH농협생명, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.074 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.075 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"L42","intgDetlCodeNm":"NH농협생명","sortOrdr":12}
+2026-09-02 00:46:21.076 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=L51, inscoNm=라이나생명, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.076 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.076 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"L51","intgDetlCodeNm":"라이나생명","sortOrdr":13}
+2026-09-02 00:46:21.077 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=L52, inscoNm=AIA생명, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.078 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.078 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"L52","intgDetlCodeNm":"AIA생명","sortOrdr":14}
+2026-09-02 00:46:21.079 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=L61, inscoNm=KB라이프생명, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.080 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.081 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"L61","intgDetlCodeNm":"KB라이프생명","sortOrdr":15}
+2026-09-02 00:46:21.083 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=L63, inscoNm=하나생명, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.083 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.083 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"L63","intgDetlCodeNm":"하나생명","sortOrdr":16}
+2026-09-02 00:46:21.085 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=L71, inscoNm=DB생명, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.086 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.086 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"L71","intgDetlCodeNm":"DB생명","sortOrdr":17}
+2026-09-02 00:46:21.087 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=L72, inscoNm=메트라이프생명, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.088 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.088 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"L72","intgDetlCodeNm":"메트라이프생명","sortOrdr":18}
+2026-09-02 00:46:21.089 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=L74, inscoNm=동양생명, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.090 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.090 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"L74","intgDetlCodeNm":"동양생명","sortOrdr":19}
+2026-09-02 00:46:21.091 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=L77, inscoNm=처브라이프생명, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.091 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.091 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"L77","intgDetlCodeNm":"처브라이프생명","sortOrdr":20}
+2026-09-02 00:46:21.093 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=L78, inscoNm=BNP파리바카디프생명, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.093 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.093 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"L78","intgDetlCodeNm":"BNP파리바카디프생명","sortOrdr":21}
+2026-09-02 00:46:21.094 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=N01, inscoNm=메리츠화재해상보험, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.095 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.095 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"N01","intgDetlCodeNm":"메리츠화재해상보험","sortOrdr":22}
+2026-09-02 00:46:21.096 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=N02, inscoNm=한화손해보험, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.096 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.096 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"N02","intgDetlCodeNm":"한화손해보험","sortOrdr":23}
+2026-09-02 00:46:21.097 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=N03, inscoNm=롯데손해보험, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.098 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.098 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"N03","intgDetlCodeNm":"롯데손해보험","sortOrdr":24}
+2026-09-02 00:46:21.099 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=N04, inscoNm=MG손해보험, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.099 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.099 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"N04","intgDetlCodeNm":"MG손해보험","sortOrdr":25}
+2026-09-02 00:46:21.101 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=N05, inscoNm=흥국화재해상보험, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.101 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.101 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"N05","intgDetlCodeNm":"흥국화재해상보험","sortOrdr":26}
+2026-09-02 00:46:21.102 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=N08, inscoNm=삼성화재해상보험, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.103 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.103 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"N08","intgDetlCodeNm":"삼성화재해상보험","sortOrdr":27}
+2026-09-02 00:46:21.104 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=N09, inscoNm=현대해상화재보험, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.105 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.105 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"N09","intgDetlCodeNm":"현대해상화재보험","sortOrdr":28}
+2026-09-02 00:46:21.106 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=N10, inscoNm=KB손해보험, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.106 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.106 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"N10","intgDetlCodeNm":"KB손해보험","sortOrdr":29}
+2026-09-02 00:46:21.107 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=N11, inscoNm=DB손해보험, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.108 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.108 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"N11","intgDetlCodeNm":"DB손해보험","sortOrdr":30}
+2026-09-02 00:46:21.109 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=N16, inscoNm=AXA손해보험, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.109 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.109 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"N16","intgDetlCodeNm":"AXA손해보험","sortOrdr":31}
+2026-09-02 00:46:21.110 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=N17, inscoNm=하나손해보험, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.111 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.111 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"N17","intgDetlCodeNm":"하나손해보험","sortOrdr":32}
+2026-09-02 00:46:21.112 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=N51, inscoNm=AIG손해보험, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.112 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.112 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"N51","intgDetlCodeNm":"AIG손해보험","sortOrdr":33}
+2026-09-02 00:46:21.114 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=N52, inscoNm=라이나손해보험, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.114 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.114 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"N52","intgDetlCodeNm":"라이나손해보험","sortOrdr":34}
+2026-09-02 00:46:21.115 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=N66, inscoNm=신한EZ손해보험, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.116 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.116 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"N66","intgDetlCodeNm":"신한EZ손해보험","sortOrdr":35}
+2026-09-02 00:46:21.117 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=N71, inscoNm=NH농협손해보험, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.117 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.117 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"N71","intgDetlCodeNm":"NH농협손해보험","sortOrdr":36}
+2026-09-02 00:46:21.119 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=V1_TEMP_L33, inscoNm=푸르덴셜생명, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.119 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.119 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"V1_TEMP_L33","intgDetlCodeNm":"푸르덴셜생명","sortOrdr":37}
+2026-09-02 00:46:21.120 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=V1_TEMP_L35, inscoNm=오렌지라이프생명, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.120 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.121 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"V1_TEMP_L35","intgDetlCodeNm":"오렌지라이프생명","sortOrdr":38}
+2026-09-02 00:46:21.122 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=V1_TEMP_L39, inscoNm=에스원, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.122 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.122 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INSCO_CD","intgDetlCode":"V1_TEMP_L39","intgDetlCodeNm":"에스원","sortOrdr":39}
+2026-09-02 00:46:21.123 INFO  [SmpmStep206001Tasklet.java:90 - execute] prodList.map : SmpmJob206IsrnCmpyListOutDto(inscoCd=V1_TEMP_N99, inscoNm=IAA임시보험사, categoryGrp=null, categoryVal=null, categoryNm=null, parentCategory=null)
+2026-09-02 00:46:21.123 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+2026-09-02 00:46:21.126 DEBUG [Slf4jLogger.java:72 - log] [LongTermFepFeign#send] {"sys_hrd":{"HEDR_SCLT_WRTE_DT":"20260902","HEDR_SCLT_CRET_SYS_NM":"1900125860","HEDR_ST_SCLT_SQNO":"0046211250002","HEDR_ST_SCLT_PRGS_NO":"000","HEDR_FRST_TRNM_SYS_CODE":"GAP","HEDR_RQST_RSPN_DVSN_CODE":"Q","HEDR_TRNN_MOTV_DVSN_CODE":"S","HEDR_ITET_DVSN_CODE":"2","HEDR_SCLT_TRNM_DTTM":"20260902","HEDR_SCLT_TRNM_TME":"004621","HEDR_ITFC_ID":"IAA02000101","HEDR_HNDR_EMNB":null},"biz_data":{"mb_id":"h001","password":null,"range":null,"insco_cd":null,"start_dtm":null,"end_dtm":null,"ss_start_dtm":null,"ss_end_dtm":null,"se_start_dtm":null,"se_end_dtm":null,"use_start_dtm":null,"use_end_dtm":null,"option1":null,"option2":null,"typea":null,"typeb":null,"isvary":null,"inrate":null,"cmsn_grad":null,"prod_vrsn":null,"page_no":null,"page_size":null}}
+2026-09-02 00:46:21.126 DEBUG [Slf4jLogger.java:72 - log] [LongTermFepFeign#send] ---> END HTTP (751-byte body)
+2026-09-02 00:46:21.250 DEBUG [Slf4jLogger.java:72 - log] [LongTermFepFeign#send] <--- HTTP/1.1 200  (123ms)
+2026-09-02 00:46:21.250 DEBUG [Slf4jLogger.java:72 - log] [LongTermFepFeign#send] cache-control: no-cache, no-store, max-age=0, must-revalidate
+2026-09-02 00:46:21.250 DEBUG [Slf4jLogger.java:72 - log] [LongTermFepFeign#send] connection: keep-alive
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.357 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION1","intgDetlCode":"A","intgDetlCodeNm":"생보보장","codeHgrnCgryVal":"","codeCgryVal":"A","sortOrdr":0}
+2026-09-02 00:46:21.374 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.376 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION1","intgDetlCode":"B","intgDetlCodeNm":"생보저축","codeHgrnCgryVal":"","codeCgryVal":"B","sortOrdr":0}
+2026-09-02 00:46:21.377 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.378 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION1","intgDetlCode":"C","intgDetlCodeNm":"손보보장","codeHgrnCgryVal":"","codeCgryVal":"C","sortOrdr":0}
+2026-09-02 00:46:21.379 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.380 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION1","intgDetlCode":"D","intgDetlCodeNm":"손보저축","codeHgrnCgryVal":"","codeCgryVal":"D","sortOrdr":0}
+2026-09-02 00:46:21.381 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.382 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"A001","intgDetlCodeNm":"정기","codeHgrnCgryVal":"A","codeCgryVal":"A001","sortOrdr":0}
+2026-09-02 00:46:21.383 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.384 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"A002","intgDetlCodeNm":"종신","codeHgrnCgryVal":"A","codeCgryVal":"A002","sortOrdr":0}
+2026-09-02 00:46:21.385 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.386 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"A003","intgDetlCodeNm":"질병(건강, 간편건강 포함)","codeHgrnCgryVal":"A","codeCgryVal":"A003","sortOrdr":0}
+2026-09-02 00:46:21.387 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.388 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"A004","intgDetlCodeNm":"암","codeHgrnCgryVal":"A","codeCgryVal":"A004","sortOrdr":0}
+2026-09-02 00:46:21.389 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.390 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"A005","intgDetlCodeNm":"어린이","codeHgrnCgryVal":"A","codeCgryVal":"A005","sortOrdr":0}
+2026-09-02 00:46:21.391 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.392 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"A006","intgDetlCodeNm":"실손의료","codeHgrnCgryVal":"A","codeCgryVal":"A006","sortOrdr":0}
+2026-09-02 00:46:21.393 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.394 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"A007","intgDetlCodeNm":"상해","codeHgrnCgryVal":"A","codeCgryVal":"A007","sortOrdr":0}
+2026-09-02 00:46:21.395 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.396 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"A008","intgDetlCodeNm":"기타(정액의료비 등)","codeHgrnCgryVal":"A","codeCgryVal":"A008","sortOrdr":0}
+2026-09-02 00:46:21.397 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.398 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"A009","intgDetlCodeNm":"CI(GI 포함)","codeHgrnCgryVal":"A","codeCgryVal":"A009","sortOrdr":0}
+2026-09-02 00:46:21.399 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.400 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"A010","intgDetlCodeNm":"간병/치매","codeHgrnCgryVal":"A","codeCgryVal":"A010","sortOrdr":0}
+2026-09-02 00:46:21.401 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.402 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"A011","intgDetlCodeNm":"치아","codeHgrnCgryVal":"A","codeCgryVal":"A011","sortOrdr":0}
+2026-09-02 00:46:21.403 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.404 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"A012","intgDetlCodeNm":"신용생명보험","codeHgrnCgryVal":"A","codeCgryVal":"A012","sortOrdr":0}
+2026-09-02 00:46:21.405 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.406 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"B001","intgDetlCodeNm":"연금","codeHgrnCgryVal":"B","codeCgryVal":"B001","sortOrdr":0}
+2026-09-02 00:46:21.407 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.408 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"B002","intgDetlCodeNm":"연금저축","codeHgrnCgryVal":"B","codeCgryVal":"B002","sortOrdr":0}
+2026-09-02 00:46:21.409 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.410 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"B003","intgDetlCodeNm":"저축","codeHgrnCgryVal":"B","codeCgryVal":"B003","sortOrdr":0}
+2026-09-02 00:46:21.411 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.412 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"B004","intgDetlCodeNm":"기타(유니버셜)","codeHgrnCgryVal":"B","codeCgryVal":"B004","sortOrdr":0}
+2026-09-02 00:46:21.413 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.414 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"C001","intgDetlCodeNm":"간병/치매","codeHgrnCgryVal":"C","codeCgryVal":"C001","sortOrdr":0}
+2026-09-02 00:46:21.415 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.416 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"C002","intgDetlCodeNm":"노후실손","codeHgrnCgryVal":"C","codeCgryVal":"C002","sortOrdr":0}
+2026-09-02 00:46:21.417 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.418 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"C003","intgDetlCodeNm":"실손의료","codeHgrnCgryVal":"C","codeCgryVal":"C003","sortOrdr":0}
+2026-09-02 00:46:21.419 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.420 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"C004","intgDetlCodeNm":"유병력자 실손의료","codeHgrnCgryVal":"C","codeCgryVal":"C004","sortOrdr":0}
+2026-09-02 00:46:21.421 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.422 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"C005","intgDetlCodeNm":"(장기,특종)동물, 비용 등","codeHgrnCgryVal":"C","codeCgryVal":"C005","sortOrdr":0}
+2026-09-02 00:46:21.423 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.424 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"C006","intgDetlCodeNm":"상해(기타-장기)","codeHgrnCgryVal":"C","codeCgryVal":"C006","sortOrdr":0}
+2026-09-02 00:46:21.425 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.426 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"C007","intgDetlCodeNm":"상해 운전자(이륜차 포함)","codeHgrnCgryVal":"C","codeCgryVal":"C007","sortOrdr":0}
+2026-09-02 00:46:21.427 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.428 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"C008","intgDetlCodeNm":"암","codeHgrnCgryVal":"C","codeCgryVal":"C008","sortOrdr":0}
+2026-09-02 00:46:21.429 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.430 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"C009","intgDetlCodeNm":"(장기,특종)종합(특종은 가계성 한정) : 재물손해 등","codeHgrnCgryVal":"C","codeCgryVal":"C009","sortOrdr":0}
+2026-09-02 00:46:21.431 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.432 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"C010","intgDetlCodeNm":"질병(건강, 간편건강, 건강종합형 포함)","codeHgrnCgryVal":"C","codeCgryVal":"C010","sortOrdr":0}
+2026-09-02 00:46:21.432 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.433 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"C011","intgDetlCodeNm":"(장기,일반)화재(일반은 가계성 한정) : 주택, 일반, 공장, 기타 화재 등","codeHgrnCgryVal":"C","codeCgryVal":"C011","sortOrdr":0}
+2026-09-02 00:46:21.434 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.436 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"C012","intgDetlCodeNm":"자동차","codeHgrnCgryVal":"C","codeCgryVal":"C012","sortOrdr":0}
+2026-09-02 00:46:21.437 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.438 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"C013","intgDetlCodeNm":"(특종)권리 및 기타 일반보험","codeHgrnCgryVal":"C","codeCgryVal":"C013","sortOrdr":0}
+2026-09-02 00:46:21.439 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.440 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"C014","intgDetlCodeNm":"어린이","codeHgrnCgryVal":"C","codeCgryVal":"C014","sortOrdr":0}
+2026-09-02 00:46:21.441 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.442 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"C015","intgDetlCodeNm":"치아","codeHgrnCgryVal":"C","codeCgryVal":"C015","sortOrdr":0}
+2026-09-02 00:46:21.443 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.444 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"C016","intgDetlCodeNm":"기타(정액의료비 등)","codeHgrnCgryVal":"C","codeCgryVal":"C016","sortOrdr":0}
+2026-09-02 00:46:21.445 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.446 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"C017","intgDetlCodeNm":"(특종)상해, 기타상해","codeHgrnCgryVal":"C","codeCgryVal":"C017","sortOrdr":0}
+2026-09-02 00:46:21.446 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.447 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"C018","intgDetlCodeNm":"(보증)신용, 이행보증 등","codeHgrnCgryVal":"C","codeCgryVal":"C018","sortOrdr":0}
+2026-09-02 00:46:21.448 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.449 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"C019","intgDetlCodeNm":"(특종)상해 중 여행자보험","codeHgrnCgryVal":"C","codeCgryVal":"C019","sortOrdr":0}
+2026-09-02 00:46:21.450 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.451 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"C020","intgDetlCodeNm":"(특종)책임 : 일반배상, 생산물, 전문직업인 등","codeHgrnCgryVal":"C","codeCgryVal":"C020","sortOrdr":0}
+2026-09-02 00:46:21.452 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.453 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"C021","intgDetlCodeNm":"(특종)레저","codeHgrnCgryVal":"C","codeCgryVal":"C021","sortOrdr":0}
+2026-09-02 00:46:21.453 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.454 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"D001","intgDetlCodeNm":"상해 및 기타","codeHgrnCgryVal":"D","codeCgryVal":"D001","sortOrdr":0}
+2026-09-02 00:46:21.455 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.456 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"D002","intgDetlCodeNm":"연금저축","codeHgrnCgryVal":"D","codeCgryVal":"D002","sortOrdr":0}
+2026-09-02 00:46:21.457 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.459 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"OPTION2","intgDetlCode":"D003","intgDetlCodeNm":"화재 및 종합","codeHgrnCgryVal":"D","codeCgryVal":"D003","sortOrdr":0}
+2026-09-02 00:46:21.459 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.460 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"ISVARY","intgDetlCode":"CN","intgDetlCodeNm":"비간편","codeHgrnCgryVal":"","codeCgryVal":"CN","sortOrdr":0}
+2026-09-02 00:46:21.461 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.462 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"ISVARY","intgDetlCode":"CY","intgDetlCodeNm":"간편","codeHgrnCgryVal":"","codeCgryVal":"CY","sortOrdr":0}
+2026-09-02 00:46:21.462 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.463 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"TYPEA","intgDetlCode":"TYPEA01","intgDetlCodeNm":"갱신형","codeHgrnCgryVal":"","codeCgryVal":"TYPEA01","sortOrdr":0}
+2026-09-02 00:46:21.464 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.465 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"TYPEA","intgDetlCode":"TYPEA02","intgDetlCodeNm":"비갱신형","codeHgrnCgryVal":"","codeCgryVal":"TYPEA02","sortOrdr":0}
+2026-09-02 00:46:21.466 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.467 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"TYPEA","intgDetlCode":"TYPEA03","intgDetlCodeNm":"노후실손(생보만)","codeHgrnCgryVal":"","codeCgryVal":"TYPEA03","sortOrdr":0}
+2026-09-02 00:46:21.467 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.468 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"TYPEA","intgDetlCode":"TYPEA04","intgDetlCodeNm":"보험기간\u003e1년","codeHgrnCgryVal":"","codeCgryVal":"TYPEA04","sortOrdr":0}
+2026-09-02 00:46:21.469 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.470 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"TYPEA","intgDetlCode":"TYPEA05","intgDetlCodeNm":"보험기간≤1년(특종, 일반, 보증 등)","codeHgrnCgryVal":"","codeCgryVal":"TYPEA05","sortOrdr":0}
+2026-09-02 00:46:21.470 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.471 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"TYPEA","intgDetlCode":"TYPEA06","intgDetlCodeNm":"선택형Ⅱ","codeHgrnCgryVal":"","codeCgryVal":"TYPEA06","sortOrdr":0}
+2026-09-02 00:46:21.472 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.473 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"TYPEA","intgDetlCode":"TYPEA07","intgDetlCodeNm":"체감형","codeHgrnCgryVal":"","codeCgryVal":"TYPEA07","sortOrdr":0}
+2026-09-02 00:46:21.474 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.475 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"TYPEA","intgDetlCode":"TYPEA08","intgDetlCodeNm":"체증형","codeHgrnCgryVal":"","codeCgryVal":"TYPEA08","sortOrdr":0}
+2026-09-02 00:46:21.476 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.476 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"TYPEA","intgDetlCode":"TYPEA09","intgDetlCodeNm":"표준형","codeHgrnCgryVal":"","codeCgryVal":"TYPEA09","sortOrdr":0}
+2026-09-02 00:46:21.477 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.478 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"TYPEA","intgDetlCode":"TYPEA10","intgDetlCodeNm":"거치(저축성 일시납)","codeHgrnCgryVal":"","codeCgryVal":"TYPEA10","sortOrdr":0}
+2026-09-02 00:46:21.478 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.479 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"TYPEA","intgDetlCode":"TYPEA11","intgDetlCodeNm":"적립(저축성 월납)","codeHgrnCgryVal":"","codeCgryVal":"TYPEA11","sortOrdr":0}
+2026-09-02 00:46:21.480 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.481 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"TYPEA","intgDetlCode":"TYPEA12","intgDetlCodeNm":"즉시(저축성 즉시형)","codeHgrnCgryVal":"","codeCgryVal":"TYPEA12","sortOrdr":0}
+2026-09-02 00:46:21.482 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.482 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"TYPEA","intgDetlCode":"TYPEA13","intgDetlCodeNm":"MZ보험","codeHgrnCgryVal":"","codeCgryVal":"TYPEA13","sortOrdr":0}
+2026-09-02 00:46:21.483 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.484 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"TYPEB","intgDetlCode":"TYPEB01","intgDetlCodeNm":"만기환급","codeHgrnCgryVal":"","codeCgryVal":"TYPEB01","sortOrdr":0}
+2026-09-02 00:46:21.484 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.485 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"TYPEB","intgDetlCode":"TYPEB02","intgDetlCodeNm":"무진단심사","codeHgrnCgryVal":"","codeCgryVal":"TYPEB02","sortOrdr":0}
+2026-09-02 00:46:21.486 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.487 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"TYPEB","intgDetlCode":"TYPEB03","intgDetlCodeNm":"무해지/저해지환급","codeHgrnCgryVal":"","codeCgryVal":"TYPEB03","sortOrdr":0}
+2026-09-02 00:46:21.488 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.488 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"TYPEB","intgDetlCode":"TYPEB04","intgDetlCodeNm":"순수보장","codeHgrnCgryVal":"","codeCgryVal":"TYPEB04","sortOrdr":0}
+2026-09-02 00:46:21.489 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.490 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"TYPEB","intgDetlCode":"TYPEB05","intgDetlCodeNm":"일반","codeHgrnCgryVal":"","codeCgryVal":"TYPEB05","sortOrdr":0}
+2026-09-02 00:46:21.490 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.492 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INRATE","intgDetlCode":"TYPEF01","intgDetlCodeNm":"금리연동","codeHgrnCgryVal":"","codeCgryVal":"TYPEF01","sortOrdr":0}
+2026-09-02 00:46:21.492 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.493 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INRATE","intgDetlCode":"TYPEF02","intgDetlCodeNm":"금리확정(일반보험 포함)","codeHgrnCgryVal":"","codeCgryVal":"TYPEF02","sortOrdr":0}
+2026-09-02 00:46:21.494 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.494 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INRATE","intgDetlCode":"TYPEF03","intgDetlCodeNm":"변액","codeHgrnCgryVal":"","codeCgryVal":"TYPEF03","sortOrdr":0}
+2026-09-02 00:46:21.495 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.496 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"INRATE","intgDetlCode":"TYPEF04","intgDetlCodeNm":"자산연계","codeHgrnCgryVal":"","codeCgryVal":"TYPEF04","sortOrdr":0}
+2026-09-02 00:46:21.496 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.497 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"UNIYN","intgDetlCode":"UN","intgDetlCodeNm":"비유니버셜","codeHgrnCgryVal":"","codeCgryVal":"UN","sortOrdr":0}
+2026-09-02 00:46:21.498 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.498 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"UNIYN","intgDetlCode":"UY","intgDetlCodeNm":"유니버셜","codeHgrnCgryVal":"","codeCgryVal":"UY","sortOrdr":0}
+2026-09-02 00:46:21.499 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.500 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"CMSN_GRAD","intgDetlCode":"H","intgDetlCodeNm":"높음","codeHgrnCgryVal":"","codeCgryVal":"H","sortOrdr":0}
+2026-09-02 00:46:21.500 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.501 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"CMSN_GRAD","intgDetlCode":"L","intgDetlCodeNm":"낮음","codeHgrnCgryVal":"","codeCgryVal":"L","sortOrdr":0}
+2026-09-02 00:46:21.502 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.502 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"CMSN_GRAD","intgDetlCode":"N","intgDetlCodeNm":"보통","codeHgrnCgryVal":"","codeCgryVal":"N","sortOrdr":0}
+2026-09-02 00:46:21.503 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.504 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"CMSN_GRAD","intgDetlCode":"VH","intgDetlCodeNm":"매우높음","codeHgrnCgryVal":"","codeCgryVal":"VH","sortOrdr":0}
+2026-09-02 00:46:21.505 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.506 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"CMSN_GRAD","intgDetlCode":"VL","intgDetlCodeNm":"매우낮음","codeHgrnCgryVal":"","codeCgryVal":"VL","sortOrdr":0}
+2026-09-02 00:46:21.507 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.508 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_DATA","intgDetlCode":"PRRD001","intgDetlCodeNm":"동종·유사상품 대비 주요 담보 보장금액이 높음","codeHgrnCgryVal":"PRRT001","codeCgryVal":"PRRD001","sortOrdr":0}
+2026-09-02 00:46:21.508 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.509 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_DATA","intgDetlCode":"PRRD002","intgDetlCodeNm":"동종·유사상품에서 보장하지 않는 담보를 포함함","codeHgrnCgryVal":"PRRT001","codeCgryVal":"PRRD002","sortOrdr":0}
+2026-09-02 00:46:21.509 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.510 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_DATA","intgDetlCode":"PRRD003","intgDetlCodeNm":"동종·유사상품과 보장내용은 유사하나, 전반적인 보험금액이 높음","codeHgrnCgryVal":"PRRT001","codeCgryVal":"PRRD003","sortOrdr":0}
+2026-09-02 00:46:21.511 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.512 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_DATA","intgDetlCode":"PRRD004","intgDetlCodeNm":"동종·유사상품과 보장내용이 유사하나, 중도(또는 만기)환급율이 높음","codeHgrnCgryVal":"PRRT001","codeCgryVal":"PRRD004","sortOrdr":0}
+2026-09-02 00:46:21.513 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.514 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_DATA","intgDetlCode":"PRRD005","intgDetlCodeNm":"동종·유사상품 대비 가입 가능한 최소 보험료가 낮음","codeHgrnCgryVal":"PRRT002","codeCgryVal":"PRRD005","sortOrdr":0}
+2026-09-02 00:46:21.514 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.515 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_DATA","intgDetlCode":"PRRD006","intgDetlCodeNm":"동종·유사상품과 보장내용이 유사하나, 상대적으로 보험료가 저렴함","codeHgrnCgryVal":"PRRT002","codeCgryVal":"PRRD006","sortOrdr":0}
+2026-09-02 00:46:21.515 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.516 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_DATA","intgDetlCode":"PRRD007","intgDetlCodeNm":"갱신형인 동종·유사상품과 달리 비갱신형 상품으로 만기까지 보험료가 인상되지 않음","codeHgrnCgryVal":"PRRT002","codeCgryVal":"PRRD007","sortOrdr":0}
+2026-09-02 00:46:21.517 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.518 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_DATA","intgDetlCode":"PRRD008","intgDetlCodeNm":"동종·유사상품 대비 사망보장 준비 목적에 적합한 보장을 제공","codeHgrnCgryVal":"PRRT003","codeCgryVal":"PRRD008","sortOrdr":0}
+2026-09-02 00:46:21.518 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.519 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_DATA","intgDetlCode":"PRRD009","intgDetlCodeNm":"동종·유사상품 대비 질병보장 준비 목적에 적합한 보장을 제공","codeHgrnCgryVal":"PRRT003","codeCgryVal":"PRRD009","sortOrdr":0}
+2026-09-02 00:46:21.519 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.520 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_DATA","intgDetlCode":"PRRD010","intgDetlCodeNm":"동종·유사상품 대비 노후 의료비·간병비 준비 목적에 적합한 보장을 제공","codeHgrnCgryVal":"PRRT003","codeCgryVal":"PRRD010","sortOrdr":0}
+2026-09-02 00:46:21.521 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.522 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_DATA","intgDetlCode":"PRRD011","intgDetlCodeNm":"동종·유사상품의 보험회사에 비해 해당 보험회사의 지급여력비율, 신용등급 등 안전성이 훌륭함","codeHgrnCgryVal":"PRRT004","codeCgryVal":"PRRD011","sortOrdr":0}
+2026-09-02 00:46:21.522 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.523 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_DATA","intgDetlCode":"PRRD012","intgDetlCodeNm":"고객의 연령, 건강상태, 직업, 국적 등 구체적인 자격조건 등을 고려 시 동종·유사상품은 가입이 불가","codeHgrnCgryVal":"PRRT004","codeCgryVal":"PRRD012","sortOrdr":0}
+2026-09-02 00:46:21.524 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.525 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_DATA","intgDetlCode":"PRRD013","intgDetlCodeNm":"동종·유사상품에 비해 최저보증이율이 상대적으로 높음","codeHgrnCgryVal":"PRRT005","codeCgryVal":"PRRD013","sortOrdr":0}
+2026-09-02 00:46:21.526 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.527 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_DATA","intgDetlCode":"PRRD014","intgDetlCodeNm":"동종·유사상품에 비해 공시이율(또는 적용이율)이 상대적으로 높음","codeHgrnCgryVal":"PRRT005","codeCgryVal":"PRRD014","sortOrdr":0}
+2026-09-02 00:46:21.527 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.528 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_DATA","intgDetlCode":"PRRD015","intgDetlCodeNm":"동종·유사상품에 비해 연금수령액이 높음","codeHgrnCgryVal":"PRRT005","codeCgryVal":"PRRD015","sortOrdr":0}
+2026-09-02 00:46:21.529 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.530 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_DATA","intgDetlCode":"PRRD016","intgDetlCodeNm":"동종·유사상품에 비해 납입 보험료 원금 도달기간이 빠름","codeHgrnCgryVal":"PRRT005","codeCgryVal":"PRRD016","sortOrdr":0}
+2026-09-02 00:46:21.530 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.531 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_DATA","intgDetlCode":"PRRD017","intgDetlCodeNm":"동종·유사상품과 유사한 공시이율 대비 보장금액이 우수함 ","codeHgrnCgryVal":"PRRT005","codeCgryVal":"PRRD017","sortOrdr":0}
+2026-09-02 00:46:21.532 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.532 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_DATA","intgDetlCode":"PRRD018","intgDetlCodeNm":"동종·유사상품 대비 예상 적립금이 높음","codeHgrnCgryVal":"PRRT006","codeCgryVal":"PRRD018","sortOrdr":0}
+2026-09-02 00:46:21.533 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.534 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_DATA","intgDetlCode":"PRRD019","intgDetlCodeNm":"동종·유사상품 대비 예상 목표금액 도달 보험료 부담이 낮음","codeHgrnCgryVal":"PRRT006","codeCgryVal":"PRRD019","sortOrdr":0}
+2026-09-02 00:46:21.534 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.535 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_DATA","intgDetlCode":"PRRD020","intgDetlCodeNm":"동종·유사상품 대비 중도 또는 만기 해지 시 해약환급률이 상대적으로 높음","codeHgrnCgryVal":"PRRT006","codeCgryVal":"PRRD020","sortOrdr":0}
+2026-09-02 00:46:21.536 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.537 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_DATA","intgDetlCode":"PRRD021","intgDetlCodeNm":"동종·유사상품 대비 장기 유지 시 예상 수익률이 상대적으로 높음","codeHgrnCgryVal":"PRRT006","codeCgryVal":"PRRD021","sortOrdr":0}
+2026-09-02 00:46:21.537 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.539 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_DATA","intgDetlCode":"PRRD022","intgDetlCodeNm":"동종·유사상품에 비해 선택 가능한 펀드가 상대적으로 다양함","codeHgrnCgryVal":"PRRT007","codeCgryVal":"PRRD022","sortOrdr":0}
+2026-09-02 00:46:21.539 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.541 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_DATA","intgDetlCode":"PRRD023","intgDetlCodeNm":"동종·유사상품에 비해 소비자가 선호하는 펀드를 제공함","codeHgrnCgryVal":"PRRT007","codeCgryVal":"PRRD023","sortOrdr":0}
+2026-09-02 00:46:21.542 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.543 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_DATA","intgDetlCode":"PRRD024","intgDetlCodeNm":"동종·유사상품에 비해 보험기간이 길어 만기시 비과세 혜택이 있음","codeHgrnCgryVal":"PRRT007","codeCgryVal":"PRRD024","sortOrdr":0}
+2026-09-02 00:46:21.544 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.545 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_DATA","intgDetlCode":"PRRD025","intgDetlCodeNm":"동종·유사상품의 보험회사에 비해 해당 보험회사의 지급여력비율, 신용등급 등 안전성이 훌륭함","codeHgrnCgryVal":"PRRT008","codeCgryVal":"PRRD025","sortOrdr":0}
+2026-09-02 00:46:21.545 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.546 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_DATA","intgDetlCode":"PRRD026","intgDetlCodeNm":"추가납입, 중도인출, 납입일시중지 등 동종·유사상품에 비해 고객 니즈에 맞는 추가 기능 및 옵션을 제공","codeHgrnCgryVal":"PRRT008","codeCgryVal":"PRRD026","sortOrdr":0}
+2026-09-02 00:46:21.547 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.547 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_TYPE","intgDetlCode":"PRRT001","intgDetlCodeNm":"보장수준","codeHgrnCgryVal":"GRTE","codeCgryVal":"PRRT001","sortOrdr":0}
+2026-09-02 00:46:21.548 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.549 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_TYPE","intgDetlCode":"PRRT002","intgDetlCodeNm":"보험료","codeHgrnCgryVal":"GRTE","codeCgryVal":"PRRT002","sortOrdr":0}
+2026-09-02 00:46:21.549 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.550 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_TYPE","intgDetlCode":"PRRT003","intgDetlCodeNm":"가입목적","codeHgrnCgryVal":"GRTE","codeCgryVal":"PRRT003","sortOrdr":0}
+2026-09-02 00:46:21.551 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.552 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_TYPE","intgDetlCode":"PRRT004","intgDetlCodeNm":"기타","codeHgrnCgryVal":"GRTE","codeCgryVal":"PRRT004","sortOrdr":0}
+2026-09-02 00:46:21.553 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.554 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_TYPE","intgDetlCode":"PRRT005","intgDetlCodeNm":"보장수준","codeHgrnCgryVal":"SVNG","codeCgryVal":"PRRT005","sortOrdr":0}
+2026-09-02 00:46:21.554 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.555 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_TYPE","intgDetlCode":"PRRT006","intgDetlCodeNm":"보험료","codeHgrnCgryVal":"SVNG","codeCgryVal":"PRRT006","sortOrdr":0}
+2026-09-02 00:46:21.556 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.556 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_TYPE","intgDetlCode":"PRRT007","intgDetlCodeNm":"가입목적","codeHgrnCgryVal":"SVNG","codeCgryVal":"PRRT007","sortOrdr":0}
+2026-09-02 00:46:21.557 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.558 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"REASON_TYPE","intgDetlCode":"PRRT008","intgDetlCodeNm":"기타","codeHgrnCgryVal":"SVNG","codeCgryVal":"PRRT008","sortOrdr":0}
+2026-09-02 00:46:21.558 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.559 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"PRODUCT_TYPE","intgDetlCode":"GRTE","intgDetlCodeNm":"보장성","codeHgrnCgryVal":"","codeCgryVal":"GRTE","sortOrdr":0}
+2026-09-02 00:46:21.560 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 42 LINES] ...
+        WHERE INTG_CODE = ?
+2026-09-02 00:46:21.561 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"PRODUCT_TYPE","intgDetlCode":"SVNG","intgDetlCodeNm":"저축성","codeHgrnCgryVal":"","codeCgryVal":"SVNG","sortOrdr":0}
+2026-09-02 00:46:21.562 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM1002.insIntgCode */
+
+        INSERT INTO
+... [TRIMMED 7 LINES] ...
+	            CODE_HGRN_CGRY_VAL,/* 코드상위카테고리값 - 상비서양식변경 추가 */
+	            CODE_CGRY_VAL     ,/* 코드카테고리값 - 상비서양식변경 추가 */
+	            SORT_ORDR         ,
+	            DLTN_YN           ,
+	            RGST_USER_ID      ,
+	            RGST_DTTM         ,
+	            RGST_PRGM_ID      ,
+	            LAST_CHNG_USER_ID ,
+	            LAST_CHNG_DTTM    ,
+	            LAST_CHNG_PRGM_ID
+            )
+            VALUES
+            (
+                ?                   ,
+                ?              ,
+                ?            ,
+                NOW()                        ,
+                '9999-12-31'                 ,
+                ?           ,/* 코드상위카테고리값 - 상비서양식변경 추가 */
+                ?               ,/* 코드카테고리값 - 상비서양식변경 추가 */
+                ?                  ,
+                'N'                          ,
+                'batch_SmpmJob206'           ,
+                NOW()                        ,
+                'SmpmStep206001Tasklet_ins'  ,
+                'batch_SmpmJob206'           ,
+                NOW()                        ,
+                'SmpmStep206001Tasklet_ins'
+            )
+2026-09-02 00:46:21.562 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"intgCode":"PRODUCT_TYPE","intgDetlCode":"SVNG","intgDetlCodeNm":"저축성","codeHgrnCgryVal":"","codeCgryVal":"SVNG","sortOrdr":2}
+2026-09-02 00:46:21.589 INFO  [StaticLogListener.java:20 - afterStep] ================================================
+2026-09-02 00:46:21.589 INFO  [StaticLogListener.java:21 - afterStep]      StepName : smpmJob206001
+2026-09-02 00:46:21.589 INFO  [StaticLogListener.java:22 - afterStep]     ReadCount : 0
+2026-09-02 00:46:21.589 INFO  [StaticLogListener.java:23 - afterStep]    WriteCount : 0
+2026-09-02 00:46:21.589 INFO  [StaticLogListener.java:24 - afterStep]   CommitCount : 1
+2026-09-02 00:46:21.589 INFO  [StaticLogListener.java:25 - afterStep] RollbackCount : 0
+2026-09-02 00:46:21.589 INFO  [StaticLogListener.java:26 - afterStep] ================================================
+2026-09-02 00:46:21.593 INFO  [AbstractStep.java:273 - execute] Step: [smpmJob206001] executed in 1s517ms
+2026-09-02 00:46:21.599 INFO  [SimpleJobLauncher.java:152 - run] Job: [SimpleJob: [name=smpmJob206]] completed with the following parameters: [{run.id=1}] and the following status: [COMPLETED] in 1s539ms
+2026-09-02 00:46:21.632 INFO  [EventDrivenConsumer.java:107 - logComponentSubscriptionEvent] Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2026-09-02 00:46:21.632 INFO  [AbstractSubscribableChannel.java:64 - adjustCounterIfNecessary] Channel 'batch-1.errorChannel' has 0 subscriber(s).
+2026-09-02 00:46:21.632 INFO  [AbstractEndpoint.java:193 - stop] stopped bean '_org.springframework.integration.errorLogger'
+2026-09-02 00:46:21.694 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep144001AsyncExecutor'
+2026-09-02 00:46:21.698 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep055001AsyncExecutor'
+2026-09-02 00:46:21.700 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep051001AsyncExecutor'
+2026-09-02 00:46:21.775 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep010001AsyncExecutor'
+2026-09-02 00:46:21.776 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep008001AsyncExecutor'
+2026-09-02 00:46:21.917 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201008TaskExecutor'
+2026-09-02 00:46:21.917 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201005TaskExecutor'
+2026-09-02 00:46:21.918 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201TaskExecutor'
+2026-09-02 00:46:22.109 INFO  [HikariDataSource.java:350 - close] w1neDataSource - Shutdown initiated...
+2026-09-02 00:46:22.125 INFO  [HikariDataSource.java:352 - close] w1neDataSource - Shutdown completed.
+2026-09-02 00:46:22.125 INFO  [HikariDataSource.java:350 - close] rcDataSource - Shutdown initiated...
+2026-09-02 00:46:22.139 INFO  [HikariDataSource.java:352 - close] rcDataSource - Shutdown completed.
+2026-09-02 00:46:22.139 INFO  [HikariDataSource.java:350 - close] gaDataSource - Shutdown initiated...
+2026-09-02 00:46:22.150 INFO  [HikariDataSource.java:352 - close] gaDataSource - Shutdown completed.
+2026-09-02 00:46:22.159 INFO  [HikariDataSource.java:350 - close] smDataSource - Shutdown initiated...
+2026-09-02 00:46:22.162 INFO  [HikariDataSource.java:352 - close] smDataSource - Shutdown completed.
+2026-09-02 00:46:22.609 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'taskExecutor'
+2026-09-02 00:46:24.628 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'taskScheduler'
