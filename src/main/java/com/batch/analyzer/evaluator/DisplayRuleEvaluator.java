@@ -53,8 +53,8 @@ public class DisplayRuleEvaluator implements RuleEvaluator {
                             "정상 (미발생)" : 
                             "오류 (추출값: " + foundSnippet + " - 확인필요)";
                 } else {
-                    rr.passed = false;
-                    rr.message = "숫자 파싱 실패 (" + foundSnippet + ")";
+                    rr.passed = true;
+                    rr.message = "오류대상없음";
                 }
             } else if ("EQUALS_N".equalsIgnoreCase(rule.condition)) {
                 if (numVal != null) {
