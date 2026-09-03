@@ -33,19 +33,28 @@ public class ValueExtractor {
         }
 
         // 2. 줄바꿈 포함 패턴 처리 (연속 공백/개행 정규화 매칭)
-        if (target.contains("\n") || target.contains("\r")) {
-            String[] targetParts = target.split("[\\r\\n]+");
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < targetParts.length; i++) {
-                if (i > 0) sb.append("[\\s\\r\\n]*");
-                sb.append(Pattern.quote(targetParts[i].trim()));
-            }
-            sb.append(".*?[\\s:=]+([0-9,]+(\\s*건)?)");
-            Pattern p = Pattern.compile(sb.toString(), Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
-            Matcher m = p.matcher(fullText);
-            if (m.find()) {
-                String val = m.group(1);
-                if (val != null) return val.trim();
+        String literalTarget = target.replace("\\n", "\n").replace("\\r", "\r");
+        if (literalTarget.contains("\n") || literalTarget.contains("\r")) {
+            String[] targetParts = literalTarget.split("[\\r\\n]+");
+
+            String firstLineText = targetParts[0].trim();
+            int startIndex = fullText.indexOf(firstLineText);
+            if(startIndex != -1){
+                int endIndex = Math.min(startIndex + 500, fullText.length());
+                String subText = fullText.substring(startIndex, endIndex);
+                
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < targetParts.length; i++) {
+                    if (i > 0) sb.append("[\\s\\r\\n]*");
+                    sb.append().append(Pattern.quote(targetParts[i].trim())).append("\\s*");
+                }
+                sb.append(".*?[\\s:=]+([0-9,]+(\\s*건\\.?)?)");
+                Pattern p = Pattern.compile(sb.toString(), Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
+                Matcher m = p.matcher(subText);
+                if (m.find()) {
+                    String val = m.group(1);
+                    if (val != null) return val.trim();
+                }
             }
         }
 
