@@ -82,13 +82,13 @@ public class BatchLogAnalysisService {
             System.out.println(">> 분석 대상 폴더: " + resolvedFolder.getAbsolutePath() + " (" + summary.folderName + ")");
             System.out.println(">> 로드된 배치 정책 수: " + policies.size() + "개 JOB");
 
-            // 자동 파일명 변경 요청 시 실행
-            if (autoRename) {
+            // 자동 파일명 변경 요청 시 실행 - 필수처리(미변경건만 처리됨)
+            //if (autoRename) {
                 int renamed = renameLogFiles(resolvedFolder, policies);
                 if (renamed > 0) {
                     System.out.println(">> 총 " + renamed + "개 원본 로그 파일명이 표준 접두사로 변경되었습니다.");
                 }
-            }
+            //}
 
             File[] logFiles = resolvedFolder.listFiles((dir, name) -> name.toLowerCase().endsWith(".log"));
             if (logFiles == null) logFiles = new File[0];
