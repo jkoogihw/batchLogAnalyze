@@ -52,4 +52,4 @@
 
 | 작성/수정 일시 | 작업 내용 | 최종 수정 Commit |
 | :--- | :--- | :--- |
-| 2026-09-04 00:10:00 | 실용적 OOP 설계 및 테스트 아키텍처 학습 가이드 문서 추가 및 색인 현행화 | [`1f285d7`](https://github.com/jkoogihw/batchLogAnalyze/commit/1f285d7) |
+| 2026-09-04 00:10:00 | 실용적 OOP 설계 및 테스트 아키텍처 학습 가이드 문서 추가 및 색인 현행화 | [`ee35bcf`](https://github.com/jkoogihw/batchLogAnalyze/commit/ee35bcf) |
