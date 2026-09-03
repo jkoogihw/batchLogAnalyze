@@ -2,6 +2,7 @@ package com.batch.analyzer.evaluator;
 
 import com.batch.model.Rule;
 import com.batch.model.RuleResult;
+import com.batch.model.RuleType;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,9 +41,22 @@ public class RuleEvaluatorRegistry {
     }
 
     /**
-     * 룰 타입에 일치하는 평가기 탐색
+     * 룰 타입(문자열)에 일치하는 평가기 탐색
      */
     public RuleEvaluator getEvaluator(String ruleType) {
+        if (ruleType == null) return null;
+        for (RuleEvaluator evaluator : evaluators) {
+            if (evaluator.supports(ruleType)) {
+                return evaluator;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 룰 타입(Enum)에 일치하는 평가기 탐색
+     */
+    public RuleEvaluator getEvaluator(RuleType ruleType) {
         if (ruleType == null) return null;
         for (RuleEvaluator evaluator : evaluators) {
             if (evaluator.supports(ruleType)) {

@@ -1,25 +1,31 @@
 package com.batch.analyzer.evaluator;
 
 import com.batch.extract.ValueExtractor;
+import com.batch.model.ConditionType;
 import com.batch.model.Rule;
 import com.batch.model.RuleResult;
+import com.batch.model.RuleType;
 
 /**
  * =====================================================================================
  * [구체 전략 (Concrete Strategy): DISPLAY 룰 평가기]
  * -------------------------------------------------------------------------------------
  * 💡 단일 책임 원칙 (SRP):
- * - 특정 키워드/레이블 뒤의 값(단일행, 멀티라인, 콜론/등호 서식)을 추출하고 비교 검증하는
- *   단일 책임을 가집니다.
+ * - 키워드 뒤에 위치한 수치/문자열 값을 추출하고 조건을 판정하는 단일 책임을 가집니다.
  * =====================================================================================
  */
 public class DisplayRuleEvaluator implements RuleEvaluator {
 
-    public static final String RULE_TYPE = "DISPLAY";
+    public static final RuleType SUPPORTED_TYPE = RuleType.DISPLAY;
 
     @Override
     public boolean supports(String ruleType) {
-        return RULE_TYPE.equalsIgnoreCase(ruleType);
+        return SUPPORTED_TYPE.getCode().equalsIgnoreCase(ruleType);
+    }
+
+    @Override
+    public boolean supports(RuleType ruleType) {
+        return SUPPORTED_TYPE == ruleType;
     }
 
     @Override
@@ -30,53 +36,63 @@ public class DisplayRuleEvaluator implements RuleEvaluator {
         rr.target = rule.target;
         rr.condition = rule.condition;
 
-        String foundSnippet = ValueExtractor.extractDisplayValue(fullText, lines, rule);
+        String extracted = ValueExtractor.extractDisplayValue(fullText, lines, rule);
+        rr.extractedValue = (extracted != null) ? extracted : "미발견";
 
-        if (foundSnippet != null) {
-            rr.extractedValue = foundSnippet;
-            Long numVal = ValueExtractor.parseNumber(foundSnippet);
+        Long numValue = ValueExtractor.parseNumber(extracted);
+        ConditionType condition = rule.getConditionType();
 
-            if ("EQUALS_0".equalsIgnoreCase(rule.condition)) {
-                if (numVal != null) {
-                    rr.passed = (numVal == 0);
-                    rr.message = rr.passed ? 
-                            "정상 (0건)" : 
-                            "오류 (추출값: " + foundSnippet + ")";
+        switch (condition) {
+            case EQUALS_0:
+                if (numValue != null) {
+                    rr.passed = (numValue == 0);
+                    rr.message = rr.passed ? "정상 (0건)" : "오류 (" + extracted + ")";
+                } else if (extracted == null) {
+                    rr.passed = false;
+                    rr.message = "값 미추출 (항목 미존재)";
                 } else {
                     rr.passed = false;
-                    rr.message = "숫자 파싱 실패 (" + foundSnippet + ")";
+                    rr.message = "수치 파싱 실패 (" + extracted + ")";
                 }
-            } else if ("ERROR_IF_PRESENT".equalsIgnoreCase(rule.condition)) {
-                if (numVal != null) {
-                    rr.passed = (numVal == 0);
-                    rr.message = rr.passed ? 
-                            "정상 (미발생)" : 
-                            "오류 (추출값: " + foundSnippet + " - 확인필요)";
+                break;
+
+            case EQUALS_N:
+                if (numValue != null) {
+                    rr.passed = (numValue == rule.expectedCount);
+                    rr.message = rr.passed ?
+                            "정상 (" + extracted + " 일치)" :
+                            "불일치 (기대: " + rule.expectedCount + ", 실제: " + extracted + ")";
+                } else {
+                    rr.passed = false;
+                    rr.message = "수치 파싱 실패 또는 미추출 (" + extracted + ")";
+                }
+                break;
+
+            case ERROR_IF_PRESENT:
+                if (extracted != null && !extracted.trim().isEmpty()) {
+                    if (numValue != null && numValue == 0) {
+                        rr.passed = true;
+                        rr.message = "정상 (0건)";
+                    } else {
+                        rr.passed = false;
+                        rr.message = "오류 발생 (" + extracted + ")";
+                    }
                 } else {
                     rr.passed = true;
-                    rr.message = "오류대상없음";
+                    rr.message = "정상 (미발생)";
                 }
-            } else if ("EQUALS_N".equalsIgnoreCase(rule.condition)) {
-                if (numVal != null) {
-                    rr.passed = (numVal == rule.expectedCount);
-                    rr.message = rr.passed ? 
-                            "정상 (" + foundSnippet + " 일치)" : 
-                            "불일치 (기대: " + rule.expectedCount + ", 실제: " + foundSnippet + ")";
+                break;
+
+            case COUNT_CHECK:
+            default:
+                if (extracted != null) {
+                    rr.passed = true;
+                    rr.message = "건수확인: " + extracted;
                 } else {
                     rr.passed = false;
-                    rr.message = "숫자 파싱 실패 (" + foundSnippet + ")";
+                    rr.message = "값 미추출 (로그 확인 필요)";
                 }
-            } else if ("COUNT_CHECK".equalsIgnoreCase(rule.condition)) {
-                rr.passed = true;
-                rr.message = "건수확인: " + foundSnippet;
-            } else {
-                rr.passed = true;
-                rr.message = "확인: " + foundSnippet;
-            }
-        } else {
-            rr.extractedValue = "미발견";
-            rr.passed = false;
-            rr.message = "로그에서 대상 패턴을 찾을 수 없습니다.";
+                break;
         }
 
         return rr;

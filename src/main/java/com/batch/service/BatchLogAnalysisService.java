@@ -4,6 +4,7 @@ import com.batch.analyzer.LogAnalyzer;
 import com.batch.config.Config;
 import com.batch.model.CheckResult;
 import com.batch.model.JobPolicy;
+import com.batch.model.LogConstants;
 import com.batch.model.RuleResult;
 import com.batch.policy.PolicyManager;
 import com.batch.report.ReportGenerator;
@@ -22,22 +23,27 @@ import java.util.List;
  * 💡 OOP 및 스프링 아키텍처 원칙:
  * 1. 관심사의 분리 (Separation of Concerns):
  *    - CLI 입출력/진입점(CheckLog)과 실제 배치 로그 분석 비즈니스 흐름을 완벽히 분리합니다.
- * 2. 확장 가능한 스프링 빈 (@Service):
- *    - 향후 웹 API 컨트롤러(REST Controller), 스케줄러(Scheduler) 등 다양한 진입점에서
- *      해당 서비스를 의존성 주입(@Autowired / 생성자 주입)받아 즉시 재사용할 수 있습니다.
+ * 2. 확장 가능한 스프링 빈 (@Service) 및 생성자 주입 (DI):
+ *    - PolicyManager 및 LogAnalyzer를 주입받을 수 있어 단위 테스트 시 Mock/Stub 활용이 용이합니다.
  * =====================================================================================
  */
 @Service
 public class BatchLogAnalysisService {
 
     private final PolicyManager policyManager;
+    private final LogAnalyzer logAnalyzer;
 
     public BatchLogAnalysisService() {
-        this(new PolicyManager());
+        this(new PolicyManager(), new LogAnalyzer());
     }
 
     public BatchLogAnalysisService(PolicyManager policyManager) {
+        this(policyManager, new LogAnalyzer());
+    }
+
+    public BatchLogAnalysisService(PolicyManager policyManager, LogAnalyzer logAnalyzer) {
         this.policyManager = policyManager != null ? policyManager : new PolicyManager();
+        this.logAnalyzer = logAnalyzer != null ? logAnalyzer : new LogAnalyzer();
     }
 
     /**
@@ -97,21 +103,19 @@ public class BatchLogAnalysisService {
                 System.out.println(">> [옵션 적용] 일자 검증 건너뛰기(--skipDateCheck) 활성화: 폴더 내 모든 로그를 시간 무관 처리합니다.");
             }
 
-            // 자동 파일명 변경 요청 시 실행 - 필수처리(미변경건만 처리됨)
-            //if (autoRename) {
-                int renamed = renameLogFiles(resolvedFolder, policies);
-                if (renamed > 0) {
-                    System.out.println(">> 총 " + renamed + "개 원본 로그 파일명이 표준 접두사로 변경되었습니다.");
-                }
-            //}
+            // 자동 파일명 변경 요청 시 실행 (미변경건만 처리됨)
+            int renamed = renameLogFiles(resolvedFolder, policies);
+            if (renamed > 0) {
+                System.out.println(">> 총 " + renamed + "개 원본 로그 파일명이 표준 접두사로 변경되었습니다.");
+            }
 
             File[] logFiles = resolvedFolder.listFiles((dir, name) -> name.toLowerCase().endsWith(".log"));
             if (logFiles == null) logFiles = new File[0];
 
             for (JobPolicy policy : policies) {
-                CheckResult cr = LogAnalyzer.checkJob(resolvedFolder, logFiles, policy, summary.folderName, skipDateCheck);
+                CheckResult cr = logAnalyzer.checkJobInstance(resolvedFolder, logFiles, policy, summary.folderName, skipDateCheck);
                 summary.results.add(cr);
-                if (cr.overallPassed) {
+                if (cr.isPassed()) {
                     summary.passCount++;
                 } else {
                     summary.failCount++;
@@ -131,14 +135,14 @@ public class BatchLogAnalysisService {
             for (JobPolicy policy : policies) {
                 CheckResult cr = new CheckResult(policy);
                 cr.fileFound = false;
-                cr.fileName = policy.filePrefix + "*.log (미발견)";
+                cr.fileName = (policy != null ? policy.filePrefix : "") + "*.log (미발견)";
                 cr.overallPassed = false;
 
                 RuleResult rr = new RuleResult();
-                rr.ruleNo = "ERR";
+                rr.ruleNo = LogConstants.RULE_NO_ERROR;
                 rr.description = "로그 파일 존재 여부";
                 rr.passed = false;
-                rr.message = "해당 JOB의 로그 파일이 존재하지 않습니다.";
+                rr.message = LogConstants.MSG_FILE_NOT_FOUND;
                 cr.addRuleResult(rr);
 
                 summary.results.add(cr);

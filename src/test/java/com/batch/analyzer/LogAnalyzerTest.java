@@ -328,4 +328,44 @@ public class LogAnalyzerTest {
             () -> assertEquals("1,234,567", result.extractedValue, "콤마가 유지된 수치 추출")
         );
     }
+
+    /**
+     * ---------------------------------------------------------------------------------
+     * [DI 지원 및 커스텀 RuleEvaluator 확장 (OCP) 단위 테스트]
+     * ---------------------------------------------------------------------------------
+     */
+    @Test
+    @DisplayName("OCP 확장성 검증: 신규 커스텀 RuleEvaluator 등록 및 LogAnalyzer 인스턴스 DI 평가")
+    public void testCustomRuleEvaluator_WithDependencyInjection() {
+        // [Given] 커스텀 룰 평가기 (예: TIMEOUT_CHECK)
+        com.batch.analyzer.evaluator.RuleEvaluator customEvaluator = new com.batch.analyzer.evaluator.RuleEvaluator() {
+            @Override
+            public boolean supports(String ruleType) {
+                return "TIMEOUT_CHECK".equalsIgnoreCase(ruleType);
+            }
+
+            @Override
+            public RuleResult evaluate(String fullText, String[] lines, Rule rule) {
+                RuleResult rr = new RuleResult("02", "타임아웃 점검", "TIMEOUT_CHECK", true, "타임아웃 정상");
+                rr.extractedValue = "0초";
+                return rr;
+            }
+        };
+
+        com.batch.analyzer.evaluator.RuleEvaluatorRegistry customRegistry = new com.batch.analyzer.evaluator.RuleEvaluatorRegistry();
+        customRegistry.register(customEvaluator);
+
+        // [When] DI 생성자로 LogAnalyzer 인스턴스 생성
+        LogAnalyzer analyzer = new LogAnalyzer(null, null, null, customRegistry);
+
+        Rule customRule = new Rule("02", "TIMEOUT_CHECK", "TIMEOUT", "EQUALS_0", "타임아웃 점검");
+        RuleResult result = analyzer.evaluateRuleInstance("dummy text", new String[]{"dummy"}, customRule);
+
+        // [Then]
+        assertAll("커스텀 룰 평가기 OCP 확장 단언",
+            () -> assertTrue(result.passed, "커스텀 평가기가 성공 판정 반환"),
+            () -> assertEquals("TIMEOUT_CHECK", result.type),
+            () -> assertEquals("0초", result.extractedValue)
+        );
+    }
 }

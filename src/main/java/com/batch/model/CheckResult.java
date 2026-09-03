@@ -1,10 +1,21 @@
 package com.batch.model;
 
+import com.batch.config.Config;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * JOB별 검증 결과
+ * =====================================================================================
+ * [JOB별 검증 결과 모델 - CheckResult]
+ * -------------------------------------------------------------------------------------
+ * 💡 OOP 개선 포인트:
+ * 1. 풍부한 도메인 메서드 캡슐화 ("Tell, Don't Ask" 원칙):
+ *    - 외부 리포트/서비스가 내부 boolean 필드를 일일이 검사하지 않고,
+ *      getStatus(), isPassed(), isFailed() 등의 메서드로 상태를 직접 질의합니다.
+ * 2. 하드코딩 제거 및 설정 연동:
+ *    - 스케줄 분기 시각(09:05) 및 월간 기본 일자(2일)를 LogConstants 및 Config로 중앙 관리합니다.
+ * =====================================================================================
  */
 public class CheckResult {
     
@@ -43,16 +54,16 @@ public class CheckResult {
     public static String formatScheduleInfo(JobPolicy policy) {
         if (policy == null) return "";
         String time = (policy.scheduleTime != null && !policy.scheduleTime.trim().isEmpty()) ? policy.scheduleTime.trim() : "-";
-        boolean isMonthly = "MONTHLY".equalsIgnoreCase(policy.scheduleType);
-        String cycle = isMonthly ? "월" : "일";
+        ScheduleType scheduleType = policy.getScheduleType();
+        boolean isMonthly = scheduleType.isMonthly();
+        String cycle = scheduleType.getLabel();
         
         String targetDayDesc;
         if (isMonthly) {
-            int day = policy.monthlyLogDay != null ? policy.monthlyLogDay : 2;
+            int day = policy.monthlyLogDay != null ? policy.monthlyLogDay : LogConstants.DEFAULT_MONTHLY_LOG_DAY;
             targetDayDesc = day + "일";
         } else {
-            // 09:05 기준
-            String cutoff = "09:05";
+            String cutoff = Config.get("log.cutoff.time", LogConstants.DEFAULT_CUTOFF_TIME);
             if (!time.equals("-") && time.compareTo(cutoff) > 0) {
                 targetDayDesc = "전일";
             } else {
@@ -66,9 +77,11 @@ public class CheckResult {
      * 검증 결과를 추가합니다
      */
     public void addRuleResult(RuleResult ruleResult) {
-        ruleResults.add(ruleResult);
-        if (!ruleResult.passed) {
-            overallPassed = false;
+        if (ruleResult != null) {
+            ruleResults.add(ruleResult);
+            if (!ruleResult.passed) {
+                overallPassed = false;
+            }
         }
     }
 
@@ -81,6 +94,36 @@ public class CheckResult {
         this.overallPassed = true;
     }
 
+    // =========================================================================
+    // 도메인 질의 메서드 (Tell, Don't Ask)
+    // =========================================================================
+
+    public boolean isPassed() {
+        return this.overallPassed;
+    }
+
+    public boolean isFailed() {
+        return !this.overallPassed;
+    }
+
+    public boolean isHoliday() {
+        return this.isHoliday;
+    }
+
+    public boolean isFileFound() {
+        return this.fileFound;
+    }
+
+    public CheckStatus getStatus() {
+        if (!fileFound) {
+            return CheckStatus.FILE_NOT_FOUND;
+        }
+        if (isHoliday) {
+            return CheckStatus.HOLIDAY;
+        }
+        return overallPassed ? CheckStatus.PASS : CheckStatus.FAIL;
+    }
+
     @Override
     public String toString() {
         return "CheckResult{" +
@@ -88,6 +131,7 @@ public class CheckResult {
                 ", jobName='" + jobName + '\'' +
                 ", fileFound=" + fileFound +
                 ", overallPassed=" + overallPassed +
+                ", status=" + getStatus() +
                 ", ruleResults=" + ruleResults.size() +
                 '}';
     }

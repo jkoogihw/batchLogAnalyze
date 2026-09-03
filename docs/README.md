@@ -40,10 +40,16 @@
    - 리포트 서식 개선 (`JOB ID` 줄바꿈 스케줄 표기, `배치파일점검` 간소화)
    - Gradle 8.9 래퍼 및 Git 트래킹 설정
 
+7. [**실용적 OOP 설계 및 테스트 아키텍처 학습 가이드 (260904_01_실용적_OOP설계_및_테스트아키텍처_학습가이드.md)**](./260904_01_실용적_OOP설계_및_테스트아키텍처_학습가이드.md)
+   - 초보 개발자를 위한 실무 중심의 객체지향 설계(OOP) 및 테스트 아키텍처 가이드
+   - Before vs After 실제 코드 비교 (하드코딩 제거, 상태값 Enum 규격화, OCP 전략 레지스트리, Tell Don't Ask 도메인 캡슐화)
+   - 테스트 픽스처 생성을 위한 Fluent Builder 패턴(`JobPolicy.builder()`, `Rule.search()`)
+   - 설계 의도, 장단점, 트레이드오프 분석 및 향후 관리/확장 방안
+
 ---
 
 ## 📜 문서 변경 이력
 
 | 작성/수정 일시 | 작업 내용 | 최종 수정 Commit |
 | :--- | :--- | :--- |
-| 2026-09-03 23:25:00 | 18개 배치 정책 및 월간배치/LogSlimmer 유틸리티 내용 반영 및 문서 색인 현행화 | [`89bf863`](https://github.com/jkoogihw/batchLogAnalyze/commit/89bf863) |
+| 2026-09-04 00:10:00 | 실용적 OOP 설계 및 테스트 아키텍처 학습 가이드 문서 추가 및 색인 현행화 | [`1f285d7`](https://github.com/jkoogihw/batchLogAnalyze/commit/1f285d7) |

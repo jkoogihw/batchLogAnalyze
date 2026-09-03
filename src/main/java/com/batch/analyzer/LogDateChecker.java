@@ -2,7 +2,9 @@ package com.batch.analyzer;
 
 import com.batch.config.Config;
 import com.batch.model.JobPolicy;
+import com.batch.model.LogConstants;
 import com.batch.model.RuleResult;
+import com.batch.model.RuleType;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
@@ -52,9 +54,9 @@ public class LogDateChecker {
      */
     public RuleResult checkDate(String fullText, JobPolicy policy, String folderName, File[] logFiles, boolean skipDateCheck) {
         RuleResult result = new RuleResult();
-        result.ruleNo = "01";
-        result.type = "DATE_CHECK";
-        result.description = "배치파일점검";
+        result.ruleNo = LogConstants.DEFAULT_DATE_CHECK_RULE_NO;
+        result.type = RuleType.DATE_CHECK.getCode();
+        result.description = LogConstants.DATE_CHECK_DESCRIPTION;
 
         // 1. 로그 텍스트에서 첫 타임스탬프 추출
         LocalDateTime logDateTime = extractLogDateTime(fullText);
@@ -76,7 +78,7 @@ public class LogDateChecker {
         if (!dateCheckEnabled) {
             result.passed = true;
             result.condition = "일자 점검 건너뜀 (전체 처리 옵션)";
-            result.message = "정상파일수집 (점검생략)";
+            result.message = LogConstants.MSG_NORMAL_FILE_COLLECTED + " (점검생략)";
             return result;
         }
 
@@ -84,7 +86,7 @@ public class LogDateChecker {
         LocalDate baseDate = resolveBaseDate(folderName, logFiles, actualLogDate);
 
         // 4. 정책 기반 기대 일자(Expected Date) 계산
-        String cutoffTime = Config.get("log.cutoff.time", "09:05");
+        String cutoffTime = Config.get("log.cutoff.time", LogConstants.DEFAULT_CUTOFF_TIME);
         ExpectedDateInfo expectedInfo = calculateExpectedDate(policy, baseDate, cutoffTime);
 
         result.condition = expectedInfo.ruleDescription;
@@ -92,7 +94,7 @@ public class LogDateChecker {
         // 5. 일치 여부 검증
         if (actualLogDate.equals(expectedInfo.expectedDate)) {
             result.passed = true;
-            result.message = "정상파일수집";
+            result.message = LogConstants.MSG_NORMAL_FILE_COLLECTED;
         } else {
             result.passed = false;
             result.message = String.format("로그 일자 불일치! 기대: %s (%s), 실제: %s",

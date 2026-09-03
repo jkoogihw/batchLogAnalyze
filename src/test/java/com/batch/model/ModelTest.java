@@ -261,4 +261,66 @@ public class ModelTest {
         CheckResult cr3 = new CheckResult(p3);
         assertEquals("01:00 [2일 / 월]", cr3.scheduleInfo);
     }
+
+    /**
+     * ---------------------------------------------------------------------------------
+     * [Fluent Builder 및 Factory 메서드 검증]
+     * ---------------------------------------------------------------------------------
+     */
+    @Test
+    @DisplayName("Fluent Builder: JobPolicy.builder 및 Rule 팩토리 메서드 연동 검증")
+    public void testFluentBuilder_JobPolicyAndRule() {
+        JobPolicy policy = JobPolicy.builder("18", "smpmJob206")
+                .title("206_협회코드및보험사코드수집")
+                .monthly(2, "00:45")
+                .addRule(Rule.search("HTTP/1.1 200", ConditionType.COUNT_CHECK, "거래성공"))
+                .addRule(Rule.display("prodList.size", ConditionType.COUNT_CHECK, "정리건수"))
+                .addRule(Rule.search("TB_SMPM1002.insIntgCode", ConditionType.EQUALS_N, 151, "조회건수"))
+                .build();
+
+        assertAll("Fluent Builder 검증",
+            () -> assertEquals("18", policy.jobNo),
+            () -> assertEquals("smpmJob206", policy.jobName),
+            () -> assertTrue(policy.isMonthly()),
+            () -> assertEquals("00:45", policy.scheduleTime),
+            () -> assertEquals(3, policy.rules.size()),
+            () -> assertEquals(RuleType.SEARCH, policy.rules.get(0).getRuleType()),
+            () -> assertEquals(RuleType.DISPLAY, policy.rules.get(1).getRuleType()),
+            () -> assertEquals(ConditionType.EQUALS_N, policy.rules.get(2).getConditionType()),
+            () -> assertEquals(151, policy.rules.get(2).expectedCount)
+        );
+    }
+
+    /**
+     * ---------------------------------------------------------------------------------
+     * [CheckResult 도메인 상태 질의 메서드 (Tell, Don't Ask) 검증]
+     * ---------------------------------------------------------------------------------
+     */
+    @Test
+    @DisplayName("CheckResult getStatus: 파일미발견, 비영업일, PASS, FAIL 상태 전이 검증")
+    public void testCheckResult_DomainStatusQueries() {
+        CheckResult cr = new CheckResult("01", "job1", "Job 1");
+        
+        // 1. 파일 미발견 상태
+        cr.fileFound = false;
+        assertEquals(CheckStatus.FILE_NOT_FOUND, cr.getStatus());
+        assertFalse(cr.isFileFound());
+
+        // 2. 정상 통과 상태
+        cr.fileFound = true;
+        cr.overallPassed = true;
+        assertEquals(CheckStatus.PASS, cr.getStatus());
+        assertTrue(cr.isPassed());
+
+        // 3. 실패 상태
+        cr.overallPassed = false;
+        assertEquals(CheckStatus.FAIL, cr.getStatus());
+        assertTrue(cr.isFailed());
+
+        // 4. 비영업일 상태
+        cr.markAsHoliday("일요일");
+        assertEquals(CheckStatus.HOLIDAY, cr.getStatus());
+        assertTrue(cr.isHoliday());
+        assertTrue(cr.isPassed());
+    }
 }

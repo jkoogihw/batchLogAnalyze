@@ -1,7 +1,15 @@
 package com.batch.model;
 
 /**
- * 개별 규칙 검증 결과
+ * =====================================================================================
+ * [개별 규칙 검증 결과 모델 - RuleResult]
+ * -------------------------------------------------------------------------------------
+ * 💡 OOP 개선 포인트:
+ * 1. Enum 연동:
+ *    - RuleType, ConditionType 지원으로 규칙 평가 결과의 타입 안전성 확보.
+ * 2. 도메인 질의 메서드:
+ *    - isPassed(), isFailed(), getRuleType(), getConditionType() 제공.
+ * =====================================================================================
  */
 public class RuleResult {
     
@@ -27,6 +35,22 @@ public class RuleResult {
         this.type = type;
         this.passed = passed;
         this.message = message;
+    }
+
+    public RuleType getRuleType() {
+        return RuleType.fromString(this.type);
+    }
+
+    public ConditionType getConditionType() {
+        return ConditionType.fromString(this.condition);
+    }
+
+    public boolean isPassed() {
+        return this.passed;
+    }
+
+    public boolean isFailed() {
+        return !this.passed;
     }
 
     @Override
