@@ -116,7 +116,7 @@ public class MarkdownReportWriter implements ReportWriter {
         }
 
         String baseFolder = Config.get("base.folder", ".");
-        String logAnalysisDir = Config.get("log.analysis.dir", "report");
+        String logAnalysisDir = folderName;
         String reportDir = baseFolder + File.separator + logAnalysisDir;
 
         File dir = new File(reportDir);
