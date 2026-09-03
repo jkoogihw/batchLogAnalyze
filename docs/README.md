@@ -59,4 +59,4 @@
 
 | 작성/수정 일시 | 작업 내용 | 최종 수정 Commit |
 | :--- | :--- | :--- |
-| 2026-09-04 00:28:00 | 현재 설계 vs 헥사고날 아키텍처 비교 및 전환 가이드 문서 추가 및 색인 현행화 | [`9ec8a6a`](https://github.com/jkoogihw/batchLogAnalyze/commit/9ec8a6a) |
+| 2026-09-04 00:28:00 | 현재 설계 vs 헥사고날 아키텍처 비교 및 전환 가이드 문서 추가 및 색인 현행화 | [`1e60b3c`](https://github.com/jkoogihw/batchLogAnalyze/commit/1e60b3c) |
