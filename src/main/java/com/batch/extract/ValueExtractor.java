@@ -46,7 +46,7 @@ public class ValueExtractor {
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < targetParts.length; i++) {
                     if (i > 0) sb.append("[\\s\\r\\n]*");
-                    sb.append().append(Pattern.quote(targetParts[i].trim())).append("\\s*");
+                    sb.append("\\s*").append(Pattern.quote(targetParts[i].trim())).append("\\s*");
                 }
                 sb.append(".*?[\\s:=]+([0-9,]+(\\s*건\\.?)?)");
                 Pattern p = Pattern.compile(sb.toString(), Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
