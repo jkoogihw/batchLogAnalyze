@@ -64,20 +64,27 @@ public class RuleEvaluatorRegistry {
         }
 
         RuleEvaluator evaluator = getEvaluator(rule.type);
+        RuleResult result;
         if (evaluator != null) {
-            return evaluator.evaluate(fullText, lines, rule);
+            result = evaluator.evaluate(fullText, lines, rule);
+        } else {
+            // 미지원 룰 타입 Fallback
+            RuleResult fallback = new RuleResult();
+            fallback.description = rule.description != null ? rule.description : rule.target;
+            fallback.type = rule.type;
+            fallback.target = rule.target;
+            fallback.condition = rule.condition;
+            fallback.extractedValue = "미지원 룰 타입";
+            fallback.passed = false;
+            fallback.message = "지원하지 않는 룰 타입입니다: " + rule.type;
+            result = fallback;
         }
 
-        // 미지원 룰 타입 Fallback
-        RuleResult fallback = new RuleResult();
-        fallback.description = rule.description != null ? rule.description : rule.target;
-        fallback.type = rule.type;
-        fallback.target = rule.target;
-        fallback.condition = rule.condition;
-        fallback.extractedValue = "미지원 룰 타입";
-        fallback.passed = false;
-        fallback.message = "지원하지 않는 룰 타입입니다: " + rule.type;
-        return fallback;
+        if (result != null && (result.ruleNo == null || result.ruleNo.isEmpty())) {
+            result.ruleNo = rule.ruleNo;
+        }
+
+        return result;
     }
 
     public List<RuleEvaluator> getEvaluators() {

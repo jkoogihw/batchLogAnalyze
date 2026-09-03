@@ -33,12 +33,13 @@ public class PolicyManagerTest {
      * ---------------------------------------------------------------------------------
      */
     @Test
-    @DisplayName("단일 JOB 정책 파싱: 기본 메타 필드(jobNo, jobName, filePrefix, rules) 매핑 확인")
+    @DisplayName("단일 JOB 정책 파싱: 기본 메타 필드(jobNo, jobName, filePrefix, scheduleTime, rules) 매핑 확인")
     public void testParseJsonPolicies_Basic() {
         // [Given] 1개의 JOB 정책을 담은 JSON 문자열
         String json = "[{\"jobNo\": \"01\", \"jobName\": \"testJob001\", " +
                 "\"jobTitle\": \"Test Job One\", \"filePrefix\": \"test_\", " +
-                "\"rules\": [{\"type\": \"SEARCH\", \"target\": \"SUCCESS\", " +
+                "\"scheduleTime\": \"03:05\", \"scheduleType\": \"DAILY\", " +
+                "\"rules\": [{\"ruleNo\": \"01\", \"type\": \"SEARCH\", \"target\": \"SUCCESS\", " +
                 "\"condition\": \"COUNT_CHECK\", \"description\": \"Success count\"}]}]";
 
         // [When] JSON 파싱 실행
@@ -53,8 +54,44 @@ public class PolicyManagerTest {
             () -> assertEquals("01", job.jobNo, "Job 번호 일치"),
             () -> assertEquals("testJob001", job.jobName, "Job 이름 일치"),
             () -> assertEquals("test_", job.filePrefix, "파일 접두사 일치"),
-            () -> assertEquals(1, job.rules.size(), "하위 규칙 1개 포함")
+            () -> assertEquals("03:05", job.scheduleTime, "scheduleTime 일치"),
+            () -> assertEquals("DAILY", job.scheduleType, "scheduleType 일치"),
+            () -> assertEquals(1, job.rules.size(), "하위 규칙 1개 포함"),
+            () -> assertEquals("01", job.rules.get(0).ruleNo, "ruleNo 일치")
         );
+    }
+
+    @Test
+    @DisplayName("월간 배치 정책 파싱: scheduleType: MONTHLY 및 monthlyLogDay 매핑 검증")
+    public void testParseJsonPolicies_MonthlySchedule() {
+        String json = "[{\"jobNo\": \"99\", \"jobName\": \"monthlyJob\", " +
+                "\"jobTitle\": \"Monthly Job\", \"filePrefix\": \"monthly_\", " +
+                "\"scheduleType\": \"MONTHLY\", \"monthlyLogDay\": 2, " +
+                "\"rules\": []}]";
+
+        List<JobPolicy> policies = PolicyManager.parseJsonPolicies(json);
+        assertEquals(1, policies.size());
+        JobPolicy job = policies.get(0);
+
+        assertAll("월간 배치 정책 필드 단언",
+            () -> assertEquals("MONTHLY", job.scheduleType),
+            () -> assertEquals(Integer.valueOf(2), job.monthlyLogDay)
+        );
+    }
+
+    @Test
+    @DisplayName("ruleNo 누락 시 자동 순번 부여 검증")
+    public void testParseJsonPolicies_AutoRuleNo() {
+        String json = "[{\"jobNo\": \"01\", \"jobName\": \"job1\", \"jobTitle\": \"Job One\", \"filePrefix\": \"job1_\", " +
+                "\"rules\": [{\"type\": \"SEARCH\", \"target\": \"A\", \"condition\": \"COUNT_CHECK\", \"description\": \"Rule A\"}, " +
+                "{\"type\": \"DISPLAY\", \"target\": \"B\", \"condition\": \"COUNT_CHECK\", \"description\": \"Rule B\"}]}]";
+
+        List<JobPolicy> policies = PolicyManager.parseJsonPolicies(json);
+        JobPolicy job = policies.get(0);
+
+        assertEquals(2, job.rules.size());
+        assertEquals("02", job.rules.get(0).ruleNo);
+        assertEquals("03", job.rules.get(1).ruleNo);
     }
     
     /**
@@ -248,5 +285,80 @@ public class PolicyManagerTest {
         List<JobPolicy> policies = PolicyManager.parseJsonPolicies(json);
         assertNotNull(policies, "결과 리스트는 null이 아니어야 함");
         assertEquals(0, policies.size(), "빈 배열 파싱 결과는 size 0");
+    }
+
+    /**
+     * ---------------------------------------------------------------------------------
+     * [루트 객체 {"policies": [...]} 구조 파싱 검증]
+     * ---------------------------------------------------------------------------------
+     */
+    @Test
+    @DisplayName("루트 객체 {\"policies\": [...]} 표준 포맷 파싱 검증")
+    public void testParseJsonPolicies_PoliciesObjectWrapper() {
+        String json = "{\n" +
+                "  \"policies\": [\n" +
+                "    {\n" +
+                "      \"jobNo\": \"01\",\n" +
+                "      \"jobName\": \"job1\",\n" +
+                "      \"jobTitle\": \"Job One\",\n" +
+                "      \"filePrefix\": \"job1_\",\n" +
+                "      \"scheduleTime\": \"03:05\",\n" +
+                "      \"rules\": [\n" +
+                "        {\"ruleNo\": \"02\", \"type\": \"SEARCH\", \"target\": \"OK\", \"condition\": \"EQUALS_N\", \"expectedCount\": 1}\n" +
+                "      ]\n" +
+                "    }\n" +
+                "  ]\n" +
+                "}";
+
+        List<JobPolicy> policies = PolicyManager.parseJsonPolicies(json);
+        assertNotNull(policies);
+        assertEquals(1, policies.size());
+        JobPolicy job = policies.get(0);
+        assertEquals("01", job.jobNo);
+        assertEquals("03:05", job.scheduleTime);
+        assertEquals("02", job.rules.get(0).ruleNo);
+    }
+
+    /**
+     * ---------------------------------------------------------------------------------
+     * [현행화된 policy_meta_test.json 파일 직접 로드 및 6개 JOB 전수 검증]
+     * ---------------------------------------------------------------------------------
+     */
+    @Test
+    @DisplayName("현행화된 policy_meta_test.json 파일 파싱: 당일/전일/월간 6개 JOB 전수 검증")
+    public void testLoadFromPolicyMetaTestJson() throws Exception {
+        java.io.File testPolicyFile = new java.io.File("src/test/resources/policy_meta_test.json");
+        assertTrue(testPolicyFile.exists(), "src/test/resources/policy_meta_test.json 파일이 존재해야 함");
+
+        byte[] bytes = java.nio.file.Files.readAllBytes(testPolicyFile.toPath());
+        String jsonContent = new String(bytes, java.nio.charset.StandardCharsets.UTF_8);
+
+        List<JobPolicy> policies = PolicyManager.parseJsonPolicies(jsonContent);
+        assertNotNull(policies);
+        assertEquals(6, policies.size(), "현행화된 테스트 정책 파일에는 6개 JOB이 정의되어 있어야 함");
+
+        // JOB 01: 당일 일간 배치 (03:00)
+        JobPolicy j1 = policies.get(0);
+        assertEquals("01", j1.jobNo);
+        assertEquals("03:00", j1.scheduleTime);
+        assertEquals("02", j1.rules.get(0).ruleNo);
+
+        // JOB 03: 전일 일간 배치 (11:00) + 비영업일
+        JobPolicy j3 = policies.get(2);
+        assertEquals("03", j3.jobNo);
+        assertEquals("11:00", j3.scheduleTime);
+        assertNotNull(j3.holidayPattern);
+
+        // JOB 04: STEP_METRICS (Rollback 0건)
+        JobPolicy j4 = policies.get(3);
+        assertEquals("04", j4.jobNo);
+        assertEquals("STEP_METRICS", j4.rules.get(0).type);
+        assertEquals("ROLLBACK_ZERO", j4.rules.get(0).condition);
+
+        // JOB 06: 월간 배치 (MONTHLY, monthlyLogDay: 2)
+        JobPolicy j6 = policies.get(5);
+        assertEquals("06", j6.jobNo);
+        assertEquals("MONTHLY", j6.scheduleType);
+        assertEquals(Integer.valueOf(2), j6.monthlyLogDay);
     }
 }

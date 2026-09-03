@@ -16,6 +16,9 @@ public class JobPolicy {
     public String filePrefix;         // 로그 파일 접두사 (예: "smrm_")
     public String rawPattern;         // 원본 파일명 패턴 (미변경 명명규칙)
     public String holidayPattern;     // 비영업일 감지 패턴
+    public String scheduleType;       // 실행 주기 ("DAILY", "MONTHLY", 기본값 "DAILY")
+    public String scheduleTime;       // 실행 예정 시각 (예: "03:05", "11:00", "09:05")
+    public Integer monthlyLogDay;     // 월간 배치 로그 생성 일자 (예: 2 -> 매월 2일 생성)
     public List<Rule> rules = new ArrayList<>();  // 검증 규칙 목록
 
     public JobPolicy() {
@@ -35,6 +38,8 @@ public class JobPolicy {
                 ", jobName='" + jobName + '\'' +
                 ", jobTitle='" + jobTitle + '\'' +
                 ", filePrefix='" + filePrefix + '\'' +
+                ", scheduleType='" + scheduleType + '\'' +
+                ", scheduleTime='" + scheduleTime + '\'' +
                 ", rulesCount=" + rules.size() +
                 '}';
     }

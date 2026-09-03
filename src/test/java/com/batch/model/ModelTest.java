@@ -29,10 +29,13 @@ public class ModelTest {
      * ---------------------------------------------------------------------------------
      */
     @Test
-    @DisplayName("JobPolicy 생성: 필수 식별값 매핑 및 초기 빈 규칙 리스트 생성 확인")
+    @DisplayName("JobPolicy 생성: 필수 식별값 매핑 및 스케줄 필드 설정 확인")
     public void testJobPolicy_Creation() {
         // [Given & When] JobPolicy 객체 생성
         JobPolicy policy = new JobPolicy("01", "testJob", "Test Job Title", "test_");
+        policy.scheduleTime = "03:05";
+        policy.scheduleType = "DAILY";
+        policy.monthlyLogDay = 2;
 
         // [Then]
         assertAll("JobPolicy 생성자 필드 매핑 단언",
@@ -40,6 +43,9 @@ public class ModelTest {
             () -> assertEquals("testJob", policy.jobName, "jobName 확인"),
             () -> assertEquals("Test Job Title", policy.jobTitle, "jobTitle 확인"),
             () -> assertEquals("test_", policy.filePrefix, "filePrefix 확인"),
+            () -> assertEquals("03:05", policy.scheduleTime, "scheduleTime 확인"),
+            () -> assertEquals("DAILY", policy.scheduleType, "scheduleType 확인"),
+            () -> assertEquals(2, policy.monthlyLogDay, "monthlyLogDay 확인"),
             () -> assertEquals(0, policy.rules.size(), "초기 규칙 목록은 비어있어야 함")
         );
     }
@@ -50,11 +56,12 @@ public class ModelTest {
      * ---------------------------------------------------------------------------------
      */
     @Test
-    @DisplayName("Rule 생성: type, target, condition, description 필드 매핑 검증")
+    @DisplayName("Rule 생성: ruleNo, type, target, condition, description 필드 매핑 검증")
     public void testRule_Creation() {
-        Rule rule = new Rule("SEARCH", "SUCCESS", "EQUALS_0", "Success count");
+        Rule rule = new Rule("01", "SEARCH", "SUCCESS", "EQUALS_0", "Success count");
 
         assertAll("Rule 필드 검증",
+            () -> assertEquals("01", rule.ruleNo, "ruleNo 확인"),
             () -> assertEquals("SEARCH", rule.type, "type 확인"),
             () -> assertEquals("SUCCESS", rule.target, "target 확인"),
             () -> assertEquals("EQUALS_0", rule.condition, "condition 확인"),
@@ -68,11 +75,12 @@ public class ModelTest {
      * ---------------------------------------------------------------------------------
      */
     @Test
-    @DisplayName("RuleResult 생성: 개별 검증 결과 및 성공 플래그 매핑 확인")
+    @DisplayName("RuleResult 생성: ruleNo, 개별 검증 결과 및 성공 플래그 매핑 확인")
     public void testRuleResult_Creation() {
-        RuleResult result = new RuleResult("Test rule", "SEARCH", true, "All OK");
+        RuleResult result = new RuleResult("01", "Test rule", "SEARCH", true, "All OK");
 
         assertAll("RuleResult 필드 검증",
+            () -> assertEquals("01", result.ruleNo, "ruleNo 확인"),
             () -> assertEquals("Test rule", result.description, "description 확인"),
             () -> assertEquals("SEARCH", result.type, "type 확인"),
             () -> assertTrue(result.passed, "passed 확인"),
@@ -223,5 +231,34 @@ public class ModelTest {
             () -> assertTrue(str.contains("job1"), "Job 이름이 포함됨"),
             () -> assertTrue(str.contains("2"), "규칙 개수가 포함됨")
         );
+    }
+
+    /**
+     * ---------------------------------------------------------------------------------
+     * [CheckResult(JobPolicy) 생성자 및 scheduleInfo 서식화 검증]
+     * ---------------------------------------------------------------------------------
+     */
+    @Test
+    @DisplayName("CheckResult(JobPolicy): 당일/전일/월간 배치 scheduleInfo 자동 생성 검증")
+    public void testCheckResult_ScheduleInfoFormatting() {
+        // 1. 당일 일간 배치 (03:05 <= 09:05)
+        JobPolicy p1 = new JobPolicy("01", "job1", "Job One", "j1_");
+        p1.scheduleTime = "03:05";
+        CheckResult cr1 = new CheckResult(p1);
+        assertEquals("03:05 [당일 / 일]", cr1.scheduleInfo);
+
+        // 2. 전일 일간 배치 (11:00 > 09:05)
+        JobPolicy p2 = new JobPolicy("04", "job4", "Job Four", "j4_");
+        p2.scheduleTime = "11:00";
+        CheckResult cr2 = new CheckResult(p2);
+        assertEquals("11:00 [전일 / 일]", cr2.scheduleInfo);
+
+        // 3. 월간 배치 (MONTHLY, monthlyLogDay: 2)
+        JobPolicy p3 = new JobPolicy("90", "monthlyJob", "Monthly Job", "m_");
+        p3.scheduleTime = "01:00";
+        p3.scheduleType = "MONTHLY";
+        p3.monthlyLogDay = 2;
+        CheckResult cr3 = new CheckResult(p3);
+        assertEquals("01:00 [2일 / 월]", cr3.scheduleInfo);
     }
 }

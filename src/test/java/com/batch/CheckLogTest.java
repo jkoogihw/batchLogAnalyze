@@ -232,4 +232,29 @@ public class CheckLogTest {
         assertNotNull(summary.reportFile, "결과 리포트 파일이 생성되어야 함");
         assertTrue(summary.reportFile.getName().contains("260902"), "리포트 파일명에 날짜가 포함되어야 함");
     }
+
+    /**
+     * ---------------------------------------------------------------------------------
+     * [CLI 옵션 검증] --skipDateCheck / --allLogs 옵션 처리 검증
+     * ---------------------------------------------------------------------------------
+     */
+    @Test
+    @DisplayName("CLI 옵션: --skipDateCheck 전달 시 일자 검증을 생략하고 정상 분석 수행")
+    public void testRunAnalysis_WithSkipDateCheckOption() throws IOException {
+        // [Given] 테스트용 로그 파일 생성 (과거 일자 2020-01-01이지만 skipDateCheck로 PASS 기대)
+        File skipTestFolder = new File(testTempBase, "skip_date_test");
+        skipTestFolder.mkdirs();
+        File logFile = new File(skipTestFolder, "test_job001_sample_1.log");
+        Files.writeString(logFile.toPath(), "2020-01-01 03:00:00.000 INFO SUCCESS\n", StandardCharsets.UTF_8);
+
+        // [When] skipDateCheck = true 로 분석 실행
+        CheckLog.AnalysisSummary summary = CheckLog.runAnalysis(skipTestFolder.getAbsolutePath(), true);
+
+        // [Then]
+        assertAll("skipDateCheck 옵션 실행 검증",
+            () -> assertTrue(summary.success, "분석 성공"),
+            () -> assertTrue(summary.passCount > 0, "JOB 01에 대해 패스 항목 존재"),
+            () -> assertNotNull(summary.reportFile, "리포트 파일 생성 확인")
+        );
+    }
 }

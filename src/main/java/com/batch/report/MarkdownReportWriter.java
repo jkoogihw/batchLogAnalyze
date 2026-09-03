@@ -65,19 +65,24 @@ public class MarkdownReportWriter implements ReportWriter {
                 String statusText = cr.overallPassed ? "✅ 정상" : "❌ 오류";
                 String cleanedJobTitle = removeJobNamePrefix(cr.jobName, cr.jobTitle);
 
+                String jobIdDisplay = (cr.scheduleInfo != null && !cr.scheduleInfo.trim().isEmpty())
+                        ? cr.jobName + "<br/>" + cr.scheduleInfo
+                        : cr.jobName;
+
                 if (cr.isHoliday) {
                     sb.append(String.format("| %s | %s | %s | 비영업일 예외 | %s | %s |\n",
-                            cr.jobNo, cr.jobName, cleanedJobTitle, cr.holidayDetail, statusText));
+                            cr.jobNo, jobIdDisplay, cleanedJobTitle, cr.holidayDetail, statusText));
                 } else {
                     boolean first = true;
                     for (RuleResult rr : cr.ruleResults) {
                         String ruleStatus = rr.passed ? "✅" : "❌";
-                        String checkItem = "**" + rr.description + "**<br/>`" + 
+                        String ruleNoPrefix = (rr.ruleNo != null && !rr.ruleNo.isEmpty()) ? "[" + rr.ruleNo + "] " : "";
+                        String checkItem = "**" + ruleNoPrefix + rr.description + "**<br/>`" + 
                                 (rr.extractedValue != null ? rr.extractedValue : "-") + "`";
                         String checkContent = ruleStatus + " " + rr.message;
                         if (first) {
                             sb.append(String.format("| %s | %s | %s | %s | %s | %s |\n",
-                                    cr.jobNo, cr.jobName, cleanedJobTitle, checkItem, checkContent, statusText));
+                                    cr.jobNo, jobIdDisplay, cleanedJobTitle, checkItem, checkContent, statusText));
                             first = false;
                         } else {
                             sb.append(String.format("| | | | %s | %s | |\n",

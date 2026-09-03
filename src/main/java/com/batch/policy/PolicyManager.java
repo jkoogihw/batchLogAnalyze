@@ -83,6 +83,15 @@ public class PolicyManager {
 
             String mid = m.group(5);
             jp.rawPattern = extractJsonField(mid, "rawPattern");
+            jp.scheduleType = extractJsonField(mid, "scheduleType");
+            jp.scheduleTime = extractJsonField(mid, "scheduleTime");
+            
+            String monthlyDayStr = extractNumberField(mid, "monthlyLogDay");
+            if (monthlyDayStr != null) {
+                try {
+                    jp.monthlyLogDay = Integer.parseInt(monthlyDayStr);
+                } catch (NumberFormatException ignored) {}
+            }
 
             if (mid != null && mid.contains("holidayCheck")) {
                 Pattern holidayPat = Pattern.compile("\"holidayCheck\"\\s*:\\s*\\{[^}]*\"pattern\"\\s*:\\s*\"([^\"]+)\"");
@@ -125,10 +134,17 @@ public class PolicyManager {
 
         Pattern rulePattern = Pattern.compile("\\{([^}]+)\\}");
         Matcher rm = rulePattern.matcher(rulesBlock);
+        int autoSeq = 2;
 
         while (rm.find()) {
             String ruleContent = rm.group(1);
             Rule rule = new Rule();
+
+            rule.ruleNo = extractField(ruleContent, "ruleNo");
+            if (rule.ruleNo == null || rule.ruleNo.trim().isEmpty()) {
+                rule.ruleNo = String.format("%02d", autoSeq);
+            }
+            autoSeq++;
 
             rule.type = extractField(ruleContent, "type");
             rule.target = extractField(ruleContent, "target");

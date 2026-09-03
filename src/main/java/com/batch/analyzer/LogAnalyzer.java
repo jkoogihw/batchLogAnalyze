@@ -28,18 +28,29 @@ public class LogAnalyzer {
 
     private static final LogFileLocator fileLocator = new LogFileLocator();
     private static final HolidayChecker holidayChecker = new HolidayChecker();
+    private static final LogDateChecker dateChecker = new LogDateChecker();
     private static final RuleEvaluatorRegistry registry = new RuleEvaluatorRegistry();
 
     /**
-     * 개별 JOB 로그 검증 수행
-     *
-     * @param workFolder 로그 파일이 위치한 작업 디렉터리
-     * @param logFiles   폴더 내 로그 파일 배열
-     * @param policy     JOB 정책 메타데이터
-     * @return JOB 종합 검증 결과 객체 (CheckResult)
+     * 개별 JOB 로그 검증 수행 (기본 폴더명 기반)
      */
     public static CheckResult checkJob(File workFolder, File[] logFiles, JobPolicy policy) {
-        CheckResult cr = new CheckResult(policy.jobNo, policy.jobName, policy.jobTitle);
+        String folderName = workFolder != null ? workFolder.getName() : "";
+        return checkJob(workFolder, logFiles, policy, folderName, false);
+    }
+
+    /**
+     * 개별 JOB 로그 검증 수행 (폴더명 및 일자 점검 스킵 옵션 지원)
+     *
+     * @param workFolder     로그 파일이 위치한 작업 디렉터리
+     * @param logFiles       폴더 내 로그 파일 배열
+     * @param policy         JOB 정책 메타데이터
+     * @param folderName     분석 대상 폴더명 (날짜 해석용)
+     * @param skipDateCheck  일자 점검 건너뛰기 여부
+     * @return JOB 종합 검증 결과 객체 (CheckResult)
+     */
+    public static CheckResult checkJob(File workFolder, File[] logFiles, JobPolicy policy, String folderName, boolean skipDateCheck) {
+        CheckResult cr = new CheckResult(policy);
 
         // 1. 파일 매핑 (LogFileLocator에 위임)
         File targetFile = findTargetFile(logFiles, policy);
@@ -50,6 +61,7 @@ public class LogAnalyzer {
             cr.overallPassed = false;
 
             RuleResult rr = new RuleResult();
+            rr.ruleNo = "ERR";
             rr.description = "로그 파일 존재 여부";
             rr.passed = false;
             rr.message = "해당 JOB의 로그 파일이 존재하지 않습니다.";
@@ -65,12 +77,16 @@ public class LogAnalyzer {
             String fullText = Files.readString(targetFile.toPath(), StandardCharsets.UTF_8);
             String[] lines = fullText.split("\\r?\\n");
 
-            // 3. 비영업일 예외 검사 (HolidayChecker에 위임)
+            // 3. 로그 일자 검증 (LogDateChecker에 위임)
+            RuleResult dateResult = dateChecker.checkDate(fullText, policy, folderName, logFiles, skipDateCheck);
+            cr.addRuleResult(dateResult);
+
+            // 4. 비영업일 예외 검사 (HolidayChecker에 위임)
             if (holidayChecker.checkAndApply(fullText, policy, cr)) {
                 return cr;
             }
 
-            // 4. 개별 규칙 검증 (RuleEvaluatorRegistry 전략 패턴에 위임)
+            // 5. 개별 규칙 검증 (RuleEvaluatorRegistry 전략 패턴에 위임)
             for (Rule rule : policy.rules) {
                 RuleResult rr = evaluateRule(fullText, lines, rule);
                 cr.addRuleResult(rr);
@@ -79,6 +95,7 @@ public class LogAnalyzer {
         } catch (Exception e) {
             cr.overallPassed = false;
             RuleResult rr = new RuleResult();
+            rr.ruleNo = "ERR";
             rr.description = "파일 분석 중 오류 발생";
             rr.passed = false;
             rr.message = "오류 내용: " + e.getMessage();

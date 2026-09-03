@@ -51,21 +51,29 @@ public class CheckLog {
     public static CheckLog.AnalysisSummary runAnalysis(String[] args) {
         String logFileSrc = extractLogFileSrc(args);
         boolean autoRename = hasRenameOption(args);
-        return runAnalysis(logFileSrc, autoRename);
+        boolean skipDateCheck = hasSkipDateCheckOption(args);
+        return runAnalysis(logFileSrc, autoRename, skipDateCheck);
     }
 
     /**
-     * logFileSrc 경로/날짜 기반 분석 실행 (기본 rename 안함)
+     * logFileSrc 경로/날짜 기반 분석 실행 (기본 rename 안함, 기본 dateCheck 수행)
      */
     public static CheckLog.AnalysisSummary runAnalysis(String logFileSrc) {
-        return runAnalysis(logFileSrc, false);
+        return runAnalysis(logFileSrc, false, false);
     }
 
     /**
      * logFileSrc 경로/날짜 및 자동 파일명 변경 옵션 기반 분석 실행
      */
     public static CheckLog.AnalysisSummary runAnalysis(String logFileSrc, boolean autoRename) {
-        BatchLogAnalysisService.AnalysisSummary baseSummary = service.analyze(logFileSrc, autoRename);
+        return runAnalysis(logFileSrc, autoRename, false);
+    }
+
+    /**
+     * logFileSrc 경로/날짜, 자동 파일명 변경, 일자 점검 스킵 옵션 기반 분석 실행
+     */
+    public static CheckLog.AnalysisSummary runAnalysis(String logFileSrc, boolean autoRename, boolean skipDateCheck) {
+        BatchLogAnalysisService.AnalysisSummary baseSummary = service.analyze(logFileSrc, autoRename, skipDateCheck);
         CheckLog.AnalysisSummary summary = new CheckLog.AnalysisSummary();
         summary.workFolder = baseSummary.workFolder;
         summary.folderName = baseSummary.folderName;
@@ -102,7 +110,10 @@ public class CheckLog {
         // 위치 기반 인자 중 옵션 플래그가 아닌 첫 번째 인자 반환
         for (String arg : args) {
             String trimmed = arg.trim();
-            if (!trimmed.startsWith("-") && !trimmed.equalsIgnoreCase("rename")) {
+            if (!trimmed.startsWith("-") 
+                    && !trimmed.equalsIgnoreCase("rename") 
+                    && !trimmed.equalsIgnoreCase("skipDateCheck") 
+                    && !trimmed.equalsIgnoreCase("allLogs")) {
                 return trimmed;
             }
         }
@@ -117,6 +128,22 @@ public class CheckLog {
         for (String a : args) {
             String t = a.trim();
             if (t.equalsIgnoreCase("--rename") || t.equalsIgnoreCase("-rename") || t.equalsIgnoreCase("rename")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * --skipDateCheck 또는 -skipDateCheck, --allLogs 등의 옵션 포함 여부 확인
+     */
+    public static boolean hasSkipDateCheckOption(String[] args) {
+        if (args == null) return false;
+        for (String a : args) {
+            String t = a.trim();
+            if (t.equalsIgnoreCase("--skipDateCheck") || t.equalsIgnoreCase("-skipDateCheck") || t.equalsIgnoreCase("skipDateCheck")
+                    || t.equalsIgnoreCase("--ignoreDate") || t.equalsIgnoreCase("-ignoreDate") || t.equalsIgnoreCase("ignoreDate")
+                    || t.equalsIgnoreCase("--allLogs") || t.equalsIgnoreCase("-allLogs") || t.equalsIgnoreCase("allLogs")) {
                 return true;
             }
         }

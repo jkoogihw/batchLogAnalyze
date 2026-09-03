@@ -10,7 +10,8 @@ package com.batch.model;
  */
 public class Rule {
     
-    public String type;           // DISPLAY, SEARCH, STEP_METRICS
+    public String ruleNo;         // 규칙 번호 (예: "01", "02")
+    public String type;           // DISPLAY, SEARCH, STEP_METRICS, DATE_CHECK
     public String target;         // 검색 대상 텍스트
     public String regex;          // 정규식 패턴
     public String stepName;       // Step 이름 (STEP_METRICS에서만 사용)
@@ -22,6 +23,11 @@ public class Rule {
     }
 
     public Rule(String type, String target, String condition, String description) {
+        this("", type, target, condition, description);
+    }
+
+    public Rule(String ruleNo, String type, String target, String condition, String description) {
+        this.ruleNo = ruleNo;
         this.type = type;
         this.target = target;
         this.condition = condition;
@@ -31,7 +37,8 @@ public class Rule {
     @Override
     public String toString() {
         return "Rule{" +
-                "type='" + type + '\'' +
+                "ruleNo='" + ruleNo + '\'' +
+                ", type='" + type + '\'' +
                 ", description='" + description + '\'' +
                 ", target='" + (target != null && target.length() > 20 ? target.substring(0, 20) + "..." : target) + '\'' +
                 ", condition='" + condition + '\'' +

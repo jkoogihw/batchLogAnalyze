@@ -5,8 +5,9 @@ package com.batch.model;
  */
 public class RuleResult {
     
+    public String ruleNo;           // 규칙 번호 (예: "01", "02")
     public String description;      // 규칙 설명
-    public String type;             // 규칙 타입 (SEARCH, DISPLAY, STEP_METRICS, HOLIDAY)
+    public String type;             // 규칙 타입 (SEARCH, DISPLAY, STEP_METRICS, HOLIDAY, DATE_CHECK)
     public String target;           // 검색 대상
     public String extractedValue;   // 추출된 값
     public String condition;        // 검증 조건
@@ -17,6 +18,11 @@ public class RuleResult {
     }
 
     public RuleResult(String description, String type, boolean passed, String message) {
+        this("", description, type, passed, message);
+    }
+
+    public RuleResult(String ruleNo, String description, String type, boolean passed, String message) {
+        this.ruleNo = ruleNo;
         this.description = description;
         this.type = type;
         this.passed = passed;
@@ -26,7 +32,8 @@ public class RuleResult {
     @Override
     public String toString() {
         return "RuleResult{" +
-                "description='" + description + '\'' +
+                "ruleNo='" + ruleNo + '\'' +
+                ", description='" + description + '\'' +
                 ", passed=" + passed +
                 ", extractedValue='" + extractedValue + '\'' +
                 '}';

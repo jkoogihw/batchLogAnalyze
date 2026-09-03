@@ -1,64 +1,118 @@
-[
-  {
-    "jobNo": "01",
-    "jobName": "testJob001",
-    "jobTitle": "Test Job 001 - Basic SEARCH",
-    "filePrefix": "test_job001_",
-    "rawPattern": "test_001",
-    "rules": [
-      {
-        "type": "SEARCH",
-        "target": "SUCCESS",
-        "condition": "EQUALS_N",
-        "expectedCount": 1,
-        "description": "Success count should be 1"
-      }
-    ]
-  },
-  {
-    "jobNo": "02",
-    "jobName": "testJob002",
-    "jobTitle": "Test Job 002 - DISPLAY",
-    "filePrefix": "test_job002_",
-    "rules": [
-      {
-        "type": "DISPLAY",
-        "target": "Total Records",
-        "condition": "EQUALS_N",
-        "expectedCount": 100,
-        "description": "Total records should be 100"
-      }
-    ]
-  },
-  {
-    "jobNo": "03",
-    "jobName": "testJob003",
-    "jobTitle": "Test Job 003 - Holiday Check",
-    "filePrefix": "test_job003_",
-    "holidayCheck": {
-      "pattern": "(Saturday|Sunday|Holiday)"
+{
+  "policies": [
+    {
+      "jobNo": "01",
+      "jobName": "testJob001",
+      "jobTitle": "Test Job 001 - Basic SEARCH",
+      "filePrefix": "test_job001_",
+      "rawPattern": "test_001",
+      "scheduleTime": "03:00",
+      "scheduleType": "DAILY",
+      "rules": [
+        {
+          "ruleNo": "02",
+          "type": "SEARCH",
+          "target": "SUCCESS",
+          "condition": "EQUALS_N",
+          "expectedCount": 1,
+          "description": "Success count should be 1"
+        }
+      ]
     },
-    "rules": [
-      {
-        "type": "SEARCH",
-        "target": "COMPLETED",
-        "condition": "COUNT_CHECK",
-        "description": "Completion status check"
-      }
-    ]
-  },
-  {
-    "jobNo": "04",
-    "jobName": "testJob004",
-    "jobTitle": "Test Job 004 - ERROR_IF_PRESENT",
-    "filePrefix": "test_job004_",
-    "rules": [
-      {
-        "type": "DISPLAY",
-        "target": "Skip Count",
-        "condition": "ERROR_IF_PRESENT",
-        "description": "Should have no skipped records"
-      }
-    ]
-  }
-]
+    {
+      "jobNo": "02",
+      "jobName": "testJob002",
+      "jobTitle": "Test Job 002 - DISPLAY",
+      "filePrefix": "test_job002_",
+      "rawPattern": "test_002",
+      "scheduleTime": "08:00",
+      "scheduleType": "DAILY",
+      "rules": [
+        {
+          "ruleNo": "02",
+          "type": "DISPLAY",
+          "target": "Total Records",
+          "condition": "EQUALS_N",
+          "expectedCount": 100,
+          "description": "Total records should be 100"
+        }
+      ]
+    },
+    {
+      "jobNo": "03",
+      "jobName": "testJob003",
+      "jobTitle": "[전일] Test Job 003 - Holiday & Previous Day",
+      "filePrefix": "test_job003_",
+      "rawPattern": "test_003",
+      "scheduleTime": "11:00",
+      "scheduleType": "DAILY",
+      "holidayCheck": {
+        "pattern": "(Saturday|Sunday|Holiday)",
+        "description": "비영업일 예외 체크"
+      },
+      "rules": [
+        {
+          "ruleNo": "02",
+          "type": "SEARCH",
+          "target": "COMPLETED",
+          "condition": "COUNT_CHECK",
+          "description": "Completion status check"
+        }
+      ]
+    },
+    {
+      "jobNo": "04",
+      "jobName": "testJob004",
+      "jobTitle": "Test Job 004 - STEP_METRICS & Rollback",
+      "filePrefix": "test_job004_",
+      "rawPattern": "test_004",
+      "scheduleTime": "08:04",
+      "scheduleType": "DAILY",
+      "rules": [
+        {
+          "ruleNo": "02",
+          "type": "STEP_METRICS",
+          "stepName": "testStep001",
+          "condition": "ROLLBACK_ZERO",
+          "description": "StepName : testStep001 통계 (RollbackCount 0건)"
+        }
+      ]
+    },
+    {
+      "jobNo": "05",
+      "jobName": "testJob005",
+      "jobTitle": "Test Job 005 - ERROR_IF_PRESENT",
+      "filePrefix": "test_job005_",
+      "rawPattern": "test_005",
+      "scheduleTime": "01:00",
+      "scheduleType": "DAILY",
+      "rules": [
+        {
+          "ruleNo": "02",
+          "type": "DISPLAY",
+          "target": "Skip Count",
+          "condition": "ERROR_IF_PRESENT",
+          "description": "Should have no skipped records"
+        }
+      ]
+    },
+    {
+      "jobNo": "06",
+      "jobName": "testJob006",
+      "jobTitle": "Test Job 006 - MONTHLY Batch",
+      "filePrefix": "test_job006_",
+      "rawPattern": "test_006",
+      "scheduleType": "MONTHLY",
+      "monthlyLogDay": 2,
+      "rules": [
+        {
+          "ruleNo": "02",
+          "type": "DISPLAY",
+          "target": "Monthly Count",
+          "condition": "COUNT_CHECK",
+          "description": "월간 집계 건수 확인"
+        }
+      ]
+    }
+  ]
+}

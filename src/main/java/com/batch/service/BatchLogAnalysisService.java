@@ -62,6 +62,18 @@ public class BatchLogAnalysisService {
      * @return 분석 종합 결과 요약 (AnalysisSummary)
      */
     public AnalysisSummary analyze(String logFileSrc, boolean autoRename) {
+        return analyze(logFileSrc, autoRename, false);
+    }
+
+    /**
+     * 로그 폴더 경로 및 옵션 기반 배치 분석 실행 (일자 점검 스킵 옵션 지원)
+     *
+     * @param logFileSrc     대상 폴더 경로 또는 6자리 날짜(\\d{6})
+     * @param autoRename     원본 로그 파일명 표준화(--rename) 수행 여부
+     * @param skipDateCheck  일자 점검 건너뛰기 여부
+     * @return 분석 종합 결과 요약 (AnalysisSummary)
+     */
+    public AnalysisSummary analyze(String logFileSrc, boolean autoRename, boolean skipDateCheck) {
         AnalysisSummary summary = new AnalysisSummary();
         String baseFolder = Config.get("base.folder", ".");
 
@@ -81,6 +93,9 @@ public class BatchLogAnalysisService {
 
             System.out.println(">> 분석 대상 폴더: " + resolvedFolder.getAbsolutePath() + " (" + summary.folderName + ")");
             System.out.println(">> 로드된 배치 정책 수: " + policies.size() + "개 JOB");
+            if (skipDateCheck) {
+                System.out.println(">> [옵션 적용] 일자 검증 건너뛰기(--skipDateCheck) 활성화: 폴더 내 모든 로그를 시간 무관 처리합니다.");
+            }
 
             // 자동 파일명 변경 요청 시 실행 - 필수처리(미변경건만 처리됨)
             //if (autoRename) {
@@ -94,7 +109,7 @@ public class BatchLogAnalysisService {
             if (logFiles == null) logFiles = new File[0];
 
             for (JobPolicy policy : policies) {
-                CheckResult cr = LogAnalyzer.checkJob(resolvedFolder, logFiles, policy);
+                CheckResult cr = LogAnalyzer.checkJob(resolvedFolder, logFiles, policy, summary.folderName, skipDateCheck);
                 summary.results.add(cr);
                 if (cr.overallPassed) {
                     summary.passCount++;
@@ -114,12 +129,13 @@ public class BatchLogAnalysisService {
             System.out.println(">> [조건 3] 분석 실패 결과 리포트(FAIL)를 자동 생성합니다. 대상 폴더명: " + summary.folderName);
 
             for (JobPolicy policy : policies) {
-                CheckResult cr = new CheckResult(policy.jobNo, policy.jobName, policy.jobTitle);
+                CheckResult cr = new CheckResult(policy);
                 cr.fileFound = false;
                 cr.fileName = policy.filePrefix + "*.log (미발견)";
                 cr.overallPassed = false;
 
                 RuleResult rr = new RuleResult();
+                rr.ruleNo = "ERR";
                 rr.description = "로그 파일 존재 여부";
                 rr.passed = false;
                 rr.message = "해당 JOB의 로그 파일이 존재하지 않습니다.";

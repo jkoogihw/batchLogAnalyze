@@ -32,8 +32,11 @@ public class ConsoleReportWriter implements ReportWriter {
         if (results != null) {
             for (CheckResult cr : results) {
                 String statusBadge = cr.overallPassed ? "[ PASS ]" : "[ FAIL ]";
+                String titleWithSchedule = (cr.scheduleInfo != null && !cr.scheduleInfo.trim().isEmpty())
+                        ? cr.jobTitle + " (" + cr.scheduleInfo + ")"
+                        : cr.jobTitle;
                 System.out.println(String.format("%-4s | %-48s | %-8s | 파일: %s", 
-                        cr.jobNo, truncate(cr.jobTitle, 48), statusBadge, cr.fileName));
+                        cr.jobNo, truncate(titleWithSchedule, 48), statusBadge, cr.fileName));
 
                 if (cr.isHoliday) {
                     System.out.println(String.format("     |   %-46s | %-8s | %s", 
@@ -41,8 +44,9 @@ public class ConsoleReportWriter implements ReportWriter {
                 } else {
                     for (RuleResult rr : cr.ruleResults) {
                         String rStatus = rr.passed ? "  OK  " : " FAIL ";
+                        String ruleNoPrefix = (rr.ruleNo != null && !rr.ruleNo.isEmpty()) ? "[" + rr.ruleNo + "] " : "";
                         System.out.println(String.format("     |   %-46s | %-8s | 추출: %-18s (%s)", 
-                                truncate("-> " + rr.description, 46), rStatus, 
+                                truncate("-> " + ruleNoPrefix + rr.description, 46), rStatus, 
                                 rr.extractedValue != null ? rr.extractedValue : "-", rr.message));
                     }
                 }

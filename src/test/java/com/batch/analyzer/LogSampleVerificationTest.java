@@ -53,12 +53,12 @@ public class LogSampleVerificationTest {
      */
     @BeforeAll
     public static void setUp() throws Exception {
-        // [Given] 1. 테스트 리소스 폴더(log_samples) 경로 로드
-        URL sampleUrl = LogSampleVerificationTest.class.getClassLoader().getResource("log_samples");
+        // [Given] 1. 테스트 리소스 폴더(log_monthly) 경로 로드
+        URL sampleUrl = LogSampleVerificationTest.class.getClassLoader().getResource("log_monthly");
         if (sampleUrl != null) {
             sampleFolder = new File(sampleUrl.toURI());
         } else {
-            sampleFolder = new File("src/test/resources/log_samples");
+            sampleFolder = new File("src/test/resources/log_monthly");
         }
         assertTrue(sampleFolder.exists() && sampleFolder.isDirectory(), 
                 "로그 샘플 폴더가 존재해야 합니다: " + sampleFolder.getAbsolutePath());
@@ -79,7 +79,7 @@ public class LogSampleVerificationTest {
         assertNotNull(json, "policy_meta.json 정책 데이터를 로드할 수 있어야 합니다");
 
         policies = PolicyManager.parseJsonPolicies(json);
-        assertEquals(17, policies.size(), "총 17개의 JOB 정책이 로드되어야 합니다");
+        assertEquals(18, policies.size(), "총 18개의 JOB 정책이 로드되어야 합니다");
     }
 
     /**
@@ -136,9 +136,9 @@ public class LogSampleVerificationTest {
      *   한 번의 흐름으로 통합 검증합니다.
      */
     @Test
-    @DisplayName("2. 전체 17개 JOB 정책에 대해 샘플 로그 일괄 검증 및 리포트 파일 생성")
-    public void testAll17SampleLogsBatchVerification() {
-        // [Given] 17개 JOB 정책과 샘플 로그 파일 준비
+    @DisplayName("2. 전체 18개 JOB 정책에 대해 샘플 로그 일괄 검증 및 리포트 파일 생성")
+    public void testAll18SampleLogsBatchVerification() {
+        // [Given] 18개 JOB 정책과 샘플 로그 파일 준비
         List<CheckResult> results = new ArrayList<>();
         int passCount = 0;
         int failCount = 0;
@@ -158,7 +158,7 @@ public class LogSampleVerificationTest {
         }
 
         // [Then - 전체 집계 결과 검증]
-        assertEquals(17, results.size(), "17개 JOB 모두 분석 결과가 수집되어야 함");
+        assertEquals(18, results.size(), "18개 JOB 모두 분석 결과가 수집되어야 함");
 
         // [When] 콘솔 및 마크다운 리포트 생성
         ReportGenerator.printConsoleReport("log_samples_test", results, policies.size(), passCount, failCount);
@@ -242,9 +242,15 @@ public class LogSampleVerificationTest {
         assertAll("JOB 01 분석 결과 검증",
             () -> assertTrue(cr.fileFound, "파일 매칭 성공"),
             () -> assertTrue(cr.fileName.contains("_10702_"), "파일명에 rawPattern _10702_ 포함 확인"),
-            () -> assertEquals(1, cr.ruleResults.size(), "검증 규칙 수 1개"),
+            () -> assertEquals(2, cr.ruleResults.size(), "검증 규칙 수 2개 (일자 점검 + DISPLAY)"),
             () -> {
-                RuleResult rr = cr.ruleResults.get(0);
+                RuleResult dateRule = cr.ruleResults.get(0);
+                assertEquals("01", dateRule.ruleNo);
+                assertEquals("DATE_CHECK", dateRule.type);
+                assertTrue(dateRule.passed, "일자 점검 통과");
+
+                RuleResult rr = cr.ruleResults.get(1);
+                assertEquals("02", rr.ruleNo);
                 assertEquals("DISPLAY", rr.type);
                 assertNotNull(rr.extractedValue, "추출값이 null이 아니어야 함");
                 assertTrue(rr.extractedValue.contains("0"), "0건이거나 0이 추출되어야 함");
@@ -260,7 +266,7 @@ public class LogSampleVerificationTest {
      * ---------------------------------------------------------------------------------
      */
     @Test
-    @DisplayName("5. JOB 02 (GagastJob001) - 다중 룰(건수확인 & FP누락 0건) 동시 검증")
+    @DisplayName("5. JOB 02 (GagastJob001) - 다중 룰(일자점검 + 건수확인 & FP누락 0건) 동시 검증")
     public void testJob02_GagastJob001() {
         // [Given] JOB 02 정책
         JobPolicy policy = findPolicyByJobNo("02");
@@ -269,11 +275,11 @@ public class LogSampleVerificationTest {
         // [When] 분석 실행
         CheckResult cr = LogAnalyzer.checkJob(sampleFolder, logFiles, policy);
 
-        // [Then] 2개의 세부 규칙이 모두 정상 수집되었는지 확인
+        // [Then] 3개의 세부 규칙(일자점검 + 2개 정책규칙)이 모두 정상 수집되었는지 확인
         assertAll("JOB 02 다중 룰 검증",
             () -> assertTrue(cr.fileFound, "파일 매칭 성공"),
             () -> assertTrue(cr.fileName.contains("_10701_"), "파일명 패턴 확인"),
-            () -> assertEquals(2, cr.ruleResults.size(), "2개의 규칙(GA Count + FP누락) 검증 수집")
+            () -> assertEquals(3, cr.ruleResults.size(), "3개의 규칙(일자점검 + GA Count + FP누락) 검증 수집")
         );
     }
 
@@ -293,7 +299,7 @@ public class LogSampleVerificationTest {
         assertAll("JOB 03 검증",
             () -> assertTrue(cr.fileFound, "파일 매칭 성공"),
             () -> assertTrue(cr.fileName.contains("_11399_"), "파일명 패턴 확인"),
-            () -> assertEquals(1, cr.ruleResults.size(), "규칙 1개 확인")
+            () -> assertEquals(2, cr.ruleResults.size(), "규칙 2개 확인 (일자점검 + 규칙 1개)")
         );
     }
 
@@ -335,9 +341,9 @@ public class LogSampleVerificationTest {
         assertAll("STEP_METRICS 룰 검증",
             () -> assertTrue(cr.fileFound, "파일 매칭 성공"),
             () -> assertTrue(cr.fileName.contains("_11403_"), "파일명 패턴 확인"),
-            () -> assertEquals(1, cr.ruleResults.size(), "STEP_METRICS 규칙 확인"),
+            () -> assertEquals(2, cr.ruleResults.size(), "STEP_METRICS 및 일자 점검 규칙 확인"),
             () -> {
-                RuleResult rr = cr.ruleResults.get(0);
+                RuleResult rr = cr.ruleResults.get(1);
                 assertEquals("STEP_METRICS", rr.type);
                 assertNotNull(rr.extractedValue, "Step 메트릭 추출 문자열 확인");
                 assertTrue(rr.passed, "Rollback 0건 판정 통과 (PASS)");
@@ -485,6 +491,38 @@ public class LogSampleVerificationTest {
             () -> assertEquals(summary.totalJobs, summary.results.size(), "분석 결과 수가 정책 수와 일치"),
             () -> assertNotNull(summary.reportFile, "리포트 파일 객체 null 아님"),
             () -> assertTrue(summary.reportFile.exists(), "리포트 파일 디스크 생성 확인")
+        );
+    }
+
+    /**
+     * ---------------------------------------------------------------------------------
+     * [테스트 14] 신규 월간 배치 (JOB 18: smpmJob206 - 206_협회코드및보험사코드수집) 검증
+     * ---------------------------------------------------------------------------------
+     */
+    @Test
+    @DisplayName("14. JOB 18: smpmJob206 (월간) - HTTP 200, prodList.size 40, TB_SMPM1002 151건 검증")
+    public void testJob18_SmpmJob206_MonthlyLogVerification() {
+        File monthlyFolder = new File("src/test/resources/log_monthly");
+        if (!monthlyFolder.exists()) return;
+
+        File[] monthlyFiles = monthlyFolder.listFiles((dir, name) -> name.endsWith(".log"));
+        JobPolicy policy = findPolicyByJobNo("18");
+        assertNotNull(policy, "JOB 18 정책이 등록되어 있어야 함");
+
+        CheckResult cr = LogAnalyzer.checkJob(monthlyFolder, monthlyFiles, policy);
+
+        assertAll("JOB 18 월간배치 검증 단언",
+            () -> assertTrue(cr.fileFound, "월간 로그 파일이 검색되어야 함"),
+            () -> assertTrue(cr.overallPassed, "모든 비즈니스 검증 항목이 통과(PASS)해야 함"),
+            () -> assertEquals("00:45 [2일 / 월]", cr.scheduleInfo, "스케줄 정보가 '00:45 [2일 / 월]'로 서식화되어야 함"),
+            () -> assertEquals(4, cr.ruleResults.size(), "일자검증 포함 총 4개 규칙 결과 존재"),
+            () -> assertTrue(cr.ruleResults.get(0).passed, "규칙 01(배치파일점검) 통과"),
+            () -> assertTrue(cr.ruleResults.get(1).passed, "규칙 02(HTTP/1.1 200) 통과"),
+            () -> assertEquals("2건", cr.ruleResults.get(1).extractedValue, "HTTP 200 2건 확인"),
+            () -> assertTrue(cr.ruleResults.get(2).passed, "규칙 03(prodList.size) 통과"),
+            () -> assertEquals("40", cr.ruleResults.get(2).extractedValue, "prodList.size 40 확인"),
+            () -> assertTrue(cr.ruleResults.get(3).passed, "규칙 04(TB_SMPM1002.insIntgCode) 통과"),
+            () -> assertEquals("151건", cr.ruleResults.get(3).extractedValue, "151건 실행 일치 확인")
         );
     }
 }
