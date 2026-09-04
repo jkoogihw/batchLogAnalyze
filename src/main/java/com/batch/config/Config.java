@@ -1,5 +1,7 @@
 package com.batch.config;
 
+import com.batch.exception.ConfigurationException;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -24,11 +26,11 @@ public class Config {
         Properties props = new Properties();
         try (InputStream input = Config.class.getClassLoader().getResourceAsStream("application.properties")) {
             if (input == null) {
-                throw new RuntimeException("application.properties 파일을 찾을 수 없습니다.");
+                throw new ConfigurationException("application.properties 파일을 찾을 수 없습니다.");
             }
             props.load(input);
         } catch (IOException e) {
-            throw new RuntimeException("application.properties 로드 실패: " + e.getMessage(), e);
+            throw new ConfigurationException("application.properties 로드 실패: " + e.getMessage(), e);
         }
         return props;
     }
@@ -39,7 +41,7 @@ public class Config {
     public static String get(String key) {
         String value = properties.getProperty(key);
         if (value == null) {
-            throw new RuntimeException("필수 설정값이 없습니다: " + key);
+            throw new ConfigurationException("필수 설정값이 없습니다: " + key);
         }
         return value;
     }

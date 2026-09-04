@@ -1,7 +1,8 @@
 package com.batch.service;
 
+import com.batch.analyzer.JobAnalysisContext;
 import com.batch.analyzer.LogAnalyzer;
-import com.batch.config.Config;
+import com.batch.config.BatchConfig;
 import com.batch.model.CheckResult;
 import com.batch.model.JobPolicy;
 import com.batch.model.LogConstants;
@@ -11,20 +12,22 @@ import com.batch.report.ReportGenerator;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 
 /**
  * =====================================================================================
  * [비즈니스 서비스 및 오케스트레이터 (Service Layer): BatchLogAnalysisService]
  * -------------------------------------------------------------------------------------
- * 💡 OOP 및 스프링 아키텍처 원칙:
- * 1. 관심사의 분리 (Separation of Concerns):
- *    - CLI 입출력/진입점(CheckLog)과 실제 배치 로그 분석 비즈니스 흐름을 완벽히 분리합니다.
- * 2. 확장 가능한 스프링 빈 (@Service) 및 생성자 주입 (DI):
- *    - PolicyManager 및 LogAnalyzer를 주입받을 수 있어 단위 테스트 시 Mock/Stub 활용이 용이합니다.
+ * 💡 OOP 리팩토링 포인트:
+ * 1. 단일 책임 원칙 (SRP) 극대화:
+ *    - 작업 폴더 결정 로직은 WorkFolderResolver 로 위임
+ *    - 원본 파일명 표준화(--rename) 로직은 LogFileRenamer 로 위임
+ *    - 본 서비스는 비즈니스 흐름(정책 로드 -> 폴더 해석 -> 분석 실행 -> 리포트 생성) 오케스트레이션에만 집중합니다.
+ * 2. 생성자 기반 의존성 주입 (DI) & 확장성:
+ *    - PolicyManager, LogAnalyzer, WorkFolderResolver, LogFileRenamer를 주입받아
+ *      단위 테스트 시 가짜(Mock) 객체로 손쉽게 격리 테스트가 가능합니다.
+ * 3. 100% 하위 호환성 유지:
+ *    - 기존 AnalysisSummary 내부 클래스 및 정적 헬퍼 메서드(resolveWorkFolder 등) 시그니처를 온전히 보존합니다.
  * =====================================================================================
  */
 @Service
@@ -32,65 +35,45 @@ public class BatchLogAnalysisService {
 
     private final PolicyManager policyManager;
     private final LogAnalyzer logAnalyzer;
+    private final WorkFolderResolver folderResolver;
+    private final LogFileRenamer fileRenamer;
+
+    // 싱글톤 기본 헬퍼 인스턴스 (정적 위임용)
+    private static final WorkFolderResolver DEFAULT_FOLDER_RESOLVER = new WorkFolderResolver();
+    private static final LogFileRenamer DEFAULT_FILE_RENAMER = new LogFileRenamer();
 
     public BatchLogAnalysisService() {
-        this(new PolicyManager(), new LogAnalyzer());
+        this(new PolicyManager(), new LogAnalyzer(), new WorkFolderResolver(), new LogFileRenamer());
     }
 
     public BatchLogAnalysisService(PolicyManager policyManager) {
-        this(policyManager, new LogAnalyzer());
+        this(policyManager, new LogAnalyzer(), new WorkFolderResolver(), new LogFileRenamer());
     }
 
     public BatchLogAnalysisService(PolicyManager policyManager, LogAnalyzer logAnalyzer) {
+        this(policyManager, logAnalyzer, new WorkFolderResolver(), new LogFileRenamer());
+    }
+
+    public BatchLogAnalysisService(PolicyManager policyManager,
+                                  LogAnalyzer logAnalyzer,
+                                  WorkFolderResolver folderResolver,
+                                  LogFileRenamer fileRenamer) {
         this.policyManager = policyManager != null ? policyManager : new PolicyManager();
         this.logAnalyzer = logAnalyzer != null ? logAnalyzer : new LogAnalyzer();
+        this.folderResolver = folderResolver != null ? folderResolver : new WorkFolderResolver();
+        this.fileRenamer = fileRenamer != null ? fileRenamer : new LogFileRenamer();
     }
 
     /**
-     * 분석 실행 결과 요약 DTO
+     * 분석 실행 결과 요약 DTO (com.batch.model.AnalysisSummary 상속으로 100% 하위 호환)
      */
-    public static class AnalysisSummary {
-        public File workFolder;
-        public String folderName;
-        public List<CheckResult> results = new ArrayList<>();
-        public int totalJobs;
-        public int passCount;
-        public int failCount;
-        public boolean success; // 정상 로그 분석 성공 시 true, 대상 폴더/파일 부재로 실패 리포트 생성 시 false
-        public File reportFile;
-
+    public static class AnalysisSummary extends com.batch.model.AnalysisSummary {
         public AnalysisSummary() {
+            super();
         }
 
-        public AnalysisSummary(AnalysisSummary other) {
-            if (other != null) {
-                this.workFolder = other.workFolder;
-                this.folderName = other.folderName;
-                this.results = new ArrayList<>(other.results);
-                this.totalJobs = other.totalJobs;
-                this.passCount = other.passCount;
-                this.failCount = other.failCount;
-                this.success = other.success;
-                this.reportFile = other.reportFile;
-            }
-        }
-
-        /**
-         * 검증 결과를 추가하고 정상/실패 카운트를 자동 집계합니다
-         */
-        public void addResult(CheckResult cr) {
-            if (cr != null) {
-                results.add(cr);
-                if (cr.isPassed()) {
-                    passCount++;
-                } else {
-                    failCount++;
-                }
-            }
-        }
-
-        public boolean isAllPassed() {
-            return success && failCount == 0 && passCount == totalJobs;
+        public AnalysisSummary(com.batch.model.AnalysisSummary other) {
+            super(other);
         }
     }
 
@@ -115,17 +98,17 @@ public class BatchLogAnalysisService {
      */
     public AnalysisSummary analyze(String logFileSrc, boolean autoRename, boolean skipDateCheck) {
         AnalysisSummary summary = new AnalysisSummary();
-        String baseFolder = Config.get("base.folder", ".");
+        String baseFolder = BatchConfig.getBaseFolder();
 
         // 1. 정책 메타데이터 로드
         policyManager.loadPolicies();
         List<JobPolicy> policies = policyManager.getPolicies();
         summary.totalJobs = policies.size();
 
-        // 2. 대상 폴더 탐색 및 결정 (조건 1, 2, 3, 4)
-        File resolvedFolder = resolveWorkFolder(logFileSrc, baseFolder);
+        // 2. 대상 폴더 탐색 및 결정 (WorkFolderResolver 위임)
+        File resolvedFolder = folderResolver.resolve(logFileSrc, baseFolder);
 
-        if (resolvedFolder != null && resolvedFolder.exists() && hasLogFiles(resolvedFolder)) {
+        if (resolvedFolder != null && resolvedFolder.exists() && folderResolver.hasLogFiles(resolvedFolder)) {
             // [정상 분석 케이스] 대상 폴더에 로그 파일이 존재하는 경우
             summary.workFolder = resolvedFolder;
             summary.folderName = resolvedFolder.getName();
@@ -137,23 +120,33 @@ public class BatchLogAnalysisService {
                 System.out.println(">> [옵션 적용] 일자 검증 건너뛰기(--skipDateCheck) 활성화: 폴더 내 모든 로그를 시간 무관 처리합니다.");
             }
 
-            // 자동 파일명 변경 요청 시 실행 (미변경건만 처리됨)
-            int renamed = renameLogFiles(resolvedFolder, policies);
-            if (renamed > 0) {
-                System.out.println(">> 총 " + renamed + "개 원본 로그 파일명이 표준 접두사로 변경되었습니다.");
+            // 자동 파일명 변경 요청 시 실행 (LogFileRenamer 위임)
+            if (autoRename) {
+                int renamed = fileRenamer.rename(resolvedFolder, policies);
+                if (renamed > 0) {
+                    System.out.println(">> 총 " + renamed + "개 원본 로그 파일명이 표준 접두사로 변경되었습니다.");
+                }
             }
 
             File[] logFiles = resolvedFolder.listFiles((dir, name) -> name.toLowerCase().endsWith(".log"));
             if (logFiles == null) logFiles = new File[0];
 
             for (JobPolicy policy : policies) {
-                CheckResult cr = logAnalyzer.checkJobInstance(resolvedFolder, logFiles, policy, summary.folderName, skipDateCheck);
+                JobAnalysisContext context = JobAnalysisContext.builder()
+                        .workFolder(resolvedFolder)
+                        .logFiles(logFiles)
+                        .policy(policy)
+                        .folderName(summary.folderName)
+                        .skipDateCheck(skipDateCheck)
+                        .build();
+
+                CheckResult cr = logAnalyzer.checkJobInstance(context);
                 summary.addResult(cr);
             }
         } else {
             // [조건 3: 분석 실패 케이스] 날짜 폴더가 없거나 최종 폴더에 로그 파일이 없는 경우
             summary.workFolder = resolvedFolder;
-            summary.folderName = determineFolderName(resolvedFolder, logFileSrc, baseFolder);
+            summary.folderName = folderResolver.determineFolderName(resolvedFolder, logFileSrc, baseFolder);
             summary.success = false;
 
             System.out.println(">> [알림] 유효한 로그 파일이 존재하지 않습니다: " + (resolvedFolder != null ? resolvedFolder.getAbsolutePath() : logFileSrc));
@@ -178,120 +171,23 @@ public class BatchLogAnalysisService {
         return summary;
     }
 
-    /**
-     * 대상 로그 폴더 결정 엔진
-     */
+    // =========================================================================
+    // 정적 헬퍼 메서드 (100% 하위 호환성 보장)
+    // =========================================================================
+
     public static File resolveWorkFolder(String logFileSrc, String baseFolder) {
-        // 조건 4. logFileSrc 값으로 6자리 날짜 포맷(\\d{6})이 설정된 경우: 기본경로의 하위폴더 대상
-        if (logFileSrc != null && logFileSrc.matches("\\d{6}")) {
-            File dateFolder = new File(baseFolder, logFileSrc);
-            if (dateFolder.exists() && hasLogFiles(dateFolder)) {
-                return dateFolder;
-            }
-            return dateFolder.exists() ? dateFolder : null;
-        }
-
-        // 파라미터가 지정된 경우
-        if (logFileSrc != null && !logFileSrc.isEmpty()) {
-            File targetDir = new File(logFileSrc);
-            if (!targetDir.isAbsolute() && !targetDir.exists()) {
-                File underBase = new File(baseFolder, logFileSrc);
-                if (underBase.exists()) {
-                    targetDir = underBase;
-                }
-            }
-
-            if (targetDir.exists() && targetDir.isDirectory()) {
-                // 조건 1. logFileSrc 해당 위치 폴더에 로그 파일이 존재하는 경우
-                if (hasLogFiles(targetDir)) {
-                    return targetDir;
-                }
-
-                // 조건 2. logFileSrc 폴더에 로그 파일이 없는 경우: 내부 6자리 날짜 포맷(\\d{6}) 중 최신 폴더 탐색
-                File latestDateFolder = getLatestDateFolder(targetDir);
-                if (latestDateFolder != null && hasLogFiles(latestDateFolder)) {
-                    return latestDateFolder;
-                }
-
-                // 최신 날짜 폴더가 존재는 하나 로그 파일이 없는 경우 해당 폴더 반환 (실패 리포트용)
-                if (latestDateFolder != null) {
-                    return latestDateFolder;
-                }
-
-                return targetDir;
-            }
-            return targetDir;
-        }
-
-        // 파라미터 미지정 시: 기본경로(base.folder)의 최신 날짜 폴더 탐색
-        File baseDir = new File(baseFolder);
-        if (baseDir.exists() && baseDir.isDirectory()) {
-            if (hasLogFiles(baseDir)) {
-                return baseDir;
-            }
-            File latestBaseDateFolder = getLatestDateFolder(baseDir);
-            if (latestBaseDateFolder != null) {
-                return latestBaseDateFolder;
-            }
-        }
-
-        return null;
+        return DEFAULT_FOLDER_RESOLVER.resolve(logFileSrc, baseFolder);
     }
 
-    /**
-     * 폴더 내에 .log 파일이 1개 이상 존재하는지 확인
-     */
     public static boolean hasLogFiles(File dir) {
-        if (dir == null || !dir.exists() || !dir.isDirectory()) return false;
-        File[] logs = dir.listFiles((d, name) -> name.toLowerCase().endsWith(".log"));
-        return logs != null && logs.length > 0;
+        return DEFAULT_FOLDER_RESOLVER.hasLogFiles(dir);
     }
 
-    /**
-     * 최신 날짜(6자리 숫자, \\d{6}) 폴더 조회
-     */
     public static File getLatestDateFolder(File parent) {
-        if (parent == null || !parent.exists() || !parent.isDirectory()) return null;
-        File[] dirs = parent.listFiles(File::isDirectory);
-        if (dirs == null || dirs.length == 0) return null;
-
-        return Arrays.stream(dirs)
-                .filter(d -> d.getName().matches("\\d{6}"))
-                .max(Comparator.comparingInt(d -> Integer.parseInt(d.getName())))
-                .orElse(null);
+        return DEFAULT_FOLDER_RESOLVER.getLatestDateFolder(parent);
     }
 
-    /**
-     * 원본 파일명 패턴(rawPattern)으로 매칭된 로그 파일들을 표준 접두사(filePrefix) 파일명으로 일괄 변경
-     */
     public static int renameLogFiles(File workFolder, List<JobPolicy> policies) {
-        if (workFolder == null || !workFolder.exists() || !workFolder.isDirectory()) return 0;
-        File[] files = workFolder.listFiles((dir, name) -> name.toLowerCase().endsWith(".log"));
-        if (files == null || files.length == 0) return 0;
-
-        int renamedCount = 0;
-        for (JobPolicy policy : policies) {
-            File target = LogAnalyzer.findTargetFile(files, policy);
-            if (target != null && !target.getName().startsWith(policy.filePrefix)) {
-                File renamedFile = new File(workFolder, policy.filePrefix + target.getName());
-                if (target.renameTo(renamedFile)) {
-                    System.out.println(">> [파일명 변경] " + target.getName() + " -> " + renamedFile.getName());
-                    renamedCount++;
-                }
-            }
-        }
-        return renamedCount;
-    }
-
-    private static String determineFolderName(File folder, String logFileSrc, String baseFolder) {
-        if (folder != null) {
-            return folder.getName();
-        }
-        if (logFileSrc != null && !logFileSrc.isEmpty()) {
-            File f = new File(logFileSrc);
-            return f.getName().isEmpty() ? logFileSrc : f.getName();
-        }
-        File base = new File(baseFolder);
-        return base.getName().isEmpty() ? "배치로그" : base.getName();
+        return DEFAULT_FILE_RENAMER.rename(workFolder, policies);
     }
 }
