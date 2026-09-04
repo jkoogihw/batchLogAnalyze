@@ -24,7 +24,15 @@ import java.util.List;
 public class CheckLog {
 
     // 하위 호환성을 위한 AnalysisSummary 별칭 타입 참조
-    public static class AnalysisSummary extends BatchLogAnalysisService.AnalysisSummary {}
+    public static class AnalysisSummary extends BatchLogAnalysisService.AnalysisSummary {
+        public AnalysisSummary() {
+            super();
+        }
+
+        public AnalysisSummary(BatchLogAnalysisService.AnalysisSummary source) {
+            super(source);
+        }
+    }
 
     private static final BatchLogAnalysisService service = new BatchLogAnalysisService();
 
@@ -74,16 +82,7 @@ public class CheckLog {
      */
     public static CheckLog.AnalysisSummary runAnalysis(String logFileSrc, boolean autoRename, boolean skipDateCheck) {
         BatchLogAnalysisService.AnalysisSummary baseSummary = service.analyze(logFileSrc, autoRename, skipDateCheck);
-        CheckLog.AnalysisSummary summary = new CheckLog.AnalysisSummary();
-        summary.workFolder = baseSummary.workFolder;
-        summary.folderName = baseSummary.folderName;
-        summary.results = baseSummary.results;
-        summary.totalJobs = baseSummary.totalJobs;
-        summary.passCount = baseSummary.passCount;
-        summary.failCount = baseSummary.failCount;
-        summary.success = baseSummary.success;
-        summary.reportFile = baseSummary.reportFile;
-        return summary;
+        return new CheckLog.AnalysisSummary(baseSummary);
     }
 
     /**

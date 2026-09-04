@@ -30,6 +30,14 @@ public class ReportGenerator {
         consoleWriter.write(folderName, results, total, pass, fail);
     }
 
+    public static void printConsoleReport(com.batch.service.BatchLogAnalysisService.AnalysisSummary summary) {
+        consoleWriter.write(summary);
+    }
+
+    public static void printConsoleReport(String folderName, List<CheckResult> results) {
+        consoleWriter.write(folderName, results);
+    }
+
     /**
      * 마크다운 리포트 파일 생성 및 저장 (기본 설정 경로)
      */
@@ -39,6 +47,16 @@ public class ReportGenerator {
         return markdownWriter.write(folderName, results, total, pass, fail);
     }
 
+    public static File saveMarkdownReport(com.batch.service.BatchLogAnalysisService.AnalysisSummary summary) {
+        ReportWriter markdownWriter = new MarkdownReportWriter();
+        return markdownWriter.write(summary);
+    }
+
+    public static File saveMarkdownReport(String folderName, List<CheckResult> results) {
+        ReportWriter markdownWriter = new MarkdownReportWriter();
+        return markdownWriter.write(folderName, results);
+    }
+
     /**
      * 마크다운 리포트 파일 생성 및 저장 (대상 디렉터리 또는 파일 지정)
      */
@@ -46,5 +64,10 @@ public class ReportGenerator {
                                           int total, int pass, int fail) {
         ReportWriter markdownWriter = new MarkdownReportWriter(targetDirOrFile);
         return markdownWriter.write(folderName, results, total, pass, fail);
+    }
+
+    public static File saveMarkdownReport(File targetDirOrFile, com.batch.service.BatchLogAnalysisService.AnalysisSummary summary) {
+        ReportWriter markdownWriter = new MarkdownReportWriter(targetDirOrFile);
+        return markdownWriter.write(summary);
     }
 }

@@ -3,6 +3,7 @@ package com.batch.analyzer;
 import com.batch.model.CheckResult;
 import com.batch.model.JobPolicy;
 import com.batch.model.RuleResult;
+import com.batch.model.RuleType;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -37,14 +38,16 @@ public class HolidayChecker {
             String holidayDetail = hm.group(0);
             cr.markAsHoliday(holidayDetail);
 
-            RuleResult rr = new RuleResult();
-            rr.description = "비영업일 예외 확인";
-            rr.type = "HOLIDAY";
-            rr.target = policy.holidayPattern;
-            rr.extractedValue = holidayDetail;
-            rr.condition = "비영업일 수행 건너뜀 (정상)";
-            rr.passed = true;
-            rr.message = "비영업일 안내 로그 감지됨 -> 정상 판정";
+            RuleResult rr = RuleResult.builder()
+                    .description("비영업일 예외 확인")
+                    .type(RuleType.HOLIDAY)
+                    .target(policy.holidayPattern)
+                    .extractedValue(holidayDetail)
+                    .condition("비영업일 수행 건너뜀 (정상)")
+                    .passed(true)
+                    .message("비영업일 안내 로그 감지됨 -> 정상 판정")
+                    .build();
+
             cr.addRuleResult(rr);
             return true;
         }

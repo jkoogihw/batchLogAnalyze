@@ -58,6 +58,40 @@ public class BatchLogAnalysisService {
         public int failCount;
         public boolean success; // 정상 로그 분석 성공 시 true, 대상 폴더/파일 부재로 실패 리포트 생성 시 false
         public File reportFile;
+
+        public AnalysisSummary() {
+        }
+
+        public AnalysisSummary(AnalysisSummary other) {
+            if (other != null) {
+                this.workFolder = other.workFolder;
+                this.folderName = other.folderName;
+                this.results = new ArrayList<>(other.results);
+                this.totalJobs = other.totalJobs;
+                this.passCount = other.passCount;
+                this.failCount = other.failCount;
+                this.success = other.success;
+                this.reportFile = other.reportFile;
+            }
+        }
+
+        /**
+         * 검증 결과를 추가하고 정상/실패 카운트를 자동 집계합니다
+         */
+        public void addResult(CheckResult cr) {
+            if (cr != null) {
+                results.add(cr);
+                if (cr.isPassed()) {
+                    passCount++;
+                } else {
+                    failCount++;
+                }
+            }
+        }
+
+        public boolean isAllPassed() {
+            return success && failCount == 0 && passCount == totalJobs;
+        }
     }
 
     /**
@@ -114,46 +148,32 @@ public class BatchLogAnalysisService {
 
             for (JobPolicy policy : policies) {
                 CheckResult cr = logAnalyzer.checkJobInstance(resolvedFolder, logFiles, policy, summary.folderName, skipDateCheck);
-                summary.results.add(cr);
-                if (cr.isPassed()) {
-                    summary.passCount++;
-                } else {
-                    summary.failCount++;
-                }
+                summary.addResult(cr);
             }
         } else {
             // [조건 3: 분석 실패 케이스] 날짜 폴더가 없거나 최종 폴더에 로그 파일이 없는 경우
             summary.workFolder = resolvedFolder;
             summary.folderName = determineFolderName(resolvedFolder, logFileSrc, baseFolder);
             summary.success = false;
-            summary.passCount = 0;
-            summary.failCount = policies.size();
 
             System.out.println(">> [알림] 유효한 로그 파일이 존재하지 않습니다: " + (resolvedFolder != null ? resolvedFolder.getAbsolutePath() : logFileSrc));
             System.out.println(">> [조건 3] 분석 실패 결과 리포트(FAIL)를 자동 생성합니다. 대상 폴더명: " + summary.folderName);
 
             for (JobPolicy policy : policies) {
                 CheckResult cr = new CheckResult(policy);
-                cr.fileFound = false;
-                cr.fileName = (policy != null ? policy.filePrefix : "") + "*.log (미발견)";
-                cr.overallPassed = false;
+                cr.markAsFileNotFound((policy != null ? policy.filePrefix : "") + "*.log (미발견)");
+                cr.addRuleResult(RuleResult.fail(LogConstants.RULE_NO_ERROR, "로그 파일 존재 여부", 
+                        "", "미발견", LogConstants.MSG_FILE_NOT_FOUND));
 
-                RuleResult rr = new RuleResult();
-                rr.ruleNo = LogConstants.RULE_NO_ERROR;
-                rr.description = "로그 파일 존재 여부";
-                rr.passed = false;
-                rr.message = LogConstants.MSG_FILE_NOT_FOUND;
-                cr.addRuleResult(rr);
-
-                summary.results.add(cr);
+                summary.addResult(cr);
             }
         }
 
         // 3. 콘솔 결과 출력
-        ReportGenerator.printConsoleReport(summary.folderName, summary.results, summary.totalJobs, summary.passCount, summary.failCount);
+        ReportGenerator.printConsoleReport(summary);
 
         // 4. 마크다운 리포트 파일 생성 (실행 시마다 기존 파일 삭제 후 재생성)
-        summary.reportFile = ReportGenerator.saveMarkdownReport(summary.folderName, summary.results, summary.totalJobs, summary.passCount, summary.failCount);
+        summary.reportFile = ReportGenerator.saveMarkdownReport(summary);
 
         return summary;
     }

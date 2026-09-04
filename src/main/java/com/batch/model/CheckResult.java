@@ -139,6 +139,15 @@ public class CheckResult {
         this.overallPassed = true;
     }
 
+    /**
+     * 파일 미존재 상태로 마킹
+     */
+    public void markAsFileNotFound(String expectedFileName) {
+        this.fileFound = false;
+        this.fileName = expectedFileName != null ? expectedFileName : "파일 미발견";
+        this.overallPassed = false;
+    }
+
     // =========================================================================
     // 도메인 질의 메서드 (Tell, Don't Ask)
     // =========================================================================

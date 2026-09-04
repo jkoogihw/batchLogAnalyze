@@ -138,27 +138,31 @@ public class PolicyManager {
 
         while (rm.find()) {
             String ruleContent = rm.group(1);
-            Rule rule = new Rule();
 
-            rule.ruleNo = extractField(ruleContent, "ruleNo");
-            if (rule.ruleNo == null || rule.ruleNo.trim().isEmpty()) {
-                rule.ruleNo = String.format("%02d", autoSeq);
+            String ruleNo = extractField(ruleContent, "ruleNo");
+            if (ruleNo == null || ruleNo.trim().isEmpty()) {
+                ruleNo = String.format("%02d", autoSeq);
             }
             autoSeq++;
 
-            rule.type = extractField(ruleContent, "type");
-            rule.target = extractField(ruleContent, "target");
-            rule.condition = extractField(ruleContent, "condition");
-            rule.description = extractField(ruleContent, "description");
-            rule.regex = extractField(ruleContent, "regex");
-            rule.stepName = extractField(ruleContent, "stepName");
-
+            int expectedCount = 0;
             String expectedCountStr = extractNumberField(ruleContent, "expectedCount");
             if (expectedCountStr != null) {
                 try {
-                    rule.expectedCount = Integer.parseInt(expectedCountStr);
+                    expectedCount = Integer.parseInt(expectedCountStr);
                 } catch (NumberFormatException ignored) {}
             }
+
+            Rule rule = Rule.builder()
+                    .ruleNo(ruleNo)
+                    .type(extractField(ruleContent, "type"))
+                    .target(extractField(ruleContent, "target"))
+                    .condition(extractField(ruleContent, "condition"))
+                    .description(extractField(ruleContent, "description"))
+                    .regex(extractField(ruleContent, "regex"))
+                    .stepName(extractField(ruleContent, "stepName"))
+                    .expectedCount(expectedCount)
+                    .build();
 
             rules.add(rule);
         }

@@ -59,16 +59,9 @@ public class LogAnalyzer {
         File targetFile = fileLocator.locate(logFiles, policy);
 
         if (targetFile == null) {
-            cr.fileFound = false;
-            cr.fileName = (policy != null ? policy.filePrefix : "") + "*.log (미발견)";
-            cr.overallPassed = false;
-
-            RuleResult rr = new RuleResult();
-            rr.ruleNo = LogConstants.RULE_NO_ERROR;
-            rr.description = "로그 파일 존재 여부";
-            rr.passed = false;
-            rr.message = LogConstants.MSG_FILE_NOT_FOUND;
-            cr.addRuleResult(rr);
+            cr.markAsFileNotFound((policy != null ? policy.filePrefix : "") + "*.log (미발견)");
+            cr.addRuleResult(RuleResult.fail(LogConstants.RULE_NO_ERROR, "로그 파일 존재 여부", 
+                    RuleType.UNKNOWN.getCode(), "미발견", LogConstants.MSG_FILE_NOT_FOUND));
             return cr;
         }
 

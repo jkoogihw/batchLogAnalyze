@@ -59,6 +59,13 @@
    - `Rule.java`의 Fluent Builder 및 도메인 특화 정적 팩토리 메서드(`search`, `searchRegex`, `display`, `stepMetrics`) 확장
    - 단위 테스트(`LogAnalyzerTest`, `ValueExtractorTest`)의 Before vs After 리팩토링 및 가독성 개선
 
+10. [**도메인 캡슐화 및 가독성 개선 보고서 (260904_04_리팩토링_도메인캡슐화_및_가독성개선_보고서.md)**](./260904_04_리팩토링_도메인캡슐화_및_가독성개선_보고서.md)
+    - `AnalysisSummary` 도메인 캡슐화(통계 자동 누적 `addResult`) 및 복사 생성자 도입
+    - `CheckLog` 내 8줄 수동 필드 복사 제거 및 단일 라인 압축
+    - `ReportWriter` / `ReportGenerator` 데이터 뭉치(Data Clumps) 해소 및 파라미터 간소화
+    - `CheckResult.markAsFileNotFound()` 도메인 상태 전이 캡슐화
+    - `HolidayChecker` & `PolicyManager` 내 Builder/Factory 전면 적용
+
 ---
 
 ## 📜 문서 변경 이력
@@ -67,3 +74,4 @@
 | :--- | :--- | :--- |
 | 2026-09-04 00:28:00 | 현재 설계 vs 헥사고날 아키텍처 비교 및 전환 가이드 문서 추가 및 색인 현행화 | [`1e60b3c`](https://github.com/jkoogihw/batchLogAnalyze/commit/1e60b3c) |
 | 2026-09-04 09:55:00 | 객체 생성 안티패턴 개선 및 정적 팩토리 메서드·빌더 도입 케이스 스터디 문서 추가 및 코드 리팩토링 | - |
+| 2026-09-04 10:35:00 | 도메인 캡슐화 및 가독성 개선 리팩토링 보고서 추가 및 코드 리팩토링 | - |
