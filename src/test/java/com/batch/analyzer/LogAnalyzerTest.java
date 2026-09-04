@@ -40,7 +40,7 @@ public class LogAnalyzerTest {
         // [Given] ERROR 키워드가 없는 정상 로그 텍스트
         String logText = "Job started\nJob completed successfully\n";
         String[] lines = logText.split("\n");
-        Rule rule = new Rule("SEARCH", "ERROR", "EQUALS_0", "오류 미발생 검증");
+        Rule rule = Rule.search("ERROR", ConditionType.EQUALS_0, "오류 미발생 검증");
 
         // [When] 룰 평가 실행
         RuleResult result = LogAnalyzer.evaluateRule(logText, lines, rule);
@@ -65,7 +65,7 @@ public class LogAnalyzerTest {
         // [Given] ERROR 키워드가 2번 포함된 실패 로그 텍스트
         String logText = "ERROR occurred during step 1\nERROR happened in step 2\nJob aborted\n";
         String[] lines = logText.split("\n");
-        Rule rule = new Rule("SEARCH", "ERROR", "EQUALS_0", "오류 미발생 검증");
+        Rule rule = Rule.search("ERROR", ConditionType.EQUALS_0, "오류 미발생 검증");
 
         // [When] 룰 평가 실행
         RuleResult result = LogAnalyzer.evaluateRule(logText, lines, rule);
@@ -88,8 +88,7 @@ public class LogAnalyzerTest {
         // [Given] SUCCESS가 3번 나타나는 로그 텍스트
         String logText = "SUCCESS\nSUCCESS\nSUCCESS\n";
         String[] lines = logText.split("\n");
-        Rule rule = new Rule("SEARCH", "SUCCESS", "EQUALS_N", "성공 횟수 3건 일치 검증");
-        rule.expectedCount = 3;
+        Rule rule = Rule.search("SUCCESS", ConditionType.EQUALS_N, 3, "성공 횟수 3건 일치 검증");
 
         // [When] 룰 평가 실행
         RuleResult result = LogAnalyzer.evaluateRule(logText, lines, rule);
@@ -112,7 +111,7 @@ public class LogAnalyzerTest {
         // [Given] Skip Count: 0 형태의 라인이 포함된 로그
         String logText = "Skip Count: 0\nOther batch info\n";
         String[] lines = logText.split("\n");
-        Rule rule = new Rule("DISPLAY", "Skip Count", "EQUALS_0", "스킵 0건 확인");
+        Rule rule = Rule.display("Skip Count", ConditionType.EQUALS_0, "스킵 0건 확인");
 
         // [When]
         RuleResult result = LogAnalyzer.evaluateRule(logText, lines, rule);
@@ -132,7 +131,7 @@ public class LogAnalyzerTest {
         // [Given]
         String logText = "Warning Count: 0\nProcessing...\n";
         String[] lines = logText.split("\n");
-        Rule rule = new Rule("DISPLAY", "Warning Count", "ERROR_IF_PRESENT", "경고 미발생 확인");
+        Rule rule = Rule.display("Warning Count", ConditionType.ERROR_IF_PRESENT, "경고 미발생 확인");
 
         // [When]
         RuleResult result = LogAnalyzer.evaluateRule(logText, lines, rule);
@@ -152,7 +151,7 @@ public class LogAnalyzerTest {
         // [Given] Total Records 키워드가 없는 로그
         String logText = "Job Status: Running\nDate: 2024-09-01\n";
         String[] lines = logText.split("\n");
-        Rule rule = new Rule("DISPLAY", "Total Records", "COUNT_CHECK", "건수 확인");
+        Rule rule = Rule.display("Total Records", ConditionType.COUNT_CHECK, "건수 확인");
 
         // [When]
         RuleResult result = LogAnalyzer.evaluateRule(logText, lines, rule);
@@ -184,8 +183,7 @@ public class LogAnalyzerTest {
             "CommitCount: 19",
             "RollbackCount: 0"
         };
-        Rule rule = new Rule("STEP_METRICS", "", "ROLLBACK_ZERO", "롤백 미발생 검증");
-        rule.stepName = "ProcessStep";
+        Rule rule = Rule.stepMetrics("ProcessStep", ConditionType.ROLLBACK_ZERO, "롤백 미발생 검증");
 
         // [When]
         RuleResult result = LogAnalyzer.evaluateRule("", lines, rule);
@@ -213,8 +211,7 @@ public class LogAnalyzerTest {
             "CommitCount: 5",
             "RollbackCount: 3"
         };
-        Rule rule = new Rule("STEP_METRICS", "", "ROLLBACK_ZERO", "롤백 검증");
-        rule.stepName = "FailStep";
+        Rule rule = Rule.stepMetrics("FailStep", ConditionType.ROLLBACK_ZERO, "롤백 검증");
 
         // [When]
         RuleResult result = LogAnalyzer.evaluateRule("", lines, rule);
@@ -292,9 +289,7 @@ public class LogAnalyzerTest {
         // [Given]
         String logText = "ERROR: 001\nWARN: 002\nERROR: 003\n";
         String[] lines = logText.split("\n");
-        Rule rule = new Rule("SEARCH", "", "EQUALS_N", "정규식 에러 카운트");
-        rule.regex = "ERROR:\\s*\\d+";
-        rule.expectedCount = 2;
+        Rule rule = Rule.searchRegex("ERROR:\\s*\\d+", ConditionType.EQUALS_N, 2, "정규식 에러 카운트");
 
         // [When]
         RuleResult result = LogAnalyzer.evaluateRule(logText, lines, rule);
@@ -317,7 +312,7 @@ public class LogAnalyzerTest {
         // [Given]
         String logText = "Total Processed: 1,234,567\nStatus: OK\n";
         String[] lines = logText.split("\n");
-        Rule rule = new Rule("DISPLAY", "Total Processed", "COUNT_CHECK", "총 처리 건수");
+        Rule rule = Rule.display("Total Processed", ConditionType.COUNT_CHECK, "총 처리 건수");
 
         // [When]
         RuleResult result = LogAnalyzer.evaluateRule(logText, lines, rule);
@@ -346,9 +341,7 @@ public class LogAnalyzerTest {
 
             @Override
             public RuleResult evaluate(String fullText, String[] lines, Rule rule) {
-                RuleResult rr = new RuleResult("02", "타임아웃 점검", "TIMEOUT_CHECK", true, "타임아웃 정상");
-                rr.extractedValue = "0초";
-                return rr;
+                return RuleResult.pass("02", "타임아웃 점검", "TIMEOUT_CHECK", "0초", "타임아웃 정상");
             }
         };
 

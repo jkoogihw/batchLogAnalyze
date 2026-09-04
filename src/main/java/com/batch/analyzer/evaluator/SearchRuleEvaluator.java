@@ -31,34 +31,40 @@ public class SearchRuleEvaluator implements RuleEvaluator {
 
     @Override
     public RuleResult evaluate(String fullText, String[] lines, Rule rule) {
-        RuleResult rr = new RuleResult();
-        rr.description = rule.description != null ? rule.description : rule.target;
-        rr.type = rule.type;
-        rr.target = rule.target;
-        rr.condition = rule.condition;
-
+        String description = rule.description != null ? rule.description : rule.target;
         int count = ValueExtractor.countMatches(fullText, rule);
-        rr.extractedValue = count + "건";
+        String extractedValue = count + "건";
+
+        boolean passed;
+        String message;
 
         ConditionType condition = rule.getConditionType();
         switch (condition) {
             case EQUALS_N:
-                rr.passed = (count == rule.expectedCount);
-                rr.message = rr.passed ? 
+                passed = (count == rule.expectedCount);
+                message = passed ? 
                         "정상 (" + count + "건 일치)" : 
                         "불일치 (기대: " + rule.expectedCount + "건, 실제: " + count + "건)";
                 break;
             case EQUALS_0:
-                rr.passed = (count == 0);
-                rr.message = rr.passed ? "정상 (0건)" : "오류 (" + count + "건 발생)";
+                passed = (count == 0);
+                message = passed ? "정상 (0건)" : "오류 (" + count + "건 발생)";
                 break;
             case COUNT_CHECK:
             default:
-                rr.passed = true;
-                rr.message = "건수확인: " + count + "건";
+                passed = true;
+                message = "건수확인: " + count + "건";
                 break;
         }
 
-        return rr;
+        return RuleResult.builder()
+                .description(description)
+                .type(rule.type)
+                .target(rule.target)
+                .condition(rule.condition)
+                .extractedValue(extractedValue)
+                .passed(passed)
+                .message(message)
+                .build();
     }
 }

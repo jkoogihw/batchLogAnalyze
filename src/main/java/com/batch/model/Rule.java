@@ -62,6 +62,19 @@ public class Rule {
         return r;
     }
 
+    public static Rule searchRegex(String regex, ConditionType condition, String description) {
+        Rule r = new Rule("", RuleType.SEARCH.getCode(), "", condition.getCode(), description);
+        r.regex = regex;
+        return r;
+    }
+
+    public static Rule searchRegex(String regex, ConditionType condition, int expectedCount, String description) {
+        Rule r = new Rule("", RuleType.SEARCH.getCode(), "", condition.getCode(), description);
+        r.regex = regex;
+        r.expectedCount = expectedCount;
+        return r;
+    }
+
     public static Rule display(String target, ConditionType condition) {
         return display(target, condition, target + " 수치확인");
     }
@@ -70,10 +83,104 @@ public class Rule {
         return new Rule("", RuleType.DISPLAY.getCode(), target, condition.getCode(), description);
     }
 
+    public static Rule display(String target, ConditionType condition, int expectedCount, String description) {
+        Rule r = new Rule("", RuleType.DISPLAY.getCode(), target, condition.getCode(), description);
+        r.expectedCount = expectedCount;
+        return r;
+    }
+
+    public static Rule displayRegex(String regex, ConditionType condition, String description) {
+        Rule r = new Rule("", RuleType.DISPLAY.getCode(), "", condition.getCode(), description);
+        r.regex = regex;
+        return r;
+    }
+
     public static Rule stepMetrics(String stepName, ConditionType condition, String description) {
         Rule r = new Rule("", RuleType.STEP_METRICS.getCode(), stepName, condition.getCode(), description);
         r.stepName = stepName;
         return r;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static Builder builder(RuleType ruleType) {
+        return new Builder().type(ruleType);
+    }
+
+    public static class Builder {
+        private String ruleNo = "";
+        private String type = "";
+        private String target = "";
+        private String regex = "";
+        private String stepName = "";
+        private String condition = "";
+        private int expectedCount = 0;
+        private String description = "";
+
+        public Builder ruleNo(String ruleNo) {
+            this.ruleNo = ruleNo;
+            return this;
+        }
+
+        public Builder type(RuleType ruleType) {
+            this.type = ruleType != null ? ruleType.getCode() : "";
+            return this;
+        }
+
+        public Builder type(String type) {
+            this.type = type;
+            return this;
+        }
+
+        public Builder target(String target) {
+            this.target = target;
+            return this;
+        }
+
+        public Builder regex(String regex) {
+            this.regex = regex;
+            return this;
+        }
+
+        public Builder stepName(String stepName) {
+            this.stepName = stepName;
+            return this;
+        }
+
+        public Builder condition(ConditionType condition) {
+            this.condition = condition != null ? condition.getCode() : "";
+            return this;
+        }
+
+        public Builder condition(String condition) {
+            this.condition = condition;
+            return this;
+        }
+
+        public Builder expectedCount(int expectedCount) {
+            this.expectedCount = expectedCount;
+            return this;
+        }
+
+        public Builder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Rule build() {
+            Rule r = new Rule();
+            r.ruleNo = this.ruleNo;
+            r.type = this.type;
+            r.target = this.target;
+            r.regex = this.regex;
+            r.stepName = this.stepName;
+            r.condition = this.condition;
+            r.expectedCount = this.expectedCount;
+            r.description = this.description;
+            return r;
+        }
     }
 
     public RuleType getRuleType() {

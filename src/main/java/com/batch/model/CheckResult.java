@@ -48,6 +48,51 @@ public class CheckResult {
         }
     }
 
+    public static CheckResult of(JobPolicy policy) {
+        return new CheckResult(policy);
+    }
+
+    public static Builder builder(String jobNo, String jobName) {
+        return new Builder(jobNo, jobName);
+    }
+
+    public static class Builder {
+        private final CheckResult result;
+
+        public Builder(String jobNo, String jobName) {
+            this.result = new CheckResult(jobNo, jobName, jobName);
+        }
+
+        public Builder jobTitle(String title) {
+            this.result.jobTitle = title;
+            return this;
+        }
+
+        public Builder scheduleInfo(String scheduleInfo) {
+            this.result.scheduleInfo = scheduleInfo;
+            return this;
+        }
+
+        public Builder fileName(String fileName) {
+            this.result.fileName = fileName;
+            return this;
+        }
+
+        public Builder fileFound(boolean fileFound) {
+            this.result.fileFound = fileFound;
+            return this;
+        }
+
+        public Builder overallPassed(boolean overallPassed) {
+            this.result.overallPassed = overallPassed;
+            return this;
+        }
+
+        public CheckResult build() {
+            return this.result;
+        }
+    }
+
     /**
      * 배치 스케줄 정보 서식화 (예: "03:05 [당일 / 일]")
      */

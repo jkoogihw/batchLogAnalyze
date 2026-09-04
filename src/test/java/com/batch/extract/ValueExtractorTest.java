@@ -1,5 +1,6 @@
 package com.batch.extract;
 
+import com.batch.model.ConditionType;
 import com.batch.model.Rule;
 import com.batch.model.StepMetrics;
 import org.junit.jupiter.api.DisplayName;
@@ -37,7 +38,7 @@ public class ValueExtractorTest {
     public void testCountMatches_SimpleText() {
         // [Given] SUCCESS가 3번 포함된 텍스트
         String fullText = "SUCCESS occurred\nSUCCESS completed\nSUCCESS\n";
-        Rule rule = new Rule("SEARCH", "SUCCESS", "COUNT_CHECK", "성공 카운트");
+        Rule rule = Rule.search("SUCCESS", ConditionType.COUNT_CHECK, "성공 카운트");
 
         // [When] 카운트 계산
         int count = ValueExtractor.countMatches(fullText, rule);
@@ -56,8 +57,7 @@ public class ValueExtractorTest {
     public void testCountMatches_Regex() {
         // [Given] ERROR: 001, ERROR: 002 (2건)와 WARN: 003 (1건)이 있는 텍스트
         String fullText = "ERROR: 001\nERROR: 002\nWARN: 003\n";
-        Rule rule = new Rule("SEARCH", "", "COUNT_CHECK", "에러 패턴 카운트");
-        rule.regex = "ERROR: \\d+";
+        Rule rule = Rule.searchRegex("ERROR: \\d+", ConditionType.COUNT_CHECK, "에러 패턴 카운트");
 
         // [When]
         int count = ValueExtractor.countMatches(fullText, rule);
@@ -77,7 +77,7 @@ public class ValueExtractorTest {
         // [Given]
         String fullText = "Total Records: 100건\nProcessed: 50건\n";
         String[] lines = fullText.split("\n");
-        Rule rule = new Rule("DISPLAY", "Total Records", "EQUALS_N", "총 건수");
+        Rule rule = Rule.display("Total Records", ConditionType.EQUALS_N, "총 건수");
 
         // [When]
         String result = ValueExtractor.extractDisplayValue(fullText, lines, rule);
@@ -97,7 +97,7 @@ public class ValueExtractorTest {
         // [Given]
         String fullText = "Skip Count: 0\nWrite Count : 250\n";
         String[] lines = fullText.split("\n");
-        Rule rule = new Rule("DISPLAY", "Skip Count", "EQUALS_0", "스킵 건수");
+        Rule rule = Rule.display("Skip Count", ConditionType.EQUALS_0, "스킵 건수");
 
         // [When]
         String result = ValueExtractor.extractDisplayValue(fullText, lines, rule);
@@ -117,7 +117,7 @@ public class ValueExtractorTest {
         // [Given]
         String fullText = "Job Status: Running\nCompleted Date: 2024-09-01\n";
         String[] lines = fullText.split("\n");
-        Rule rule = new Rule("DISPLAY", "Total Records", "COUNT_CHECK", "총 건수");
+        Rule rule = Rule.display("Total Records", ConditionType.COUNT_CHECK, "총 건수");
 
         // [When]
         String result = ValueExtractor.extractDisplayValue(fullText, lines, rule);
@@ -137,8 +137,7 @@ public class ValueExtractorTest {
         // [Given]
         String fullText = "Update Count=150\nDelete Count=25\n";
         String[] lines = fullText.split("\n");
-        Rule rule = new Rule("DISPLAY", "", "COUNT_CHECK", "업데이트 건수");
-        rule.regex = "Update Count";
+        Rule rule = Rule.displayRegex("Update Count", ConditionType.COUNT_CHECK, "업데이트 건수");
 
         // [When]
         String result = ValueExtractor.extractDisplayValue(fullText, lines, rule);
@@ -302,8 +301,7 @@ public class ValueExtractorTest {
         String fullText = "Validation Result\n(Result Details)\nTotal: 500건\n";
         String[] lines = fullText.split("\n");
 
-        Rule rule = new Rule("DISPLAY", "Validation Result", "COUNT_CHECK", "검증 결과");
-        rule.target = "Validation Result\n(Result Details)";
+        Rule rule = Rule.display("Validation Result\n(Result Details)", ConditionType.COUNT_CHECK, "검증 결과");
 
         // [When]
         String result = ValueExtractor.extractDisplayValue(fullText, lines, rule);

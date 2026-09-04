@@ -62,8 +62,8 @@ public class LogDateCheckerTest {
     @DisplayName("일간 배치 (09:05 이전 실행): 당일 일자 로그 정상 취합(PASS) 검증")
     public void testDailyCurrentDay_Success() {
         // [Given] 03:05 실행 정책, 2026-08-22 일자의 로그
-        JobPolicy policy = new JobPolicy("01", "gagastJob002", "추천터치고객", "01_");
-        policy.scheduleTime = "03:05";
+        JobPolicy policy = JobPolicy.daily("01", "gagastJob002", "03:05");
+        policy.jobTitle = "추천터치고객";
 
         String logText = "2026-08-22 03:05:02.131 INFO Starting batch\n";
 
@@ -84,8 +84,7 @@ public class LogDateCheckerTest {
     @DisplayName("일간 배치 (09:05 이전 실행): 일자 불일치 로그 감지 시 실패(FAIL) 처리")
     public void testDailyCurrentDay_FailOnOldDate() {
         // [Given] 03:05 실행 정책인데 과거 일자(2026-08-20)의 로그가 취합된 경우
-        JobPolicy policy = new JobPolicy("01", "gagastJob002", "추천터치고객", "01_");
-        policy.scheduleTime = "03:05";
+        JobPolicy policy = JobPolicy.daily("01", "gagastJob002", "03:05");
 
         String logText = "2026-08-20 03:05:02.131 INFO Starting batch\n";
 
@@ -105,8 +104,7 @@ public class LogDateCheckerTest {
     @DisplayName("일간 배치 (09:05 이후 실행): 전일자 로그 정상 취합(PASS) 검증")
     public void testDailyPreviousDay_Success() {
         // [Given] 11:00 실행 정책, 전일자(2026-08-21) 로그
-        JobPolicy policy = new JobPolicy("04", "smrmJob102", "불판SMS", "04_");
-        policy.scheduleTime = "11:00";
+        JobPolicy policy = JobPolicy.daily("04", "smrmJob102", "11:00");
 
         String logText = "2026-08-21 11:00:02.638 INFO Starting batch\n";
 
@@ -124,9 +122,7 @@ public class LogDateCheckerTest {
     @DisplayName("월간 배치 (MONTHLY): 매월 2일 생성 로그 정상 취합(PASS) 검증")
     public void testMonthlyBatch_Success() {
         // [Given] 월간 배치 정책 (매월 2일 로그 생성)
-        JobPolicy policy = new JobPolicy("90", "monthlyJob", "월간 집계", "90_");
-        policy.scheduleType = "MONTHLY";
-        policy.monthlyLogDay = 2;
+        JobPolicy policy = JobPolicy.monthly("90", "monthlyJob", 2, "01:00");
 
         String logText = "2026-08-02 01:00:00.000 INFO Monthly batch started\n";
 
@@ -144,8 +140,7 @@ public class LogDateCheckerTest {
     @DisplayName("skipDateCheck 옵션 활성화 시 시간/일자 무관 정상(PASS) 처리 검증")
     public void testSkipDateCheckOption() {
         // [Given] 과거 일자의 로그이지만 skipDateCheck=true 인 경우
-        JobPolicy policy = new JobPolicy("01", "job1", "Job", "01_");
-        policy.scheduleTime = "03:05";
+        JobPolicy policy = JobPolicy.daily("01", "job1", "03:05");
 
         String logText = "2020-01-01 03:05:00.000 INFO Old log\n";
 

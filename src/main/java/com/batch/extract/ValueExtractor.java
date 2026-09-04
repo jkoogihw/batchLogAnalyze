@@ -143,20 +143,24 @@ public class ValueExtractor {
     public static StepMetrics parseStepMetrics(String[] lines, String stepName) {
         for (int i = 0; i < lines.length; i++) {
             if (lines[i].contains("StepName : " + stepName)) {
-                StepMetrics sm = new StepMetrics(stepName);
+                long readCount = 0;
+                long writeCount = 0;
+                long commitCount = 0;
+                long rollbackCount = 0;
+
                 for (int j = i + 1; j <= i + 6 && j < lines.length; j++) {
                     String l = lines[j];
                     if (l.contains("ReadCount")) {
-                        sm.readCount = extractMetricNumber(l, "ReadCount");
+                        readCount = extractMetricNumber(l, "ReadCount");
                     } else if (l.contains("WriteCount")) {
-                        sm.writeCount = extractMetricNumber(l, "WriteCount");
+                        writeCount = extractMetricNumber(l, "WriteCount");
                     } else if (l.contains("CommitCount")) {
-                        sm.commitCount = extractMetricNumber(l, "CommitCount");
+                        commitCount = extractMetricNumber(l, "CommitCount");
                     } else if (l.contains("RollbackCount")) {
-                        sm.rollbackCount = extractMetricNumber(l, "RollbackCount");
+                        rollbackCount = extractMetricNumber(l, "RollbackCount");
                     }
                 }
-                return sm;
+                return StepMetrics.of(stepName, readCount, writeCount, commitCount, rollbackCount);
             }
         }
         return null;

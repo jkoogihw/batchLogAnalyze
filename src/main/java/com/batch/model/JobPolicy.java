@@ -53,8 +53,16 @@ public class JobPolicy {
     }
 
     // =========================================================================
-    // Fluent Builder 패턴 (테스트 픽스처 작성 및 정책 생성 생산성 극대화)
+    // Fluent Builder 및 팩토리 메서드 (테스트 픽스처 작성 및 정책 생성 생산성 극대화)
     // =========================================================================
+
+    public static JobPolicy daily(String jobNo, String jobName, String scheduleTime) {
+        return builder(jobNo, jobName).daily(scheduleTime).build();
+    }
+
+    public static JobPolicy monthly(String jobNo, String jobName, int monthlyLogDay, String scheduleTime) {
+        return builder(jobNo, jobName).monthly(monthlyLogDay, scheduleTime).build();
+    }
 
     public static Builder builder(String jobNo, String jobName) {
         return new Builder(jobNo, jobName);

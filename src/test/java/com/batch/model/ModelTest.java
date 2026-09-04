@@ -323,4 +323,97 @@ public class ModelTest {
         assertTrue(cr.isHoliday());
         assertTrue(cr.isPassed());
     }
+
+    /**
+     * ---------------------------------------------------------------------------------
+     * [Rule.Builder 및 추가 정적 팩토리 메서드 검증]
+     * ---------------------------------------------------------------------------------
+     */
+    @Test
+    @DisplayName("Rule.Builder 및 신규 팩토리 메서드(searchRegex, displayRegex) 생성 검증")
+    public void testRuleBuilderAndAdvancedFactories() {
+        // 1. Rule.builder() 검증
+        Rule builtRule = Rule.builder(RuleType.SEARCH)
+                .ruleNo("03")
+                .target("ERROR")
+                .regex("ERROR:\\s*\\d+")
+                .condition(ConditionType.EQUALS_N)
+                .expectedCount(5)
+                .description("에러 5건 검증")
+                .build();
+
+        assertAll("Rule.Builder 검증",
+            () -> assertEquals("03", builtRule.ruleNo),
+            () -> assertEquals(RuleType.SEARCH, builtRule.getRuleType()),
+            () -> assertEquals("ERROR", builtRule.target),
+            () -> assertEquals("ERROR:\\s*\\d+", builtRule.regex),
+            () -> assertEquals(ConditionType.EQUALS_N, builtRule.getConditionType()),
+            () -> assertEquals(5, builtRule.expectedCount),
+            () -> assertEquals("에러 5건 검증", builtRule.description)
+        );
+
+        // 2. searchRegex 팩토리 메서드 검증
+        Rule regexRule = Rule.searchRegex("WARN:\\s*\\d+", ConditionType.COUNT_CHECK, 2, "경고 카운트");
+        assertEquals("WARN:\\s*\\d+", regexRule.regex);
+        assertEquals(2, regexRule.expectedCount);
+        assertEquals(RuleType.SEARCH, regexRule.getRuleType());
+
+        // 3. displayRegex 팩토리 메서드 검증
+        Rule displayRegexRule = Rule.displayRegex("Update Count", ConditionType.COUNT_CHECK, "업데이트 카운트");
+        assertEquals("Update Count", displayRegexRule.regex);
+        assertEquals(RuleType.DISPLAY, displayRegexRule.getRuleType());
+    }
+
+    /**
+     * ---------------------------------------------------------------------------------
+     * [StepMetrics, RuleResult, CheckResult, JobPolicy 팩토리 및 빌더 검증]
+     * ---------------------------------------------------------------------------------
+     */
+    @Test
+    @DisplayName("전체 도메인 모델(StepMetrics, RuleResult, CheckResult, JobPolicy) 팩토리/빌더 검증")
+    public void testAllDomainModels_FactoriesAndBuilders() {
+        // 1. StepMetrics.of & StepMetrics.builder
+        StepMetrics sm1 = StepMetrics.of("StepA", 100, 90, 9, 0);
+        StepMetrics sm2 = StepMetrics.builder("StepB").readCount(200).rollbackCount(1).build();
+        assertEquals(100, sm1.readCount);
+        assertEquals(200, sm2.readCount);
+        assertEquals(1, sm2.rollbackCount);
+
+        // 2. RuleResult.pass & RuleResult.fail & RuleResult.builder
+        RuleResult passResult = RuleResult.pass("01", "점검", "SEARCH", "0건", "성공");
+        RuleResult failResult = RuleResult.fail("02", "오류점검", "DISPLAY", "2건", "실패");
+        RuleResult builtResult = RuleResult.builder()
+                .ruleNo("03")
+                .description("커스텀")
+                .type(RuleType.STEP_METRICS)
+                .extractedValue("R:100")
+                .passed(true)
+                .message("정상")
+                .build();
+
+        assertTrue(passResult.isPassed());
+        assertTrue(failResult.isFailed());
+        assertEquals("03", builtResult.ruleNo);
+        assertTrue(builtResult.isPassed());
+
+        // 3. CheckResult.builder & CheckResult.of
+        JobPolicy policy = JobPolicy.daily("01", "job1", "03:05");
+        CheckResult cr = CheckResult.of(policy);
+        assertEquals("01", cr.jobNo);
+        assertTrue(cr.scheduleInfo.contains("03:05"));
+
+        CheckResult crBuilt = CheckResult.builder("02", "job2")
+                .jobTitle("Job Two")
+                .scheduleInfo("11:00 [전일 / 일]")
+                .fileFound(true)
+                .build();
+        assertEquals("02", crBuilt.jobNo);
+        assertTrue(crBuilt.isFileFound());
+
+        // 4. JobPolicy.daily & JobPolicy.monthly
+        JobPolicy monthlyPolicy = JobPolicy.monthly("18", "smpmJob206", 2, "00:45");
+        assertTrue(monthlyPolicy.isMonthly());
+        assertEquals(2, monthlyPolicy.monthlyLogDay);
+        assertEquals("00:45", monthlyPolicy.scheduleTime);
+    }
 }

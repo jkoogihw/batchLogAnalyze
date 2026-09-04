@@ -51,12 +51,7 @@ public class RuleEvaluatorRegistryTest {
 
             @Override
             public RuleResult evaluate(String fullText, String[] lines, Rule rule) {
-                RuleResult rr = new RuleResult();
-                rr.type = "CUSTOM_CHECK";
-                rr.passed = true;
-                rr.extractedValue = "커스텀값";
-                rr.message = "사용자 정의 검증 성공";
-                return rr;
+                return RuleResult.pass("", "사용자 정의 검증", "CUSTOM_CHECK", "커스텀값", "사용자 정의 검증 성공");
             }
         };
 

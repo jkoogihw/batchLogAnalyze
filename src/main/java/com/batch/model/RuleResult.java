@@ -30,11 +30,103 @@ public class RuleResult {
     }
 
     public RuleResult(String ruleNo, String description, String type, boolean passed, String message) {
+        this(ruleNo, description, type, "", "", "", passed, message);
+    }
+
+    public RuleResult(String ruleNo, String description, String type, String target, String condition, String extractedValue, boolean passed, String message) {
         this.ruleNo = ruleNo;
         this.description = description;
         this.type = type;
+        this.target = target;
+        this.condition = condition;
+        this.extractedValue = extractedValue;
         this.passed = passed;
         this.message = message;
+    }
+
+    public static RuleResult pass(String ruleNo, String description, String type, String extractedValue, String message) {
+        return new RuleResult(ruleNo, description, type, "", "", extractedValue, true, message);
+    }
+
+    public static RuleResult pass(String description, String type, String extractedValue, String message) {
+        return pass("", description, type, extractedValue, message);
+    }
+
+    public static RuleResult fail(String ruleNo, String description, String type, String extractedValue, String message) {
+        return new RuleResult(ruleNo, description, type, "", "", extractedValue, false, message);
+    }
+
+    public static RuleResult fail(String description, String type, String extractedValue, String message) {
+        return fail("", description, type, extractedValue, message);
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private String ruleNo = "";
+        private String description = "";
+        private String type = "";
+        private String target = "";
+        private String extractedValue = "";
+        private String condition = "";
+        private boolean passed = false;
+        private String message = "";
+
+        public Builder ruleNo(String ruleNo) {
+            this.ruleNo = ruleNo;
+            return this;
+        }
+
+        public Builder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder type(String type) {
+            this.type = type;
+            return this;
+        }
+
+        public Builder type(RuleType ruleType) {
+            this.type = ruleType != null ? ruleType.getCode() : "";
+            return this;
+        }
+
+        public Builder target(String target) {
+            this.target = target;
+            return this;
+        }
+
+        public Builder extractedValue(String extractedValue) {
+            this.extractedValue = extractedValue;
+            return this;
+        }
+
+        public Builder condition(String condition) {
+            this.condition = condition;
+            return this;
+        }
+
+        public Builder condition(ConditionType condition) {
+            this.condition = condition != null ? condition.getCode() : "";
+            return this;
+        }
+
+        public Builder passed(boolean passed) {
+            this.passed = passed;
+            return this;
+        }
+
+        public Builder message(String message) {
+            this.message = message;
+            return this;
+        }
+
+        public RuleResult build() {
+            return new RuleResult(ruleNo, description, type, target, condition, extractedValue, passed, message);
+        }
     }
 
     public RuleType getRuleType() {

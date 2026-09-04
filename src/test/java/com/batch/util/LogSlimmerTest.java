@@ -1,6 +1,7 @@
 package com.batch.util;
 
 import com.batch.analyzer.LogAnalyzer;
+import com.batch.model.ConditionType;
 import com.batch.model.JobPolicy;
 import com.batch.model.Rule;
 import com.batch.model.RuleResult;
@@ -37,11 +38,14 @@ public class LogSlimmerTest {
     @Test
     @DisplayName("키워드 추출 검증: JobPolicy의 SEARCH, DISPLAY, STEP_METRICS 키워드 수집 확인")
     public void testExtractKeywords() {
-        // [Given] 테스트 정책 준비
-        JobPolicy policy = new JobPolicy("01", "testJob", "Test Job", "test_");
-        policy.rules.add(new Rule("SEARCH", "HTTP/1.1 200", "COUNT_CHECK", "HTTP 200"));
-        policy.rules.add(new Rule("DISPLAY", "prodList.size", "COUNT_CHECK", "Size check"));
-        policy.rules.add(new Rule("STEP_METRICS", "testStep001", "ROLLBACK_ZERO", "Step metrics"));
+        // [Given] 테스트 정책 준비 (Fluent Builder & Rule Factory 활용)
+        JobPolicy policy = JobPolicy.builder("01", "testJob")
+                .title("Test Job")
+                .filePrefix("test_")
+                .addRule(Rule.search("HTTP/1.1 200", ConditionType.COUNT_CHECK, "HTTP 200"))
+                .addRule(Rule.display("prodList.size", ConditionType.COUNT_CHECK, "Size check"))
+                .addRule(Rule.stepMetrics("testStep001", ConditionType.ROLLBACK_ZERO, "Step metrics"))
+                .build();
 
         // [When] 키워드 추출
         Set<String> keywords = LogSlimmer.extractKeywords(policy, null);
