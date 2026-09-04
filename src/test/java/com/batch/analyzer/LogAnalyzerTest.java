@@ -236,19 +236,23 @@ public class LogAnalyzerTest {
     public void testCheckResult_AddRuleResult() {
         // [Given] 신규 CheckResult 객체
         CheckResult cr = new CheckResult("01", "job1", "Job One");
-        assertTrue(cr.overallPassed, "초기 상태는 true");
+        cr.fileFound = true;
+        assertTrue(cr.isPassed(), "초기 상태는 pass(true)");
 
         // [When 1] 성공 규칙 추가
         RuleResult pass = new RuleResult("Test 1", "SEARCH", true, "OK");
         cr.addRuleResult(pass);
         // [Then 1]
-        assertTrue(cr.overallPassed, "통과 규칙만 있을 때는 true 유지");
+        assertTrue(cr.isPassed(), "통과 규칙만 있을 때는 true 유지");
+        assertEquals(CheckStatus.PASS, cr.getStatus(), "도메인 상태는 PASS");
 
         // [When 2] 실패 규칙 추가
         RuleResult fail = new RuleResult("Test 2", "DISPLAY", false, "Failed");
         cr.addRuleResult(fail);
         // [Then 2]
-        assertFalse(cr.overallPassed, "실패 규칙이 1개라도 추가되면 전체 상태가 false로 전이");
+        assertFalse(cr.isPassed(), "실패 규칙이 1개라도 추가되면 전체 상태가 false로 전이");
+        assertTrue(cr.isFailed(), "실패 상태 질의");
+        assertEquals(CheckStatus.FAIL, cr.getStatus(), "도메인 상태는 FAIL");
         assertEquals(2, cr.ruleResults.size(), "총 규칙 결과 수는 2개");
     }
     
@@ -258,13 +262,14 @@ public class LogAnalyzerTest {
      * ---------------------------------------------------------------------------------
      * 💡 학습 포인트:
      * - 비영업일 실행 시 실패 상태였던 CheckResult가 비영업일 마킹(`markAsHoliday`)을 거치면
-     *   정상(PASS, overallPassed = true)으로 복구 처리되는 비즈니스 로직을 검증합니다.
+     *   정상(PASS, overallPassed = true, status = HOLIDAY)으로 복구 처리되는 비즈니스 로직을 검증합니다.
      */
     @Test
-    @DisplayName("비영업일 예외 처리: markAsHoliday 호출 시 overallPassed가 정상(true)으로 복구")
+    @DisplayName("비영업일 예외 처리: markAsHoliday 호출 시 overallPassed가 정상(true)으로 복구되고 상태는 HOLIDAY로 전이")
     public void testCheckResult_MarkAsHoliday() {
         // [Given] 초기 실패 상태의 CheckResult
         CheckResult cr = new CheckResult("01", "job1", "Job One");
+        cr.fileFound = true;
         cr.overallPassed = false;
 
         // [When] 비영업일 판정 마킹
@@ -272,8 +277,9 @@ public class LogAnalyzerTest {
 
         // [Then]
         assertAll("비영업일 상태 전이 단언",
-            () -> assertTrue(cr.overallPassed, "비영업일 표시 후 정상(PASS)으로 전이"),
-            () -> assertTrue(cr.isHoliday, "비영업일 플래그 true"),
+            () -> assertTrue(cr.isPassed(), "비영업일 표시 후 정상(PASS)으로 전이"),
+            () -> assertTrue(cr.isHoliday(), "비영업일 플래그 true"),
+            () -> assertEquals(CheckStatus.HOLIDAY, cr.getStatus(), "상태 enum은 HOLIDAY"),
             () -> assertEquals("Sunday", cr.holidayDetail, "비영업일 사유 문자열 저장")
         );
     }
