@@ -36,6 +36,18 @@ public class LogDateChecker {
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     /**
+     * 로그 파일 일자 검증 실행 (일급 객체 LogContent 지원)
+     */
+    public RuleResult checkDate(com.batch.model.LogContent logContent, JobPolicy policy, String folderName, File[] logFiles, boolean skipDateCheck) {
+        String fullText = logContent != null ? logContent.getFullText() : null;
+        return checkDate(fullText, policy, folderName, logFiles, skipDateCheck);
+    }
+
+    public RuleResult checkDate(com.batch.model.LogContent logContent, JobPolicy policy, String folderName, boolean skipDateCheck) {
+        return checkDate(logContent, policy, folderName, null, skipDateCheck);
+    }
+
+    /**
      * 로그 파일 일자 검증 실행 (기본)
      */
     public RuleResult checkDate(String fullText, JobPolicy policy, String folderName, boolean skipDateCheck) {

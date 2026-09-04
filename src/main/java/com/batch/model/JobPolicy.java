@@ -52,6 +52,12 @@ public class JobPolicy {
         return getScheduleType().isDaily();
     }
 
+    public void addRule(Rule rule) {
+        if (rule != null) {
+            this.rules.add(rule);
+        }
+    }
+
     // =========================================================================
     // Fluent Builder 및 팩토리 메서드 (테스트 픽스처 작성 및 정책 생성 생산성 극대화)
     // =========================================================================
@@ -77,6 +83,16 @@ public class JobPolicy {
 
         public Builder title(String title) {
             this.policy.jobTitle = title;
+            return this;
+        }
+
+        public Builder jobTitle(String jobTitle) {
+            this.policy.jobTitle = jobTitle;
+            return this;
+        }
+
+        public Builder scheduleTime(String scheduleTime) {
+            this.policy.scheduleTime = scheduleTime;
             return this;
         }
 

@@ -2,6 +2,7 @@ package com.batch.model;
 
 import com.batch.config.Config;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -146,6 +147,36 @@ public class CheckResult {
         this.fileFound = false;
         this.fileName = expectedFileName != null ? expectedFileName : "파일 미발견";
         this.overallPassed = false;
+    }
+
+    /**
+     * 대상 로그 파일 바인딩 및 상태 전이
+     */
+    public void attachLogFile(File file) {
+        this.fileFound = true;
+        this.fileName = file != null ? file.getName() : "";
+    }
+
+    /**
+     * 분석 중 발생한 예외/오류 기록 및 전체 실패 처리
+     */
+    public void recordAnalysisFailure(Throwable throwable) {
+        String msg = throwable != null ? throwable.getMessage() : "원인 불명 오류";
+        recordAnalysisFailure("파일 분석 중 오류 발생", "오류 내용: " + msg);
+    }
+
+    /**
+     * 분석 실패 상세 내용 기록
+     */
+    public void recordAnalysisFailure(String errorDescription, String errorMessage) {
+        this.overallPassed = false;
+        this.addRuleResult(RuleResult.fail(
+                LogConstants.RULE_NO_ERROR,
+                errorDescription != null ? errorDescription : "분석 오류",
+                RuleType.UNKNOWN.getCode(),
+                "ERROR",
+                errorMessage != null ? errorMessage : "오류가 발생했습니다."
+        ));
     }
 
     // =========================================================================

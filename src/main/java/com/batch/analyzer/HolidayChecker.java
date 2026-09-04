@@ -20,6 +20,14 @@ import java.util.regex.Pattern;
 public class HolidayChecker {
 
     /**
+     * 비영업일 예외 조건 검사 및 상태 적용 (일급 객체 LogContent 지원)
+     */
+    public boolean checkAndApply(com.batch.model.LogContent logContent, JobPolicy policy, CheckResult cr) {
+        if (logContent == null) return false;
+        return checkAndApply(logContent.getFullText(), policy, cr);
+    }
+
+    /**
      * 비영업일 예외 조건 검사 및 상태 적용
      *
      * @param fullText 전체 로그 텍스트

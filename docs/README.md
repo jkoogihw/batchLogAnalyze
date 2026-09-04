@@ -66,6 +66,13 @@
     - `CheckResult.markAsFileNotFound()` 도메인 상태 전이 캡슐화
     - `HolidayChecker` & `PolicyManager` 내 Builder/Factory 전면 적용
 
+11. [**고급 객체설계 및 도메인모델링 리팩토링 실무 가이드 (260904_05_고급_객체설계_및_도메인모델링_리팩토링_가이드.md)**](./260904_05_고급_객체설계_및_도메인모델링_리팩토링_가이드.md)
+    - 원시값 집착(Primitive Obsession) 및 데이터 뭉치 해소: `LogContent` 일급 객체(VO) 도입
+    - 긴 매개변수 목록(Long Parameter List) 제거: `JobAnalysisContext` 매개변수 객체 도입
+    - 풍부한 도메인 모델(Rich Domain Model) & Tell Don't Ask: `CheckResult` 도메인 행위 메서드 캡슐화
+    - 절차적 오케스트레이션의 책임 연쇄화: `AnalysisPipeline` & `AnalysisStep` 파이프라인 엔진 구축
+    - 초급 개발자를 위한 핵심 개념, Code Smell 진단, 5단계 전환 절차, 트레이드오프 분석 및 실무 체크리스트
+
 ---
 
 ## 📜 문서 변경 이력
@@ -75,3 +82,5 @@
 | 2026-09-04 00:28:00 | 현재 설계 vs 헥사고날 아키텍처 비교 및 전환 가이드 문서 추가 및 색인 현행화 | [`1e60b3c`](https://github.com/jkoogihw/batchLogAnalyze/commit/1e60b3c) |
 | 2026-09-04 09:55:00 | 객체 생성 안티패턴 개선 및 정적 팩토리 메서드·빌더 도입 케이스 스터디 문서 추가 및 코드 리팩토링 | - |
 | 2026-09-04 10:35:00 | 도메인 캡슐화 및 가독성 개선 리팩토링 보고서 추가 및 코드 리팩토링 | - |
+| 2026-09-04 11:05:00 | 고급 객체설계 및 도메인모델링 리팩토링 가이드(260904_05) 추가 및 파이프라인/일급객체 전면 적용 | - |
+
