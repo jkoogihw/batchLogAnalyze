@@ -69,4 +69,33 @@ class FileLocateStepTest {
         assertNotNull(execContext.getLogContent());
         assertEquals(2, execContext.getLogContent().getLineCount());
     }
+
+    @Test
+    @DisplayName("월간 배치 대상 로그 파일 미발견 시: 정상(PASS) 마킹 및 파이프라인 조기 종료(TERMINATE) 반환")
+    void testExecute_MonthlyFileNotFound_Passes() throws Exception {
+        JobPolicy policy = JobPolicy.monthly("18", "smpmJob206", 2, "00:45");
+        policy.filePrefix = "18_smpmJob206_";
+        JobAnalysisContext jobContext = JobAnalysisContext.builder()
+                .logFiles(new File[0])
+                .policy(policy)
+                .build();
+
+        StepExecutionContext execContext = new StepExecutionContext(jobContext);
+        CheckResult result = new CheckResult(policy);
+
+        // [When]
+        StepResult stepResult = step.execute(execContext, result);
+
+        // [Then]
+        assertTrue(stepResult.isTerminated());
+        assertFalse(result.isFileFound());
+        assertTrue(result.isMonthlyNotRun());
+        assertTrue(result.isPassed());
+        assertEquals(CheckStatus.PASS, result.getStatus());
+        assertEquals(1, result.ruleResults.size());
+        assertEquals("배치파일점검", result.ruleResults.get(0).description);
+        assertTrue(result.ruleResults.get(0).passed);
+        assertTrue(result.ruleResults.get(0).message.contains("월간배치 미실행일 (정상)"));
+        assertNull(execContext.getLogContent());
+    }
 }

@@ -31,6 +31,19 @@ public class FileLocateStep implements AnalysisStep {
         File targetFile = fileLocator.locate(logFiles, policy);
 
         if (targetFile == null) {
+            if (policy != null && policy.isMonthly()) {
+                String expectedPattern = (policy.filePrefix != null ? policy.filePrefix : "") + "*.log (미생성)";
+                result.markAsMonthlyNotRun(expectedPattern);
+                result.addRuleResult(RuleResult.pass(
+                        LogConstants.DEFAULT_DATE_CHECK_RULE_NO,
+                        LogConstants.DATE_CHECK_DESCRIPTION,
+                        RuleType.DISPLAY.getCode(),
+                        "-",
+                        "월간배치 미실행일 (정상)"
+                ));
+                return StepResult.terminate("월간배치 대상 로그 파일 미생성 (정상 처리)");
+            }
+
             String expectedPattern = (policy != null && policy.filePrefix != null ? policy.filePrefix : "") + "*.log (미발견)";
             result.markAsFileNotFound(expectedPattern);
             result.addRuleResult(RuleResult.fail(

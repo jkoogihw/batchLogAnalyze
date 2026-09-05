@@ -44,8 +44,8 @@ public class AnalysisPipeline {
                                             RuleEvaluatorRegistry registry) {
         List<AnalysisStep> steps = new ArrayList<>();
         steps.add(new FileLocateStep(fileLocator));
-        steps.add(new DateCheckStep(dateChecker));
         steps.add(new HolidayCheckStep(holidayChecker));
+        steps.add(new DateCheckStep(dateChecker));
         steps.add(new RuleEvaluationStep(registry));
         return new AnalysisPipeline(steps);
     }

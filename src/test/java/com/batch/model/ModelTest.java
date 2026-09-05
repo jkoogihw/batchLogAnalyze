@@ -322,6 +322,16 @@ public class ModelTest {
         assertEquals(CheckStatus.HOLIDAY, cr.getStatus());
         assertTrue(cr.isHoliday());
         assertTrue(cr.isPassed());
+
+        // 5. 월간 배치 미실행(미생성) 상태
+        CheckResult monthlyCr = new CheckResult("18", "smpmJob206", "월간잡");
+        monthlyCr.rawPattern = "_11294_";
+        monthlyCr.markAsMonthlyNotRun("18_smpmJob206_*.log (미생성)");
+        assertEquals(CheckStatus.PASS, monthlyCr.getStatus());
+        assertTrue(monthlyCr.isMonthlyNotRun());
+        assertFalse(monthlyCr.isFileFound());
+        assertTrue(monthlyCr.isPassed());
+        assertEquals("_11294_", monthlyCr.rawPattern);
     }
 
     /**

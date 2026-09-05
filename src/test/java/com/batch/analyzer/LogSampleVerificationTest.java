@@ -1,6 +1,7 @@
 package com.batch.analyzer;
 
 import com.batch.model.CheckResult;
+import com.batch.model.CheckStatus;
 import com.batch.model.JobPolicy;
 import com.batch.model.RuleResult;
 import com.batch.policy.PolicyManager;
@@ -523,6 +524,31 @@ public class LogSampleVerificationTest {
             () -> assertEquals("40", cr.ruleResults.get(2).extractedValue, "prodList.size 40 확인"),
             () -> assertTrue(cr.ruleResults.get(3).passed, "규칙 04(TB_SMPM1002.insIntgCode) 통과"),
             () -> assertEquals("151건", cr.ruleResults.get(3).extractedValue, "151건 실행 일치 확인")
+        );
+    }
+
+    @Test
+    @DisplayName("15. JOB 18: smpmJob206 (월간) - 일간 배치 폴더(log_samples, 파일 부재) 분석 시 정상(PASS) 판정 검증")
+    public void testJob18_SmpmJob206_MissingFile_TreatedAsNormalPass() {
+        File dailyFolder = new File("src/test/resources/log_samples");
+        if (!dailyFolder.exists()) return;
+
+        File[] dailyFiles = dailyFolder.listFiles((dir, name) -> name.endsWith(".log"));
+        JobPolicy policy = findPolicyByJobNo("18");
+        assertNotNull(policy, "JOB 18 정책이 등록되어 있어야 함");
+
+        CheckResult cr = LogAnalyzer.checkJob(dailyFolder, dailyFiles, policy);
+
+        assertAll("JOB 18 월간배치 미실행일 정상 판정 검증 단언",
+            () -> assertFalse(cr.fileFound, "일간 배치 폴더에는 월간 로그 파일이 없어야 함"),
+            () -> assertTrue(cr.isMonthlyNotRun(), "월간 배치 미실행 상태여야 함"),
+            () -> assertTrue(cr.overallPassed, "파일 미생성 상태여도 정상(PASS)으로 판정되어야 함"),
+            () -> assertEquals(CheckStatus.PASS, cr.getStatus(), "상태가 PASS여야 함"),
+            () -> assertEquals("00:45 [2일 / 월]", cr.scheduleInfo, "스케줄 정보가 '00:45 [2일 / 월]'로 서식화되어야 함"),
+            () -> assertEquals("_11294_", cr.rawPattern, "파일ID(rawPattern)가 _11294_로 설정되어야 함"),
+            () -> assertEquals(1, cr.ruleResults.size(), "배치파일점검 1개 규칙 결과 존재"),
+            () -> assertTrue(cr.ruleResults.get(0).passed, "규칙 01(배치파일점검) 통과"),
+            () -> assertTrue(cr.ruleResults.get(0).message.contains("월간배치 미실행일 (정상)"), "정상 메시지 포함")
         );
     }
 }

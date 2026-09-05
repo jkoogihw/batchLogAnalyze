@@ -61,8 +61,8 @@ class AnalysisPipelineTest {
         assertTrue(result.isHoliday());
         assertTrue(result.isPassed());
         assertEquals(CheckStatus.HOLIDAY, result.getStatus());
-        // 비영업일 룰 결과와 일자 검증 결과만 존재하고, 후속 실패 룰은 실행되지 않아야 함
-        assertEquals(2, result.ruleResults.size()); // DateCheck + Holiday
+        // 휴일 로그 우선 점검에 따라 DateCheckStep 및 후속 룰 검증을 건너뛰고 Holiday 룰만 기록됨
+        assertEquals(1, result.ruleResults.size()); // Holiday check only
     }
 
     @Test

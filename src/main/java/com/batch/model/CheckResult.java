@@ -23,10 +23,12 @@ public class CheckResult {
     public String jobNo;                        // JOB 번호
     public String jobName;                      // JOB 명
     public String jobTitle;                     // JOB 설명
+    public String rawPattern = "";              // 원본 파일명 패턴 / 파일 ID (예: "_11401_")
     public String scheduleInfo = "";            // 배치 스케줄 정보 (예: "03:05 [당일 / 일]")
     public String fileName;                     // 검증한 로그 파일명
     public boolean fileFound = false;           // 로그 파일 존재 여부
     public boolean isHoliday = false;           // 비영업일 여부
+    public boolean isMonthlyNotRun = false;     // 월간 배치 미실행일(미생성) 여부
     public String holidayDetail = "";           // 비영업일 상세 정보
     public List<RuleResult> ruleResults = new ArrayList<>();  // 규칙별 검증 결과
     public boolean overallPassed = true;        // 전체 통과 여부
@@ -45,6 +47,7 @@ public class CheckResult {
             this.jobNo = policy.jobNo;
             this.jobName = policy.jobName;
             this.jobTitle = policy.jobTitle;
+            this.rawPattern = policy.rawPattern != null ? policy.rawPattern : "";
             this.scheduleInfo = formatScheduleInfo(policy);
         }
     }
@@ -69,6 +72,11 @@ public class CheckResult {
             return this;
         }
 
+        public Builder rawPattern(String rawPattern) {
+            this.result.rawPattern = rawPattern;
+            return this;
+        }
+
         public Builder scheduleInfo(String scheduleInfo) {
             this.result.scheduleInfo = scheduleInfo;
             return this;
@@ -81,6 +89,11 @@ public class CheckResult {
 
         public Builder fileFound(boolean fileFound) {
             this.result.fileFound = fileFound;
+            return this;
+        }
+
+        public Builder isMonthlyNotRun(boolean isMonthlyNotRun) {
+            this.result.isMonthlyNotRun = isMonthlyNotRun;
             return this;
         }
 
@@ -150,6 +163,16 @@ public class CheckResult {
     }
 
     /**
+     * 월간 배치 파일 미존재(미실행일) 상태로 마킹 - 정상 처리
+     */
+    public void markAsMonthlyNotRun(String expectedFileName) {
+        this.fileFound = false;
+        this.isMonthlyNotRun = true;
+        this.fileName = expectedFileName != null ? expectedFileName : "미생성 (월간 배치)";
+        this.overallPassed = true;
+    }
+
+    /**
      * 대상 로그 파일 바인딩 및 상태 전이
      */
     public void attachLogFile(File file) {
@@ -199,7 +222,14 @@ public class CheckResult {
         return this.fileFound;
     }
 
+    public boolean isMonthlyNotRun() {
+        return this.isMonthlyNotRun;
+    }
+
     public CheckStatus getStatus() {
+        if (isMonthlyNotRun) {
+            return CheckStatus.PASS;
+        }
         if (!fileFound) {
             return CheckStatus.FILE_NOT_FOUND;
         }
