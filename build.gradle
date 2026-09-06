@@ -2,10 +2,15 @@ plugins {
     id 'java'
     id 'application'
     id 'eclipse'
+    id 'jacoco'
 }
 
 group = 'com.batch'
 version = '1.0.0'
+
+jacoco {
+    toolVersion = "0.8.11"
+}
 
 java {
     sourceCompatibility = JavaVersion.VERSION_11
@@ -19,7 +24,7 @@ application {
     mainClassName = 'com.batch.CheckLog'
 }
 
-// 내부망 / 오프라인 환경: 로컬 libs 디렉토리 설정
+// 내부망 / 오프라인 환경: 로컬 libs 디렉토리만 참조 (Maven 외부 통신 차단)
 repositories {
     flatDir {
         dirs 'libs'
@@ -30,6 +35,7 @@ dependencies {
     // libs 디렉토리 내의 모든 jar 라이브러리 참조
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation fileTree(dir: 'libs', include: ['*.jar'])
+    jacocoAnt fileTree(dir: 'libs', include: ['*.jar'])
 }
 
 // 필요 시 캐시에서 libs 폴더로 jar를 추출하는 유틸리티 태스크
@@ -61,9 +67,17 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
+def testRecords = java.util.Collections.synchronizedList([])
+
 test {
     useJUnitPlatform()
     maxHeapSize = '2048m'
+    finalizedBy 'jacocoTestReport'
+
+    // 테스트 실행 전 레코드 초기화
+    doFirst {
+        testRecords.clear()
+    }
 
     // 개별 테스트 이벤트 콘솔 출력 (성공/실패/스킵)
     testLogging {
@@ -71,18 +85,335 @@ test {
         exceptionFormat "full"
     }
 
-    // 테스트 스위트 완료 후 종합 통계 요약 출력
+    // 개별 테스트 결과 수집
+    afterTest { desc, result ->
+        testRecords.add([
+            className : desc.className ?: "Unknown",
+            testName  : desc.displayName ?: desc.name,
+            resultType: result.resultType.name(),
+            duration  : (result.endTime - result.startTime) / 1000.0,
+            exception : result.exception
+        ])
+    }
+
+    // 테스트 스위트 완료 후 종합 통계 요약 및 단위테스트결과보고서.md 생성
     afterSuite { desc, result ->
         if (!desc.parent) {
+            def buildDir = layout.buildDirectory.get().asFile
+            def htmlReportDir = new File(buildDir, "reports/tests/test")
+            def testReportHtml = new File(htmlReportDir, "index.html")
+            
+            // 사용자가 일관되게 확인할 수 있도록 프로젝트 루트의 report/ 디렉터리에 마크다운 보고서 생성
+            def workspaceReportDir = file("report")
+            def testReportMd = new File(workspaceReportDir, "단위테스트결과보고서.md")
+            def buildTestReportMd = new File(htmlReportDir, "단위테스트결과보고서.md")
+
+            // 마크다운 보고서 본문 구성
+            def md = new StringBuilder()
+            def nowStr = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())
+            def total = result.testCount
+            def passed = result.successfulTestCount
+            def failed = result.failedTestCount
+            def skipped = result.skippedTestCount
+            def elapsedSec = String.format('%.3f', (result.endTime - result.startTime) / 1000.0)
+            def successRate = total > 0 ? String.format('%.1f%%', (passed / (double) total) * 100) : "0.0%"
+            def statusBadge = (failed == 0) ? "✅ **PASSED (100%)**" : "❌ **FAILED**"
+
+            md.append("# 📋 단위 테스트 실행 보고서 (JUnit 5 Test Report)\n\n")
+            md.append("- **테스트 실행 일시**: ${nowStr}\n")
+            md.append("- **최종 결과**: ${statusBadge}\n")
+            md.append("- **총 소요 시간**: ${elapsedSec} 초\n\n")
+
+            md.append("## 1. 테스트 결과 요약\n\n")
+            md.append("| 총 테스트 수 | 성공 (Passed) | 실패 (Failed) | 제외 (Skipped) | 성공률 (Success Rate) |\n")
+            md.append("| :---: | :---: | :---: | :---: | :---: |\n")
+            md.append("| **${total}** | <font color='green'>**${passed}**</font> | <font color='red'>**${failed}**</font> | **${skipped}** | **${successRate}** |\n\n")
+
+            // 2. 클래스별 요약 표
+            md.append("## 2. 테스트 대상 클래스별 요약\n\n")
+            md.append("| 테스트 클래스 | 전체 | 성공 | 실패 | 스킵 | 소요 시간 | 상태 |\n")
+            md.append("| :--- | :---: | :---: | :---: | :---: | :---: | :---: |\n")
+
+            def groupedByClass = testRecords.groupBy { it.className }
+            groupedByClass.each { clazz, list ->
+                def cTotal = list.size()
+                def cPassed = list.count { it.resultType == 'SUCCESS' }
+                def cFailed = list.count { it.resultType == 'FAILURE' }
+                def cSkipped = list.count { it.resultType == 'SKIPPED' }
+                def cDuration = list.sum { it.duration } ?: 0.0
+                def cStatus = cFailed > 0 ? "❌ FAIL" : (cSkipped > 0 ? "⚠️ SKIP" : "✅ PASS")
+                def simpleName = clazz.contains('.') ? clazz.substring(clazz.lastIndexOf('.') + 1) : clazz
+                md.append("| `${simpleName}` | ${cTotal} | ${cPassed} | ${cFailed} | ${cSkipped} | ${String.format('%.3f', cDuration)}s | ${cStatus} |\n")
+            }
+            md.append("\n")
+
+            // 3. 실패 항목 상세 (있을 경우)
+            def failures = testRecords.findAll { it.resultType == 'FAILURE' }
+            if (!failures.isEmpty()) {
+                md.append("## 3. ❌ 실패 테스트 상세 내역\n\n")
+                failures.each { f ->
+                    md.append("### `${f.className}` > ${f.testName}\n")
+                    if (f.exception) {
+                        md.append("```text\n")
+                        md.append(f.exception.message ?: "원인 미상")
+                        md.append("\n```\n\n")
+                    }
+                }
+            }
+
+            // 4. 개별 테스트 케이스 상세 점검 목록 (아코디언 접기 형태)
+            md.append("## 4. 전체 개별 테스트 점검 목록\n\n")
+            groupedByClass.each { clazz, list ->
+                def simpleName = clazz.contains('.') ? clazz.substring(clazz.lastIndexOf('.') + 1) : clazz
+                md.append("<details open>\n")
+                md.append("<summary><b>📦 ${simpleName}</b> (${list.size()}건 완료)</summary>\n\n")
+                md.append("| 번호 | 테스트 항목 (DisplayName / Method) | 결과 | 소요시간 |\n")
+                md.append("| :---: | :--- | :---: | :---: |\n")
+                list.eachWithIndex { t, idx ->
+                    def icon = t.resultType == 'SUCCESS' ? "✅ PASS" : (t.resultType == 'SKIPPED' ? "⚠️ SKIP" : "❌ FAIL")
+                    md.append("| ${idx + 1} | ${t.testName} | ${icon} | ${String.format('%.3fs', t.duration)} |\n")
+                }
+                md.append("\n</details>\n\n")
+            }
+
+            // report/ 및 build/ 폴더에 마크다운 파일 저장
+            workspaceReportDir.mkdirs()
+            testReportMd.write(md.toString(), "UTF-8")
+            
+            htmlReportDir.mkdirs()
+            buildTestReportMd.write(md.toString(), "UTF-8")
+
             println "\n" + "=" * 75
             println "  [ JUnit 5 Test Execution Summary ]"
             println "=" * 75
-            println "  >> Total Tests : ${result.testCount} tests"
-            println "  >> PASSED      : ${result.successfulTestCount} tests"
-            println "  >> FAILED      : ${result.failedTestCount} tests"
-            println "  >> SKIPPED     : ${result.skippedTestCount} tests"
-            println "  >> Elapsed Time: ${(result.endTime - result.startTime) / 1000.0} sec"
+            println "  >> Total Tests : ${total} tests"
+            println "  >> PASSED      : ${passed} tests"
+            println "  >> FAILED      : ${failed} tests"
+            println "  >> SKIPPED     : ${skipped} tests"
+            println "  >> Elapsed Time: ${elapsedSec} sec"
+            println "  ---------------------------------------------------------------------------"
+            println "  >> [Report] 단위테스트결과보고서 (MD)   : ${testReportMd.toURI()}"
+            println "  >> [Report] 단위테스트결과보고서 (HTML) : ${testReportHtml.toURI()}"
             println "=" * 75 + "\n"
+        }
+    }
+}
+
+tasks.named('jacocoTestReport') {
+    dependsOn test
+    reports {
+        xml.required = true
+        csv.required = false
+        html.required = true
+    }
+
+    doLast {
+        def buildDir = layout.buildDirectory.get().asFile
+        def xmlFile = new File(buildDir, "reports/jacoco/test/jacocoTestReport.xml")
+        def htmlIndex = new File(buildDir, "reports/jacoco/test/html/index.html")
+        def workspaceReportDir = file("report")
+        def covReportMd = new File(workspaceReportDir, "코드커버리지보고서.md")
+        def buildCovReportMd = new File(buildDir, "reports/jacoco/test/html/코드커버리지보고서.md")
+
+        if (xmlFile.exists()) {
+            def parser = new groovy.xml.XmlParser()
+            parser.setFeature("http://apache.org/xml/features/disallow-doctype-decl", false)
+            parser.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false)
+            def doc = parser.parse(xmlFile)
+
+            def calcRate = { int missed, int covered ->
+                int t = missed + covered
+                return t > 0 ? (covered * 100.0 / t) : 100.0
+            }
+
+            def fmtRate = { double rate ->
+                return String.format("%.1f%%", rate)
+            }
+
+            def getBadge = { double rate ->
+                if (rate >= 80.0) return "🟢 **우수** (${fmtRate(rate)})"
+                if (rate >= 60.0) return "🟡 **양호** (${fmtRate(rate)})"
+                return "🔴 **점검필요** (${fmtRate(rate)})"
+            }
+
+            def counters = [:]
+            doc.counter.each { c ->
+                counters[c.'@type'] = [
+                    missed: c.'@missed' as int,
+                    covered: c.'@covered' as int
+                ]
+            }
+
+            def lineCov = counters['LINE'] ?: [missed: 0, covered: 0]
+            def branchCov = counters['BRANCH'] ?: [missed: 0, covered: 0]
+            def instCov = counters['INSTRUCTION'] ?: [missed: 0, covered: 0]
+            def methodCov = counters['METHOD'] ?: [missed: 0, covered: 0]
+            def classCov = counters['CLASS'] ?: [missed: 0, covered: 0]
+            def cxtyCov = counters['COMPLEXITY'] ?: [missed: 0, covered: 0]
+
+            def totalLineRate = calcRate(lineCov.missed, lineCov.covered)
+            def totalBranchRate = calcRate(branchCov.missed, branchCov.covered)
+            def totalInstRate = calcRate(instCov.missed, instCov.covered)
+            def totalMethodRate = calcRate(methodCov.missed, methodCov.covered)
+
+            def nowStr = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())
+            def md = new StringBuilder()
+
+            md.append("# 📊 소스 코드 커버리지 현황 보고서 (JaCoCo Coverage Report)\n\n")
+            md.append("- **측정 일시**: ${nowStr}\n")
+            md.append("- **전체 라인 커버리지**: ${getBadge(totalLineRate)}\n")
+            md.append("- **전체 분기(Branch) 커버리지**: ${fmtRate(totalBranchRate)}\n")
+            md.append("- **전체 메서드 커버리지**: ${fmtRate(totalMethodRate)}\n\n")
+
+            // 1. 전체 지표 요약
+            md.append("## 1. 전체 커버리지 지표 요약\n\n")
+            md.append("| 측정 지표 (Metric) | 커버리지 점검률 | 점검 완료 (Covered) | 미점검 (Missed) | 총 라인/항목 (Total) | 상태 |\n")
+            md.append("| :--- | :---: | :---: | :---: | :---: | :---: |\n")
+
+            def addMetricRow = { String name, Map data ->
+                double rate = calcRate(data.missed, data.covered)
+                int tot = data.missed + data.covered
+                md.append("| **${name}** | **${fmtRate(rate)}** | ${data.covered} | ${data.missed} | ${tot} | ${getBadge(rate)} |\n")
+            }
+
+            addMetricRow("라인 (Lines)", lineCov)
+            addMetricRow("분기 조건 (Branches)", branchCov)
+            addMetricRow("명령어 바이트코드 (Instructions)", instCov)
+            addMetricRow("메서드 (Methods)", methodCov)
+            addMetricRow("복잡도 경로 (Complexity)", cxtyCov)
+            addMetricRow("클래스 (Classes)", classCov)
+            md.append("\n")
+
+            // 2. 패키지별 커버리지 요약
+            md.append("## 2. 패키지별 점검 현황\n\n")
+            md.append("| 패키지명 (Package) | 라인 커버리지 | 점검/총 라인 | 브랜치 커버리지 | 미점검 라인 수 | 상태 |\n")
+            md.append("| :--- | :---: | :---: | :---: | :---: | :---: |\n")
+
+            def packageList = []
+            doc.'package'.each { pkg ->
+                def pName = pkg.'@name'.replace('/', '.')
+                def pCounters = [:]
+                pkg.counter.each { c ->
+                    pCounters[c.'@type'] = [
+                        missed: c.'@missed' as int,
+                        covered: c.'@covered' as int
+                    ]
+                }
+                def pLine = pCounters['LINE'] ?: [missed: 0, covered: 0]
+                def pBranch = pCounters['BRANCH'] ?: [missed: 0, covered: 0]
+                double pLineRate = calcRate(pLine.missed, pLine.covered)
+                double pBranchRate = calcRate(pBranch.missed, pBranch.covered)
+                packageList.add([
+                    node: pkg,
+                    name: pName,
+                    lineRate: pLineRate,
+                    branchRate: pBranchRate,
+                    lineCovered: pLine.covered,
+                    lineMissed: pLine.missed,
+                    lineTotal: pLine.covered + pLine.missed
+                ])
+            }
+
+            // 라인 커버리지 높은 순 정렬
+            packageList.sort { -it.lineRate }.each { p ->
+                md.append("| `${p.name}` | **${fmtRate(p.lineRate)}** | ${p.lineCovered} / ${p.lineTotal} | ${fmtRate(p.branchRate)} | ${p.lineMissed} lines | ${getBadge(p.lineRate)} |\n")
+            }
+            md.append("\n")
+
+            // 3. 클래스별 상세 점검 현황
+            md.append("## 3. 클래스별 상세 점검 현황\n\n")
+            packageList.each { p ->
+                md.append("<details open>\n")
+                md.append("<summary><b>📦 ${p.name}</b> (라인 점검률: ${fmtRate(p.lineRate)})</summary>\n\n")
+                md.append("| 대상 클래스 | 소스 파일 | 라인 커버리지 | 점검/총 라인 | 브랜치 커버리지 | 상태 |\n")
+                md.append("| :--- | :--- | :---: | :---: | :---: | :---: |\n")
+
+                def classList = []
+                p.node.'class'.each { cls ->
+                    def cName = cls.'@name'.replace('/', '.')
+                    def simpleName = cName.contains('.') ? cName.substring(cName.lastIndexOf('.') + 1) : cName
+                    def srcFile = cls.'@sourcefilename' ?: "-"
+                    def cCounters = [:]
+                    cls.counter.each { c ->
+                        cCounters[c.'@type'] = [
+                            missed: c.'@missed' as int,
+                            covered: c.'@covered' as int
+                        ]
+                    }
+                    def cLine = cCounters['LINE'] ?: [missed: 0, covered: 0]
+                    def cBranch = cCounters['BRANCH'] ?: [missed: 0, covered: 0]
+                    double cLineRate = calcRate(cLine.missed, cLine.covered)
+                    double cBranchRate = calcRate(cBranch.missed, cBranch.covered)
+                    classList.add([
+                        simpleName: simpleName,
+                        fullName: cName,
+                        srcFile: srcFile,
+                        lineRate: cLineRate,
+                        branchRate: cBranchRate,
+                        lineCovered: cLine.covered,
+                        lineMissed: cLine.missed,
+                        lineTotal: cLine.covered + cLine.missed
+                    ])
+                }
+
+                classList.sort { -it.lineRate }.each { c ->
+                    md.append("| `${c.simpleName}` | ${c.srcFile} | **${fmtRate(c.lineRate)}** | ${c.lineCovered}/${c.lineTotal} | ${fmtRate(c.branchRate)} | ${getBadge(c.lineRate)} |\n")
+                }
+                md.append("\n</details>\n\n")
+            }
+
+            // 4. 점검 보완 권장 클래스 (커버리지 60% 미만)
+            def lowCoverageClasses = []
+            packageList.each { p ->
+                p.node.'class'.each { cls ->
+                    def cName = cls.'@name'.replace('/', '.')
+                    def simpleName = cName.contains('.') ? cName.substring(cName.lastIndexOf('.') + 1) : cName
+                    def cCounters = [:]
+                    cls.counter.each { c ->
+                        cCounters[c.'@type'] = [
+                            missed: c.'@missed' as int,
+                            covered: c.'@covered' as int
+                        ]
+                    }
+                    def cLine = cCounters['LINE'] ?: [missed: 0, covered: 0]
+                    double cLineRate = calcRate(cLine.missed, cLine.covered)
+                    if (cLineRate < 60.0 && (cLine.covered + cLine.missed) > 0) {
+                        lowCoverageClasses.add([
+                            name: cName,
+                            simpleName: simpleName,
+                            lineRate: cLineRate,
+                            missed: cLine.missed,
+                            total: cLine.covered + cLine.missed
+                        ])
+                    }
+                }
+            }
+
+            if (!lowCoverageClasses.isEmpty()) {
+                md.append("## 4. 💡 테스트 보완 권장 대상 (라인 커버리지 60% 미만)\n\n")
+                md.append("| 클래스명 | 라인 커버리지 | 미점검 라인 수 | 총 라인 수 |\n")
+                md.append("| :--- | :---: | :---: | :---: |\n")
+                lowCoverageClasses.sort { it.lineRate }.each { lc ->
+                    md.append("| `${lc.name}` | **${fmtRate(lc.lineRate)}** | ${lc.missed} lines | ${lc.total} lines |\n")
+                }
+                md.append("\n")
+            }
+
+            workspaceReportDir.mkdirs()
+            covReportMd.write(md.toString(), "UTF-8")
+
+            buildCovReportMd.parentFile.mkdirs()
+            buildCovReportMd.write(md.toString(), "UTF-8")
+
+            println "\n" + "=" * 75
+            println "  [ JaCoCo Code Coverage Summary ]"
+            println "=" * 75
+            println "  >> Overall Line Coverage   : ${fmtRate(totalLineRate)} (${lineCov.covered}/${lineCov.covered + lineCov.missed} lines)"
+            println "  >> Overall Branch Coverage : ${fmtRate(totalBranchRate)} (${branchCov.covered}/${branchCov.covered + branchCov.missed} branches)"
+            println "  >> Overall Method Coverage : ${fmtRate(totalMethodRate)} (${methodCov.covered}/${methodCov.covered + methodCov.missed} methods)"
+            println "  ---------------------------------------------------------------------------"
+            println "  >> [Report] 코드커버리지보고서 (MD)   : ${covReportMd.toURI()}"
+            println "  >> [Report] 코드커버리지보고서 (HTML) : ${htmlIndex.toURI()}"
         }
     }
 }
