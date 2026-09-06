@@ -58,7 +58,7 @@ class MarkdownReportWriterTest {
         String content = Files.readString(writtenFile.toPath(), StandardCharsets.UTF_8);
 
         // 1. 헤더 검증
-        assertTrue(content.contains("| 번호 | JOB ID | JOB 이름 | 점검항목 | 점검내용 | 점검결과 |"));
+        assertTrue(content.contains("| 번호 | JOB ID | JOB 이름 | 점검결과 | 점검항목 | 점검내용 |"));
 
         // 2. JOB 04 검증: JOB ID에 _11401_, JOB 이름에 11:00 [전일 / 일] 포함 확인
         assertTrue(content.contains("smrmJob102<br/>_11401_"), "JOB ID 2행에 rawPattern(_11401_)이 표시되어야 함");

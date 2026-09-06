@@ -57,8 +57,8 @@ public class MarkdownReportWriter implements ReportWriter {
           .append(fail).append("**개 오류/확인필요 (FAIL)\n\n");
 
         sb.append("## 1. JOB별 세부 분석 내역\n\n");
-        sb.append("| 번호 | JOB ID | JOB 이름 | 점검항목 | 점검내용 | 점검결과 |\n");
-        sb.append("| :--- | :--- | :--- | :--- | :--- | :---: |\n");
+        sb.append("| 번호 | JOB ID | JOB 이름 | 점검결과 | 점검항목 | 점검내용 |\n");
+        sb.append("| :--- | :--- | :--- | :---: | :--- | :--- |\n");
 
         if (results != null) {
             for (CheckResult cr : results) {
@@ -74,8 +74,8 @@ public class MarkdownReportWriter implements ReportWriter {
                         : cleanedJobTitle;
 
                 if (cr.isHoliday) {
-                    sb.append(String.format("| %s | %s | %s | 비영업일 예외 | %s | %s |\n",
-                            cr.jobNo, jobIdDisplay, jobTitleDisplay, cr.holidayDetail, statusText));
+                    sb.append(String.format("| %s | %s | %s | %s | 비영업일 예외 | %s |\n",
+                            cr.jobNo, jobIdDisplay, jobTitleDisplay, statusText, cr.holidayDetail));
                 } else {
                     boolean first = true;
                     for (RuleResult rr : cr.ruleResults) {
@@ -86,10 +86,10 @@ public class MarkdownReportWriter implements ReportWriter {
                         String checkContent = ruleStatus + " " + rr.message;
                         if (first) {
                             sb.append(String.format("| %s | %s | %s | %s | %s | %s |\n",
-                                    cr.jobNo, jobIdDisplay, jobTitleDisplay, checkItem, checkContent, statusText));
+                                    cr.jobNo, jobIdDisplay, jobTitleDisplay, statusText, checkItem, checkContent));
                             first = false;
                         } else {
-                            sb.append(String.format("| | | | %s | %s | |\n",
+                            sb.append(String.format("| | | | | %s | %s |\n",
                                     checkItem, checkContent));
                         }
                     }

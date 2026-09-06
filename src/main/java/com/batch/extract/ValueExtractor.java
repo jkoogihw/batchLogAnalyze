@@ -23,12 +23,16 @@ public class ValueExtractor {
         // 1. Regex가 명시적으로 지정된 경우
         if (regex != null && !regex.isEmpty()) {
             Pattern p = Pattern.compile(
-                    regex + "\\s*([=:]\\s*|\\s+)?([0-9,]+(\\s*건)?)", 
-                    Pattern.CASE_INSENSITIVE);
+                    regex + ".*?[\\s:=]+([0-9,]+(\\s*건\\.?)?)", 
+                    Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
             Matcher m = p.matcher(fullText);
             if (m.find()) {
-                String val = m.group(2);
-                if (val != null) return val.trim();
+                for (int g = m.groupCount(); g >= 1; g--) {
+                    String grp = m.group(g);
+                    if (grp != null && grp.matches(".*[0-9].*")) {
+                        return grp.trim();
+                    }
+                }
             }
         }
 

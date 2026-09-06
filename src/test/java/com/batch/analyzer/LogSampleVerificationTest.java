@@ -217,7 +217,7 @@ public class LogSampleVerificationTest {
                 String newContent = Files.readString(generatedFile.toPath(), StandardCharsets.UTF_8);
                 assertFalse(newContent.contains("OLD STALE REPORT CONTENT"), "이전 더미 내용이 남아있지 않아야 함 (완전 삭제 확인)");
                 assertTrue(newContent.contains("# 배치로그 분석 결과 보고서 (sample_recreate_test)"), "신규 리포트 헤더 제목 포함 확인");
-                assertTrue(newContent.contains("| 번호 | JOB ID | JOB 이름 | 점검항목 | 점검내용 | 점검결과 |"), "테이블 헤더 포함 확인");
+                assertTrue(newContent.contains("| 번호 | JOB ID | JOB 이름 | 점검결과 | 점검항목 | 점검내용 |"), "테이블 헤더 포함 확인");
             }
         );
     }

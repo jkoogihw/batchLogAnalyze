@@ -36,7 +36,7 @@
           "ruleNo": "03",
           "type": "DISPLAY",
           "target": "# FP누락 활동 대상[활동건수",
-          "condition": "EQUALS_0",
+          "condition": "ERROR_IF_PRESENT",
           "description": "# FP누락 활동 대상 활동건수 0건 체크"
         }
       ]
@@ -53,6 +53,7 @@
           "ruleNo": "02",
           "type": "DISPLAY",
           "target": "불완전판매조사 대상 신규 추출 건 [TB_SMRM1010]",
+          "regex": "불완전판매\\s*(SMS 신규 발송 예정 건수|조사 대상 신규 추출 건 \\[TB_SMRM1010\\])",
           "condition": "COUNT_CHECK",
           "description": "불완전판매조사 대상 신규 추출 건 [TB_SMRM1010] 건수확인"
         }
