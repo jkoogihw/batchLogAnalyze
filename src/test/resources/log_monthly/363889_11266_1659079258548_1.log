@@ -1,0 +1,147 @@
+ip-10-237-6-165.ap-northeast-2.compute.internal
+PARAMETER=--job.name=smpmJob211 jobDate=20260901 ecareNo=247 senderNm=한화생명금융서비스 sender=master@mail.hanwhalifefs.com receiverId=2241010,2241182,2241193
+No Active GA_CODE set. falling back to default GA_CODE: default
+APPLICATION_PATH=/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar
+SPRING_PROFILES_ACTIVE=main,lazyload
+PARAMETER=--job.name=smpmJob211 jobDate=20260901 ecareNo=247 senderNm=한화생명금융서비스 sender=master@mail.hanwhalifefs.com receiverId=2241010,2241182,2241193
+_JAVA_OPTIONS= -Dfile.encoding=UTF-8
+Picked up _JAVA_OPTIONS:  -Dfile.encoding=UTF-8
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/logback-classic-1.2.11.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/log4j-slf4j-impl-2.13.3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [ch.qos.logback.classic.util.ContextSelectorStaticBinder]
+2026-09-02 08:00:15.857 INFO  [Version.java:21 - <clinit>] HV000001: Hibernate Validator 6.1.7.Final
+... [TRIMMED 76 LINES] ...
+			SELECT
+				XX.POLY_NO
+				,XX.ISRN_CMPY_CODE
+				,XX.CNTC_DATE
+				,XX.NC_STND_YYMM
+				,XX.ORGN_CODE
+				,XX.PCIC_BLNG_YN /*상품비교설명확인서 대상여부*/
+				,CASE WHEN XX.PCIC_BLNG_YN = 'N' THEN 'X' 									/* X, 비대상(징구제외대상)*/
+					  WHEN XX.PCIC_BLNG_YN = 'Y' AND XX.ATCM_FILE_ID IS NOT NULL THEN 'Y' 	/* Y, 첨부파일 등록*/
+					  ELSE 'N' 																/* N, 첨부파일 미등록*/
+				 END AS PCIC_ATCM_YN /*상품비교설명확인서 등록여부*/
+				,CASE WHEN XX.PCIC_BLNG_YN = 'N' THEN 'X' 																								/* X, 비대상(징구제외대상)*/
+					  WHEN XX.PCIC_BLNG_YN = 'Y' AND XX.ATCM_FILE_ID IS NOT NULL AND XX.APPN_MTHD_CODE = '01' THEN 'N' 									/* N, 비대상(전자징구), 전자*/
+					  WHEN XX.PCIC_BLNG_YN = 'Y' AND XX.ATCM_FILE_ID IS NOT NULL AND (XX.APPN_MTHD_CODE = '02' OR XX.APPN_MTHD_CODE = '03') THEN 'Y'   /* Y, 편철대상, 종이*/
+					  ELSE 'Z' 																															/* Z, 알수없음, 대상이지만 첨부파일 없어서 미정*/
+				 END AS PCIC_REF_YN /*상품비교설명확인서 편철대상, 징구유형*/
+			FROM(SELECT
+				TE.POLY_NO
+				,TE.ISRN_CMPY_CODE
+				,TE.CNTC_DATE
+				,TE.NC_STND_YYMM
+				,TE.CNTC_STTS_CODE
+... [TRIMMED 1 LINES] ...
+		ON T1.ORGN_CODE = T3.ORGN_CODE
+		AND T3.CLSN_YYMM = LEFT(?, 6)
+		AND T3.USE_YN = 'Y'
+		ORDER BY T3.LVL1_SORT_ORDR, T3.LVL2_SORT_ORDR, T3.LVL3_SORT_ORDR, T3.LVL4_SORT_ORDR
+			, T3.LVL5_SORT_ORDR, T3.LVL6_SORT_ORDR, T3.LVL7_SORT_ORDR, T3.LVL8_SORT_ORDR
+2026-09-02 08:04:38.110 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"endPeriod":"20260901","jobDate":"20260901","periodFlag":"N"}
+2026-09-02 08:05:43.435 INFO  [SmpmStep211001Tasklet.java:207 - execute] SmpmStep211001Tasklet execute dataList1 :: 1663
+2026-09-02 08:05:46.885 INFO  [SmpmStep211001Tasklet.java:274 - execute] SmpmStep211001Tasklet log strUrl :: /efs/shared/solution/ums/smpm/pcic/
+2026-09-02 08:05:46.886 INFO  [SmpmStep211001Tasklet.java:282 - execute] SmpmStep211001Tasklet return strUrl :: /efs/shared/solution/ums/smpm/pcic/
+2026-09-02 08:05:46.889 INFO  [SmpmStep211001Tasklet.java:289 - execute] SmpmStep211001Tasklet existsFile :: /efs/shared/solution/ums/smpm/pcic/상품비교설명확인서징구현황_2026년09월01일_202609020804.xlsx
+2026-09-02 08:05:46.890 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMHO1001.findPsafInfo */
+
+		SELECT PSAF_ID        /*인사ID*/
+			 , UNIQ_NO        /*고유번호*/
+			 , ORGN_CODE      /*기관코드*/
+			 , TEAM_CODE      /*팀코드*/
+... [TRIMMED 1 LINES] ...
+2026-09-02 08:05:46.998 INFO  [SmpmStep211001Tasklet.java:305 - execute] SmpmStep211001Tasklet log log jonmun :: {"pcicDate":"2026년 09월 01일"}
+2026-09-02 08:05:47.372 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] ---> POST https://ums-api.orange-tree.co.kr/api/v1/send/realtime HTTP/1.1
+2026-09-02 08:05:47.372 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] Content-Length: 668
+2026-09-02 08:05:47.372 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] Content-Type: application/json
+2026-09-02 08:05:47.372 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] X-From-Feign: true
+2026-09-02 08:05:47.372 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] 
+2026-09-02 08:05:47.372 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] {"clientSeq":"9a657ac6-28e6-44a3-9846-3d1c8c0fd3b5","ecareNo":247,"channel":"M","receiverId":"2241010","receiverNm":"김혜영","receiver":"2241010@hanwha.com","subject":"2026년 09월 01일자 상품비교설명확인서 징구현황 공유 건.","jonmun":"{\"pcicDate\":\"2026년 09월 01일\"}","tmplType":"J","senderNm":"한화생명금융서비스","sender":"master@mail.hanwhalifefs.com","slot1":null,"slot2":null,"slot3":null,"slot4":null,"slot5":null,"slot6":null,"slot7":null,"slot8":null,"slot9":null,"slot10":null,"customData":null,"filePath1":"/efs/shared/solution/ums/smpm/pcic/상품비교설명확인서징구현황_2026년09월01일_202609020804.xlsx"}
+2026-09-02 08:05:47.372 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] ---> END HTTP (668-byte body)
+2026-09-02 08:05:47.488 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] <--- HTTP/1.1 200  (115ms)
+2026-09-02 08:05:47.488 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] connection: keep-alive
+2026-09-02 08:05:47.488 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] content-length: 139
+2026-09-02 08:05:47.488 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] content-type: application/json;charset=UTF-8
+2026-09-02 08:05:47.488 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] date: Tue, 01 Sep 2026 23:05:47 GMT
+2026-09-02 08:05:47.488 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] 
+2026-09-02 08:05:47.488 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] {"code":"200","message":"success","data":{"clientSeq":"9a657ac6-28e6-44a3-9846-3d1c8c0fd3b5","Seq":"be8e0465-49bc-45dc-87c2-f8b77a3595f9"}}
+... [TRIMMED 1 LINES] ...
+2026-09-02 08:05:47.535 INFO  [SmpmStep211001Tasklet.java:305 - execute] SmpmStep211001Tasklet log log jonmun :: {"pcicDate":"2026년 09월 01일"}
+2026-09-02 08:05:47.548 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] ---> POST https://ums-api.orange-tree.co.kr/api/v1/send/realtime HTTP/1.1
+2026-09-02 08:05:47.548 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] Content-Length: 668
+2026-09-02 08:05:47.548 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] Content-Type: application/json
+2026-09-02 08:05:47.548 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] X-From-Feign: true
+2026-09-02 08:05:47.548 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] 
+2026-09-02 08:05:47.548 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] {"clientSeq":"02a02a94-a71f-4ce4-ac84-38cdf3cad0f4","ecareNo":247,"channel":"M","receiverId":"2241182","receiverNm":"명성열","receiver":"2241182@hanwha.com","subject":"2026년 09월 01일자 상품비교설명확인서 징구현황 공유 건.","jonmun":"{\"pcicDate\":\"2026년 09월 01일\"}","tmplType":"J","senderNm":"한화생명금융서비스","sender":"master@mail.hanwhalifefs.com","slot1":null,"slot2":null,"slot3":null,"slot4":null,"slot5":null,"slot6":null,"slot7":null,"slot8":null,"slot9":null,"slot10":null,"customData":null,"filePath1":"/efs/shared/solution/ums/smpm/pcic/상품비교설명확인서징구현황_2026년09월01일_202609020804.xlsx"}
+2026-09-02 08:05:47.548 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] ---> END HTTP (668-byte body)
+2026-09-02 08:05:47.601 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] <--- HTTP/1.1 200  (52ms)
+2026-09-02 08:05:47.601 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] connection: keep-alive
+2026-09-02 08:05:47.601 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] content-length: 139
+2026-09-02 08:05:47.601 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] content-type: application/json;charset=UTF-8
+2026-09-02 08:05:47.602 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] date: Tue, 01 Sep 2026 23:05:47 GMT
+2026-09-02 08:05:47.602 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] 
+2026-09-02 08:05:47.602 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] {"code":"200","message":"success","data":{"clientSeq":"02a02a94-a71f-4ce4-ac84-38cdf3cad0f4","Seq":"9cec73b2-671c-4a88-945b-8d2f7a4ce647"}}
+... [TRIMMED 1 LINES] ...
+2026-09-02 08:05:47.603 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"fpUniqNo":"2241193"}
+2026-09-02 08:05:47.604 INFO  [SmpmStep211001Tasklet.java:303 - execute] SmpmStep211001Tasklet log UniqNo :: 2241193
+2026-09-02 08:05:47.605 INFO  [SmpmStep211001Tasklet.java:304 - execute] SmpmStep211001Tasklet log email Adress :: eunsuk.kim@hanwha.com
+2026-09-02 08:05:47.605 INFO  [SmpmStep211001Tasklet.java:305 - execute] SmpmStep211001Tasklet log log jonmun :: {"pcicDate":"2026년 09월 01일"}
+2026-09-02 08:05:47.605 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] ---> POST https://ums-api.orange-tree.co.kr/api/v1/send/realtime HTTP/1.1
+2026-09-02 08:05:47.606 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] Content-Length: 671
+2026-09-02 08:05:47.606 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] Content-Type: application/json
+2026-09-02 08:05:47.606 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] X-From-Feign: true
+2026-09-02 08:05:47.606 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] 
+2026-09-02 08:05:47.606 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] {"clientSeq":"36e4a67d-fd57-458b-898a-f8b794c672af","ecareNo":247,"channel":"M","receiverId":"2241193","receiverNm":"김은석","receiver":"eunsuk.kim@hanwha.com","subject":"2026년 09월 01일자 상품비교설명확인서 징구현황 공유 건.","jonmun":"{\"pcicDate\":\"2026년 09월 01일\"}","tmplType":"J","senderNm":"한화생명금융서비스","sender":"master@mail.hanwhalifefs.com","slot1":null,"slot2":null,"slot3":null,"slot4":null,"slot5":null,"slot6":null,"slot7":null,"slot8":null,"slot9":null,"slot10":null,"customData":null,"filePath1":"/efs/shared/solution/ums/smpm/pcic/상품비교설명확인서징구현황_2026년09월01일_202609020804.xlsx"}
+2026-09-02 08:05:47.606 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] ---> END HTTP (671-byte body)
+2026-09-02 08:05:47.653 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] <--- HTTP/1.1 200  (46ms)
+2026-09-02 08:05:47.653 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] connection: keep-alive
+2026-09-02 08:05:47.653 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] content-length: 139
+2026-09-02 08:05:47.653 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] content-type: application/json;charset=UTF-8
+2026-09-02 08:05:47.653 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] date: Tue, 01 Sep 2026 23:05:47 GMT
+2026-09-02 08:05:47.653 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] 
+2026-09-02 08:05:47.653 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] {"code":"200","message":"success","data":{"clientSeq":"36e4a67d-fd57-458b-898a-f8b794c672af","Seq":"74e4be98-e1c9-4d24-b545-5209b5a6635f"}}
+2026-09-02 08:05:47.653 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendRealTime] <--- END HTTP (139-byte body)
+2026-09-02 08:05:47.655 INFO  [SmpmStep211001Tasklet.java:322 - execute] Emali 발송결과 -> 리턴코드 200 : 메세지 : success
+2026-09-02 08:05:47.655 INFO  [SmpmStep211001Tasklet.java:326 - execute] ### SmpmStep211001Tasklet for done. userArray : [2241010, 2241182, 2241193]
+2026-09-02 08:05:47.655 INFO  [SmpmStep211001Tasklet.java:337 - execute] ### SmpmStep211001Tasklet end 
+2026-09-02 08:05:47.738 INFO  [StaticLogListener.java:20 - afterStep] ================================================
+2026-09-02 08:05:47.739 INFO  [StaticLogListener.java:21 - afterStep]      StepName : smpmStep211001
+2026-09-02 08:05:47.739 INFO  [StaticLogListener.java:22 - afterStep]     ReadCount : 0
+2026-09-02 08:05:47.739 INFO  [StaticLogListener.java:23 - afterStep]    WriteCount : 0
+2026-09-02 08:05:47.739 INFO  [StaticLogListener.java:24 - afterStep]   CommitCount : 1
+2026-09-02 08:05:47.739 INFO  [StaticLogListener.java:25 - afterStep] RollbackCount : 0
+2026-09-02 08:05:47.739 INFO  [StaticLogListener.java:26 - afterStep] ================================================
+2026-09-02 08:05:47.745 INFO  [AbstractStep.java:273 - execute] Step: [smpmStep211001] executed in 1m10s536ms
+2026-09-02 08:05:47.787 DEBUG [SmpmJobExecutionLogListener.java:25 - afterJob] JobExecutionListener.afterJob Execution
+2026-09-02 08:05:47.787 INFO  [SmpmJobExecutionLogListener.java:27 - lambda$afterJob$0] ================================================
+2026-09-02 08:05:47.787 INFO  [SmpmJobExecutionLogListener.java:28 - lambda$afterJob$0]      StepName : smpmStep211001
+2026-09-02 08:05:47.787 INFO  [SmpmJobExecutionLogListener.java:29 - lambda$afterJob$0]     ReadCount : 0
+2026-09-02 08:05:47.787 INFO  [SmpmJobExecutionLogListener.java:30 - lambda$afterJob$0]    WriteCount : 0
+2026-09-02 08:05:47.787 INFO  [SmpmJobExecutionLogListener.java:31 - lambda$afterJob$0]   CommitCount : 1
+2026-09-02 08:05:47.787 INFO  [SmpmJobExecutionLogListener.java:32 - lambda$afterJob$0] RollbackCount : 0
+2026-09-02 08:05:47.787 INFO  [SmpmJobExecutionLogListener.java:33 - lambda$afterJob$0] ================================================
+2026-09-02 08:05:47.791 INFO  [SimpleJobLauncher.java:152 - run] Job: [SimpleJob: [name=smpmJob211]] completed with the following parameters: [{jobDate=20260901, receiverId=2241010,2241182,2241193, run.id=1, sender=master@mail.hanwhalifefs.com, ecareNo=247, senderNm=한화생명금융서비스}] and the following status: [COMPLETED] in 1m10s638ms
+2026-09-02 08:05:47.909 INFO  [EventDrivenConsumer.java:107 - logComponentSubscriptionEvent] Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2026-09-02 08:05:47.909 INFO  [AbstractSubscribableChannel.java:64 - adjustCounterIfNecessary] Channel 'batch-1.errorChannel' has 0 subscriber(s).
+2026-09-02 08:05:47.910 INFO  [AbstractEndpoint.java:193 - stop] stopped bean '_org.springframework.integration.errorLogger'
+2026-09-02 08:05:48.069 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep144001AsyncExecutor'
+2026-09-02 08:05:48.071 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep055001AsyncExecutor'
+2026-09-02 08:05:48.072 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep051001AsyncExecutor'
+2026-09-02 08:05:48.083 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep010001AsyncExecutor'
+2026-09-02 08:05:48.084 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep008001AsyncExecutor'
+2026-09-02 08:05:48.346 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201008TaskExecutor'
+2026-09-02 08:05:48.347 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201005TaskExecutor'
+2026-09-02 08:05:48.348 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201TaskExecutor'
+2026-09-02 08:05:48.923 INFO  [HikariDataSource.java:350 - close] w1neDataSource - Shutdown initiated...
+2026-09-02 08:05:48.965 INFO  [HikariDataSource.java:352 - close] w1neDataSource - Shutdown completed.
+2026-09-02 08:05:48.966 INFO  [HikariDataSource.java:350 - close] rcDataSource - Shutdown initiated...
+2026-09-02 08:05:48.994 INFO  [HikariDataSource.java:352 - close] rcDataSource - Shutdown completed.
+2026-09-02 08:05:48.994 INFO  [HikariDataSource.java:350 - close] gaDataSource - Shutdown initiated...
+2026-09-02 08:05:49.022 INFO  [HikariDataSource.java:352 - close] gaDataSource - Shutdown completed.
+2026-09-02 08:05:49.041 INFO  [HikariDataSource.java:350 - close] smDataSource - Shutdown initiated...
+2026-09-02 08:05:49.061 INFO  [HikariDataSource.java:352 - close] smDataSource - Shutdown completed.
+2026-09-02 08:05:49.269 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'taskExecutor'
+2026-09-02 08:05:51.307 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'taskScheduler'

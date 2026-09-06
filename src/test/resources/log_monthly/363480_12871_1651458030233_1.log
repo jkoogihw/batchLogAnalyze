@@ -1,0 +1,133 @@
+ip-10-237-6-165.ap-northeast-2.compute.internal
+PARAMETER=--job.name=smpmJob220 jobDate=20260902 fileDate=20260902
+No Active GA_CODE set. falling back to default GA_CODE: default
+APPLICATION_PATH=/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar
+SPRING_PROFILES_ACTIVE=main,lazyload
+PARAMETER=--job.name=smpmJob220 jobDate=20260902 fileDate=20260902
+_JAVA_OPTIONS= -Dfile.encoding=UTF-8
+Picked up _JAVA_OPTIONS:  -Dfile.encoding=UTF-8
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/logback-classic-1.2.11.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/log4j-slf4j-impl-2.13.3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [ch.qos.logback.classic.util.ContextSelectorStaticBinder]
+2026-09-02 05:15:03.069 INFO  [Version.java:21 - <clinit>] HV000001: Hibernate Validator 6.1.7.Final
+... [TRIMMED 79 LINES] ...
+2026-09-02 05:16:13.345 INFO  [SmpmStep220001Tasklet.java:60 - execute] smpmJob220001.execute
+2026-09-02 05:16:13.450 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0613.deleteByIsrnCode */
+
+    DELETE
+    FROM TB_SMPM0613
+2026-09-02 05:16:13.450 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::null
+2026-09-02 05:16:13.529 DEBUG [SmpmStep220001Tasklet.java:70 - execute] STEP2-1. 기등록 상품추천 목록 삭제하기 = 3476
+2026-09-02 05:16:13.529 DEBUG [SmpmStep220001Tasklet.java:78 - execute] STEP2-2. 기등록 상품추천 목록 등록요청 = SmpmJob220Dto(isrnCmpyCode=null, isrnCmpyNm=null, cpcpProdCode=null, saleStarDate=null, saleEndDate=null, asocIscmCode=null, asocIscmNm=null, asocProdCode=null, asocCpcpProdNm=null, asocCpcpPdgrLgcf=null, asocCpcpPdgrMdcf=null, asocCpcpJdgnDvsn=null, asocCpcpAtypDvsn=null, asocCpcpBtypDvsn=null, asocCpcpCppdUl=null, asocCpcpItrtMtho=null, asocSaleStarDate=null, asocSaleEndDate=null, asocRcmdStarDate=null, srchCpcpProdCode=null, prodId=null, hgrnIsrnCmpyNm=null, hgrnProdNm=null, cppdIsrnCmpyNm=null, cpcpProdNm=null, cpcpPdgrLgcfCode=null, cpcpPdgrLgcfYn=null, cpcpPdgrMdcfCode=null, cpcpPdgrMdcfYn=null, cpcpJdgnDvsnCode=null, cpcpJdgnDvsnYn=null, cpcpAtypDvsnCode=null, cpcpAtypDvsnYn=null, cpcpBtypDvsnCode=null, cpcpBtypDvsnYn=null, cpcpCppdUlCode=null, cpcpCppdUlYn=null, cpcpItrtMthoCode=null, cpcpItrtMthoCodeYn=null, addtAdupNmvl=null, rankNo=null, hgrnIsrnCmpyCode=null, hgrnProdId=null, cppdIsrnCmpyCode=null, cppdProdId=null, cppdPdgrLgcfCode=null, cppdPdgrMdcfCode=null, cppdPdgrSmcfCode=null, cppdProdNm=null, cortChnlDvsnVal=null, fileUrlAddr=null, rgstUserId=BATCH, rgstDttm=null, rgstPrgmId=SMPMJOB220, lastChngUserId=BATCH, lastChngDttm=null, lastChngPrgmId=SMPMJOB220)
+2026-09-02 05:16:13.728 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0613.insertProdRcmdListByTable */
+
+	/* 상비서 추천비교상품 등록 */
+	INSERT INTO TB_SMPM0613(
+		   HGRN_ISRN_CMPY_CODE
+		   , HGRN_PROD_ID
+... [TRIMMED 1 LINES] ...
+				) bb
+		    ON aa.HGRN_ISRN_CMPY_CODE = bb.HGRN_ISRN_CMPY_CODE
+		   AND aa.HGRN_PROD_ID = bb.HGRN_PROD_ID
+		   SET aa.RCMD_PSSB_ISCM_LIST_CNTN = bb.RCMD_PSSB_ISCM_LIST_CNTN
+		 WHERE aa.HGRN_ISRN_CMPY_CODE = aa.CPPD_ISRN_CMPY_CODE
+2026-09-02 05:16:18.829 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::null
+2026-09-02 05:16:18.862 DEBUG [SmpmStep220001Tasklet.java:83 - execute] STEP2-3. 기등록 상품추천 목록 등록하기 = 3476건
+2026-09-02 05:16:18.863 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0613.deleteProdRcmdHistByDate */
+
+	    DELETE
+	    FROM TB_SMPM0613L
+        WHERE CLSN_DATE = ? /* 마감일자 */
+2026-09-02 05:16:18.863 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::"20260902"
+2026-09-02 05:16:18.868 DEBUG [SmpmStep220001Tasklet.java:89 - execute] STEP2-4. 상품추천 이력 삭제하기[20260902] = 0건
+2026-09-02 05:16:18.868 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0613.insertLogProductCompareNew */
+
+        INSERT INTO TB_SMPM0613L
+                  ( CLSN_DATE
+                    , HGRN_ISRN_CMPY_CODE
+                    , HGRN_PROD_ID
+... [TRIMMED 1 LINES] ...
+	                , 'BATCH'
+	                , 'BATCH'
+	                , NOW()
+	                , 'BATCH'
+               FROM TB_SMPM0613
+2026-09-02 05:16:18.868 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::"20260902"
+2026-09-02 05:16:18.926 DEBUG [SmpmStep220001Tasklet.java:93 - execute] STEP2-5. 상품추천 이력 등록하기[20260902] = 3476건
+2026-09-02 05:16:18.961 INFO  [SmpmStep220001Tasklet.java:143 - afterStep] ==== SmpmStep220001Tasklet END ====
+2026-09-02 05:16:18.961 INFO  [StaticLogListener.java:20 - afterStep] ================================================
+2026-09-02 05:16:18.961 INFO  [StaticLogListener.java:21 - afterStep]      StepName : smpmJob220001
+2026-09-02 05:16:18.961 INFO  [StaticLogListener.java:22 - afterStep]     ReadCount : 0
+2026-09-02 05:16:18.961 INFO  [StaticLogListener.java:23 - afterStep]    WriteCount : 0
+2026-09-02 05:16:18.961 INFO  [StaticLogListener.java:24 - afterStep]   CommitCount : 1
+2026-09-02 05:16:18.961 INFO  [StaticLogListener.java:25 - afterStep] RollbackCount : 0
+2026-09-02 05:16:18.962 INFO  [StaticLogListener.java:26 - afterStep] ================================================
+2026-09-02 05:16:18.965 INFO  [AbstractStep.java:273 - execute] Step: [smpmJob220001] executed in 6s67ms
+2026-09-02 05:16:18.975 INFO  [SimpleStepHandler.java:149 - handleStep] Executing step: [smpmJob220002]
+2026-09-02 05:16:18.977 DEBUG [SmpmStep220002Config.java:92 - smpmStep220Reader] smpmStep220Reader reader defined.
+2026-09-02 05:16:18.977 DEBUG [SmpmStep220002Config.java:93 - smpmStep220Reader] smpmJob220002 Step  jobDate isEmpty. 20260902
+2026-09-02 05:16:18.978 DEBUG [SmpmStep220002Config.java:101 - smpmStep220Reader] smpmJob220002 Step JOBDATE isEmpty. 20260902
+2026-09-02 05:16:18.978 DEBUG [SmpmStep220002Config.java:103 - smpmStep220Reader] smpmStep220Reader jobParameters[jobDate]=20260902
+... [TRIMMED 1 LINES] ...
+					, IFNULL(TB2.SLCT_JOIN_DETL_RDR_NM4,'') AS SLCT_JOIN_DETL_RDR_NM4       /* 선택가입상세특약명4 */
+					, (CASE SIGN(50-LENGTH(TB2.SLCT_JOIN_BASE_RDR_NM5))
+						 WHEN -1 THEN REPLACE(SUBSTR(REGEXP_REPLACE(TB2.SLCT_JOIN_BASE_RDR_NM5, '[^[:ALNUM:][:SPACE:]]+', '') ,1,17),' ','')
+						 ELSE TB2.SLCT_JOIN_BASE_RDR_NM5
+						 END
+					) AS SLCT_JOIN_BASE_RDR_NM5                                         	/* 선택가입기본특약명5 */
+					, IFNULL(TB2.SLCT_JOIN_DETL_RDR_NM5,'') AS SLCT_JOIN_DETL_RDR_NM5       /* 선택가입상세특약명5 */
+					, IFNULL(TB2.ASOC_PROD_FTUR_CNTN,'') AS ASOC_PROD_FTUR_CNTN             /* 협회상품특징내용 */
+					, CASE CPPD_ISRN_CMPY_CODE
+							   WHEN 'L01' THEN 1
+							   WHEN 'L42' THEN 2
+							   WHEN 'L03' THEN 3
+							   ELSE  CONCAT('4', REPLACE(CPPD_ISRN_CMPY_CODE,'L',''))
+							   END ORD_SEQ
+					, IFNULL(TB2.PROD_IDNF_CODE,'') AS PROD_IDNF_CODE
+					, IFNULL(TB2.SALE_CMSN_GRAD_CODE_NM,'') AS SALE_CMSN_GRAD_CODE_NM
+					, IFNULL(TB2.SALE_CMSN_RNKG,'') AS SALE_CMSN_RNKG
+					, IFNULL(TB1.RCMD_PSSB_ISCM_LIST_CNTN,'') AS RCMD_PSSB_ISCM_LIST_CNTN
+				FROM TB_SMPM0613 TB1
+				JOIN TB_SMPM0620 TB2
+				  ON  TB1.CPPD_ISRN_CMPY_CODE = TB2.ISCM_CODE      /* 비교상품보험회사코드 */
+				  AND TB1.CPPD_PROD_ID        = TB2.CPCP_PROD_CODE /* 비교상품상품ID */
+				WHERE TB1.HGRN_ISRN_CMPY_CODE = 'L01'
+			) F
+			ORDER BY HGRN_PROD_ID , RNK
+		) G
+		WHERE RNK  <  4
+		ORDER BY HGRN_PROD_ID, ORD_SEQ
+	) aa
+2026-09-02 05:16:19.028 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"_page":0,"_pagesize":10000,"_skiprows":0}
+2026-09-02 05:16:19.419 INFO  [StaticLogListener.java:20 - afterStep] ================================================
+2026-09-02 05:16:19.419 INFO  [StaticLogListener.java:21 - afterStep]      StepName : smpmJob220002
+2026-09-02 05:16:19.419 INFO  [StaticLogListener.java:22 - afterStep]     ReadCount : 528
+2026-09-02 05:16:19.419 INFO  [StaticLogListener.java:23 - afterStep]    WriteCount : 528
+2026-09-02 05:16:19.419 INFO  [StaticLogListener.java:24 - afterStep]   CommitCount : 1
+2026-09-02 05:16:19.419 INFO  [StaticLogListener.java:25 - afterStep] RollbackCount : 0
+2026-09-02 05:16:19.419 INFO  [StaticLogListener.java:26 - afterStep] ================================================
+2026-09-02 05:16:19.420 INFO  [AbstractStep.java:273 - execute] Step: [smpmJob220002] executed in 444ms
+2026-09-02 05:16:19.453 INFO  [SimpleJobLauncher.java:152 - run] Job: [FlowJob: [name=smpmJob220]] completed with the following parameters: [{jobDate=20260902, run.id=1, fileDate=20260902}] and the following status: [COMPLETED] in 6s582ms
+2026-09-02 05:16:19.486 INFO  [EventDrivenConsumer.java:107 - logComponentSubscriptionEvent] Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2026-09-02 05:16:19.486 INFO  [AbstractSubscribableChannel.java:64 - adjustCounterIfNecessary] Channel 'batch-1.errorChannel' has 0 subscriber(s).
+2026-09-02 05:16:19.487 INFO  [AbstractEndpoint.java:193 - stop] stopped bean '_org.springframework.integration.errorLogger'
+2026-09-02 05:16:19.530 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep144001AsyncExecutor'
+2026-09-02 05:16:19.532 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep055001AsyncExecutor'
+2026-09-02 05:16:19.533 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep051001AsyncExecutor'
+2026-09-02 05:16:19.601 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep010001AsyncExecutor'
+2026-09-02 05:16:19.603 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep008001AsyncExecutor'
+2026-09-02 05:16:19.764 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201008TaskExecutor'
+2026-09-02 05:16:19.765 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201005TaskExecutor'
+2026-09-02 05:16:19.765 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201TaskExecutor'
+2026-09-02 05:16:19.952 INFO  [HikariDataSource.java:350 - close] w1neDataSource - Shutdown initiated...
+2026-09-02 05:16:19.967 INFO  [HikariDataSource.java:352 - close] w1neDataSource - Shutdown completed.
+2026-09-02 05:16:19.968 INFO  [HikariDataSource.java:350 - close] rcDataSource - Shutdown initiated...
+2026-09-02 05:16:19.981 INFO  [HikariDataSource.java:352 - close] rcDataSource - Shutdown completed.
+2026-09-02 05:16:19.981 INFO  [HikariDataSource.java:350 - close] gaDataSource - Shutdown initiated...
+2026-09-02 05:16:19.992 INFO  [HikariDataSource.java:352 - close] gaDataSource - Shutdown completed.
+2026-09-02 05:16:19.999 INFO  [HikariDataSource.java:350 - close] smDataSource - Shutdown initiated...
+2026-09-02 05:16:20.002 INFO  [HikariDataSource.java:352 - close] smDataSource - Shutdown completed.
+2026-09-02 05:16:20.522 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'taskExecutor'
+2026-09-02 05:16:22.535 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'taskScheduler'

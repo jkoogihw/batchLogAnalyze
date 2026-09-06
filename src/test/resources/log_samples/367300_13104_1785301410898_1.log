@@ -1,0 +1,75 @@
+ip-10-237-6-165.ap-northeast-2.compute.internal
+PARAMETER=--job.name=smpcJob003 allProdInit=N
+No Active GA_CODE set. falling back to default GA_CODE: default
+APPLICATION_PATH=/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar
+SPRING_PROFILES_ACTIVE=main,lazyload
+PARAMETER=--job.name=smpcJob003 allProdInit=N
+_JAVA_OPTIONS= -Dfile.encoding=UTF-8
+Picked up _JAVA_OPTIONS:  -Dfile.encoding=UTF-8
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/logback-classic-1.2.11.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/log4j-slf4j-impl-2.13.3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [ch.qos.logback.classic.util.ContextSelectorStaticBinder]
+2026-09-05 01:30:09.307 INFO  [Version.java:21 - <clinit>] HV000001: Hibernate Validator 6.1.7.Final
+... [TRIMMED 76 LINES] ...
+		GROUP BY A.PROD_ID
+	) HM ON A.PROD_ID = HM.PROD_ID
+	LEFT JOIN TB_SMPM0601H H ON H.PROD_ID = HM.PROD_ID AND H.HIST_SQNO = HM.HIST_SQNO
+	WHERE 1=1
+	AND (
+		   NOT(A.PROD_NM                     <=>   H.PROD_NM                  )
+		OR NOT(A.PROD_ABRV_NM                <=>   H.PROD_ABRV_NM             )
+		OR NOT(A.SUMM_PROD_NM                <=>   H.SUMM_PROD_NM             )
+		OR NOT(A.PROD_ISTC                   <=>   H.PROD_ISTC                )
+		OR NOT(A.SALE_STAR_DATE              <=>   H.SALE_STAR_DATE           )
+		OR NOT(A.SALE_END_DATE               <=>   H.SALE_END_DATE            )
+		OR NOT(A.PDGR_LGCF_CODE              <=>   H.PDGR_LGCF_CODE           )
+		OR NOT(A.PDGR_MDCF_CODE              <=>   H.PDGR_MDCF_CODE           )
+		OR NOT(A.PDGR_SMCF_CODE              <=>   H.PDGR_SMCF_CODE           )
+		OR NOT(A.CPCP_PROD_CODE              <=>   H.CPCP_PROD_CODE           )
+	)
+2026-09-05 01:33:14.527 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::null
+2026-09-05 01:33:14.991 INFO  [SmpcStep003001Tasklet.java:177 - execute] SmpcStep003001Tasklet.execute...END
+2026-09-05 01:33:15.053 WARN  [SmpcStep003001Tasklet.java:188 - afterStep] ## report : {
+ 1. 협회상품기준 미등록 상품 건수=33, 
+ 2. 제휴사상품코드 중복 등록 협회상품 건수=1, 
+ 3. [협회상품코드 현행화 대상 불일치 상품 건수]=0, 
+ 4. > 옵션 - 상품정보 초기화 대상 건수=, 
+ 5. > 옵션 - 상품정보 초기화 처리 건수=, 
+ 6. [협회상품코드 현행화 건수]=0, 
+ 7. 1.Items 협회상품기준 미등록 상품정보={N020000000021=LA02951, L010000000129=2126012, N020000000020=LA02934, L010000000087=2265A01, N020000000007=LA02985, N020000000029=LA02946, N020000000028=LA02948, L010000000001=2261, N020000000005=LA02993, N020000000027=LA02961, N020000000026=LA02963, N020000000003=LA02994, N020000000025=LA02955, N020000000002=LA02974, N020000000024=LA02936, N020000000001=LA02902, N020000000023=LA02922, N020000000386=LA02992001, N020000000022=LA02930, N020000000009=LA02926, N020000000008=LA02953, N020000000010=LA..., 
+ 8. 2.Items 제휴사상품코드 중복 등록 협회상품정보={L010000000042=2126A12}, 
+ 9. 3.[Items 협회상품코드 현행화 대상 불일치 상품정보]={}, 
+ 10. 4.Items 옵션 - 상품정보 초기화대상=}
+2026-09-05 01:33:15.053 INFO  [SmpcStep003001Tasklet.java:189 - afterStep] ==== SmpcStep003001Tasklet END ====
+2026-09-05 01:33:15.055 INFO  [StaticLogListener.java:20 - afterStep] ================================================
+2026-09-05 01:33:15.055 INFO  [StaticLogListener.java:21 - afterStep]      StepName : smpcStep003001
+2026-09-05 01:33:15.055 INFO  [StaticLogListener.java:22 - afterStep]     ReadCount : 0
+2026-09-05 01:33:15.055 INFO  [StaticLogListener.java:23 - afterStep]    WriteCount : 0
+2026-09-05 01:33:15.055 INFO  [StaticLogListener.java:24 - afterStep]   CommitCount : 1
+2026-09-05 01:33:15.055 INFO  [StaticLogListener.java:25 - afterStep] RollbackCount : 0
+2026-09-05 01:33:15.055 INFO  [StaticLogListener.java:26 - afterStep] ================================================
+2026-09-05 01:33:15.068 INFO  [AbstractStep.java:273 - execute] Step: [smpcStep003001] executed in 1s567ms
+2026-09-05 01:33:15.101 INFO  [SimpleJobLauncher.java:152 - run] Job: [SimpleJob: [name=smpcJob003]] completed with the following parameters: [{allProdInit=N, run.id=1}] and the following status: [COMPLETED] in 1s598ms
+2026-09-05 01:33:15.153 INFO  [EventDrivenConsumer.java:107 - logComponentSubscriptionEvent] Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2026-09-05 01:33:15.154 INFO  [AbstractSubscribableChannel.java:64 - adjustCounterIfNecessary] Channel 'batch-1.errorChannel' has 0 subscriber(s).
+2026-09-05 01:33:15.154 INFO  [AbstractEndpoint.java:193 - stop] stopped bean '_org.springframework.integration.errorLogger'
+2026-09-05 01:33:15.186 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep144001AsyncExecutor'
+2026-09-05 01:33:15.210 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep055001AsyncExecutor'
+2026-09-05 01:33:15.212 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep051001AsyncExecutor'
+2026-09-05 01:33:15.255 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep010001AsyncExecutor'
+2026-09-05 01:33:15.257 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep008001AsyncExecutor'
+2026-09-05 01:33:15.646 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201008TaskExecutor'
+2026-09-05 01:33:15.647 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201005TaskExecutor'
+2026-09-05 01:33:15.648 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201TaskExecutor'
+2026-09-05 01:33:15.986 INFO  [HikariDataSource.java:350 - close] w1neDataSource - Shutdown initiated...
+2026-09-05 01:33:16.015 INFO  [HikariDataSource.java:352 - close] w1neDataSource - Shutdown completed.
+2026-09-05 01:33:16.015 INFO  [HikariDataSource.java:350 - close] rcDataSource - Shutdown initiated...
+2026-09-05 01:33:16.036 INFO  [HikariDataSource.java:352 - close] rcDataSource - Shutdown completed.
+2026-09-05 01:33:16.037 INFO  [HikariDataSource.java:350 - close] gaDataSource - Shutdown initiated...
+2026-09-05 01:33:16.049 INFO  [HikariDataSource.java:352 - close] gaDataSource - Shutdown completed.
+2026-09-05 01:33:16.058 INFO  [HikariDataSource.java:350 - close] smDataSource - Shutdown initiated...
+2026-09-05 01:33:16.061 INFO  [HikariDataSource.java:352 - close] smDataSource - Shutdown completed.
+2026-09-05 01:33:16.133 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'taskExecutor'
+2026-09-05 01:33:18.144 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'taskScheduler'

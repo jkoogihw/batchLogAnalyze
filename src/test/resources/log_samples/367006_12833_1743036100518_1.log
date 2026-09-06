@@ -1,0 +1,224 @@
+ip-10-237-6-165.ap-northeast-2.compute.internal
+PARAMETER=--job.name=smpmJob213 -baseDate=20260904 -sendTime=153000 -reSendDay=3 -reSendCnt=2
+No Active GA_CODE set. falling back to default GA_CODE: default
+APPLICATION_PATH=/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar
+SPRING_PROFILES_ACTIVE=main,lazyload
+PARAMETER=--job.name=smpmJob213 -baseDate=20260904 -sendTime=153000 -reSendDay=3 -reSendCnt=2
+_JAVA_OPTIONS= -Dfile.encoding=UTF-8
+Picked up _JAVA_OPTIONS:  -Dfile.encoding=UTF-8
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/logback-classic-1.2.11.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/log4j-slf4j-impl-2.13.3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [ch.qos.logback.classic.util.ContextSelectorStaticBinder]
+2026-09-04 15:30:08.796 INFO  [Version.java:21 - <clinit>] HV000001: Hibernate Validator 6.1.7.Final
+... [TRIMMED 78 LINES] ...
+2026-09-04 15:33:09.159 INFO  [SmpmStep213001Tasklet.java:83 - execute] SmpmStep213001Tasklet execute 일자 : 20260904, 시간 : 153000, 발송주기: 3, 발송가능회수 : 2
+2026-09-04 15:33:09.657 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0626.deletePcic */
+
+		UPDATE TB_SMPM0626 A
+		SET
+			A.DLTN_YN = 'Y'
+			, A.PCIC_SEND_SQNO = 99
+... [TRIMMED 1 LINES] ...
+		(
+			 
+		SELECT
+			Z.POLY_NO
+			, Z.ISRN_CMPY_CODE
+			, Z.CNTC_DATE
+			, Z.PCIC_BLNG_YN /*상품비교설명확인서 대상여부*/
+			, CASE WHEN Z.PCIC_BLNG_YN = 'N' THEN 'X' 									/* X, 비대상(징구제외대상)*/
+				  WHEN Z.PCIC_BLNG_YN = 'Y' AND Z.ATCM_FILE_ID IS NOT NULL THEN 'Y' 	/* Y, 첨부파일 등록*/
+				  ELSE 'N' 																/* N, 첨부파일 미등록*/
+			      END AS PCIC_ATCM_YN /*상품비교설명확인서 등록여부*/						/* Z(계약없음)*/
+			, CASE WHEN Z.PCIC_BLNG_YN = 'N' THEN 'X' 																							/* X, 비대상(징구제외대상)*/
+				  WHEN Z.PCIC_BLNG_YN = 'Y' AND Z.ATCM_FILE_ID IS NOT NULL AND Z.APPN_MTHD_CODE = '01' THEN 'N' 								/* N, 비대상(전자징구), 전자*/
+				  WHEN Z.PCIC_BLNG_YN = 'Y' AND Z.ATCM_FILE_ID IS NOT NULL AND (Z.APPN_MTHD_CODE = '02' OR Z.APPN_MTHD_CODE = '03') THEN 'Y'    /* Y, 편철대상, 종이*/
+				  ELSE 'Z' 																														/* Z, 알수없음, 대상이지만 첨부파일 없어서 미정*/
+			      END AS PCIC_REF_YN /*상품비교설명확인서 편철대상, 징구유형*/
+			, Z.RCRT_FP_UNIQ_NO
+			, Z.RCRT_FP_NM
+			, Z.RCRT_FP_ORGN_CODE
+			, Z.RCRT_FP_ORGN_NM
+			, Z.RCRT_FP_OGZT_CODE
+			, Z.POLR_NM
+... [TRIMMED 1 LINES] ...
+						AND TE.PDGR_LGCF_CODE IN ('LA','LB','NL','CA') 		/*대분류가 보장성, 연금저축, 장기, 자동차인건 대상에 해당*/
+						AND TE.RCRT_FP_UNIQ_NO != 'TRANSFER' 				/*모집FP고유번호가 TRANSFER이면 수금이관건이므로 TRANSFER가 아닌건이 대상에 해당*/
+						AND TE3.PROD_CMPR_TRGT_YN = 'Y'						/*상품이 비교대상인 건*/
+						AND (TE5.POLY_NO IS NULL OR TE5.PCIC_BLNG_EXLS_RESN_CODE = '00') 							/*상품비교확인서 대상제외 테이블에 없거나 오류로 제외테이블 존재하지만 코드가 00인것 대상에 해당*/
+						AND !(TE.PDGR_LGCF_CODE IN ('CA') AND (TE.CNTC_DATE BETWEEN '2022-06-01' AND '2023-06-30')) /*대분류가 자동차이고 계약일자가 20220601~20230630 사이이면 대상건 제외*/
+					    )THEN 'Y' ELSE 'N' END AS PCIC_BLNG_YN 														/*비교안내확인서 대상여부*/
+				 , CASE WHEN TE5.POLY_NO IS NOT NULL OR TE5.PCIC_BLNG_EXLS_RESN_CODE != '00' THEN 'Y' ELSE 'Z' END AS PCIC_DRCT_EXLS_YN /*상품비교설명확인서 직접 징구제외 여부*/
+				, S2.ATCM_FILE_ID
+				, S2.APPN_MTHD_CODE
+			FROM TB_SMPM0101 TE
+			LEFT JOIN TB_SMHO1002 TH1
+				ON TH1.ISRN_CMPY_CODE = TE.ISRN_CMPY_CODE
+				AND TH1.CPCP_FP_UNIQ_NO = TE.CPCP_RCRT_FP_UNIQ_NO
+... [TRIMMED 1 LINES] ...
+		LEFT JOIN (
+			 
+		SELECT
+			Z.POLY_NO
+			, Z.ISRN_CMPY_CODE
+			, Z.CNTC_DATE
+			, Z.PCIC_BLNG_YN /*상품비교설명확인서 대상여부*/
+			, CASE WHEN Z.PCIC_BLNG_YN = 'N' THEN 'X' 									/* X, 비대상(징구제외대상)*/
+				  WHEN Z.PCIC_BLNG_YN = 'Y' AND Z.ATCM_FILE_ID IS NOT NULL THEN 'Y' 	/* Y, 첨부파일 등록*/
+				  ELSE 'N' 																/* N, 첨부파일 미등록*/
+			      END AS PCIC_ATCM_YN /*상품비교설명확인서 등록여부*/						/* Z(계약없음)*/
+			, CASE WHEN Z.PCIC_BLNG_YN = 'N' THEN 'X' 																							/* X, 비대상(징구제외대상)*/
+				  WHEN Z.PCIC_BLNG_YN = 'Y' AND Z.ATCM_FILE_ID IS NOT NULL AND Z.APPN_MTHD_CODE = '01' THEN 'N' 								/* N, 비대상(전자징구), 전자*/
+				  WHEN Z.PCIC_BLNG_YN = 'Y' AND Z.ATCM_FILE_ID IS NOT NULL AND (Z.APPN_MTHD_CODE = '02' OR Z.APPN_MTHD_CODE = '03') THEN 'Y'    /* Y, 편철대상, 종이*/
+				  ELSE 'Z' 																														/* Z, 알수없음, 대상이지만 첨부파일 없어서 미정*/
+			      END AS PCIC_REF_YN /*상품비교설명확인서 편철대상, 징구유형*/
+			, Z.RCRT_FP_UNIQ_NO
+			, Z.RCRT_FP_NM
+			, Z.RCRT_FP_ORGN_CODE
+			, Z.RCRT_FP_ORGN_NM
+			, Z.RCRT_FP_OGZT_CODE
+			, Z.POLR_NM
+... [TRIMMED 1 LINES] ...
+						AND TE.PDGR_LGCF_CODE IN ('LA','LB','NL','CA') 		/*대분류가 보장성, 연금저축, 장기, 자동차인건 대상에 해당*/
+						AND TE.RCRT_FP_UNIQ_NO != 'TRANSFER' 				/*모집FP고유번호가 TRANSFER이면 수금이관건이므로 TRANSFER가 아닌건이 대상에 해당*/
+						AND TE3.PROD_CMPR_TRGT_YN = 'Y'						/*상품이 비교대상인 건*/
+						AND (TE5.POLY_NO IS NULL OR TE5.PCIC_BLNG_EXLS_RESN_CODE = '00') 							/*상품비교확인서 대상제외 테이블에 없거나 오류로 제외테이블 존재하지만 코드가 00인것 대상에 해당*/
+						AND !(TE.PDGR_LGCF_CODE IN ('CA') AND (TE.CNTC_DATE BETWEEN '2022-06-01' AND '2023-06-30')) /*대분류가 자동차이고 계약일자가 20220601~20230630 사이이면 대상건 제외*/
+					    )THEN 'Y' ELSE 'N' END AS PCIC_BLNG_YN 														/*비교안내확인서 대상여부*/
+				 , CASE WHEN TE5.POLY_NO IS NOT NULL OR TE5.PCIC_BLNG_EXLS_RESN_CODE != '00' THEN 'Y' ELSE 'Z' END AS PCIC_DRCT_EXLS_YN /*상품비교설명확인서 직접 징구제외 여부*/
+				, S2.ATCM_FILE_ID
+				, S2.APPN_MTHD_CODE
+			FROM TB_SMPM0101 TE
+			LEFT JOIN TB_SMHO1002 TH1
+				ON TH1.ISRN_CMPY_CODE = TE.ISRN_CMPY_CODE
+				AND TH1.CPCP_FP_UNIQ_NO = TE.CPCP_RCRT_FP_UNIQ_NO
+... [TRIMMED 1 LINES] ...
+2026-09-04 15:33:19.257 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"baseDate":"20260904","reSendCnt":"2","reSendDay":"3","sendTime":"153000"}
+2026-09-04 15:33:21.894 INFO  [SmpmStep213001Tasklet.java:115 - execute] 
+===============================================================
+SmpmStep213001Tasklet 비정상 종료 삭제 건수 : 0건.
+===============================================================
+===============================================================
+SmpmStep213001Tasklet 상품비교설명확인서 미징구 건수 : 4562건.
+===============================================================
+===============================================================
+SmpmStep213001Tasklet 상품비교설명확인서 첨부여부 상태변경 건수 : 544건.
+===============================================================
+2026-09-04 15:33:21.947 INFO  [AbstractStep.java:273 - execute] Step: [smpmJob213001] executed in 13s919ms
+2026-09-04 15:33:21.956 INFO  [SimpleStepHandler.java:149 - handleStep] Executing step: [smpmJob213002]
+2026-09-04 15:33:21.981 INFO  [SmpmStep213002Tasklet.java:88 - execute] SmpmStep213002Tasklet execute...
+2026-09-04 15:33:21.982 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0626.insertPcicSendList */
+
+		INSERT INTO TB_SMPM0626
+		(
+		    PCIC_SEND_UUID
+		    , ISRN_CMPY_CODE
+... [TRIMMED 1 LINES] ...
+		AND A.PCIC_ATCM_YN = 'N' /*Y,N,X(비대상),Z(계약없음)*/
+		AND A.NTC_SEND_CONT  <  ?
+		AND (A.RCNT_SEND_DTTM IS NULL OR DATE_FORMAT(A.RCNT_SEND_DTTM, '%Y%m%d')  <=  DATE_SUB(STR_TO_DATE(?, '%Y%m%d'), INTERVAL ? DAY))
+2026-09-04 15:33:21.982 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"baseDate":"20260904","reSendCnt":"2","reSendDay":"3","sendTime":"153000"}
+2026-09-04 15:33:22.120 INFO  [SmpmStep213002Tasklet.java:107 - execute] 
+===============================================================
+SmpmStep213002Tasklet 상품비교설명확인서 미징구 알림발송 대상 474건.
+===============================================================
+2026-09-04 15:33:22.151 INFO  [AbstractStep.java:273 - execute] Step: [smpmJob213002] executed in 195ms
+2026-09-04 15:33:22.157 INFO  [SimpleStepHandler.java:149 - handleStep] Executing step: [smpmJob213003]
+2026-09-04 15:33:22.159 INFO  [SmpmStep213003Config.java:106 - smpmJob213003FileWriter] smpmJob213003FileWriter reader defined.
+2026-09-04 15:33:22.159 INFO  [SmpmStep213003Config.java:124 - smpmJob213003FileWriter] smpmJob213003FileWriter baseDate : 20260904, sendTime : 153000, reSendDay : 3, reSendCnt : 2 
+2026-09-04 15:33:22.196 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0626.selectPcicSendList */
+... [TRIMMED 1 LINES] ...
+		AND A.NTTK_SEND_YN = 'N' 				-- 발송완료 N상태
+		AND A.PCIC_SEND_SQNO = 0 				-- 발송일련번호 부여전 == 발송전
+		LIMIT ?, ?
+2026-09-04 15:33:22.196 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"pcicSendSqno":"0","_page":0,"_pagesize":1000,"nttkSendYn":"N","_skiprows":0}
+2026-09-04 15:33:22.561 INFO  [AbstractStep.java:273 - execute] Step: [smpmJob213003] executed in 404ms
+2026-09-04 15:33:22.595 INFO  [SimpleStepHandler.java:149 - handleStep] Executing step: [smpmJob213004]
+2026-09-04 15:33:22.605 INFO  [SmpmStep213004Tasklet.java:67 - execute] SmpmStep213004Tasklet execute...
+2026-09-04 15:33:22.606 INFO  [SmpmStep213004Tasklet.java:92 - execute] SmpmStep213004Tasklet smsDataCount : 474
+2026-09-04 15:33:22.606 DEBUG [SmpmStep213004Tasklet.java:95 - execute] SmpmStep213004Tasklet file path : /efs/shared/solution/ums/batch/gas_smpm_pcic_no_blng_20260904153000.dat
+2026-09-04 15:33:22.785 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] ---> POST https://ums-api.orange-tree.co.kr/api/v1/send/batch HTTP/1.1
+2026-09-04 15:33:22.785 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] Content-Length: 181
+2026-09-04 15:33:22.785 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] Content-Type: application/json
+2026-09-04 15:33:22.785 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] X-From-Feign: true
+2026-09-04 15:33:22.785 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] 
+2026-09-04 15:33:22.785 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] {"batchSeq":"BATCHSMPM_PCIC_NO_BLNG_20260904153000_20260904153322","ecareNo":281,"filePath":"/efs/shared/solution/ums/batch/gas_smpm_pcic_no_blng_20260904153000.dat","datCnt":"474"}
+2026-09-04 15:33:22.785 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] ---> END HTTP (181-byte body)
+2026-09-04 15:33:22.920 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] <--- HTTP/1.1 200  (134ms)
+2026-09-04 15:33:22.920 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] connection: keep-alive
+2026-09-04 15:33:22.920 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] content-length: 109
+2026-09-04 15:33:22.921 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] content-type: application/json;charset=UTF-8
+2026-09-04 15:33:22.921 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] date: Fri, 04 Sep 2026 06:33:22 GMT
+2026-09-04 15:33:22.921 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] 
+2026-09-04 15:33:22.921 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] {"code":"200","message":"success","data":{"BatchSeq":"BATCHSMPM_PCIC_NO_BLNG_20260904153000_20260904153322"}}
+2026-09-04 15:33:22.921 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] <--- END HTTP (109-byte body)
+2026-09-04 15:33:22.952 INFO  [SmpmStep213004Tasklet.java:129 - execute] UMS 발송결과 -> 리턴코드 200 : 메세지 : success
+2026-09-04 15:33:22.953 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMPM0626.updatePcicSendFailed */
+
+		UPDATE TB_SMPM0626 A
+		LEFT JOIN (
+			SELECT
+				A.PCIC_SEND_UUID
+... [TRIMMED 1 LINES] ...
+				LEFT JOIN TB_SMHO1001 Z
+				ON X.RCRT_FP_UNIQ_NO = Z.UNIQ_NO
+				WHERE 1=1
+				AND X.DLTN_YN = 'N'
+				AND X.NTTK_SEND_YN = 'N'
+				AND X.PCIC_SEND_SQNO = 0
+			) B
+			ON A.ISRN_CMPY_CODE = B.ISRN_CMPY_CODE
+			AND A.POLY_NO = B.POLY_NO
+			WHERE A.DLTN_YN = 'N'
+			AND A.NTTK_SEND_YN IN ('Y','N') 	-- NTTK_SEND_YN(X)발송실패한것은 카운트에서 제외
+			GROUP BY A.POLY_NO, A.ISRN_CMPY_CODE
+		)T1
+			ON A.POLY_NO = T1.POLY_NO
+			AND A.ISRN_CMPY_CODE = T1.ISRN_CMPY_CODE
+		SET
+			A.PCIC_SEND_SQNO = T1.LAST_SQNO
+			, A.NTC_SEND_DTTM = T1.RCNT_SEND_DTTM
+			, A.NTTK_SEND_YN = 'Y'
+			, A.LAST_CHNG_USER_ID = 'pm213004Tasklet'
+			, A.LAST_CHNG_DTTM = NOW()
+			, A.LAST_CHNG_PRGM_ID = 'pm213004Tasklet_sqno'
+		WHERE 1=1
+		AND A.DLTN_YN = 'N'
+		AND A.NTTK_SEND_YN = 'N'
+		AND A.PCIC_SEND_SQNO = 0
+2026-09-04 15:33:28.696 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"baseDate":"20260904","reSendCnt":"2","reSendDay":"3","sendTime":"153000"}
+2026-09-04 15:33:29.407 INFO  [SmpmStep213004Tasklet.java:153 - execute] 
+===============================================================
+SmpmStep213004Tasklet상품비교설명확인서 발송실패건 업데이트 0건.
+===============================================================
+===============================================================
+SmpmStep213004Tasklet 상품비교설명확인서 발송성공건 info 업데이트474건.
+===============================================================
+===============================================================
+SmpmStep213004Tasklet 상품비교설명확인서 발송성공건 일련번호 부여 474건.
+===============================================================
+2026-09-04 15:33:29.434 INFO  [AbstractStep.java:273 - execute] Step: [smpmJob213004] executed in 6s839ms
+2026-09-04 15:33:29.448 INFO  [SimpleJobLauncher.java:152 - run] Job: [FlowJob: [name=smpmJob213]] completed with the following parameters: [{reSendDay=3, baseDate=20260904, run.id=1, reSendCnt=2, sendTime=153000}] and the following status: [COMPLETED] in 21s510ms
+2026-09-04 15:33:29.552 INFO  [EventDrivenConsumer.java:107 - logComponentSubscriptionEvent] Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2026-09-04 15:33:29.552 INFO  [AbstractSubscribableChannel.java:64 - adjustCounterIfNecessary] Channel 'batch-1.errorChannel' has 0 subscriber(s).
+2026-09-04 15:33:29.552 INFO  [AbstractEndpoint.java:193 - stop] stopped bean '_org.springframework.integration.errorLogger'
+2026-09-04 15:33:29.578 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep144001AsyncExecutor'
+2026-09-04 15:33:29.591 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep055001AsyncExecutor'
+2026-09-04 15:33:29.595 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep051001AsyncExecutor'
+2026-09-04 15:33:29.631 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep010001AsyncExecutor'
+2026-09-04 15:33:29.634 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep008001AsyncExecutor'
+2026-09-04 15:33:30.298 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201008TaskExecutor'
+2026-09-04 15:33:30.299 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201005TaskExecutor'
+2026-09-04 15:33:30.300 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201TaskExecutor'
+2026-09-04 15:33:30.872 INFO  [HikariDataSource.java:350 - close] w1neDataSource - Shutdown initiated...
+2026-09-04 15:33:30.907 INFO  [HikariDataSource.java:352 - close] w1neDataSource - Shutdown completed.
+2026-09-04 15:33:30.908 INFO  [HikariDataSource.java:350 - close] rcDataSource - Shutdown initiated...
+2026-09-04 15:33:30.942 INFO  [HikariDataSource.java:352 - close] rcDataSource - Shutdown completed.
+2026-09-04 15:33:30.942 INFO  [HikariDataSource.java:350 - close] gaDataSource - Shutdown initiated...
+2026-09-04 15:33:30.973 INFO  [HikariDataSource.java:352 - close] gaDataSource - Shutdown completed.
+2026-09-04 15:33:30.990 INFO  [HikariDataSource.java:350 - close] smDataSource - Shutdown initiated...
+2026-09-04 15:33:31.031 INFO  [HikariDataSource.java:352 - close] smDataSource - Shutdown completed.
+2026-09-04 15:33:31.230 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'taskExecutor'
+2026-09-04 15:33:33.269 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'taskScheduler'

@@ -1,0 +1,222 @@
+ip-10-237-6-119.ap-northeast-2.compute.internal
+PARAMETER=--job.name=smrmJob102 baseDate=20260901110000
+No Active GA_CODE set. falling back to default GA_CODE: default
+APPLICATION_PATH=/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar
+SPRING_PROFILES_ACTIVE=main,lazyload
+PARAMETER=--job.name=smrmJob102 baseDate=20260901110000
+_JAVA_OPTIONS= -Dfile.encoding=UTF-8
+Picked up _JAVA_OPTIONS:  -Dfile.encoding=UTF-8
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/logback-classic-1.2.11.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/log4j-slf4j-impl-2.13.3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [ch.qos.logback.classic.util.ContextSelectorStaticBinder]
+2026-09-01 11:00:02.673 INFO  [Version.java:21 - <clinit>] HV000001: Hibernate Validator 6.1.7.Final
+... [TRIMMED 73 LINES] ...
+2026-09-01 11:00:54.523 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.findBsnsDayYn */
+
+        SELECT BSNS_DAY_YN
+        FROM TB_SMCO1801
+        WHERE BSNS_DATE = ?
+        AND DLTN_YN = 'N'
+2026-09-01 11:00:54.523 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::"20260901"
+2026-09-01 11:00:54.551 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSMSTargetNotInfoSendStatus */
+
+		WITH RDATA AS (
+			SELECT
+				   IMSM_SEND_HIST_UUID
+			         , IMSM_SEND_CTNB
+			    	 , SMS_SEND_DTTM
+... [TRIMMED 1 LINES] ...
+					 inner join tb_smho1001 HO
+					    on C.RCRT_FP_UNIQ_NO = HO.UNIQ_NO
+				     where H.SMS_SEND_PRGS_STTS_CODE = ?
+				 ) TT
+				 WHERE CR_POLR_TLNO IS NULL
+			)
+			UPDATE TB_SMRM1010
+			   SET IMSM_PRGS_STTS_CODE = '93'
+				 , MEMO_CNTN = '계약자정보가 없는 경우'
+ 				 , LAST_CHNG_USER_ID = 'Batch'
+      			 , LAST_CHNG_DTTM = now()
+      			 , LAST_CHNG_PRGM_ID = ?
+			WHERE IMSM_MGMT_UUID IN (SELECT IMSM_MGMT_UUID FROM RDATA)
+2026-09-01 11:00:54.551 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"toStatusCode":"10","fromStatusCode":"00","lastChngPrgmId":"SmrmJob102001Tasklet"}
+2026-09-01 11:01:25.019 INFO  [SmrmJob102001Tasklet.java:61 - execute] ==============================================불완전판매 SMS 발송불가 상태로 전환된 건 
+- TB_SMRM1010 : 0 건.
+2026-09-01 11:01:25.039 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.updateSmsSendProgressStatusCode */
+
+    WITH RDATA AS (
+		SELECT
+			   IMSM_SEND_HIST_UUID
+		         , IMSM_SEND_CTNB
+		    	 , SMS_SEND_DTTM
+... [TRIMMED 1 LINES] ...
+				 inner join tb_smho1001 HO
+				    on C.RCRT_FP_UNIQ_NO = HO.UNIQ_NO
+			     where H.SMS_SEND_PRGS_STTS_CODE = ?
+			 ) TT
+			 WHERE CR_POLR_TLNO IS NOT NULL
+		)
+    UPDATE TB_SMRM1011
+       SET SMS_SEND_PRGS_STTS_CODE = ?
+     
+      , LAST_CHNG_USER_ID = 'Batch'
+      , LAST_CHNG_DTTM = now()
+      , LAST_CHNG_PRGM_ID = ?
+     WHERE IMSM_SEND_HIST_UUID IN (SELECT IMSM_SEND_HIST_UUID FROM RDATA)
+2026-09-01 11:01:25.039 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"toStatusCode":"10","fromStatusCode":"00","lastChngPrgmId":"SmrmJob102001Tasklet"}
+2026-09-01 11:01:38.680 INFO  [SmrmJob102001Tasklet.java:73 - execute] ==============================================불완전판매 SMS 발송 파일생성중 상태로 전환된 건 
+- TB_SMRM1011 : 3265 건.
+2026-09-01 11:01:38.690 INFO  [AbstractStep.java:273 - execute] Step: [smrmJob102001] executed in 44s410ms
+2026-09-01 11:01:38.699 INFO  [SimpleStepHandler.java:149 - handleStep] Executing step: [smrmJob102002]
+2026-09-01 11:01:38.701 INFO  [SmrmStep102002Config.java:106 - smrmJob102002FileWriter] smrmJob102002FileWriter reader defined.
+2026-09-01 11:01:38.733 INFO  [HikariDataSource.java:110 - getConnection] gaDataSource - Starting...
+2026-09-01 11:01:38.746 INFO  [HikariDataSource.java:123 - getConnection] gaDataSource - Start completed.
+2026-09-01 11:01:38.747 INFO  [HikariDataSource.java:110 - getConnection] rcDataSource - Starting...
+2026-09-01 11:01:38.762 INFO  [HikariDataSource.java:123 - getConnection] rcDataSource - Start completed.
+2026-09-01 11:01:38.763 INFO  [HikariDataSource.java:110 - getConnection] w1neDataSource - Starting...
+2026-09-01 11:01:38.777 INFO  [HikariDataSource.java:123 - getConnection] w1neDataSource - Start completed.
+2026-09-01 11:01:38.781 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.selectSpecifiedStatusList */
+
+   	SELECT
+	   IMSM_SEND_HIST_UUID
+         , IMSM_SEND_CTNB
+    	 , SMS_SEND_DTTM
+    	 , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+2026-09-01 11:01:52.458 INFO  [SmrmStep102002Processor.java:124 - process] 불판 SMS 고객 정보 995 : [{"fpName":"엄진옥","custName":"엄진옥"}]
+2026-09-01 11:01:52.458 INFO  [SmrmStep102002Processor.java:124 - process] 불판 SMS 고객 정보 996 : [{"fpName":"이혜선","custName":"문경달"}]
+2026-09-01 11:01:52.459 INFO  [SmrmStep102002Processor.java:124 - process] 불판 SMS 고객 정보 997 : [{"fpName":"최정란","custName":"최정란"}]
+2026-09-01 11:01:52.459 INFO  [SmrmStep102002Processor.java:124 - process] 불판 SMS 고객 정보 998 : [{"fpName":"황선영","custName":"황민혜"}]
+2026-09-01 11:01:52.459 INFO  [SmrmStep102002Processor.java:124 - process] 불판 SMS 고객 정보 999 : [{"fpName":"박찬임","custName":"전종수"}]
+2026-09-01 11:01:52.459 INFO  [SmrmStep102002Processor.java:124 - process] 불판 SMS 고객 정보 1000 : [{"fpName":"김화숙","custName":"김화숙"}]
+2026-09-01 11:01:52.497 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.selectSpecifiedStatusList */
+
+   	SELECT
+	   IMSM_SEND_HIST_UUID
+         , IMSM_SEND_CTNB
+    	 , SMS_SEND_DTTM
+    	 , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+2026-09-01 11:02:05.514 INFO  [SmrmStep102002Processor.java:124 - process] 불판 SMS 고객 정보 1995 : [{"fpName":"최윤서","custName":"이진희"}]
+2026-09-01 11:02:05.514 INFO  [SmrmStep102002Processor.java:124 - process] 불판 SMS 고객 정보 1996 : [{"fpName":"장경미","custName":"배미자"}]
+2026-09-01 11:02:05.514 INFO  [SmrmStep102002Processor.java:124 - process] 불판 SMS 고객 정보 1997 : [{"fpName":"안혜홍","custName":"LIN HAIRI"}]
+2026-09-01 11:02:05.515 INFO  [SmrmStep102002Processor.java:124 - process] 불판 SMS 고객 정보 1998 : [{"fpName":"박시연","custName":"김성현"}]
+2026-09-01 11:02:05.515 INFO  [SmrmStep102002Processor.java:124 - process] 불판 SMS 고객 정보 1999 : [{"fpName":"이성자","custName":"이영숙"}]
+2026-09-01 11:02:05.515 INFO  [SmrmStep102002Processor.java:124 - process] 불판 SMS 고객 정보 2000 : [{"fpName":"이옥자","custName":"이민영"}]
+2026-09-01 11:02:05.533 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.selectSpecifiedStatusList */
+
+   	SELECT
+	   IMSM_SEND_HIST_UUID
+         , IMSM_SEND_CTNB
+    	 , SMS_SEND_DTTM
+    	 , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+2026-09-01 11:02:19.531 INFO  [SmrmStep102002Processor.java:124 - process] 불판 SMS 고객 정보 2995 : [{"fpName":"이진경","custName":"이상복"}]
+2026-09-01 11:02:19.531 INFO  [SmrmStep102002Processor.java:124 - process] 불판 SMS 고객 정보 2996 : [{"fpName":"최영신","custName":"신선경"}]
+2026-09-01 11:02:19.531 INFO  [SmrmStep102002Processor.java:124 - process] 불판 SMS 고객 정보 2997 : [{"fpName":"노혜진","custName":"정인주"}]
+2026-09-01 11:02:19.531 INFO  [SmrmStep102002Processor.java:124 - process] 불판 SMS 고객 정보 2998 : [{"fpName":"손정아","custName":"손정아"}]
+2026-09-01 11:02:19.531 INFO  [SmrmStep102002Processor.java:124 - process] 불판 SMS 고객 정보 2999 : [{"fpName":"이선주","custName":"이선주"}]
+2026-09-01 11:02:19.531 INFO  [SmrmStep102002Processor.java:124 - process] 불판 SMS 고객 정보 3000 : [{"fpName":"윤미경","custName":"윤미경"}]
+2026-09-01 11:02:19.548 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.selectSpecifiedStatusList */
+
+   	SELECT
+	   IMSM_SEND_HIST_UUID
+         , IMSM_SEND_CTNB
+    	 , SMS_SEND_DTTM
+    	 , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+2026-09-01 11:02:33.736 INFO  [SmrmStep102002Processor.java:124 - process] 불판 SMS 고객 정보 3262 : [{"fpName":"민경신","custName":"장규현"}]
+2026-09-01 11:02:33.736 INFO  [SmrmStep102002Processor.java:124 - process] 불판 SMS 고객 정보 3263 : [{"fpName":"변경미","custName":"장두실"}]
+2026-09-01 11:02:33.736 INFO  [SmrmStep102002Processor.java:124 - process] 불판 SMS 고객 정보 3264 : [{"fpName":"이은주","custName":"김한수"}]
+2026-09-01 11:02:33.736 INFO  [SmrmStep102002Processor.java:124 - process] 불판 SMS 고객 정보 3265 : [{"fpName":"박지영","custName":"이봉희"}]
+2026-09-01 11:02:33.746 INFO  [AbstractStep.java:273 - execute] Step: [smrmJob102002] executed in 55s47ms
+2026-09-01 11:02:33.766 INFO  [SimpleStepHandler.java:149 - handleStep] Executing step: [smrmJob102003]
+2026-09-01 11:02:33.772 INFO  [SmrmJob102003Tasklet.java:56 - execute] SmrmJob102003Tasklet execute...
+2026-09-01 11:02:33.772 INFO  [SmrmJob102003Tasklet.java:68 - execute] >>>>smsDataCount : {}
+2026-09-01 11:02:33.772 DEBUG [SmrmJob102003Tasklet.java:71 - execute] >>>>#1 file path : /efs/shared/solution/ums/batch/gas_smrm_sms_fp_20260901110000.dat
+2026-09-01 11:02:33.928 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] ---> POST https://ums-api.orange-tree.co.kr/api/v1/send/batch HTTP/1.1
+2026-09-01 11:02:33.928 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] Content-Length: 147
+2026-09-01 11:02:33.928 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] Content-Type: application/json
+2026-09-01 11:02:33.928 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] X-From-Feign: true
+2026-09-01 11:02:33.928 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] 
+2026-09-01 11:02:33.928 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] {"batchSeq":"BATCHSMRMF20260901110000","ecareNo":45,"filePath":"/efs/shared/solution/ums/batch/gas_smrm_sms_fp_20260901110000.dat","datCnt":"3265"}
+2026-09-01 11:02:33.928 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] ---> END HTTP (147-byte body)
+2026-09-01 11:02:34.004 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] <--- HTTP/1.1 200  (75ms)
+2026-09-01 11:02:34.004 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] connection: keep-alive
+2026-09-01 11:02:34.004 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] content-length: 81
+2026-09-01 11:02:34.004 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] content-type: application/json;charset=UTF-8
+2026-09-01 11:02:34.004 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] date: Tue, 01 Sep 2026 02:02:34 GMT
+2026-09-01 11:02:34.004 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] 
+2026-09-01 11:02:34.004 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] {"code":"200","message":"success","data":{"BatchSeq":"BATCHSMRMF20260901110000"}}
+2026-09-01 11:02:34.004 DEBUG [Slf4jLogger.java:72 - log] [JobUmsFeign#sendBatch] <--- END HTTP (81-byte body)
+2026-09-01 11:02:34.015 INFO  [SmrmJob102003Tasklet.java:95 - execute] UMS 발송결과 -> 리턴코드 200 : 메세지 : success
+2026-09-01 11:02:34.016 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.updateSmsSendProgressStatusCode */
+
+    WITH RDATA AS (
+		SELECT
+			   IMSM_SEND_HIST_UUID
+		         , IMSM_SEND_CTNB
+		    	 , SMS_SEND_DTTM
+... [TRIMMED 1 LINES] ...
+			                      AND C2.CUST_ID IS NOT NULL
+				             ) D
+				             LIMIT 1
+			          ) AS CR_POLR_TLNO
+					 , I.IMSM_CNFM_RSLT_CODE AS IMSM_CNFM_RSLT_CODE
+					 , I.IMSM_CUST_CNFM_DATE AS IMSM_CUST_CNFM_DATE
+					 , I.SELF_CTFN_DTTM AS SELF_CTFN_DTTM
+					 , I.IMSM_LAST_LTRS_SEND_CTNB AS IMSM_LAST_LTRS_SEND_CTNB
+					 , C.RCRT_FP_NM AS RCRT_FP_NM
+					 , C.POLR_NM AS POLR_NAME
+					 , C.PROD_NM AS PROD_NM
+					 , C.SUM_PREM AS SUM_PREM
+					 , HO.HPNO AS RCRT_FP_TLNO
+			      from tb_smrm1011 H
+				 inner join tb_smrm1012 M
+				    on H.IMSM_SEND_HIST_UUID = M.IMSM_SEND_HIST_UUID
+				 inner join tb_smrm1010 I
+				    on M.IMSM_MGMT_UUID = I.IMSM_MGMT_UUID
+				 inner join tb_smpm0101 C
+				    on I.POLY_NO = C.POLY_NO
+				   and I.ISRN_CMPY_CODE = C.ISRN_CMPY_CODE
+				 inner join tb_smho1001 HO
+				    on C.RCRT_FP_UNIQ_NO = HO.UNIQ_NO
+			     where H.SMS_SEND_PRGS_STTS_CODE = ?
+			 ) TT
+			 WHERE CR_POLR_TLNO IS NOT NULL
+		)
+    UPDATE TB_SMRM1011
+       SET SMS_SEND_PRGS_STTS_CODE = ?
+     
+      , LAST_CHNG_USER_ID = 'Batch'
+      , LAST_CHNG_DTTM = now()
+      , LAST_CHNG_PRGM_ID = ?
+     WHERE IMSM_SEND_HIST_UUID IN (SELECT IMSM_SEND_HIST_UUID FROM RDATA)
+2026-09-01 11:02:34.016 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"toStatusCode":"20","fromStatusCode":"10","lastChngPrgmId":"SmrmJob102003Tasklet"}
+2026-09-01 11:02:46.536 INFO  [SmrmJob102003Tasklet.java:115 - execute] ==============================================불완전판매 SMS FP 발송 완료 건 
+- TB_SMRM1011 : 3265 건.
+2026-09-01 11:02:46.557 INFO  [AbstractStep.java:273 - execute] Step: [smrmJob102003] executed in 12s791ms
+2026-09-01 11:02:46.561 INFO  [SimpleJobLauncher.java:152 - run] Job: [SimpleJob: [name=smrmJob102]] completed with the following parameters: [{run.id=1, baseDate=20260901110000}] and the following status: [COMPLETED] in 1m52s288ms
+2026-09-01 11:02:46.586 INFO  [EventDrivenConsumer.java:107 - logComponentSubscriptionEvent] Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2026-09-01 11:02:46.586 INFO  [AbstractSubscribableChannel.java:64 - adjustCounterIfNecessary] Channel 'batch-1.errorChannel' has 0 subscriber(s).
+2026-09-01 11:02:46.586 INFO  [AbstractEndpoint.java:193 - stop] stopped bean '_org.springframework.integration.errorLogger'
+2026-09-01 11:02:46.639 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep144001AsyncExecutor'
+2026-09-01 11:02:46.643 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep055001AsyncExecutor'
+2026-09-01 11:02:46.644 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep051001AsyncExecutor'
+2026-09-01 11:02:46.658 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep010001AsyncExecutor'
+2026-09-01 11:02:46.658 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep008001AsyncExecutor'
+2026-09-01 11:02:46.810 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201008TaskExecutor'
+2026-09-01 11:02:46.811 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201005TaskExecutor'
+2026-09-01 11:02:46.812 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201TaskExecutor'
+2026-09-01 11:02:47.017 INFO  [HikariDataSource.java:350 - close] w1neDataSource - Shutdown initiated...
+2026-09-01 11:02:47.025 INFO  [HikariDataSource.java:352 - close] w1neDataSource - Shutdown completed.
+2026-09-01 11:02:47.026 INFO  [HikariDataSource.java:350 - close] rcDataSource - Shutdown initiated...
+2026-09-01 11:02:47.031 INFO  [HikariDataSource.java:352 - close] rcDataSource - Shutdown completed.
+2026-09-01 11:02:47.031 INFO  [HikariDataSource.java:350 - close] gaDataSource - Shutdown initiated...
+2026-09-01 11:02:47.034 INFO  [HikariDataSource.java:352 - close] gaDataSource - Shutdown completed.
+2026-09-01 11:02:47.043 INFO  [HikariDataSource.java:350 - close] smDataSource - Shutdown initiated...
+2026-09-01 11:02:47.052 INFO  [HikariDataSource.java:352 - close] smDataSource - Shutdown completed.
+2026-09-01 11:02:47.142 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'taskExecutor'
+2026-09-01 11:02:49.152 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'taskScheduler'

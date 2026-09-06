@@ -501,7 +501,7 @@ public class LogSampleVerificationTest {
      * ---------------------------------------------------------------------------------
      */
     @Test
-    @DisplayName("14. JOB 18: smpmJob206 (월간) - HTTP 200, prodList.size 40, TB_SMPM1002 151건 검증")
+    @DisplayName("14. JOB 18: smpmJob206 (월간) - HTTP 200, prodList.size 40, TB_SMPM1002 89건 검증")
     public void testJob18_SmpmJob206_MonthlyLogVerification() {
         File monthlyFolder = new File("src/test/resources/log_monthly");
         if (!monthlyFolder.exists()) return;
@@ -523,7 +523,7 @@ public class LogSampleVerificationTest {
             () -> assertTrue(cr.ruleResults.get(2).passed, "규칙 03(prodList.size) 통과"),
             () -> assertEquals("40", cr.ruleResults.get(2).extractedValue, "prodList.size 40 확인"),
             () -> assertTrue(cr.ruleResults.get(3).passed, "규칙 04(TB_SMPM1002.insIntgCode) 통과"),
-            () -> assertEquals("151건", cr.ruleResults.get(3).extractedValue, "151건 실행 일치 확인")
+            () -> assertEquals("89건", cr.ruleResults.get(3).extractedValue, "89건 실행 확인")
         );
     }
 

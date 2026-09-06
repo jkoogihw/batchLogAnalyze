@@ -1,0 +1,2014 @@
+ip-10-237-6-165.ap-northeast-2.compute.internal
+PARAMETER=--job.name=smrmJob101 -baseDate=20260905 -todayYn=Y
+No Active GA_CODE set. falling back to default GA_CODE: default
+APPLICATION_PATH=/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar
+SPRING_PROFILES_ACTIVE=main,lazyload
+PARAMETER=--job.name=smrmJob101 -baseDate=20260905 -todayYn=Y
+_JAVA_OPTIONS= -Dfile.encoding=UTF-8
+Picked up _JAVA_OPTIONS:  -Dfile.encoding=UTF-8
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/logback-classic-1.2.11.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/log4j-slf4j-impl-2.13.3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [ch.qos.logback.classic.util.ContextSelectorStaticBinder]
+2026-09-06 08:00:12.799 INFO  [Version.java:21 - <clinit>] HV000001: Hibernate Validator 6.1.7.Final
+... [TRIMMED 73 LINES] ...
+2026-09-06 08:04:29.302 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateImsmPrgsStts */
+
+		WITH RDATA AS (
+			SELECT T1.IMSM_MGMT_UUID, T1.POLR_TLNO
+			FROM (
+				SELECT
+					I.IMSM_MGMT_UUID
+... [TRIMMED 1 LINES] ...
+						INNER JOIN TB_SMHO1002 H2 ON H1.UNIQ_NO = P.RCRT_FP_UNIQ_NO AND H2.PSAF_ID = H1.PSAF_ID AND H2.ISRN_CMPY_CODE = P.ISRN_CMPY_CODE
+						INNER JOIN TB_SMCR0801 C ON C.CPCP_FP_UNIQ_NO = H2.CPCP_FP_UNIQ_NO AND C.CPCP_CUST_ID = P.POLR_CUST_ID
+						LEFT JOIN TB_SMCR0501 C1 ON C1.FP_UNIQ_NO = H1.UNIQ_NO AND C1.CPCP_CUST_ID = P.POLR_CUST_ID AND C1.ISRN_CMPY_CODE = 'L01' AND C1.CUST_ID IS NOT NULL AND C1.FP_UNIQ_NO IS NOT NULL AND C1.CPCP_CUST_ID IS NOT NULL
+						LEFT JOIN TB_SMCR0101 C2 ON C2.FP_UNIQ_NO = C1.FP_UNIQ_NO AND C2.CUST_ID = C1.CUST_ID AND C2.FP_UNIQ_NO IS NOT NULL AND C2.CUST_ID IS NOT NULL
+						LIMIT 1
+					) AS POLR_TLNO
+				FROM TB_SMRM1010 I
+				INNER JOIN TB_SMPM0101 P
+				ON P.POLY_NO = I.POLY_NO
+				AND P.ISRN_CMPY_CODE = I.ISRN_CMPY_CODE
+				WHERE I.IMSM_PRGS_STTS_CODE IN ('92', '93')
+				AND P.CNTC_STTS_CODE IN ('00', '98')
+				AND P.CNTC_DATE  >=  DATE_ADD(NOW(), INTERVAL -1 MONTH)
+			)T1
+			WHERE 1=1
+			AND (T1.POLR_TLNO IS NOT NULL OR T1.POLR_TLNO != '' OR T1.POLR_TLNO != '--')
+		)
+		UPDATE TB_SMRM1010 I
+		SET I.IMSM_PRGS_STTS_CODE = '00'
+		, I.LAST_CHNG_USER_ID = 'BATCH'
+		, I.LAST_CHNG_DTTM = NOW()
+		, I.LAST_CHNG_PRGM_ID = 'SmrmJob101001Tasklet'
+		WHERE I.IMSM_MGMT_UUID IN ( SELECT IMSM_MGMT_UUID FROM RDATA )
+2026-09-06 08:04:29.302 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"baseDate":"20260905"}
+2026-09-06 08:04:37.383 INFO  [SmrmJob101001Tasklet.java:68 - execute] 불완전판매 SMS 계약철회중 부활처리 된 건 
+- TB_SMRM1010 : 0 건.==============================================
+2026-09-06 08:04:37.410 INFO  [AbstractStep.java:273 - execute] Step: [smrmJob101001] executed in 8s898ms
+2026-09-06 08:04:37.432 INFO  [SimpleStepHandler.java:149 - handleStep] Executing step: [smrmJob101002]
+2026-09-06 08:04:37.467 INFO  [SmrmJob101002Tasklet.java:55 - execute] SmrmJob101002Tasklet execute...
+2026-09-06 08:04:37.480 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.findMinMaxBsnsDay */
+
+     	SELECT
+			DATE_FORMAT(A.BSNS_DATE,'%Y%m%d') AS BSNS_YMD
+			, DATE_FORMAT(A.BSNS_DATE,'%Y%m') AS BSNS_YM
+			, RANK() OVER(PARTITION BY DATE_FORMAT(A.BSNS_DATE,'%Y%m') ORDER BY A.BSNS_DATE DESC) AS BSNS_RK
+			, A.BSNS_DAY_YN
+		FROM TB_SMCO1801 A
+		WHERE A.BSNS_DATE BETWEEN DATE_FORMAT(DATE_ADD(LAST_DAY(?- INTERVAL 2 MONTH), INTERVAL 1 DAY), '%Y-%m-%d') AND DATE_FORMAT(LAST_DAY(?), '%Y-%m-%d')
+		ORDER BY BSNS_YMD DESC, BSNS_RK ASC
+2026-09-06 08:04:37.480 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"baseDate":"20260905"}
+2026-09-06 08:04:37.607 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.insertNewImsmList */
+
+		 
+			 
+				INSERT INTO TB_SMRM1010 (
+				    IMSM_MGMT_UUID
+				  , POLY_NO
+				  , ISRN_CMPY_CODE
+				  , IMSM_PRGS_STTS_CODE
+				  , MEMO_CNTN
+				  , IMSM_CNFM_RSLT_CODE
+... [TRIMMED 1 LINES] ...
+				                AND C2.CUST_ID = C1.CUST_ID
+				                AND C2.FP_UNIQ_NO IS NOT NULL
+				                AND C2.CUST_ID IS NOT NULL
+			 		  		) D LIMIT 1
+			       		) AS POLR_TLNO
+					FROM TB_SMPM0101 P
+					LEFT JOIN TB_SMRM1010 I
+					ON P.POLY_NO = I.POLY_NO
+					AND P.ISRN_CMPY_CODE = I.ISRN_CMPY_CODE
+					LEFT JOIN TB_SMCR0101 C
+					ON P.RCRT_FP_UNIQ_NO = C.FP_UNIQ_NO
+					AND P.POLR_CUST_ID = C.CUST_ID
+					LEFT JOIN TB_SMHO1001 H
+... [TRIMMED 1 LINES] ...
+				     , 'SmrmJob101002Tasklet' RGST_PRGM_ID
+				     , 'Batch' LAST_CHNG_USER_ID
+				     , NOW() LAST_CHNG_DTTM
+				     , 'SmrmJob101002Tasklet' LAST_CHNG_PRGM_ID
+				  FROM RDATA DD
+2026-09-06 08:04:37.607 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"startMinDate":"20260828","baseDate":"20260905","startMaxDate":"20260831","endMinDate":"20260929","endMaxDate":"20260930"}
+2026-09-06 08:04:38.295 INFO  [SmrmJob101002Tasklet.java:156 - execute] ==============================================불완전판매조사 대상 신규 추출 건 [TB_SMRM1010] : 68 건.==============================================
+2026-09-06 08:04:38.300 INFO  [AbstractStep.java:273 - execute] Step: [smrmJob101002] executed in 868ms
+2026-09-06 08:04:38.329 INFO  [SimpleStepHandler.java:149 - handleStep] Executing step: [smrmJob101003]
+2026-09-06 08:04:38.334 INFO  [SmrmJob101003Tasklet.java:45 - execute] SmrmJob101003Tasklet execute...
+2026-09-06 08:04:38.368 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateOver10WorkingDaysToUnavailable */
+
+		WITH WORKDAY AS (
+			SELECT A.BSNS_DATE WDAY
+			FROM (
+				SELECT BSNS_DATE , RANK() OVER (ORDER BY BSNS_DATE DESC) AS RN
+				FROM TB_SMCO1801
+... [TRIMMED 1 LINES] ...
+		RDATA AS (
+			SELECT
+				I.IMSM_MGMT_UUID
+				, H.IMSM_SEND_HIST_UUID
+				, H.SMS_SEND_DTTM
+			FROM TB_SMRM1012 M
+			INNER JOIN TB_SMRM1011 H ON M.IMSM_SEND_HIST_UUID = H.IMSM_SEND_HIST_UUID
+			INNER JOIN TB_SMRM1010 I ON M.IMSM_MGMT_UUID = I.IMSM_MGMT_UUID
+			WHERE I.IMSM_PRGS_STTS_CODE IN ('01','02','11','92','93')
+			AND H.IMSM_SEND_CTNB = '1'
+			AND M.RGST_PRGM_ID NOT IN ('insertImsmInfoSms')
+			AND H.SMS_SEND_DTTM  <  (SELECT WDAY FROM WORKDAY)
+		)
+		UPDATE TB_SMRM1010
+			SET IMSM_PRGS_STTS_CODE = '91' /* 만료 */
+			, LAST_CHNG_PRGM_ID = 'SmrmJob101003Tasklet'
+			, LAST_CHNG_USER_ID = 'BATCH'
+			, LAST_CHNG_DTTM = NOW()
+		WHERE IMSM_MGMT_UUID IN (SELECT IMSM_MGMT_UUID FROM RDATA)
+2026-09-06 08:04:38.369 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::null
+2026-09-06 08:04:42.183 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.updateOver10WorkingDaysToUnavailable */
+
+	WITH RDATA AS (
+		SELECT
+			I.IMSM_MGMT_UUID
+			, M.IMSM_SEND_HIST_UUID
+		FROM TB_SMRM1010 I
+		INNER JOIN TB_SMRM1012 M
+        ON M.IMSM_MGMT_UUID = I.IMSM_MGMT_UUID
+        INNER JOIN TB_SMRM1011 H
+        ON M.IMSM_SEND_HIST_UUID = H.IMSM_SEND_HIST_UUID
+        WHERE I.IMSM_PRGS_STTS_CODE = '91'
+        AND H.VALD_YN = 'Y'
+	)
+	UPDATE TB_SMRM1011 H
+	   SET H.VALD_YN = 'N'
+	   , H.LAST_CHNG_USER_ID = 'BATCH'
+	   , H.LAST_CHNG_DTTM = NOW()
+	   , H.LAST_CHNG_PRGM_ID = 'SmrmJob101003Tasklet'
+	WHERE H.IMSM_SEND_HIST_UUID IN ( SELECT IMSM_SEND_HIST_UUID FROM RDATA)
+2026-09-06 08:04:42.183 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::null
+2026-09-06 08:04:54.792 INFO  [SmrmJob101003Tasklet.java:73 - execute] ==============================================불완전판매 SMS 발송건 중 10영업일 초과로 무효처리 된 건 
+- TB_SMRM1010 : 0 건.- TB_SMRM1011 : 0 건.==============================================
+2026-09-06 08:04:54.795 INFO  [AbstractStep.java:273 - execute] Step: [smrmJob101003] executed in 16s466ms
+2026-09-06 08:04:54.828 INFO  [SimpleStepHandler.java:149 - handleStep] Executing step: [smrmJob101004]
+2026-09-06 08:04:54.833 INFO  [SmrmJob101004Tasklet.java:52 - execute] SmrmJob101004Tasklet execute...
+2026-09-06 08:04:54.837 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.selectOver3WorkingDaysList */
+
+		WITH WORKDAY AS (
+			SELECT A.BSNS_DATE WDAY
+			  FROM (
+					SELECT BSNS_DATE
+					     , RANK() OVER (ORDER BY BSNS_DATE DESC) AS RN
+... [TRIMMED 1 LINES] ...
+				I.IMSM_MGMT_UUID
+				, H.IMSM_SEND_HIST_UUID
+				, H.SMS_SEND_DTTM
+				, H.RGST_USER_ID
+			    , SUM(CASE H.RGST_USER_ID WHEN 'BATCH' THEN 1 ELSE 0 END) OVER(PARTITION BY IMSM_MGMT_UUID) AS CNT
+			FROM TB_SMRM1012 M
+			INNER JOIN TB_SMRM1011 H
+			ON M.IMSM_SEND_HIST_UUID = H.IMSM_SEND_HIST_UUID
+			INNER JOIN TB_SMRM1010 I
+			ON M.IMSM_MGMT_UUID = I.IMSM_MGMT_UUID
+			WHERE I.IMSM_PRGS_STTS_CODE IN ('01','02')
+			AND H.SMS_SEND_PRGS_STTS_CODE = '30' /* 고객 발송 완료 상태 */
+		)
+		SELECT IMSM_MGMT_UUID, IMSM_SEND_HIST_UUID
+		FROM RDATA
+		WHERE CNT = 1
+		AND SMS_SEND_DTTM  <  (SELECT WDAY FROM WORKDAY)
+2026-09-06 08:04:54.838 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::null
+2026-09-06 08:04:57.760 INFO  [SmrmJob101004Tasklet.java:94 - execute] ==============================================불완전판매 SMS 발송건 중 3영업일 초과로 재발송 된 건 
+0 건.==============================================
+2026-09-06 08:04:57.770 INFO  [AbstractStep.java:273 - execute] Step: [smrmJob101004] executed in 2s942ms
+2026-09-06 08:04:57.780 INFO  [SimpleStepHandler.java:149 - handleStep] Executing step: [smrmJob101005]
+2026-09-06 08:04:57.834 INFO  [SmrmJob101005Tasklet.java:58 - execute] SmrmJob101005Tasklet execute...
+2026-09-06 08:04:57.835 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.selectSendSMSTargetList */
+
+		select A.IMSM_MGMT_UUID
+			 , A.POLY_NO
+			 , A.ISRN_CMPY_CODE
+			 , A.IMSM_PRGS_STTS_CODE
+			 , A.MEMO_CNTN
+... [TRIMMED 1 LINES] ...
+			 , A.RGST_USER_ID
+			 , A.RGST_DTTM
+			 , A.RGST_PRGM_ID
+			 , A.LAST_CHNG_USER_ID
+			 , A.LAST_CHNG_DTTM
+			 , A.LAST_CHNG_PRGM_ID
+		from TB_SMRM1010 A
+		left join TB_SMRM1012 B
+		on A.IMSM_MGMT_UUID = B.IMSM_MGMT_UUID
+		where A.IMSM_PRGS_STTS_CODE = '00'
+		and B.IMSM_MGMT_UUID is null
+2026-09-06 08:04:57.835 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::null
+2026-09-06 08:04:58.458 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.464 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fa9d2a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"051bc64ff41c4fd0a15d9e3f53aa8b5b","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.466 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.466 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fa9d2a97e11f1b0ad0ae89b095bc5","polyNo":"210989827","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.478 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.479 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faa9fa97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"51cf624b04e4455ba3411ff9495bd0d2","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.480 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.480 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faa9fa97e11f1b0ad0ae89b095bc5","polyNo":"211002724","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.480 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.481 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faabba97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"c540cac41b6045b89170d9b9470844df","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.489 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.489 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faabba97e11f1b0ad0ae89b095bc5","polyNo":"211004857","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.490 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.491 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faad0a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"3951c7ab854548eebd58119d134fd885","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.491 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.491 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faad0a97e11f1b0ad0ae89b095bc5","polyNo":"211005099","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.505 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.505 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faae4a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"007031ca99994e5797341649d5c4e4f4","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.506 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.506 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faae4a97e11f1b0ad0ae89b095bc5","polyNo":"211011221","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.517 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.519 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faaf6a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"d3cb5004516548acbc176fe2b1a11942","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.520 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.520 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faaf6a97e11f1b0ad0ae89b095bc5","polyNo":"211011898","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.520 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.521 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fab08a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"beaa7d9ac88e492fb05c1a754df9de90","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.522 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.522 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fab08a97e11f1b0ad0ae89b095bc5","polyNo":"211012931","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.522 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.523 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fab1ba97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"b1d6cdad968046aaa58e43e410240adf","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.524 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.524 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fab1ba97e11f1b0ad0ae89b095bc5","polyNo":"211012990","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.525 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.525 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fab2da97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"41688d1355b143c0bcb7716d07e684dd","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.526 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.526 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fab2da97e11f1b0ad0ae89b095bc5","polyNo":"211013386","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.526 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.527 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fab40a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"3fb8da620fe84906921ece362e1384c3","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.527 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.527 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fab40a97e11f1b0ad0ae89b095bc5","polyNo":"211013976","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.528 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.529 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fab53a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"9057f8eb899d478a8f48a8519f5e0669","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.529 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.529 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fab53a97e11f1b0ad0ae89b095bc5","polyNo":"211014809","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.530 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.530 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fab66a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"1cbecbf427a442fda895a137f341b47c","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.531 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.531 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fab66a97e11f1b0ad0ae89b095bc5","polyNo":"211014810","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.532 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.532 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fab78a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"ee8053a9e5614b61baad7ad9ec1c878d","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.548 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.548 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fab78a97e11f1b0ad0ae89b095bc5","polyNo":"211014905","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.549 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.549 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fab8da97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"482bb8d6e0214a9db138d3a0a4ad0f88","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.550 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.550 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fab8da97e11f1b0ad0ae89b095bc5","polyNo":"211014906","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.551 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.552 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fab9ea97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"2a38c02c6b924c42b585f7ae0f22fdd4","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.552 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.552 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fab9ea97e11f1b0ad0ae89b095bc5","polyNo":"211014947","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.553 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.557 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fabb1a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"f77bedc8557f44608d9c1ad248a6d19c","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.559 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.559 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fabb1a97e11f1b0ad0ae89b095bc5","polyNo":"211014976","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.560 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.560 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fabc3a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"9ba57f00e3824e4ea30613f0f3361bf6","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.561 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.561 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fabc3a97e11f1b0ad0ae89b095bc5","polyNo":"211014980","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.562 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.562 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fabd5a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"f3055877cbd440fcb0045b84bbf439c1","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.563 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.563 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fabd5a97e11f1b0ad0ae89b095bc5","polyNo":"211015074","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.563 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.564 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fabe7a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"ac3c175b3ab64aaaa4548e82d6eddefb","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.564 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.565 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fabe7a97e11f1b0ad0ae89b095bc5","polyNo":"211015090","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.565 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.566 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fabf9a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"1439bdeae000427ab008c86ef3a26ac5","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.582 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.582 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fabf9a97e11f1b0ad0ae89b095bc5","polyNo":"211015118","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.582 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.587 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fac13a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"0df62daca04d4abab64554474e73b4a7","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.588 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.588 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fac13a97e11f1b0ad0ae89b095bc5","polyNo":"211015142","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.589 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.589 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fac3aa97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"c70f01e5cc564c7e947cc13f15bc282a","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.590 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.590 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fac3aa97e11f1b0ad0ae89b095bc5","polyNo":"211015158","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.594 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.599 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fac4da97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"3dd36d5f3e6d45938ed44b402d811669","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.600 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.600 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fac4da97e11f1b0ad0ae89b095bc5","polyNo":"211015231","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.602 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.604 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fac5ea97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"9c561e1290cb4409a95fb61667ea36c8","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.605 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.605 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fac5ea97e11f1b0ad0ae89b095bc5","polyNo":"211015234","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.606 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.606 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fac70a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"aa30844367b14b638be06088fca50281","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.607 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.607 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fac70a97e11f1b0ad0ae89b095bc5","polyNo":"211015259","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.608 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.609 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fac82a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"45d61942ead84e9cb0d88a1e1c7a13bf","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.610 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.610 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fac82a97e11f1b0ad0ae89b095bc5","polyNo":"211015275","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.614 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.615 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fac93a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"07213c3fa5c3470aaa469afab4ae076b","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.615 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.615 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fac93a97e11f1b0ad0ae89b095bc5","polyNo":"211015280","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.617 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.617 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faca5a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"3d8fca66a00d48efaa6d32f276d2efda","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.618 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.618 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faca5a97e11f1b0ad0ae89b095bc5","polyNo":"211015284","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.618 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.619 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4facb7a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"92cc9dac546c407eb7b4a04961cf87bd","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.620 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.620 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4facb7a97e11f1b0ad0ae89b095bc5","polyNo":"211015286","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.622 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.623 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4facc8a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"1d86f36cc5484b93977ba8ecfa38f1d8","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.623 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.623 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4facc8a97e11f1b0ad0ae89b095bc5","polyNo":"211015301","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.625 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.625 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4facdaa97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"a6d7b4b0fef441b099c4c57beaf864c7","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.637 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.637 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4facdaa97e11f1b0ad0ae89b095bc5","polyNo":"211015312","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.638 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.648 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faceca97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"078a0177624d4cf1856252e3a00cfe1a","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.649 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.649 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faceca97e11f1b0ad0ae89b095bc5","polyNo":"211015488","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.650 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.650 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4facfda97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"25e82938c244439daeede910d1b771b0","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.651 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.651 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4facfda97e11f1b0ad0ae89b095bc5","polyNo":"211015532","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.658 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.658 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fad0fa97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"f13403915d3740b49acf4527fe8f84bd","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.659 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.659 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fad0fa97e11f1b0ad0ae89b095bc5","polyNo":"211015575","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.660 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.660 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fad20a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"ce2e13eb52cb4a86804c4cfa2784f193","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.661 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.661 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fad20a97e11f1b0ad0ae89b095bc5","polyNo":"211015590","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.662 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.662 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fad33a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"7277eead1088497c80650086181e60c7","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.663 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.663 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fad33a97e11f1b0ad0ae89b095bc5","polyNo":"211015603","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.672 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.673 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fad45a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"c192e9011547437d9f2bde56faff1b2b","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.673 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.673 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fad45a97e11f1b0ad0ae89b095bc5","polyNo":"211015604","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.674 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.675 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fad58a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"4ea37013b4ec4066b7fa8505199802bd","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.675 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.675 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fad58a97e11f1b0ad0ae89b095bc5","polyNo":"211015613","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.683 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.684 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fad69a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"687df4348f994c6b91c0308fa5a797bc","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.685 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.686 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fad69a97e11f1b0ad0ae89b095bc5","polyNo":"211015620","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.686 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.687 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fad7ba97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"5357652ff9b942d0a0638760b6e7d4e2","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.689 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.689 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fad7ba97e11f1b0ad0ae89b095bc5","polyNo":"211015637","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.690 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.700 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fad8da97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"399830ef06c44552bf940e6f5cec8295","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.701 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.701 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fad8da97e11f1b0ad0ae89b095bc5","polyNo":"211015649","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.702 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.702 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fada0a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"e5c89534adb74a4795ad059d0e7c3f41","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.703 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.703 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fada0a97e11f1b0ad0ae89b095bc5","polyNo":"211015659","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.703 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.704 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fadb2a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"628f3fff702042589a2fdce6c0f967d0","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.704 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.704 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fadb2a97e11f1b0ad0ae89b095bc5","polyNo":"211015711","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.705 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.705 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fadc4a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"a08fb22d3b114d5990008b8faa65c99a","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.706 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.706 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fadc4a97e11f1b0ad0ae89b095bc5","polyNo":"211015720","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.706 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.707 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fadd5a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"6b463b1f9f93475badf7d687c9ef36a9","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.710 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.710 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fadd5a97e11f1b0ad0ae89b095bc5","polyNo":"211015748","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.711 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.711 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fade7a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"ec1fa82249c548e4a7496b4040da1a74","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.714 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.714 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fade7a97e11f1b0ad0ae89b095bc5","polyNo":"211015752","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.714 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.715 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fadf8a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"2ee278f340734819919573b19bc1bcce","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.716 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.718 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fadf8a97e11f1b0ad0ae89b095bc5","polyNo":"211015771","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.718 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.719 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fae0aa97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"fa3147698c52407d891e89ae9f7f8a68","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.719 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.719 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fae0aa97e11f1b0ad0ae89b095bc5","polyNo":"211015798","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.720 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.721 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fae1ba97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"0555be5ce3554d09be1db7e956e4f14b","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.723 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.723 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fae1ba97e11f1b0ad0ae89b095bc5","polyNo":"211015811","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.729 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.730 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fae2da97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"b851421272e94d69af47ee9a0bd9b26d","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.730 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.731 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fae2da97e11f1b0ad0ae89b095bc5","polyNo":"211015825","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.731 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.731 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fae55a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"a937c5973fa54fd78ccf7e8f073ce8d8","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.732 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.732 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fae55a97e11f1b0ad0ae89b095bc5","polyNo":"211015844","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.732 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.733 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fae68a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"f9463e27b4f1491c8eef7cf4971bc9b9","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.733 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.733 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fae68a97e11f1b0ad0ae89b095bc5","polyNo":"211015881","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.735 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.735 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fae7aa97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"8d55508d3fcd4f64afeec3d1b4f82663","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.736 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.736 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fae7aa97e11f1b0ad0ae89b095bc5","polyNo":"211015887","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.736 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.736 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fae8ca97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"2a31e0b599744d7aa2839d1e6392520a","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.737 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.737 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fae8ca97e11f1b0ad0ae89b095bc5","polyNo":"211015907","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.737 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.738 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fae9ea97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"47e5dd6cfff4489e961005f60ddfe82c","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.738 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.738 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4fae9ea97e11f1b0ad0ae89b095bc5","polyNo":"211015908","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.739 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.739 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faeafa97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"d5521520fdae46c3af020c2646686114","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.740 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.740 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faeafa97e11f1b0ad0ae89b095bc5","polyNo":"211015916","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.740 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.741 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faec1a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"32af413182ec430183bf8d3e72853fe0","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.741 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.741 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faec1a97e11f1b0ad0ae89b095bc5","polyNo":"211015917","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.741 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.742 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faed3a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"1e55a893774f404a8aa71aea19c5bf75","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.742 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.742 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faed3a97e11f1b0ad0ae89b095bc5","polyNo":"211015929","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.743 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.743 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faee5a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"1803085f631a429da17455fdbce7d9ba","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.744 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.744 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faee5a97e11f1b0ad0ae89b095bc5","polyNo":"211015931","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.744 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.745 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faef6a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"ed7dea2c6174406082aa45c5f17d65c9","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.745 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.745 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faef6a97e11f1b0ad0ae89b095bc5","polyNo":"211015944","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.745 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.746 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faf08a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"6dc74826b9144e7f8a1307fddd8e73b2","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.746 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.746 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faf08a97e11f1b0ad0ae89b095bc5","polyNo":"211016078","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.747 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.751 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faf1aa97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"ab6bc18797dc426c96124f81a333186b","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.752 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.752 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faf1aa97e11f1b0ad0ae89b095bc5","polyNo":"211016139","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.752 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.753 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faf2ca97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"0578eb8004014983b585cd632dad6157","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.753 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.753 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faf2ca97e11f1b0ad0ae89b095bc5","polyNo":"211016157","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.754 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.754 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faf3ea97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"3e4ce123ce2042d3a2429d34e8d1bb16","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.755 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.755 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faf3ea97e11f1b0ad0ae89b095bc5","polyNo":"211016181","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.755 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.756 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faf50a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"495b418fe5784cfc8fcbce9f20df9fa3","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.756 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.756 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faf50a97e11f1b0ad0ae89b095bc5","polyNo":"211016186","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.757 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.757 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faf62a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"de1424c0906d418882e9b550abc84ecf","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.760 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.760 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faf62a97e11f1b0ad0ae89b095bc5","polyNo":"211016233","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.761 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.761 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faf74a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"9f9618105fe449538c6cd365a10c9957","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.762 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.762 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faf74a97e11f1b0ad0ae89b095bc5","polyNo":"211016285","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:04:58.764 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1011.insertSendSms */
+
+	insert into tb_smrm1011 (
+	      IMSM_SEND_HIST_UUID
+	    , IMSM_SEND_CTNB
+	    , SMS_SEND_DTTM
+	    , SMS_SEND_PRGS_STTS_CODE
+... [TRIMMED 1 LINES] ...
+	    , now()
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.764 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmSendHistUuid":"70871b1a47504707a51cb7bfa1786573","imsmSendCtnb":1,"smsSendThenSttsCode":"00","smsSendPrgsSttsCode":"00","valdYn":"Y","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.765 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1012.insertSendSms */
+
+	insert into tb_smrm1012 (
+		  IMSM_MGMT_UUID
+		, IMSM_SEND_HIST_UUID
+		, RGST_USER_ID
+		, RGST_DTTM
+		, RGST_PRGM_ID
+		, LAST_CHNG_USER_ID
+		, LAST_CHNG_DTTM
+		, LAST_CHNG_PRGM_ID
+	) values (
+		  ?
+		, ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	    , 'Batch'
+	    , now()
+	    , ?
+	)
+2026-09-06 08:04:58.765 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faf85a97e11f1b0ad0ae89b095bc5","imsmSendHistUuid":"70871b1a47504707a51cb7bfa1786573","rgstPrgmId":"SmrmJob101005Tasklet","lastChngPrgmId":"SmrmJob101005Tasklet"}
+2026-09-06 08:04:58.777 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.updateSendSMSTargetInfo */
+
+	update tb_smrm1010
+	   set IMSM_LAST_LTRS_SEND_CTNB = ?
+	     , IMSM_PRGS_STTS_CODE = ?
+	      
+	      
+	     , LAST_CHNG_PRGM_ID = ?
+	     , LAST_CHNG_USER_ID = 'Batch'
+	     , LAST_CHNG_DTTM = NOW()
+	 where IMSM_MGMT_UUID = ?
+2026-09-06 08:04:58.777 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::{"imsmMgmtUuid":"2b4faf85a97e11f1b0ad0ae89b095bc5","polyNo":"211014943","isrnCmpyCode":"L01","imsmPrgsSttsCode":"00","polrTlno":"","imsmLastLtrsSendCtnb":0,"rgstUserId":"Batch","rgstDttm":"2026-09-06 08:04:37","rgstPrgmId":"SmrmJob101002Tasklet","lastChngUserId":"Batch","lastChngDttm":"2026-09-06 08:04:37","lastChngPrgmId":"SmrmJob101002Tasklet"}
+2026-09-06 08:05:00.797 INFO  [SmrmJob101005Tasklet.java:150 - execute] ==============================================불완전판매 SMS 신규 발송 예정 건수 
+68 건.==============================================
+2026-09-06 08:05:00.800 INFO  [AbstractStep.java:273 - execute] Step: [smrmJob101005] executed in 3s20ms
+2026-09-06 08:05:00.816 INFO  [SimpleJobLauncher.java:152 - run] Job: [SimpleJob: [name=smrmJob101]] completed with the following parameters: [{run.id=1, todayYn=Y, baseDate=20260905}] and the following status: [COMPLETED] in 32s318ms
+2026-09-06 08:05:00.937 INFO  [EventDrivenConsumer.java:107 - logComponentSubscriptionEvent] Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2026-09-06 08:05:00.937 INFO  [AbstractSubscribableChannel.java:64 - adjustCounterIfNecessary] Channel 'batch-1.errorChannel' has 0 subscriber(s).
+2026-09-06 08:05:00.937 INFO  [AbstractEndpoint.java:193 - stop] stopped bean '_org.springframework.integration.errorLogger'
+2026-09-06 08:05:00.984 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep144001AsyncExecutor'
+2026-09-06 08:05:00.989 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep055001AsyncExecutor'
+2026-09-06 08:05:00.990 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep051001AsyncExecutor'
+2026-09-06 08:05:01.057 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep010001AsyncExecutor'
+2026-09-06 08:05:01.059 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep008001AsyncExecutor'
+2026-09-06 08:05:01.862 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201008TaskExecutor'
+2026-09-06 08:05:01.863 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201005TaskExecutor'
+2026-09-06 08:05:01.863 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201TaskExecutor'
+2026-09-06 08:05:02.897 INFO  [HikariDataSource.java:350 - close] smDataSource - Shutdown initiated...
+2026-09-06 08:05:02.932 INFO  [HikariDataSource.java:352 - close] smDataSource - Shutdown completed.
+2026-09-06 08:05:03.175 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'taskExecutor'
+2026-09-06 08:05:05.218 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'taskScheduler'

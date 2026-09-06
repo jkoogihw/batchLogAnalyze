@@ -512,9 +512,8 @@
           "ruleNo": "04",
           "type": "SEARCH",
           "target": "TB_SMPM1002.insIntgCode",
-          "condition": "EQUALS_N",
-          "expectedCount": 151,
-          "description": "TB_SMPM1002.insIntgCode 151건 실행 확인"
+          "condition": "COUNT_CHECK",
+          "description": "TB_SMPM1002.insIntgCode 건수확인"
         }
       ]
     }

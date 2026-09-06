@@ -1,0 +1,75 @@
+ip-10-237-6-119.ap-northeast-2.compute.internal
+PARAMETER=--job.name=smrmJob103 baseDate=20260905110500
+No Active GA_CODE set. falling back to default GA_CODE: default
+APPLICATION_PATH=/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar
+SPRING_PROFILES_ACTIVE=main,lazyload
+PARAMETER=--job.name=smrmJob103 baseDate=20260905110500
+_JAVA_OPTIONS= -Dfile.encoding=UTF-8
+Picked up _JAVA_OPTIONS:  -Dfile.encoding=UTF-8
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/logback-classic-1.2.11.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/sorc001/ospp-batch/ospp-batch-1.0.0-SNAPSHOT-boot.jar!/BOOT-INF/lib/log4j-slf4j-impl-2.13.3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [ch.qos.logback.classic.util.ContextSelectorStaticBinder]
+2026-09-05 11:05:05.590 INFO  [Version.java:21 - <clinit>] HV000001: Hibernate Validator 6.1.7.Final
+... [TRIMMED 61 LINES] ...
+2026-09-05 11:06:37.098 INFO  [SmstStep010001Config.java:49 - smstJob010001Step] smstJob010001 step defined.
+2026-09-05 11:06:37.100 INFO  [SmstJob010Config.java:44 - smst010Job] smstJob010 job defined.
+2026-09-05 11:06:37.111 INFO  [SmstStep011001Config.java:49 - smstJob011001Step] smstJob011001 step defined.
+2026-09-05 11:06:37.121 INFO  [SmstStep011002Config.java:49 - smstJob011002Step] smstJob011002 step defined.
+2026-09-05 11:06:37.124 INFO  [SmstJob011Config.java:45 - acttAchmAcheFpDayJob] smstJob011 job defined.
+2026-09-05 11:06:37.135 INFO  [SmstStep012001Config.java:49 - smstJob011001Step] smstJob012001 step defined.
+2026-09-05 11:06:37.146 INFO  [SmstStep012002Config.java:49 - smstJob011001Step] smstJob012002 step defined.
+2026-09-05 11:06:37.148 INFO  [SmstJob012Config.java:45 - acttAchmAcheFpDayJob] smstJob012 job defined.
+2026-09-05 11:06:37.159 INFO  [SmstStep013001Config.java:49 - smstJob013001Step] smstJob013001 step defined.
+2026-09-05 11:06:37.169 INFO  [SmstStep013002Config.java:49 - smstJob013002Step] smstJob013002 step defined.
+2026-09-05 11:06:37.171 INFO  [SmstJob013Config.java:45 - acttAchmAcheFpDayJob] smstJob013 job defined.
+2026-09-05 11:06:37.182 INFO  [SmstStep014001Config.java:49 - smstJob014001Step] smstJob014001 step defined.
+2026-09-05 11:06:37.192 INFO  [SmstStep014002Config.java:49 - smstJob014002Step] smstJob014002 step defined.
+2026-09-05 11:06:37.194 INFO  [SmstJob014Config.java:45 - acttAchmAcheFpDayJob] smstJob014 job defined.
+2026-09-05 11:06:37.204 INFO  [SmstStep021001Config.java:49 - smstJob021001Step] smstJob021001 step defined.
+2026-09-05 11:06:37.214 INFO  [SmstStep021002Config.java:49 - smstJob021002Step] smstJob021002 step defined.
+2026-09-05 11:06:37.216 INFO  [SmstJob021Config.java:45 - smst010Job] smstJob021 job defined.
+2026-09-05 11:06:37.227 INFO  [SmstStep022001Config.java:49 - smstJob022001Step] smstJob022001 step defined.
+2026-09-05 11:06:37.229 INFO  [SmstJob022Config.java:44 - smst010Job] smstJob022 job defined.
+2026-09-05 11:06:37.239 INFO  [SmstStep023001Config.java:50 - smstJob023001Step] smstJob023001 step defined.
+2026-09-05 11:06:37.241 INFO  [SmstJob023Config.java:42 - acttAchmAcheFpDayJob] smstJob023 job defined.
+2026-09-05 11:06:37.252 INFO  [SmstStep024001Config.java:49 - smstJob024001Step] smstJob024001 step defined.
+2026-09-05 11:06:37.254 INFO  [SmstJob024Config.java:41 - acttAchmAcheFpDayJob] smstJob024 job defined.
+2026-09-05 11:06:37.265 INFO  [SmstStep025001Config.java:50 - smstJob025001Step] smstJob025001 step defined.
+2026-09-05 11:06:37.267 INFO  [SmstJob025Config.java:42 - acttAchmAcheFpDayJob] smstJob025 job defined.
+2026-09-05 11:06:37.276 INFO  [SmwfStep001001Config.java:78 - smwfJob001001Step] smwfJob001001 step defined.
+2026-09-05 11:06:37.278 INFO  [SmwfJob001Config.java:46 - smwfJob001] smwfJob001 job defined.
+2026-09-05 11:06:37.298 INFO  [SmwfStep002001Config.java:53 - smwfJob001001Step] smwfJob002001 step defined.
+2026-09-05 11:06:37.300 INFO  [SmwfJob002Config.java:46 - smwfJob001] smwfJob002 job defined.
+2026-09-05 11:06:37.316 INFO  [JobLauncherApplicationRunner.java:154 - run] Running default command line with: [baseDate=20260905110500]
+2026-09-05 11:06:37.335 WARN  [DefaultBatchConfigurer.java:98 - initialize] No datasource was provided...using a Map based JobRepository
+2026-09-05 11:06:37.335 WARN  [DefaultBatchConfigurer.java:101 - initialize] No transaction manager was provided, using a ResourcelessTransactionManager
+2026-09-05 11:06:37.359 INFO  [SimpleJobLauncher.java:215 - afterPropertiesSet] No TaskExecutor has been set, defaulting to synchronous executor.
+2026-09-05 11:06:37.403 INFO  [SimpleJobLauncher.java:146 - run] Job: [SimpleJob: [name=smrmJob103]] launched with the following parameters: [{run.id=1, baseDate=20260905110500}]
+2026-09-05 11:06:37.426 INFO  [SimpleStepHandler.java:149 - handleStep] Executing step: [smrmJob103001]
+2026-09-05 11:06:37.457 INFO  [HikariDataSource.java:110 - getConnection] smDataSource - Starting...
+2026-09-05 11:06:37.691 INFO  [HikariDataSource.java:123 - getConnection] smDataSource - Start completed.
+2026-09-05 11:06:37.722 INFO  [BatchMyBatisLoggingInterceptor.java:47 - intercept] query::/* BATCH_SQL_ID : TB_SMRM1010.findBsnsDayYn */
+
+        SELECT BSNS_DAY_YN
+        FROM TB_SMCO1801
+        WHERE BSNS_DATE = ?
+        AND DLTN_YN = 'N'
+2026-09-05 11:06:37.722 INFO  [BatchMyBatisLoggingInterceptor.java:48 - intercept] param::"20260905"
+2026-09-05 11:06:37.752 INFO  [SmrmStep103001Processor.java:64 - beforeStep] 비영업일에는 해당 JOB이 수행되지 않습니다.
+2026-09-05 11:06:37.764 INFO  [EventDrivenConsumer.java:107 - logComponentSubscriptionEvent] Removing {logging-channel-adapter:_org.springframework.integration.errorLogger} as a subscriber to the 'errorChannel' channel
+2026-09-05 11:06:37.764 INFO  [AbstractSubscribableChannel.java:64 - adjustCounterIfNecessary] Channel 'batch-1.errorChannel' has 0 subscriber(s).
+2026-09-05 11:06:37.764 INFO  [AbstractEndpoint.java:193 - stop] stopped bean '_org.springframework.integration.errorLogger'
+2026-09-05 11:06:37.774 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep144001AsyncExecutor'
+2026-09-05 11:06:37.777 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep055001AsyncExecutor'
+2026-09-05 11:06:37.778 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep051001AsyncExecutor'
+2026-09-05 11:06:37.873 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep010001AsyncExecutor'
+2026-09-05 11:06:37.874 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'smpmStep008001AsyncExecutor'
+2026-09-05 11:06:38.105 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201008TaskExecutor'
+2026-09-05 11:06:38.106 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201005TaskExecutor'
+2026-09-05 11:06:38.107 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'gacaJob201TaskExecutor'
+2026-09-05 11:06:38.326 INFO  [HikariDataSource.java:350 - close] smDataSource - Shutdown initiated...
+2026-09-05 11:06:38.340 INFO  [HikariDataSource.java:352 - close] smDataSource - Shutdown completed.
+2026-09-05 11:06:38.770 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'taskExecutor'
+2026-09-05 11:06:40.783 INFO  [ExecutorConfigurationSupport.java:218 - shutdown] Shutting down ExecutorService 'taskScheduler'

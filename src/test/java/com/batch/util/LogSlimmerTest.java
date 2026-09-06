@@ -155,15 +155,80 @@ public class LogSlimmerTest {
     }
 
     @Test
-    @DisplayName("log_holiday 디렉터리 로그 파일 경량화 일괄 적용")
-    public void testSlimHolidayDirectory() throws IOException {
-        File holidayDir = new File("src/test/resources/log_holiday");
-        if (holidayDir.exists() && holidayDir.isDirectory()) {
-            PolicyManager pm = new PolicyManager();
-            pm.loadPolicies();
-            int count = LogSlimmer.slimDirectory(holidayDir, pm.getPolicies());
-            System.out.println(">> [LogSlimmer] log_holiday 경량화 완료: " + count + "개 파일 처리됨");
-            assertTrue(count >= 0, "경량화 완료");
+    @DisplayName("3대 로그 디렉터리(log_samples, log_monthly, log_holiday) 파일명 표준화 및 지능형 슬림화 일괄 적용")
+    public void testSlimAllDirectories() throws IOException {
+        PolicyManager pm = new PolicyManager();
+        pm.loadPolicies();
+        List<JobPolicy> policies = pm.getPolicies();
+        com.batch.service.LogFileRenamer renamer = new com.batch.service.LogFileRenamer();
+
+        String[] dirNames = {"log_samples", "log_monthly", "log_holiday"};
+        for (String dirName : dirNames) {
+            File dir = new File("src/test/resources/" + dirName);
+            if (dir.exists() && dir.isDirectory()) {
+                // 1. 파일명 표준화 (filePrefix 부여)
+                int renamed = renamer.rename(dir, policies);
+                System.out.println(">> [" + dirName + "] 파일명 표준화: " + renamed + "개 변경");
+
+                // 2. 안전한 경량화 (비즈니스 키워드 및 컨텍스트 100% 보존)
+                int count = LogSlimmer.slimDirectory(dir, policies);
+                System.out.println(">> [" + dirName + "] 경량화 완료: " + count + "개 파일 처리됨");
+                assertTrue(count >= 0, dirName + " 경량화 완료");
+            }
         }
+    }
+
+    @Test
+    @DisplayName("동등성 검증(Oracle Test): 원본 로그 분석 결과 vs 경량화 로그 분석 결과 1:1 완벽 일치 단언")
+    public void testEquivalence_RawVsSlimmed() {
+        // [Given] 복합 룰을 가진 정책 및 2,000줄의 대용량 실무형 가상 로그 준비
+        JobPolicy policy = JobPolicy.builder("08", "smpmJob207")
+                .title("보험대리점협회 상품정보요청")
+                .filePrefix("08_smpmJob207_")
+                .addRule(Rule.search("HTTP/1.1 200", ConditionType.COUNT_CHECK, "HTTP 200 거래 성공"))
+                .addRule(Rule.display("totalCount", ConditionType.COUNT_CHECK, "총 건수"))
+                .addRule(Rule.display("totalPage", ConditionType.COUNT_CHECK, "총 페이지"))
+                .build();
+
+        List<String> rawLines = new ArrayList<>();
+        rawLines.add("2026-09-02 00:55:04.100 INFO [Boot] HV000001: Hibernate Validator");
+        for (int i = 0; i < 500; i++) rawLines.add("DEBUG heavy sql query trace " + i);
+        rawLines.add("2026-09-02 00:55:10.000 INFO [Feign] <--- HTTP/1.1 200 OK");
+        for (int i = 0; i < 500; i++) rawLines.add("DEBUG parsing raw json chunk " + i);
+        rawLines.add("2026-09-02 00:55:20.000 INFO [Service] totalCount : 13, / totalPage : 0,");
+        for (int i = 0; i < 500; i++) rawLines.add("DEBUG insert into DB row " + i);
+        rawLines.add("2026-09-02 00:55:30.000 INFO [Launcher] Job: [SimpleJob: [name=smpmJob207]] completed with [COMPLETED]");
+
+        // [When] 1. 원본 분석 수행
+        String rawFullText = String.join("\n", rawLines);
+        String[] rawLineArr = rawLines.toArray(new String[0]);
+        List<RuleResult> rawResults = new ArrayList<>();
+        for (Rule r : policy.rules) {
+            rawResults.add(LogAnalyzer.evaluateRule(rawFullText, rawLineArr, r));
+        }
+
+        // [When] 2. 경량화 수행 (동등성 검증 내장)
+        List<String> slimmedLines = LogSlimmer.slimLinesWithVerification(rawLines, policy, List.of(policy));
+        String slimFullText = String.join("\n", slimmedLines);
+        String[] slimLineArr = slimmedLines.toArray(new String[0]);
+        List<RuleResult> slimResults = new ArrayList<>();
+        for (Rule r : policy.rules) {
+            slimResults.add(LogAnalyzer.evaluateRule(slimFullText, slimLineArr, r));
+        }
+
+        // [Then] 3. 1:1 완벽 일치 단언 (Equivalence Assertion)
+        assertAll("원본 분석 결과와 슬림화 분석 결과 1:1 동등성 단언",
+            () -> assertTrue(slimmedLines.size() < rawLines.size() / 5, "크기가 최소 80% 이상 절감되어야 함"),
+            () -> assertEquals(rawResults.size(), slimResults.size(), "평가된 룰 개수 일치"),
+            () -> {
+                for (int i = 0; i < rawResults.size(); i++) {
+                    RuleResult raw = rawResults.get(i);
+                    RuleResult slim = slimResults.get(i);
+                    assertEquals(raw.passed, slim.passed, "Rule " + raw.ruleNo + " 통과 여부 일치");
+                    assertEquals(raw.extractedValue, slim.extractedValue, "Rule " + raw.ruleNo + " 추출값 일치");
+                    assertEquals(raw.description, slim.description, "Rule " + raw.ruleNo + " 설명 일치");
+                }
+            }
+        );
     }
 }
