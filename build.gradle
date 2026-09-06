@@ -418,8 +418,15 @@ tasks.named('jacocoTestReport') {
     }
 }
 
+// clean 태스크 실행 시 기본 build 외에 report, target 폴더의 결과문서들도 일괄 삭제
+clean {
+    delete 'report'
+    delete 'target'
+}
+
 jar {
     manifest {
         attributes 'Main-Class': 'com.batch.CheckLog'
     }
 }
+

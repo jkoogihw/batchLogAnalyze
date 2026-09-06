@@ -5,6 +5,7 @@ import com.batch.model.JobPolicy;
 import com.batch.policy.PolicyManager;
 import com.batch.report.ReportGenerator;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -18,35 +19,31 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * =====================================================================================
- * [원본 로그 기준 분석 보고서(Golden Master Baseline) 생성기]
+ * [원본 로그 기준 분석 보고서(Golden Master Baseline) 수동 생성기]
  * -------------------------------------------------------------------------------------
  * 💡 역할:
- * 경량화(Slimming) 이전의 원본 대용량 로그 파일 전체를 대상으로 3대 시나리오 분석을
- * 전수 수행하고, 기준 보고서(report/원본분석결과_*.md)를 생성합니다.
+ * - 매번 빌드/테스트 시 자동 실행되는 대상이 아니며, 원본 대용량 로그가 갱신되었을 때
+ *   수동으로 단독 실행하여 각 샘플 폴더(src/test/resources/log_*) 내에 기준 보고서를 저장합니다.
+ * - report/ 폴더에는 생성하지 않고 해당 log_* 샘플 폴더에서만 형상관리합니다.
  * =====================================================================================
  */
-@DisplayName("Golden Master: 원본 대용량 로그 파일 기준 분석 보고서 생성")
+@Disabled("수동 실행 전용: 원본 대용량 로그 갱신 시에만 단독 실행하여 log_* 폴더 내 기준 보고서 생성")
+@DisplayName("Golden Master: 원본 대용량 로그 파일 기준 분석 보고서 생성 (수동)")
 public class RawLogBaselineGeneratorTest {
 
     private static List<JobPolicy> policies;
-    private static File reportDir;
 
     @BeforeAll
     public static void setUp() throws Exception {
         File rootMeta = new File("src/main/resources/policy_meta.json");
         String json = Files.readString(rootMeta.toPath(), StandardCharsets.UTF_8);
         policies = PolicyManager.parseJsonPolicies(json);
-
-        reportDir = new File("report");
-        if (!reportDir.exists()) {
-            reportDir.mkdirs();
-        }
     }
 
     @Test
-    @DisplayName("[Step 1] 원본 로그 기준 3대 분석 보고서(Golden Master) 일괄 생성")
+    @DisplayName("원본 로그 기준 3대 분석 보고서(Golden Master) 각 샘플 폴더(log_*) 내 생성")
     public void generateRawBaselines() {
-        String[] scenarios = {"sample", "monthly", "nonworkday"};
+        String[] scenarios = {"sample", "monthly", "holiday"};
         String[] dirNames = {"log_samples", "log_monthly", "log_holiday"};
 
         for (int i = 0; i < scenarios.length; i++) {
@@ -70,15 +67,12 @@ public class RawLogBaselineGeneratorTest {
                 else failCount++;
             }
 
-            File targetReport = new File(reportDir, "원본분석결과_" + scenario + ".md");
-            File saved = ReportGenerator.saveMarkdownReport(targetReport, scenario + " (원본)", results, policies.size(), passCount, failCount);
+            // [사용자 요구사항] report 폴더에는 생성하지 않고, 해당 샘플로그 폴더로만 저장하여 원격 레포에서 형상관리
+            File sampleDirReport = new File(logDir, "원본분석결과_" + scenario + ".md");
+            File saved = ReportGenerator.saveMarkdownReport(sampleDirReport, scenario + " (원본)", results, policies.size(), passCount, failCount);
             assertNotNull(saved);
 
-            // [사용자 요구사항] 원본분석 보고서 파일을 해당 샘플로그 폴더로 저장하여 원격 레포에서 형상관리
-            File sampleDirReport = new File(logDir, "원본분석결과_" + scenario + ".md");
-            ReportGenerator.saveMarkdownReport(sampleDirReport, scenario + " (원본)", results, policies.size(), passCount, failCount);
-
-            System.out.println(">> [Golden Master 생성 완료] " + saved.getAbsolutePath() + " & " + sampleDirReport.getAbsolutePath() + " (PASS: " + passCount + ", FAIL: " + failCount + ")");
+            System.out.println(">> [Golden Master 생성 완료] " + sampleDirReport.getAbsolutePath() + " (PASS: " + passCount + ", FAIL: " + failCount + ")");
         }
     }
 }

@@ -106,7 +106,37 @@ public class LogSlimmer {
         List<String> lines = Files.readAllLines(src.toPath(), StandardCharsets.UTF_8);
         List<String> slimmedLines = slimLinesWithVerification(lines, targetPolicy, allPolicies);
 
-        Files.write(dest.toPath(), slimmedLines, StandardCharsets.UTF_8);
+        // Windows 파일 락 방지를 위해 임시 파일에 먼저 쓰고 원자적 교체 및 재시도 수행
+        File tempFile = new File(dest.getParentFile(), dest.getName() + ".tmp");
+        Files.write(tempFile.toPath(), slimmedLines, StandardCharsets.UTF_8);
+
+        boolean moved = false;
+        for (int i = 0; i < 5; i++) {
+            try {
+                java.nio.file.Files.move(tempFile.toPath(), dest.toPath(), 
+                        java.nio.file.StandardCopyOption.REPLACE_EXISTING, 
+                        java.nio.file.StandardCopyOption.ATOMIC_MOVE);
+                moved = true;
+                break;
+            } catch (Exception e) {
+                try {
+                    java.nio.file.Files.move(tempFile.toPath(), dest.toPath(), 
+                            java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+                    moved = true;
+                    break;
+                } catch (Exception ex) {
+                    try {
+                        Thread.sleep(50);
+                    } catch (InterruptedException ignored) {}
+                }
+            }
+        }
+
+        if (!moved) {
+            Files.write(dest.toPath(), slimmedLines, StandardCharsets.UTF_8);
+            if (tempFile.exists()) tempFile.delete();
+        }
+
         return true;
     }
 

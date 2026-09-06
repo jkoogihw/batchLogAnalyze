@@ -35,15 +35,15 @@ import static org.junit.jupiter.api.Assertions.*;
  *    - 일간/월간 로그 18개 전수 매칭 = 18개 전 항목 100% PASS
  *    - 산출물: report/테스트로그분석결과_monthly.md
  *
- * 3. [시나리오 3] 비영업일/공휴일 실행 (nonworkday):
+ * 3. [시나리오 3] 비영업일/공휴일 실행 (holiday):
  *    - 비영업일 미실행(JOB 13, 18) 정상 처리
  *    - 비영업일 안내 메시지 감지(JOB 04, 05) 정상 처리
  *    - 일반 휴일 실행 배치(JOB 01~03, 06~12, 14~17) 정상 처리
  *    - 총 18개 전 항목 100% PASS
- *    - 산출물: report/테스트로그분석결과_nonworkday.md
+ *    - 산출물: report/테스트로그분석결과_holiday.md
  * =====================================================================================
  */
-@DisplayName("시나리오 테스트: 3대 배치 실행 시나리오(sample, monthly, nonworkday) 통합 검증")
+@DisplayName("시나리오 테스트: 3대 배치 실행 시나리오(sample, monthly, holiday) 통합 검증")
 public class BatchScenarioVerificationTest {
 
     private static List<JobPolicy> policies;
@@ -193,11 +193,11 @@ public class BatchScenarioVerificationTest {
 
     /**
      * ---------------------------------------------------------------------------------
-     * [시나리오 3] 비영업일/공휴일 실행 검증 (nonworkday)
+     * [시나리오 3] 비영업일/공휴일 실행 검증 (holiday)
      * ---------------------------------------------------------------------------------
      */
     @Test
-    @DisplayName("시나리오 3: 비영업일 배치 검증 (16개 로그 + JOB 13/18 미실행 정상 + JOB 04/05 휴일감지 -> 테스트로그분석결과_nonworkday.md)")
+    @DisplayName("시나리오 3: 비영업일 배치 검증 (16개 로그 + JOB 13/18 미실행 정상 + JOB 04/05 휴일감지 -> 테스트로그분석결과_holiday.md)")
     public void testScenario3_NonWorkDayHoliday() {
         // [Given] log_holiday 디렉터리 및 파일 목록 준비
         File logDir = resolveResourceDir("log_holiday");
@@ -229,9 +229,9 @@ public class BatchScenarioVerificationTest {
             }
         }
 
-        // [Report Generation] report/테스트로그분석결과_nonworkday.md 생성
-        File targetReportFile = new File(reportDir, "테스트로그분석결과_nonworkday.md");
-        File savedReport = ReportGenerator.saveMarkdownReport(targetReportFile, "nonworkday", results, policies.size(), passCount, failCount);
+        // [Report Generation] report/테스트로그분석결과_holiday.md 생성
+        File targetReportFile = new File(reportDir, "테스트로그분석결과_holiday.md");
+        File savedReport = ReportGenerator.saveMarkdownReport(targetReportFile, "holiday", results, policies.size(), passCount, failCount);
 
         // [Then] 결과 단언
         final int totalPass = passCount;
