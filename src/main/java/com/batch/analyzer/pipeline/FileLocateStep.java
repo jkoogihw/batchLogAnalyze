@@ -44,6 +44,19 @@ public class FileLocateStep implements AnalysisStep {
                 return StepResult.terminate("월간배치 대상 로그 파일 미생성 (정상 처리)");
             }
 
+            if (policy != null && policy.isHolidayNoRun()) {
+                String expectedPattern = (policy.filePrefix != null ? policy.filePrefix : "") + "*.log (미생성)";
+                result.markAsHoliday("비영업일 미실행 (정상)");
+                result.addRuleResult(RuleResult.pass(
+                        LogConstants.DEFAULT_DATE_CHECK_RULE_NO,
+                        LogConstants.DATE_CHECK_DESCRIPTION,
+                        RuleType.HOLIDAY.getCode(),
+                        "-",
+                        "비영업일 미실행일 (정상)"
+                ));
+                return StepResult.terminate("비영업일 미실행 배치 (정상 처리)");
+            }
+
             String expectedPattern = (policy != null && policy.filePrefix != null ? policy.filePrefix : "") + "*.log (미발견)";
             result.markAsFileNotFound(expectedPattern);
             result.addRuleResult(RuleResult.fail(

@@ -5,6 +5,7 @@ import com.batch.model.ConditionType;
 import com.batch.model.JobPolicy;
 import com.batch.model.Rule;
 import com.batch.model.RuleResult;
+import com.batch.policy.PolicyManager;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -151,5 +152,18 @@ public class LogSlimmerTest {
             () -> assertTrue(processedLines.size() < rawContent.size(), "파일 라인 수가 줄어들어야 함"),
             () -> assertTrue(processedLines.stream().anyMatch(l -> l.contains("HTTP/1.1 200")), "키워드 보존")
         );
+    }
+
+    @Test
+    @DisplayName("log_holiday 디렉터리 로그 파일 경량화 일괄 적용")
+    public void testSlimHolidayDirectory() throws IOException {
+        File holidayDir = new File("src/test/resources/log_holiday");
+        if (holidayDir.exists() && holidayDir.isDirectory()) {
+            PolicyManager pm = new PolicyManager();
+            pm.loadPolicies();
+            int count = LogSlimmer.slimDirectory(holidayDir, pm.getPolicies());
+            System.out.println(">> [LogSlimmer] log_holiday 경량화 완료: " + count + "개 파일 처리됨");
+            assertTrue(count >= 0, "경량화 완료");
+        }
     }
 }

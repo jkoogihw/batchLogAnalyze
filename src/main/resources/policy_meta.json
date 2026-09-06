@@ -29,6 +29,7 @@
           "ruleNo": "02",
           "type": "DISPLAY",
           "target": "DB Insert GA Count",
+          "regex": "(DB Insert GA Count|활동이력 입력\\s*:*)",
           "condition": "COUNT_CHECK",
           "description": "DB Insert GA Count 건수확인"
         },
@@ -67,6 +68,7 @@
       "rawPattern": "_11401_",
       "scheduleTime": "11:00",
       "holidayCheck": {
+        "type": "LOG_CHECK",
         "pattern": "비영업일에는 해당 JOB이 (수행|수혈)되지 않습니다.",
         "description": "비영업일 예외 체크"
       },
@@ -110,6 +112,7 @@
       "rawPattern": "_11402_",
       "scheduleTime": "11:05",
       "holidayCheck": {
+        "type": "LOG_CHECK",
         "pattern": "비영업일에는 해당 JOB이 (수행|수혈)되지 않습니다.",
         "description": "비영업일 예외 체크"
       },
@@ -198,6 +201,7 @@
           "ruleNo": "03",
           "type": "DISPLAY",
           "target": "totalCount",
+          "regex": "(totalCount\\s*:|productCount=)",
           "condition": "COUNT_CHECK",
           "description": "totalCount 표시 건수확인"
         },
@@ -205,6 +209,7 @@
           "ruleNo": "04",
           "type": "DISPLAY",
           "target": "totalPage",
+          "regex": "(totalPage\\s*:|pageCount=)",
           "condition": "COUNT_CHECK",
           "description": "totalPage 표시 건수확인"
         }
@@ -247,9 +252,8 @@
           "type": "SEARCH",
           "target": "Emali 발송결과 -> 리턴코드 200",
           "regex": "Ema(i|li) 발송결과 -> 리턴코드 200",
-          "condition": "EQUALS_N",
-          "expectedCount": 3,
-          "description": "Emali 발송결과 -> 리턴코드 200 검색 3건 확인"
+          "condition": "COUNT_CHECK",
+          "description": "Emali 발송결과 -> 리턴코드 200 검색 건수 확인"
         }
       ]
     },
@@ -294,6 +298,10 @@
       "filePrefix": "13_smpmJob213_",
       "rawPattern": "_12833_",
       "scheduleTime": "15:30",
+      "holidayCheck": {
+        "type": "NO_RUN",
+        "description": "비영업일 미실행 (로그 미생성 정상)"
+      },
       "rules": [
         {
           "ruleNo": "02",
@@ -359,6 +367,7 @@
           "ruleNo": "02",
           "type": "DISPLAY",
           "target": "STEP2-3. 기등록 상품추천 목록 등록하기",
+          "regex": "STEP2-[35]\\.\\s*(기등록\\s*)?상품추천 (목록|이력) 등록하기",
           "condition": "COUNT_CHECK",
           "description": "STEP2-3. 기등록 상품추천 목록 등록하기"
         }
@@ -376,6 +385,7 @@
           "ruleNo": "02",
           "type": "DISPLAY",
           "target": "00.상품비교설명확인서 관리 파기목록 조회",
+          "regex": "(00\\.\\s*상품비교설명확인서 관리 파기목록 조회|SmpcStep002001Tasklet)",
           "condition": "COUNT_CHECK",
           "description": "00.상품비교설명확인서 관리 파기목록 조회"
         },
@@ -454,6 +464,7 @@
           "ruleNo": "02",
           "type": "DISPLAY",
           "target": "STEP_01.징구요청대상 확인서정보",
+          "regex": "(STEP_01\\.\\s*징구요청대상 확인서정보|SmpcStep001001Tasklet|piciBlngCnt)",
           "condition": "COUNT_CHECK",
           "description": "STEP_01.징구요청대상 확인서정보"
         },

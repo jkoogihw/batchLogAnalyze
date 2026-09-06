@@ -23,11 +23,6 @@ import java.util.*;
  */
 public class LogSlimmer {
 
-    private static final int DEFAULT_HEADER_LINES = 60;
-    private static final int DEFAULT_TAIL_LINES = 60;
-    private static final int DEFAULT_CONTEXT_LINES = 2;
-    private static final int DEFAULT_MAX_KEYWORD_MATCHES = 30;
-
     /**
      * 공통 시스템 필수 보존 키워드
      */
@@ -42,8 +37,24 @@ public class LogSlimmer {
             "completed with the following parameters:",
             "Started BatchApplication",
             "HV000001: Hibernate Validator",
-            "PARAMETER=--job.name="
+            "PARAMETER=--job.name=",
+            "Tasklet execute",
+            "비영업일",
+            "piciBlngCnt",
+            "SmpmJob207ProdListDto",
+            "SmpcStep002001Tasklet",
+            "SmpcStep001001Tasklet",
+            "SmpmStep220001Tasklet",
+            "상품비교설명확인서",
+            "징구요청대상",
+            "파기목록",
+            "활동이력"
     ));
+
+    private static final int DEFAULT_HEADER_LINES = 60;
+    private static final int DEFAULT_TAIL_LINES = 60;
+    private static final int DEFAULT_CONTEXT_LINES = 6;
+    private static final int DEFAULT_MAX_KEYWORD_MATCHES = 30;
 
     /**
      * 특정 디렉터리 내의 모든 .log 파일을 정책에 맞추어 일괄 경량화합니다.
@@ -158,12 +169,31 @@ public class LogSlimmer {
 
         for (JobPolicy p : targetList) {
             if (p.holidayPattern != null && !p.holidayPattern.isEmpty()) {
-                keywords.add(p.holidayPattern.replace("(", "").replace(")", "").split("\\|")[0]);
+                keywords.add("비영업일");
+                String cleanPat = p.holidayPattern.replaceAll("[()\\[\\]\\\\]+", " ");
+                for (String part : cleanPat.split("[\\|\\s]+")) {
+                    if (part.trim().length() >= 2) {
+                        keywords.add(part.trim());
+                    }
+                }
             }
             if (p.rules != null) {
                 for (Rule r : p.rules) {
                     if (r.target != null && !r.target.isEmpty()) {
-                        keywords.add(r.target.trim());
+                        String[] targetLines = r.target.replace("\\n", "\n").replace("\\r", "\r").split("[\\r\\n]+");
+                        for (String tLine : targetLines) {
+                            if (tLine.trim().length() >= 2) {
+                                keywords.add(tLine.trim());
+                            }
+                        }
+                    }
+                    if (r.regex != null && !r.regex.isEmpty()) {
+                        String cleanRegex = r.regex.replaceAll("[()\\[\\]\\\\^$*+?]+", " ");
+                        for (String part : cleanRegex.split("[\\|\\s]+")) {
+                            if (part.trim().length() >= 2) {
+                                keywords.add(part.trim());
+                            }
+                        }
                     }
                     if (r.stepName != null && !r.stepName.isEmpty()) {
                         keywords.add(r.stepName.trim());
@@ -179,13 +209,26 @@ public class LogSlimmer {
      * 파일명으로부터 매칭되는 정책을 찾습니다.
      */
     private static JobPolicy findPolicyForFile(String fileName, List<JobPolicy> policies) {
-        if (policies == null) return null;
+        if (policies == null || fileName == null) return null;
         for (JobPolicy p : policies) {
             if (p.filePrefix != null && fileName.startsWith(p.filePrefix)) {
                 return p;
             }
-            if (p.rawPattern != null && fileName.contains(p.rawPattern)) {
-                return p;
+            if (p.rawPattern != null && !p.rawPattern.isEmpty()) {
+                if (p.rawPattern.contains("%")) {
+                    String[] parts = p.rawPattern.split("%");
+                    String basePattern = parts[0];
+                    String suffix = parts.length > 1 ? parts[1] : "";
+                    if (fileName.contains(basePattern)) {
+                        String nameWithoutExt = fileName.contains(".") ? 
+                                fileName.substring(0, fileName.lastIndexOf('.')) : fileName;
+                        if (nameWithoutExt.endsWith(suffix)) {
+                            return p;
+                        }
+                    }
+                } else if (fileName.contains(p.rawPattern)) {
+                    return p;
+                }
             }
         }
         return null;

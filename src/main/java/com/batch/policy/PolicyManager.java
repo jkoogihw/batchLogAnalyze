@@ -1,6 +1,7 @@
 package com.batch.policy;
 
 import com.batch.config.Config;
+import com.batch.model.HolidayType;
 import com.batch.model.JobPolicy;
 import com.batch.model.Rule;
 import com.batch.policy.loader.CompositePolicyLoader;
@@ -98,6 +99,14 @@ public class PolicyManager {
                 Matcher hm = holidayPat.matcher(mid);
                 if (hm.find()) {
                     jp.holidayPattern = hm.group(1).replace("\\\\", "\\");
+                }
+
+                Pattern holidayTypePat = Pattern.compile("\"holidayCheck\"\\s*:\\s*\\{[^}]*\"type\"\\s*:\\s*\"([^\"]+)\"");
+                Matcher htm = holidayTypePat.matcher(mid);
+                if (htm.find()) {
+                    jp.holidayType = htm.group(1).trim();
+                } else if (jp.holidayPattern != null && !jp.holidayPattern.isEmpty()) {
+                    jp.holidayType = HolidayType.LOG_CHECK.getCode();
                 }
             }
 

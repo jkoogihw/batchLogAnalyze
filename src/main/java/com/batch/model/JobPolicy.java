@@ -24,6 +24,7 @@ public class JobPolicy {
     public String filePrefix;         // 로그 파일 접두사 (예: "smrm_")
     public String rawPattern;         // 원본 파일명 패턴 (미변경 명명규칙)
     public String holidayPattern;     // 비영업일 감지 패턴
+    public String holidayType;        // 비영업일 정책 유형 ("LOG_CHECK", "NO_RUN", "NONE")
     public String scheduleType;       // 실행 주기 ("DAILY", "MONTHLY", 기본값 "DAILY")
     public String scheduleTime;       // 실행 예정 시각 (예: "03:05", "11:00", "09:05")
     public Integer monthlyLogDay;     // 월간 배치 로그 생성 일자 (예: 2 -> 매월 2일 생성)
@@ -38,10 +39,29 @@ public class JobPolicy {
         this.jobTitle = jobTitle;
         this.filePrefix = filePrefix;
         this.scheduleType = ScheduleType.DAILY.getCode();
+        this.holidayType = HolidayType.NONE.getCode();
     }
 
     public ScheduleType getScheduleType() {
         return ScheduleType.fromString(this.scheduleType);
+    }
+
+    public HolidayType getHolidayType() {
+        if (this.holidayType != null && !this.holidayType.isEmpty()) {
+            return HolidayType.fromString(this.holidayType);
+        }
+        if (this.holidayPattern != null && !this.holidayPattern.isEmpty()) {
+            return HolidayType.LOG_CHECK;
+        }
+        return HolidayType.NONE;
+    }
+
+    public boolean isHolidayNoRun() {
+        return getHolidayType().isNoRun();
+    }
+
+    public boolean isHolidayLogCheck() {
+        return getHolidayType().isLogCheck();
     }
 
     public boolean isMonthly() {
@@ -108,6 +128,25 @@ public class JobPolicy {
 
         public Builder holidayPattern(String pattern) {
             this.policy.holidayPattern = pattern;
+            this.policy.holidayType = HolidayType.LOG_CHECK.getCode();
+            return this;
+        }
+
+        public Builder holidayType(HolidayType holidayType) {
+            if (holidayType != null) {
+                this.policy.holidayType = holidayType.getCode();
+            }
+            return this;
+        }
+
+        public Builder holidayNoRun() {
+            this.policy.holidayType = HolidayType.NO_RUN.getCode();
+            return this;
+        }
+
+        public Builder holidayLogCheck(String pattern) {
+            this.policy.holidayPattern = pattern;
+            this.policy.holidayType = HolidayType.LOG_CHECK.getCode();
             return this;
         }
 
