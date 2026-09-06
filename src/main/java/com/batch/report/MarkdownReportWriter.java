@@ -99,7 +99,12 @@ public class MarkdownReportWriter implements ReportWriter {
 
         sb.append("\n## 2. 특이사항 및 참고\n");
         sb.append("- 비영업일 실행 시 일부 JOB은 비영업일 안내 메시지 감지 시 정상 처리됩니다.\n");
-        sb.append("- RollbackCount 통계는 0건일 때 정상으로 판정됩니다.\n");
+        sb.append("- RollbackCount 통계는 0건일 때 정상으로 판정됩니다.\n\n");
+
+        sb.append("## 3. Jobpass 텍스트 보고서 (복사용)\n\n");
+        sb.append("```text\n");
+        sb.append(ConsoleReportWriter.renderJobpassReport(folderName, results, total, pass, fail));
+        sb.append("\n```\n");
 
         try {
             Files.writeString(destination.toPath(), sb.toString(), StandardCharsets.UTF_8);
