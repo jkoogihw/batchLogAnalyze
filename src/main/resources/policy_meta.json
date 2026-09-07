@@ -201,7 +201,7 @@
           "ruleNo": "03",
           "type": "DISPLAY",
           "target": "totalCount",
-          "regex": "(totalCount\\s*:|productCount=)",
+          "regex": "(totalCount\\s*:*)",
           "condition": "COUNT_CHECK",
           "description": "totalCount 표시 건수확인"
         },
@@ -209,7 +209,7 @@
           "ruleNo": "04",
           "type": "DISPLAY",
           "target": "totalPage",
-          "regex": "(totalPage\\s*:|pageCount=)",
+          "regex": "(totalPage\\s*:*)",
           "condition": "COUNT_CHECK",
           "description": "totalPage 표시 건수확인"
         }
@@ -385,7 +385,7 @@
           "ruleNo": "02",
           "type": "DISPLAY",
           "target": "00.상품비교설명확인서 관리 파기목록 조회",
-          "regex": "(00\\.\\s*상품비교설명확인서 관리 파기목록 조회|SmpcStep002001Tasklet)",
+          "regex": "(00\\.\\s*상품비교설명확인서 관리 파기목록 조회|SmpcStep002001Tasklet).?[\\s:=]+([0-9,]+(\\s*건)?))",
           "condition": "COUNT_CHECK",
           "description": "00.상품비교설명확인서 관리 파기목록 조회"
         },
@@ -424,6 +424,7 @@
           "ruleNo": "02",
           "type": "DISPLAY",
           "target": "1. 협회상품기준 미등록 상품 건수=",
+          "regex": "(?:.*?(?:1\\.\\s*협회상품기준 미등록 상품 건수?))",
           "condition": "COUNT_CHECK",
           "description": "1. 협회상품기준 미등록 상품 건수="
         },
@@ -431,6 +432,7 @@
           "ruleNo": "03",
           "type": "DISPLAY",
           "target": "2. 제휴사상품코드 중복 등록 협회상품 건수=",
+          "regex": "(?:.*?(?:2\\.\\s*제휴사상품코드 중복 등록 협회상품 건수?))",
           "condition": "COUNT_CHECK",
           "description": "2. 제휴사상품코드 중복 등록 협회상품 건수="
         },
@@ -438,7 +440,7 @@
           "ruleNo": "04",
           "type": "DISPLAY",
           "target": "3. [협회상품코드 현행화 대상 불일치 상품 건수]=",
-          "regex": "3\\.\\s*\\[?협회상품코드 현행화 대상 불일치 상품 건수\\]?=",
+          "regex": "(?:.*?(?:3\\.\\s*\\[?협회상품코드 현행화 대상 불일치 상품 건수\\]?))",
           "condition": "COUNT_CHECK",
           "description": "3. [협회상품코드 현행화 대상 불일치 상품 건수]="
         },
@@ -446,7 +448,7 @@
           "ruleNo": "05",
           "type": "DISPLAY",
           "target": "6. [협회상품코드 현행화 건수]=",
-          "regex": "6\\.\\s*\\[?협회상품코드 현행화 건수\\]?=",
+          "regex": "(?:.*?(?:6\\.\\s*\\[?협회상품코드 현행화 건수\\]?))",
           "condition": "COUNT_CHECK",
           "description": "6. [협회상품코드 현행화 건수]="
         }
@@ -464,7 +466,7 @@
           "ruleNo": "02",
           "type": "DISPLAY",
           "target": "STEP_01.징구요청대상 확인서정보",
-          "regex": "(STEP_01\\.\\s*징구요청대상 확인서정보|SmpcStep001001Tasklet|piciBlngCnt)",
+          "regex": "(?:.*?(?:STEP_01\\.\\s*징구요청대상 확인서정보))",
           "condition": "COUNT_CHECK",
           "description": "STEP_01.징구요청대상 확인서정보"
         },
