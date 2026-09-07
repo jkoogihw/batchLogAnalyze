@@ -385,7 +385,6 @@
           "ruleNo": "02",
           "type": "DISPLAY",
           "target": "00.상품비교설명확인서 관리 파기목록 조회",
-          "regex": "(00\\.\\s*상품비교설명확인서 관리 파기목록 조회|SmpcStep002001Tasklet).?[\\s:=]+([0-9,]+(\\s*건)?))",
           "condition": "COUNT_CHECK",
           "description": "00.상품비교설명확인서 관리 파기목록 조회"
         },

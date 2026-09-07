@@ -120,13 +120,13 @@ public class CheckLog {
     }
 
     /**
-     * --rename 또는 -rename 옵션 포함 여부 확인
+     * --renameIgnore 또는 -renameIgnore 옵션 포함 여부 확인
      */
     public static boolean hasRenameOption(String[] args) {
         if (args == null) return false;
         for (String a : args) {
             String t = a.trim();
-            if (t.equalsIgnoreCase("--rename") || t.equalsIgnoreCase("-rename") || t.equalsIgnoreCase("rename")) {
+            if (t.equalsIgnoreCase("--renameIgnore") || t.equalsIgnoreCase("-renameIgnore") || t.equalsIgnoreCase("renameIgnore")) {
                 return true;
             }
         }

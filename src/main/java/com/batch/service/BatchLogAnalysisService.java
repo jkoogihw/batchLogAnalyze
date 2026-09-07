@@ -121,7 +121,7 @@ public class BatchLogAnalysisService {
             }
 
             // 자동 파일명 변경 요청 시 실행 (LogFileRenamer 위임)
-            if (autoRename) {
+            if (!autoRename) {
                 int renamed = fileRenamer.rename(resolvedFolder, policies);
                 if (renamed > 0) {
                     System.out.println(">> 총 " + renamed + "개 원본 로그 파일명이 표준 접두사로 변경되었습니다.");

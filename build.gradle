@@ -67,6 +67,12 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
+tasks.withType(JavaExec) {
+    jvmArgs = ['-Dfile.encoding=UTF-8', '-Dsun.stdout.encoding=UTF-8', '-Dsun.stderr.encoding=UTF-8']
+    systemProperty 'file.encoding', 'UTF-8'
+    standardInput = System.in
+}
+
 def testRecords = java.util.Collections.synchronizedList([])
 
 test {
