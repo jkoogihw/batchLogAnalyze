@@ -252,8 +252,9 @@
           "type": "SEARCH",
           "target": "Emali 발송결과 -> 리턴코드 200",
           "regex": "Ema(i|li) 발송결과 -> 리턴코드 200",
-          "condition": "COUNT_CHECK",
-          "description": "Emali 발송결과 -> 리턴코드 200 검색 건수 확인"
+          "condition": "EQUALS_N",
+          "expectedCount": 3,
+          "description": "Emali 발송결과 -> 리턴코드 200 검색 3건"
         }
       ]
     },
