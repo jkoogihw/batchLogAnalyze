@@ -54,8 +54,8 @@ flowchart TB
 
     subgraph HexagonCore ["Hexagonal Core (비즈니스 & 유스케이스)"]
         subgraph PortsIn ["Inbound Ports (유스케이스 인터페이스)"]
-            InPort_Analyze["<< Inbound Port >><br/>AnalyzeBatchLogUseCase"]
-            InPort_Rename["<< Inbound Port >><br/>RenameLogFilesUseCase"]
+            InPort_Analyze["&laquo;Inbound Port&raquo;<br/>AnalyzeBatchLogUseCase"]
+            InPort_Rename["&laquo;Inbound Port&raquo;<br/>RenameLogFilesUseCase"]
         end
 
         subgraph AppService ["Application Layer"]
@@ -70,10 +70,10 @@ flowchart TB
         end
 
         subgraph PortsOut ["Outbound Ports (인프라 추상화 인터페이스)"]
-            OutPort_Policy["<< Outbound Port >><br/>LoadPolicyPort"]
-            OutPort_Log["<< Outbound Port >><br/>LoadLogPort"]
-            OutPort_Report["<< Outbound Port >><br/>SaveReportPort"]
-            OutPort_Rename["<< Outbound Port >><br/>RenameFilePort"]
+            OutPort_Policy["&laquo;Outbound Port&raquo;<br/>LoadPolicyPort"]
+            OutPort_Log["&laquo;Outbound Port&raquo;<br/>LoadLogPort"]
+            OutPort_Report["&laquo;Outbound Port&raquo;<br/>SaveReportPort"]
+            OutPort_Rename["&laquo;Outbound Port&raquo;<br/>RenameFilePort"]
         end
     end
 
@@ -90,16 +90,21 @@ flowchart TB
     InPort_Analyze --> Service_Core
     InPort_Rename --> Service_Core
 
-    Service_Core --> DomainCore
+    Service_Core --> Agg_Policy
+    Service_Core --> Agg_Result
+    Service_Core --> DomainService_Eval
+    Service_Core --> DomainService_Date
+
     Service_Core --> OutPort_Policy
     Service_Core --> OutPort_Log
     Service_Core --> OutPort_Report
     Service_Core --> OutPort_Rename
 
-    OutPort_Policy <|.. OutAdapter_JsonPolicy
-    OutPort_Log <|.. OutAdapter_LocalLog
-    OutPort_Report <|.. OutAdapter_MdReport
-    OutPort_Report <|.. OutAdapter_ConsoleReport
+    %% 어댑터의 포트 인터페이스 구현 (DIP: Driven 어댑터가 Outbound 포트를 구현)
+    OutAdapter_JsonPolicy -.->|implements| OutPort_Policy
+    OutAdapter_LocalLog -.->|implements| OutPort_Log
+    OutAdapter_MdReport -.->|implements| OutPort_Report
+    OutAdapter_ConsoleReport -.->|implements| OutPort_Report
 ```
 
 ---
