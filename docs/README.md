@@ -90,12 +90,18 @@
     - 마크다운 리포트 표 2줄 표시 표준화 (`JOB ID`: jobName<br/>rawPattern, `JOB 이름`: cleanedJobTitle<br/>scheduleInfo)
     - 월간 배치(`smpmJob206`) 일간 점검 시 로그 미생성 상태 정상(PASS) 판정 처리
     - 비영업일(휴일) 로그 기반 판정 원칙 준수 및 `HolidayCheckStep` 최우선 실행 파이프라인 순서 최적화
+
 15. [**코드 커버리지 분석 및 테스트 보완 실무 가이드 (260906_01_코드커버리지_분석_및_테스트보완_실무가이드.md)**](./260906_01_코드커버리지_분석_및_테스트보완_실무가이드.md)
     - JaCoCo 6대 지표(Line, Branch, Instruction, Complexity 등) 해석 및 수치 확인법
     - 커버리지 100%의 환상과 테스트 효과성(사각지대 탐색용 레이더) 분석
     - 커버리지를 통한 필수 보완 대상(Must-Have), 선택적 보완, 보완 불필요 대상 판단 기준
     - 실제 코드(`LogFileLocator`, `DisplayRuleEvaluator`, `LogDateChecker`) 기반의 Before/After 보완 테스트 케이스 스터디
     - 패키지별 우선순위 매트릭스 및 실무 테스트 보완 체크리스트
+
+16. [**레이어드 아키텍처(Layered Architecture) 전환 및 학습 가이드 (docs/layered/README.md)**](./layered/README.md)
+    - 컴포넌트 중심 OOP 구조에서 표준 4계층(Presentation/Application/Domain/Infrastructure) 레이어드 아키텍처로의 전환
+    - As-Is vs To-Be 심층 비교, 패키지 재배치 설계, 5단계 전환 플레이북, ArchUnit 아키텍처 검증 규칙
+    - 레이어드 아키텍처 ➡️ 헥사고날 아키텍처 진화 학습 로드맵
 
 ---
 
@@ -111,3 +117,4 @@
 | 2026-09-04 17:25:00 | 서비스계층 책임분리 및 설정·예외체계 가이드(260904_07) 추가 및 WorkFolderResolver/BatchConfig/도메인예외 적용(118개 테스트) | - |
 | 2026-09-05 15:55:00 | 보고서 출력 2줄 표준화, 월간 배치(smpmJob206) 정상 처리 및 비영업일 우선 점검 가이드(260905_01) 추가 (121개 테스트) | - |
 | 2026-09-06 10:10:00 | 코드 커버리지 분석 및 테스트 보완 실무 가이드(260906_01) 추가 및 JaCoCo 내부망 리포팅 체계 구축 | - |
+| 2026-09-10 21:00:00 | 레이어드 아키텍처(Layered Architecture) 전환 매뉴얼, 비교 분석 및 헥사고날 진화 가이드(`/docs/layered/`) 추가 | - |
